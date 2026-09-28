@@ -69,6 +69,18 @@
   --radius-lg: 14px;
 
   --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Timeline Architecture Tokens */
+  --timeline-rail-width: 44px;
+  --timeline-line-color: rgba(255, 255, 255, 0.12);
+  --timeline-line-width: 2px;
+  --marker-size: 20px;
+  --marker-border-color: var(--cyan-accent);
+  --marker-bg: var(--bg-surface);
+  --marker-glow: 0 0 10px var(--cyan-glow);
+  --marker-dot-size: 8px;
+  --marker-dot-bg: var(--cyan-accent);
+  --connector-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Light Mode Overrides */
@@ -126,6 +138,18 @@
 
   --grid-line: rgba(0, 0, 0, 0.03);
   --grid-glow: rgba(2, 132, 199, 0.04);
+
+  /* Timeline Architecture Tokens (Light) */
+  --timeline-rail-width: 44px;
+  --timeline-line-color: #cbd5e1;
+  --timeline-line-width: 2px;
+  --marker-size: 20px;
+  --marker-border-color: #0284c7;
+  --marker-bg: #ffffff;
+  --marker-glow: 0 0 0 3px rgba(2, 132, 199, 0.14);
+  --marker-dot-size: 8px;
+  --marker-dot-bg: #0284c7;
+  --connector-color: #cbd5e1;
 }
 
 *, *::before, *::after {
@@ -761,7 +785,7 @@ a:hover {
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -769,45 +793,95 @@ a:hover {
 
 .timeline-container {
   position: relative;
-  padding-left: 2rem;
   margin-bottom: 3.5rem;
+  padding: 0;
 }
 
+/* Continuous Vertical Timeline Track Line - Exactly Centered in Rail Column */
 .timeline-container::before {
   content: "";
   position: absolute;
-  left: 7px;
-  top: 10px;
-  bottom: 10px;
-  width: 2px;
-  background: var(--border-subtle);
+  left: calc(var(--timeline-rail-width) / 2);
+  transform: translateX(-50%);
+  top: 2rem;
+  bottom: 2rem;
+  width: var(--timeline-line-width);
+  background: var(--timeline-line-color);
+  z-index: 1;
 }
 
+/* 2-Column Grid: Column 1 = Timeline Rail, Column 2 = Milestone Card */
 .milestone-node {
   position: relative;
+  display: grid;
+  grid-template-columns: var(--timeline-rail-width) 1fr;
+  column-gap: 1.25rem;
+  align-items: start;
   margin-bottom: 2rem;
 }
 
-.milestone-marker {
-  position: absolute;
-  left: -2rem;
-  top: 4px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--bg-base);
-  border: 2px solid var(--cyan-accent);
-  box-shadow: 0 0 10px var(--cyan-glow);
-  z-index: 2;
+.milestone-node:last-child {
+  margin-bottom: 0;
 }
 
+/* Milestone Marker Circle: 100% Mathematically Centered on Track Line */
+.milestone-marker {
+  grid-column: 1;
+  justify-self: center;
+  margin-top: 1.25rem; /* Vertically centered to card header */
+  width: var(--marker-size);
+  height: var(--marker-size);
+  border-radius: 50%;
+  background: var(--marker-bg);
+  border: 2.5px solid var(--marker-border-color);
+  box-shadow: var(--marker-glow);
+  z-index: 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.marker-dot {
+  width: var(--marker-dot-size);
+  height: var(--marker-dot-size);
+  border-radius: 50%;
+  background: var(--marker-dot-bg);
+  display: block;
+}
+
+/* Horizontal Connector Stem from Circle to Card */
+.milestone-marker::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(1.25rem + (var(--timeline-rail-width) - var(--marker-size)) / 2);
+  height: var(--timeline-line-width);
+  background: var(--connector-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.milestone-node:hover .milestone-marker {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px var(--cyan-glow);
+}
+
+/* Milestone Card (Column 2) */
 .milestone-card {
+  grid-column: 2;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 1.25rem 1.4rem;
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   box-shadow: var(--card-shadow);
+  position: relative;
+  min-width: 0;
 }
 
 .milestone-card:hover {
@@ -818,14 +892,18 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
   margin-bottom: 0.65rem;
+  min-height: 24px;
 }
 
 .milestone-time {
   font-family: var(--font-mono);
   font-size: 0.82rem;
   color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Verification Badges */
@@ -874,22 +952,46 @@ a:hover {
 .milestone-event {
   font-size: 0.95rem;
   color: var(--text-primary);
-  line-height: 1.5;
+  line-height: 1.55;
   margin-bottom: 0.85rem;
 }
 
+/* Enhanced Telemetry Source Section */
 .milestone-source {
   font-size: 0.82rem;
   color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.milestone-source .source-label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  font-weight: 600;
 }
 
 .milestone-source a {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  color: var(--cyan-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  word-break: break-word;
+}
+
+.milestone-source a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
 }
 
 /* ===================================================================
@@ -1022,5 +1124,55 @@ a:hover {
     width: 100%;
     justify-content: space-between;
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --timeline-rail-width: 28px;
+    --marker-size: 16px;
+    --marker-dot-size: 6px;
+  }
+
+  .timeline-container::before {
+    top: 1.7rem;
+    bottom: 1.7rem;
+  }
+
+  .milestone-node {
+    column-gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .milestone-marker {
+    margin-top: 1.15rem;
+  }
+
+  .milestone-marker::after {
+    width: calc(0.75rem + (var(--timeline-rail-width) - var(--marker-size)) / 2);
+  }
+
+  .milestone-card {
+    padding: 1rem 1.1rem;
+  }
+
+  .milestone-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .detail-header {
+    padding: 1.4rem;
+  }
+
+  .detail-title {
+    font-size: 1.65rem;
+  }
+
+  .detail-meta-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
   }
 }
