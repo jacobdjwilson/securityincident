@@ -22,7 +22,7 @@ function cleanVerification(verifText) {
   return (verifText || '').replace(/^[🟢🟡🔵⚪🔴\s]+/, '').trim().toUpperCase();
 }
 
-function validateIncidentFile(filename) {
+export function validateIncidentFile(filename) {
   const filePath = path.join(INCIDENTS_DIR, filename);
   const errors = [];
 
@@ -296,4 +296,6 @@ export function validateAll() {
 }
 
 // Run validation when executed directly
-validateAll();
+if (process.argv[1] && (process.argv[1].endsWith('validate.js') || process.argv[1].includes('validate'))) {
+  validateAll();
+}

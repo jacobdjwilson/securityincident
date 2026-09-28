@@ -9,6 +9,7 @@
     "serve": "node scripts/serve.js",
     "test": "node scripts/validate.js",
     "validate": "node scripts/validate.js",
+    "ingest": "node scripts/ingest.js",
     "dev": "node scripts/build.js && node scripts/serve.js"
   },
   "keywords": [

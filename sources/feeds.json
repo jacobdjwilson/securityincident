@@ -1,0 +1,82 @@
+[
+  {
+    "id": "cisa-advisories",
+    "name": "CISA Cybersecurity Advisories",
+    "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+    "type": "regulatory",
+    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "enabled": true
+  },
+  {
+    "id": "databreaches-net",
+    "name": "DataBreaches.net",
+    "url": "https://databreaches.net/feed/",
+    "type": "investigative",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "bleepingcomputer",
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/feed/",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "the-record",
+    "name": "The Record by Recorded Future",
+    "url": "https://therecord.media/feed",
+    "type": "investigative",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "krebs-on-security",
+    "name": "Krebs on Security",
+    "url": "https://krebsonsecurity.com/feed/",
+    "type": "investigative",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "securityweek",
+    "name": "SecurityWeek",
+    "url": "https://www.securityweek.com/feed/",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "the-hackers-news",
+    "name": "The Hacker News",
+    "url": "https://feeds.feedburner.com/TheHackersNews",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "dark-reading",
+    "name": "Dark Reading",
+    "url": "https://www.darkreading.com/rss.xml",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "ncsc-uk",
+    "name": "NCSC UK Cyber Alerts",
+    "url": "https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml",
+    "type": "regulatory",
+    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "enabled": true
+  },
+  {
+    "id": "hipaa-journal",
+    "name": "HIPAA Journal Healthcare Breaches",
+    "url": "https://www.hipaajournal.com/category/healthcare-cybersecurity/feed/",
+    "type": "regulatory",
+    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "enabled": true
+  }
+]
