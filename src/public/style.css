@@ -289,32 +289,83 @@ a:hover {
   text-decoration: none;
 }
 
-/* Theme Toggle Button */
+/* Theme Toggle Switch */
 .theme-toggle-btn {
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 0.35rem 0.65rem;
-  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.95rem;
-  transition: all var(--transition-fast);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.theme-toggle-btn:hover {
-  background: var(--bg-surface-hover);
+.theme-toggle-track {
+  width: 48px;
+  height: 26px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  position: relative;
+  transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle-btn:hover .theme-toggle-track {
   border-color: var(--border-active);
-  color: var(--text-primary);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 8px var(--cyan-glow);
 }
 
-.theme-icon-sun { display: none; }
-.theme-icon-moon { display: inline-block; }
+.theme-toggle-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  color: var(--cyan-accent);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  transform: translateX(0);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
 
-[data-theme="light"] .theme-icon-sun { display: inline-block; }
-[data-theme="light"] .theme-icon-moon { display: none; }
+.theme-toggle-thumb .icon-moon {
+  display: block;
+}
+
+.theme-toggle-thumb .icon-sun {
+  display: none;
+}
+
+/* Light mode state for theme toggle */
+[data-theme="light"] .theme-toggle-track {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .theme-toggle-thumb {
+  transform: translateX(22px);
+  background: #ffffff;
+  border-color: #e2e8f0;
+  color: #ea580c;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .theme-toggle-thumb .icon-moon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle-thumb .icon-sun {
+  display: block;
+}
 
 .github-badge {
   display: inline-flex;
@@ -498,6 +549,35 @@ a:hover {
 .filter-btn.active .filter-count {
   color: var(--cyan-accent);
   background: var(--cyan-glow);
+}
+
+/* Filter Dot Indicators (Sophisticated LED status lights) */
+.status-dot-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-dot-indicator.confirmed {
+  background: var(--status-confirmed);
+  box-shadow: 0 0 6px var(--status-confirmed);
+}
+
+.status-dot-indicator.acknowledged {
+  background: var(--status-acknowledged);
+  box-shadow: 0 0 6px var(--status-acknowledged);
+}
+
+.status-dot-indicator.emerging {
+  background: var(--status-emerging);
+  box-shadow: 0 0 6px var(--status-emerging);
+}
+
+.status-dot-indicator.refuted {
+  background: var(--status-refuted);
+  box-shadow: 0 0 4px var(--status-refuted);
 }
 
 /* ===================================================================
@@ -1068,6 +1148,37 @@ a:hover {
 
 .about-panel strong {
   color: var(--text-primary);
+}
+
+/* About Status Cards Grid */
+.about-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.about-status-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.about-status-card:hover {
+  border-color: var(--border-active);
+  transform: translateY(-2px);
+}
+
+.about-status-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
 }
 
 /* ===================================================================
