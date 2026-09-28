@@ -237,7 +237,7 @@ function generateIncidentDetailHtml(inc) {
     const verifClass = getVerificationClass(m.verification);
     const sourceHtml = m.sourceUrl ? `
       <div class="milestone-source">
-        <span>Source:</span>
+        <span class="source-label">Source:</span>
         <a href="${m.sourceUrl}" target="_blank" rel="noopener nofollow">
           ${m.sourceTitle || 'View Evidence Link'} ↗
         </a>
@@ -246,7 +246,9 @@ function generateIncidentDetailHtml(inc) {
 
     return `
       <div class="milestone-node">
-        <div class="milestone-marker"></div>
+        <div class="milestone-marker">
+          <span class="marker-dot"></span>
+        </div>
         <div class="milestone-card">
           <div class="milestone-header">
             <span class="milestone-time">${m.time}</span>
