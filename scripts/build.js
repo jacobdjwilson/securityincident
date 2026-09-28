@@ -11,8 +11,9 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist');
 const DIST_INCIDENTS_DIR = path.join(DIST_DIR, 'incidents');
 const DIST_IMAGES_DIR = path.join(DIST_DIR, 'images');
 
-// GitHub repository info for community links
+// GitHub repository and domain info
 const GITHUB_REPO_URL = 'https://github.com/jacobdjwilson/securityincident';
+const SITE_URL = 'https://securityincident.net';
 
 function cleanVerification(verifText) {
   return (verifText || '').replace(/^[🟢🟡🔵⚪🔴\s]+/, '').trim();
@@ -91,6 +92,107 @@ function parseMilestones(markdownContent) {
   return milestones;
 }
 
+function escapeXml(unsafe) {
+  if (unsafe === null || unsafe === undefined) return '';
+  return String(unsafe)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function formatRssPubDate(dateStr, milestones) {
+  if (milestones && milestones.length > 0 && milestones[0].time) {
+    const rawTime = milestones[0].time.trim();
+    const match = rawTime.match(/^(\d{4}-\d{2}-\d{2})(?:\s+(\d{2}:\d{2})(?:\s*UTC)?)?/i);
+    if (match) {
+      const d = match[1];
+      const t = match[2] ? match[2] + ':00Z' : '00:00:00Z';
+      const parsed = new Date(`${d}T${t}`);
+      if (!isNaN(parsed.getTime())) {
+        return parsed.toUTCString();
+      }
+    }
+  }
+
+  if (dateStr) {
+    const parsed = new Date(`${dateStr.trim()}T00:00:00Z`);
+    if (!isNaN(parsed.getTime())) {
+      return parsed.toUTCString();
+    }
+  }
+
+  return new Date().toUTCString();
+}
+
+function generateRssFeed(incidents) {
+  const buildDate = new Date().toUTCString();
+  const itemsXml = incidents.map(inc => {
+    const permalink = `${SITE_URL}/incidents/${inc.id}.html`;
+    const pubDate = formatRssPubDate(inc.last_updated, inc.milestones);
+    const title = `[${inc.status}] ${inc.target} — ${inc.summary}`;
+
+    // Clean CDATA body
+    const safeSummary = (inc.summary || '').replace(/]]>/g, ']]&gt;');
+    let descriptionHtml = `<![CDATA[`;
+    descriptionHtml += `<p><strong>Status:</strong> ${escapeXml(inc.status)}<br/>\n`;
+    descriptionHtml += `<strong>Target Domain:</strong> ${escapeXml(inc.domain)}<br/>\n`;
+    if (inc.threat_actor) {
+      descriptionHtml += `<strong>Threat Actor:</strong> ${escapeXml(inc.threat_actor)}<br/>\n`;
+    }
+    descriptionHtml += `<strong>First Seen:</strong> ${escapeXml(inc.first_seen)}<br/>\n`;
+    descriptionHtml += `<strong>Last Updated:</strong> ${escapeXml(inc.last_updated)}</p>\n`;
+    descriptionHtml += `<p>${safeSummary}</p>\n`;
+
+    if (inc.milestones && inc.milestones.length > 0) {
+      descriptionHtml += `<h3>Milestone Timeline</h3>\n<ul>\n`;
+      inc.milestones.forEach(m => {
+        const safeEvent = (m.event || '').replace(/]]>/g, ']]&gt;');
+        descriptionHtml += `  <li><strong>${escapeXml(m.time)}</strong> [${escapeXml(m.verification)}]: ${safeEvent}`;
+        if (m.sourceUrl) {
+          descriptionHtml += ` (<a href="${escapeXml(m.sourceUrl)}">${escapeXml(m.sourceTitle || 'Evidence Link')}</a>)`;
+        }
+        descriptionHtml += `</li>\n`;
+      });
+      descriptionHtml += `</ul>\n`;
+    }
+
+    descriptionHtml += `<p><a href="${permalink}">View Full Verified Timeline &amp; Evidence on securityincident.net</a></p>`;
+    descriptionHtml += `]]>`;
+
+    const categories = [inc.status, ...(inc.tags || [])]
+      .filter(Boolean)
+      .map(cat => `      <category>${escapeXml(cat)}</category>`)
+      .join('\n');
+
+    return `    <item>
+      <title>${escapeXml(title)}</title>
+      <link>${permalink}</link>
+      <guid isPermaLink="true">${permalink}</guid>
+      <pubDate>${pubDate}</pubDate>
+      <description>${descriptionHtml}</description>
+${categories}
+    </item>`;
+  }).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>securityincident.net | Real-Time Incident Status &amp; Milestone Timeline Index</title>
+    <link>${SITE_URL}/</link>
+    <description>A 100% Git-native clearinghouse tracking real-time status and verified milestone timelines for cybersecurity incidents on the open web.</description>
+    <language>en-us</language>
+    <lastBuildDate>${buildDate}</lastBuildDate>
+    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
+    <docs>https://www.rssboard.org/rss-specification</docs>
+    <generator>securityincident.net static generator</generator>
+${itemsXml}
+  </channel>
+</rss>
+`;
+}
+
 function renderHeader(isSubpage = false) {
   const prefix = isSubpage ? '../' : './';
   return `
@@ -104,6 +206,10 @@ function renderHeader(isSubpage = false) {
       <nav class="nav-links">
         <a href="${prefix}" class="nav-link">Live Index</a>
         <a href="${prefix}about.html" class="nav-link">Verification Standard</a>
+        <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml" class="nav-link nav-rss" title="RSS Telemetry Feed">
+          <i class="fa-solid fa-rss"></i>
+          <span>RSS</span>
+        </a>
         
         <!-- Sophisticated Theme Switch Toggle with Sun & Moon Icons -->
         <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light and dark mode" title="Toggle theme">
@@ -124,7 +230,8 @@ function renderHeader(isSubpage = false) {
   </header>`;
 }
 
-function renderFooter() {
+function renderFooter(isSubpage = false) {
+  const prefix = isSubpage ? '../' : './';
   return `
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -133,6 +240,7 @@ function renderFooter() {
         Zero speculative categorization. Ground truth status & milestone verification.
       </div>
       <div class="footer-links">
+        <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml"><i class="fa-solid fa-rss" style="color: var(--status-developing);"></i> RSS Feed</a>
         <a href="${GITHUB_REPO_URL}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Audit on GitHub</a>
         <a href="${GITHUB_REPO_URL}/tree/main/incidents" target="_blank" rel="noopener"><i class="fa-solid fa-code-pull-request"></i> Add Incident via PR</a>
       </div>
@@ -199,6 +307,7 @@ function generateIndexHtml(incidents) {
   <title>securityincident.net | Open Web Incident Status & Milestone Tracker</title>
   <meta name="description" content="A 100% Git-native clearinghouse tracking real-time status and verified milestone timelines for cybersecurity incidents on the open web.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -267,7 +376,7 @@ function generateIndexHtml(incidents) {
     </div>
   </main>
 
-  ${renderFooter()}
+  ${renderFooter(false)}
 
   <script src="app.js"></script>
 </body>
@@ -316,6 +425,7 @@ function generateIncidentDetailHtml(inc) {
   <title>${inc.target} Security Incident Timeline | securityincident.net</title>
   <meta name="description" content="Verified status and chronological milestone timeline for the ${inc.target} security incident.">
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="../feed.xml">
   <link rel="stylesheet" href="../style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -388,7 +498,7 @@ function generateIncidentDetailHtml(inc) {
     </div>
   </main>
 
-  ${renderFooter()}
+  ${renderFooter(true)}
 
   <script src="../app.js"></script>
 </body>
@@ -404,6 +514,7 @@ function generateAboutHtml() {
   <title>Verification Standard &amp; Philosophy | securityincident.net</title>
   <meta name="description" content="How securityincident.net verifies security incident statuses and milestones on the open web.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
   <link rel="stylesheet" href="style.css">
   <script src="fontawesome.js"></script>
   <script>
@@ -481,7 +592,7 @@ function generateAboutHtml() {
     </div>
   </main>
 
-  ${renderFooter()}
+  ${renderFooter(false)}
 
   <script src="app.js"></script>
 </body>
@@ -566,7 +677,16 @@ async function build() {
   // Output search index JSON for fast searching or external consumption
   fs.writeFileSync(path.join(DIST_DIR, 'search-index.json'), JSON.stringify(incidents, null, 2), 'utf-8');
 
-  console.log(`✅ Successfully built ${incidents.length} incident pages & assets to dist/`);
+  // Output RSS 2.0 Feed
+  const rssXml = generateRssFeed(incidents);
+  fs.writeFileSync(path.join(DIST_DIR, 'feed.xml'), rssXml, 'utf-8');
+
+  // Copy CNAME if present
+  if (fs.existsSync(path.join(ROOT_DIR, 'CNAME'))) {
+    fs.copyFileSync(path.join(ROOT_DIR, 'CNAME'), path.join(DIST_DIR, 'CNAME'));
+  }
+
+  console.log(`✅ Successfully built ${incidents.length} incident pages, RSS feed & assets to dist/`);
 }
 
 build().catch(err => {

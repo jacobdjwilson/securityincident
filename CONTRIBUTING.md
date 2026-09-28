@@ -72,12 +72,18 @@ For adding brand-new incidents or making multiple edits:
 3. **Add or modify an incident file:**
    Create a new file in `incidents/` named `YYYY-MM-<target-slug>.md` (e.g. `2026-09-example-corp.md`).
 
-4. **Verify the build locally:**
+4. **Validate schema compliance and verify the build locally:**
    ```bash
+   # Run the incident schema & verification validator:
+   npm test
+
+   # Build the static site and RSS feed:
    npm run build
+
+   # Start local preview server:
    npm run serve
    ```
-   Open `http://localhost:3000` in your browser to verify that your incident displays properly and links work.
+   Open `http://localhost:3000` in your browser to verify that your incident displays properly, badges render correctly, and links work.
 
 5. **Commit and open a Pull Request:**
    ```bash

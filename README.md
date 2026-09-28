@@ -35,19 +35,22 @@ securityincident/
 ├── .github/
 │   └── workflows/
 │       ├── deploy.yml       # Deploys dist/ to GitHub Pages on push to main
+│       ├── validate-pr.yml  # Validates incident schemas & build on PRs
 │       └── ingest.yml       # (Roadmap) Cron workflow polling SEC 8-K & RSS
 ├── incidents/               # Flat Markdown database (1 file per incident)
 │   ├── 2026-09-crowdstrike.md
 │   ├── 2026-09-apex-pay.md
+│   ├── 2026-09-vortex-cloud.md
 │   ├── 2026-09-medix-health.md
 │   └── 2026-09-solaris-telecom.md
 ├── scripts/
-│   ├── build.js             # Parses incidents/*.md, outputs dist/ (HTML & search-index.json)
+│   ├── build.js             # Parses incidents/*.md, outputs dist/ (HTML, feed.xml & search-index.json)
+│   ├── validate.js          # Schema, milestone, and RSS validator (npm test)
 │   └── serve.js             # Local lightweight HTTP preview server
 ├── src/
 │   └── public/
-│       ├── style.css        # High-density dark-mode telemetry CSS
-│       └── app.js           # Client-side instant filter & search
+│       ├── style.css        # High-density dual-mode SOC telemetry CSS
+│       └── app.js           # Client-side instant filter, search & theme toggle
 ├── ARCHITECTURE.md          # Architectural and technical specification
 ├── CONTRIBUTING.md          # Guide for proposing incidents & milestones via PR
 ├── package.json
@@ -101,18 +104,23 @@ tags:
    npm install
    ```
 
-2. **Build the static site:**
+2. **Validate schemas and milestone integrity:**
+   ```bash
+   npm test
+   ```
+
+3. **Build the static site and RSS feed:**
    ```bash
    npm run build
    ```
 
-3. **Start local preview server:**
+4. **Start local preview server:**
    ```bash
    npm run serve
-   # Or run both build + serve:
+   # Or run build + serve together:
    npm run dev
    ```
-   Open `http://localhost:3000` in your browser.
+   Open `http://localhost:3000` in your browser. (The live RSS 2.0 telemetry feed is served at `http://localhost:3000/feed.xml`).
 
 ---
 

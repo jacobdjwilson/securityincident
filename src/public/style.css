@@ -299,6 +299,22 @@ a:hover {
   text-decoration: none;
 }
 
+.nav-rss {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav-rss i {
+  color: var(--status-developing);
+  font-size: 0.85rem;
+  transition: transform var(--transition-fast);
+}
+
+.nav-rss:hover i {
+  transform: scale(1.18);
+}
+
 /* Theme Toggle Switch */
 .theme-toggle-btn {
   background: transparent;

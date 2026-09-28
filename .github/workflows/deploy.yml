@@ -37,7 +37,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build Static Site
+      - name: Validate Schema & Milestones
+        run: npm test
+
+      - name: Build Static Site & RSS Feed
         run: npm run build
 
       - name: Setup GitHub Pages

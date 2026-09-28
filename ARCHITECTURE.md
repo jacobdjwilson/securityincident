@@ -98,19 +98,25 @@ tags:
 securityincident/
 ├── .github/
 │   └── workflows/
-│       ├── deploy.yml       # Builds static site & deploys to GitHub Pages
-│       └── ingest.yml       # (Step 2) Cron job to poll SEC 8-K & Infosec RSS
+│       ├── deploy.yml       # Builds static site & deploys to GitHub Pages on push to main
+│       ├── validate-pr.yml  # Validates schemas, milestones & build on PRs
+│       └── ingest.yml       # (Roadmap) Cron job to poll SEC 8-K & Infosec RSS
 ├── incidents/               # Flat Markdown database (1 file per incident)
-│   ├── 2026-09-sample-1.md
-│   └── 2026-09-sample-2.md
+│   ├── 2026-09-crowdstrike.md
+│   ├── 2026-09-apex-pay.md
+│   ├── 2026-09-vortex-cloud.md
+│   ├── 2026-09-medix-health.md
+│   └── 2026-09-solaris-telecom.md
 ├── scripts/
-│   ├── build.js             # Parses incidents/*.md, outputs dist/ (HTML + search-index.json)
-│   └── ingest/              # (Step 2) Feed fetchers & deduplication logic
+│   ├── build.js             # Parses incidents/*.md, outputs dist/ (HTML, feed.xml, search index)
+│   ├── validate.js          # Automated incident schema & RSS feed compliance validator
+│   └── serve.js             # Local lightweight HTTP preview server
 ├── src/
-│   ├── templates/           # HTML templates (index, incident detail, about)
 │   └── public/              # CSS, client-side JS, favicon, web assets
-│       ├── style.css        # Vanilla CSS (dark theme, glassmorphism, responsive)
-│       └── app.js           # Client-side filtering & instant search
+│       ├── style.css        # Vanilla CSS (dual-mode dark/light, glassmorphism, responsive)
+│       ├── app.js           # Client-side filtering, instant search & theme toggle
+│       └── fontawesome.js   # Official FontAwesome icon bundle
+├── images/                  # Brand assets (logos, favicons, COLOR.md, BRANDING.md)
 ├── package.json             # Build scripts and minimal dev dependencies
 └── README.md
 ```
@@ -123,25 +129,37 @@ securityincident/
 * Generates:
   * `dist/index.html` (Full catalog with live client-side search, status filter pills, and cards).
   * `dist/incidents/<id>.html` (Dedicated incident timeline detail pages with full SEO tags and direct permalinks).
+  * `dist/about.html` (Verification Standard & Philosophy reference documentation).
+  * `dist/feed.xml` (Full RSS 2.0 telemetry feed with latest milestone RFC 822 timestamps and CDATA descriptions).
   * `dist/search-index.json` (Pre-rendered JSON for fast client-side fuzzy searching).
-  * Copies static assets (`dist/style.css`, `dist/app.js`).
+  * Copies static assets (`dist/style.css`, `dist/app.js`, `dist/images/`, `dist/.nojekyll`).
+
+### Incident & Feed Validator (`scripts/validate.js`)
+* Run via `npm test` or `npm run validate`.
+* Verifies filename format (`YYYY-MM-<target-slug>.md`).
+* Enforces YAML frontmatter schema completeness (`id`, `target`, `domain`, `status`, `first_seen`, `last_updated`, `summary`, `tags`).
+* Restricts status to the 5-tier telemetry progression (`EMERGING`, `DEVELOPING`, `ACKNOWLEDGED`, `CONFIRMED`, `REFUTED`).
+* Validates timeline milestone structure, verification badges, and absolute HTTP/HTTPS primary source evidence URLs.
+* Verifies the generated RSS 2.0 feed (`dist/feed.xml`) for XML validity and tag compliance.
 
 ---
 
 ## 5. Development Roadmap
 
-### Phase 1: Core Static Foundation (Current Step)
+### Phase 1: Core Static Foundation
 - [x] Architecture & Specification document.
-- [ ] Initialize repository structure (`incidents/`, `scripts/build.js`, `src/`).
-- [ ] Implement modern, high-density Vanilla CSS (dark theme, status badges, timeline styling).
-- [ ] Add sample incidents covering all 4 statuses (`EMERGING`, `ACKNOWLEDGED`, `CONFIRMED`, `REFUTED`).
-- [ ] Configure GitHub Actions workflow for automatic deployment to GitHub Pages.
+- [x] Repository structure (`incidents/`, `scripts/build.js`, `src/public/`).
+- [x] Dual-mode Vanilla CSS (dark/light themes, status badges, centered responsive timeline).
+- [x] 5-tier status architecture (`CONFIRMED`, `ACKNOWLEDGED`, `DEVELOPING`, `EMERGING`, `REFUTED`).
+- [x] Logo assets and branding documentation (`images/`).
+- [x] GitHub Actions workflow for automatic deployment to GitHub Pages (`.github/workflows/deploy.yml`).
 
-### Phase 2: Ingestion & Automation (`.github/workflows/ingest.yml`)
+### Phase 2: Syndication & Quality Assurance
+- [x] Standard RSS 2.0 telemetry feed generation (`dist/feed.xml`) with milestone timestamps and links.
+- [x] Automated schema validator (`scripts/validate.js`, `npm test`).
+- [x] PR validation workflow (`.github/workflows/validate-pr.yml`).
+
+### Phase 3: Ingestion & Automation (`.github/workflows/ingest.yml`)
 - [ ] SEC EDGAR Form 8-K Item 1.05 RSS scraper (automatically creates/updates incidents when cyber 8-Ks are filed).
 - [ ] Infosec news RSS aggregator (BleepingComputer, KrebsOnSecurity, Databreaches.net).
-- [ ] Automatic PR generation / commit on new incident discovery.
-
-### Phase 3: Community & Verification Tooling
-- [ ] "Submit Update via GitHub" button on every incident page (pre-fills a GitHub Issue or PR).
-- [ ] Automated validation linter for `incidents/*.md` to ensure required frontmatter and source links.
+- [ ] Automated draft PR generation on new incident discovery.
