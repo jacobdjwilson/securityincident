@@ -1,0 +1,30 @@
+# Node dependencies
+node_modules/
+
+# Production build artifacts (compiled statically by CI on push)
+dist/
+
+# Logs & temp files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Editor & IDE configs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local scratch & agent workspace configs
+scratch/
+.agents/
+.gemini/
+AGENTS.md
+GEMINI.md

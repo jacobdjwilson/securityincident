@@ -1,0 +1,25 @@
+{
+  "name": "securityincident.net",
+  "version": "1.0.0",
+  "description": "A Git-native index of cybersecurity incident status and milestone verification timelines.",
+  "main": "scripts/build.js",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "serve": "node scripts/serve.js",
+    "dev": "node scripts/build.js && node scripts/serve.js"
+  },
+  "keywords": [
+    "security-incidents",
+    "threat-intel",
+    "sec-8k",
+    "breach-tracker",
+    "github-pages"
+  ],
+  "author": "securityincident.net",
+  "license": "MIT",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.7"
+  }
+}
