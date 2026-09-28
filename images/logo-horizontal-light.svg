@@ -28,18 +28,18 @@
 
   <!-- Telemetry Milestone Nodes (Top to Bottom) -->
   
-  <!-- Milestone Node at Y=240 -->
+  <!-- Milestone Node at Y=240 (EMERGING - Red) -->
   <g class="timeline-node">
-    <circle cx="400" cy="240" r="38" fill="rgba(217, 119, 6, 0.25)" />
-    <circle cx="400" cy="240" r="28" fill="#ffffff" stroke="#b45309" stroke-width="6" />
-    <circle cx="400" cy="240" r="16" fill="#d97706" />
+    <circle cx="400" cy="240" r="38" fill="rgba(185, 28, 28, 0.25)" />
+    <circle cx="400" cy="240" r="28" fill="#ffffff" stroke="#b91c1c" stroke-width="6" />
+    <circle cx="400" cy="240" r="16" fill="#dc2626" />
     
     <!-- Telemetry Horizontal Hash Marks -->
     <line x1="330" y1="240" x2="360" y2="240" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
     <line x1="440" y1="240" x2="470" y2="240" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
   </g>
 
-  <!-- Milestone Node at Y=390 -->
+  <!-- Milestone Node at Y=390 (DEVELOPING - Orange) -->
   <g class="timeline-node">
     <circle cx="400" cy="390" r="38" fill="rgba(234, 88, 12, 0.25)" />
     <circle cx="400" cy="390" r="28" fill="#ffffff" stroke="#c2410c" stroke-width="6" />
@@ -50,11 +50,11 @@
     <line x1="440" y1="390" x2="470" y2="390" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
   </g>
 
-  <!-- Milestone Node at Y=540 -->
+  <!-- Milestone Node at Y=540 (ACKNOWLEDGED - Yellow) -->
   <g class="timeline-node">
-    <circle cx="400" cy="540" r="38" fill="rgba(220, 38, 38, 0.25)" />
-    <circle cx="400" cy="540" r="28" fill="#ffffff" stroke="#b91c1c" stroke-width="6" />
-    <circle cx="400" cy="540" r="16" fill="#dc2626" />
+    <circle cx="400" cy="540" r="38" fill="rgba(161, 98, 7, 0.25)" />
+    <circle cx="400" cy="540" r="28" fill="#ffffff" stroke="#a16207" stroke-width="6" />
+    <circle cx="400" cy="540" r="16" fill="#d97706" />
     
     <!-- Telemetry Horizontal Hash Marks -->
     <line x1="330" y1="540" x2="360" y2="540" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />

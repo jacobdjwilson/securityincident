@@ -98,7 +98,7 @@ Every incident file follows this strict standard:
 id: "YYYY-MM-<target-slug>"
 target: "Organization Name"
 domain: "organization.com"
-status: "CONFIRMED" # EMERGING | ACKNOWLEDGED | CONFIRMED | REFUTED
+status: "CONFIRMED" # EMERGING | DEVELOPING | ACKNOWLEDGED | CONFIRMED | REFUTED
 first_seen: "YYYY-MM-DD"
 last_updated: "YYYY-MM-DD"
 threat_actor: "Actor Name" # Optional or "Unknown"
@@ -112,26 +112,27 @@ tags:
 
 ### YYYY-MM-DD HH:MM UTC
 - **Event:** Single-sentence description of the verified milestone.
-- **Verification:** 🟢 CONFIRMED BY REGULATOR # Pick one from the table below
+- **Verification:** CONFIRMED BY REGULATOR # Pick one from the table below
 - **Source:** [Primary Source Title](https://example.com/source-url)
 ```
 
-### The 4 Observable Macro Statuses
+### The 5 Observable Macro Statuses
 
-| Status | Badge | When to Use |
-| :--- | :--- | :--- |
-| **`EMERGING`** | 🟡 Emerging | Unilateral claim on a dark web forum, leak site listing, or chatter. Target has not acknowledged or commented. |
-| **`ACKNOWLEDGED`** | 🟠 Acknowledged | Target publicly reports an "IT disruption" or active investigation, but has not confirmed an unauthorized intrusion or data loss. |
-| **`CONFIRMED`** | 🔴 Confirmed | Officially confirmed by the target organization or a government regulator (SEC Form 8-K, State AG breach notice, HHS portal). |
-| **`REFUTED`** | ⚪ Refuted | Proven false alarm, recycled historical data dump, or public web scrape mislabeled as an intrusion. |
+| Status | Color | When to Use |
+| :--- | :---: | :--- |
+| **`CONFIRMED`** | 🟢 Green | **Highest assurance:** Officially confirmed by the target organization or a government regulator (SEC Form 8-K, State AG breach notice, HHS portal). |
+| **`ACKNOWLEDGED`** | 🟡 Yellow | Target publicly reports an "IT disruption" or active investigation, but has not confirmed an unauthorized intrusion or data loss. |
+| **`DEVELOPING`** | 🟠 Orange | Corroborated intelligence: independent researchers verify sample data, or observed outages align with claims before target response. |
+| **`EMERGING`** | 🔴 Red | Unilateral claim on a dark web forum, leak site listing, or chatter. Target has not acknowledged or commented. |
+| **`REFUTED`** | 🔘 Gray | Proven false alarm, recycled historical data dump, fake sample data, or threat actor retraction. |
 
 ### Milestone Verification Tiers
 
-* `🟢 CONFIRMED BY REGULATOR`: SEC Form 8-K Item 1.05, State AG breach notice, HHS OCR portal, CISA advisory.
-* `🟢 CONFIRMED BY TARGET`: Target press release, official blog post, status page bulletin.
-* `🟡 UNVERIFIED CLAIM`: Threat actor leak site listing, dark web forum post, anonymous paste.
-* `🔵 INDEPENDENT VERIFICATION`: Cybersecurity researcher analysis, HaveIBeenPwned audit, reputable investigative reporting.
-* `⚪ REFUTED`: Explicitly disproven with forensic or public evidence.
+* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K Item 1.05, State AG breach notice, HHS OCR portal, CISA advisory.
+* `CONFIRMED BY TARGET` (🟢 Green / Teal): Target press release, official blog post, status page bulletin.
+* `INDEPENDENT VERIFICATION` (🟠 Orange): Cybersecurity researcher analysis, HaveIBeenPwned audit, reputable investigative reporting.
+* `UNVERIFIED CLAIM` (🔴 Red): Threat actor leak site listing, dark web forum post, anonymous paste.
+* `REFUTED` (🔘 Gray): Explicitly disproven with forensic or public evidence.
 
 > [!IMPORTANT]
 > **Source Link Requirement:** Every milestone in a timeline **must** link directly to a publicly verifiable primary source. We do not accept milestones based solely on secondary commentary or unsourced tweets.

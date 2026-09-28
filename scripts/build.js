@@ -39,8 +39,9 @@ function getVerificationClass(verifText) {
 function getStatusBadgeHtml(status) {
   const s = (status || 'EMERGING').toUpperCase();
   let icon = 'fa-solid fa-bolt';
-  if (s === 'CONFIRMED') icon = 'fa-solid fa-triangle-exclamation';
+  if (s === 'CONFIRMED') icon = 'fa-solid fa-circle-check';
   else if (s === 'ACKNOWLEDGED') icon = 'fa-solid fa-bullhorn';
+  else if (s === 'DEVELOPING') icon = 'fa-solid fa-satellite-dish';
   else if (s === 'REFUTED') icon = 'fa-solid fa-ban';
 
   return `<span class="status-badge status-${s}"><i class="${icon}"></i> ${s}</span>`;
@@ -144,6 +145,7 @@ function generateIndexHtml(incidents) {
     ALL: incidents.length,
     CONFIRMED: incidents.filter(i => i.status === 'CONFIRMED').length,
     ACKNOWLEDGED: incidents.filter(i => i.status === 'ACKNOWLEDGED').length,
+    DEVELOPING: incidents.filter(i => i.status === 'DEVELOPING').length,
     EMERGING: incidents.filter(i => i.status === 'EMERGING').length,
     REFUTED: incidents.filter(i => i.status === 'REFUTED').length
   };
@@ -239,6 +241,9 @@ function generateIndexHtml(incidents) {
         </button>
         <button class="filter-btn" data-filter="ACKNOWLEDGED">
           <span class="status-dot-indicator acknowledged"></span> Acknowledged <span class="filter-count">${counts.ACKNOWLEDGED}</span>
+        </button>
+        <button class="filter-btn" data-filter="DEVELOPING">
+          <span class="status-dot-indicator developing"></span> Developing <span class="filter-count">${counts.DEVELOPING}</span>
         </button>
         <button class="filter-btn" data-filter="EMERGING">
           <span class="status-dot-indicator emerging"></span> Emerging <span class="filter-count">${counts.EMERGING}</span>
@@ -433,23 +438,27 @@ function generateAboutHtml() {
         <strong>Is it an unconfirmed rumor, has the target acknowledged an investigation, or has an official regulator confirmed it?</strong>
       </p>
 
-      <h2>2. The 4 Observable Statuses</h2>
+      <h2>2. The 5 Observable Statuses</h2>
       <div class="about-status-grid">
         <div class="about-status-card">
           <span class="status-badge status-EMERGING"><i class="fa-solid fa-bolt"></i> EMERGING</span>
-          <p>Early dark web claim, extortion countdown, or unverified community chatter. Target organization has not commented.</p>
+          <p>Early unilateral threat actor claim, leak site listing, or unverified community chatter. Target organization has not commented.</p>
+        </div>
+        <div class="about-status-card">
+          <span class="status-badge status-DEVELOPING"><i class="fa-solid fa-satellite-dish"></i> DEVELOPING</span>
+          <p>Corroborated intelligence: independent researchers verify sample data matches target schemas, or observed infrastructure outages align with claims before target response.</p>
         </div>
         <div class="about-status-card">
           <span class="status-badge status-ACKNOWLEDGED"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span>
-          <p>Target organization publicly acknowledges an IT disruption or active investigation, without yet confirming data loss.</p>
+          <p>Target organization publicly acknowledges an active cybersecurity investigation or operational IT disruption, without yet confirming data loss.</p>
         </div>
         <div class="about-status-card">
-          <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-triangle-exclamation"></i> CONFIRMED</span>
-          <p>Confirmed by official regulatory filings (e.g. SEC Form 8-K Item 1.05, State AG registry) or explicit target admission.</p>
+          <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
+          <p>Confirmed by official regulatory filings (e.g. SEC Form 8-K Item 1.05, State AG registry) or formal target breach disclosure.</p>
         </div>
         <div class="about-status-card">
           <span class="status-badge status-REFUTED"><i class="fa-solid fa-ban"></i> REFUTED</span>
-          <p>Confirmed hoax, recycled public data dump, or proven false alarm.</p>
+          <p>Confirmed false alarm, recycled historical data dump, fake sample data, or threat actor retraction.</p>
         </div>
       </div>
 

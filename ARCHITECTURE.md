@@ -22,29 +22,30 @@
 
 ## 2. Status & Verification Model
 
-### Macro Incident Statuses
-Every incident is categorized into exactly one of four top-level statuses:
+### Macro Incident Statuses (5-Tier Telemetry Model)
+Every incident is categorized into exactly one of five top-level ground-truth statuses:
 
 ```
-[ 🟡 EMERGING ] ──> [ 🟠 ACKNOWLEDGED ] ──> [ 🔴 CONFIRMED ]
-       │                      │
-       └──────────────────────┴─────────> [ ⚪ REFUTED ]
+[ 🔴 EMERGING ] ──> [ 🟠 DEVELOPING ] ──> [ 🟡 ACKNOWLEDGED ] ──> [ 🟢 CONFIRMED ]
+       │                     │                      │
+       └─────────────────────┴──────────────────────┴─────────> [ 🔘 REFUTED ]
 ```
 
-| Status | Badge | Description | Trigger Event |
-| :--- | :--- | :--- | :--- |
-| `EMERGING` | 🟡 Emerging | Unilateral claim by threat actor, dark web forum listing, or unverified rumor. Target has not responded. | Threat actor leaks sample data, claims victim on extortion site. |
-| `ACKNOWLEDGED` | 🟠 Acknowledged | Target publicly reports "an IT disruption" or investigation, but has not confirmed an intrusion or data theft. | Status page alert, banner on company homepage, press statement. |
-| `CONFIRMED` | 🔴 Confirmed | Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach notice, company press release. |
-| `REFUTED` | ⚪ Refuted | The claim was proven false, data was recycled/public scraping, or target proved no breach occurred. | Forensic analysis shows data was old dump; threat actor retracts. |
+| Status | Icon | Color | Description | Trigger Event |
+| :--- | :---: | :---: | :--- | :--- |
+| `EMERGING` | `fa-bolt` | 🔴 Red | Unilateral claim by threat actor, dark web forum listing, or unverified rumor. Target has not responded. | Threat actor leaks sample data, claims victim on extortion site. |
+| `DEVELOPING` | `fa-satellite-dish` | 🟠 Orange | Corroborated intelligence: independent researchers verify sample data, or observed outages align with claims before target response. | Independent researcher analysis, sample verification, or telemetry alignment. |
+| `ACKNOWLEDGED` | `fa-bullhorn` | 🟡 Yellow | Target publicly reports "an IT disruption" or investigation, but has not confirmed an intrusion or data theft. | Status page alert, banner on company homepage, press statement. |
+| `CONFIRMED` | `fa-circle-check` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach notice, company press release. |
+| `REFUTED` | `fa-ban` | 🔘 Gray | The claim was proven false, data was recycled/public scraping, or target proved no breach occurred. | Forensic analysis shows data was old dump; threat actor retracts. |
 
 ### Milestone Verification Badges
 Each milestone entry in the timeline is labeled with its verification level:
-* `🟢 CONFIRMED BY TARGET`: Target press release, official blog post, status page.
-* `🟢 CONFIRMED BY REGULATOR`: SEC Form 8-K, State Attorney General notice, HHS breach portal, CISA advisory.
-* `🟡 UNVERIFIED CLAIM`: Threat actor leak post, breach forum listing, anonymous leak.
-* `🔵 INDEPENDENT VERIFICATION`: Independent researcher or news outlet verifying data validity.
-* `🔴 REFUTED`: Explicitly disproven or denied with evidence.
+* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K, State Attorney General notice, HHS breach portal, CISA advisory.
+* `CONFIRMED BY TARGET` (🟢 Green / Teal): Target press release, official blog post, status page.
+* `INDEPENDENT VERIFICATION` (🟠 Orange): Independent researcher or news outlet verifying data validity.
+* `UNVERIFIED CLAIM` (🔴 Red): Threat actor leak post, breach forum listing, anonymous leak.
+* `REFUTED` (🔘 Gray): Explicitly disproven or denied with evidence.
 
 ---
 
@@ -61,7 +62,7 @@ Every incident is stored as a standalone Markdown file inside `/incidents/`.
 id: "2026-09-crowdstrike"
 target: "CrowdStrike"
 domain: "crowdstrike.com"
-status: "CONFIRMED" # EMERGING | ACKNOWLEDGED | CONFIRMED | REFUTED
+status: "CONFIRMED" # EMERGING | DEVELOPING | ACKNOWLEDGED | CONFIRMED | REFUTED
 first_seen: "2026-09-12"
 last_updated: "2026-09-15"
 threat_actor: "USDoD" # Optional
@@ -75,17 +76,17 @@ tags:
 
 ### 2026-09-15 17:00 UTC
 - **Event:** Form 8-K filed with SEC confirming unauthorized access to non-production environment. No customer data impacted.
-- **Verification:** 🟢 CONFIRMED BY REGULATOR
+- **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing](https://www.sec.gov/edgar/example)
 
 ### 2026-09-13 09:15 UTC
 - **Event:** Company statement acknowledging investigation into threat actor claims.
-- **Verification:** 🟢 CONFIRMED BY TARGET
+- **Verification:** CONFIRMED BY TARGET
 - **Source:** [Official Company Notice](https://crowdstrike.com/blog/example)
 
 ### 2026-09-12 14:30 UTC
 - **Event:** Threat actor claims 1GB data theft on dark web forum.
-- **Verification:** 🟡 UNVERIFIED CLAIM
+- **Verification:** UNVERIFIED CLAIM
 - **Source:** [BreachForums Archive](https://archive.is/example)
 ```
 

@@ -16,14 +16,15 @@ Instead of pinning incidents to rigid categories, **securityincident.net** focus
 
 ---
 
-## 🚦 The 4 Observable Statuses
+## 🚦 The 5 Observable Statuses
 
-| Status | Badge | Description | Primary Sources |
-| :--- | :--- | :--- | :--- |
-| **Emerging** | 🟡 `EMERGING` | Early threat actor claims, dark web forum leaks, or unverified community chatter. Target has not commented. | Threat actor leak blogs, dark web forums, social tips. |
-| **Acknowledged** | 🟠 `ACKNOWLEDGED` | Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss. | Target status pages, banner notices, initial press replies. |
-| **Confirmed** | 🔴 `CONFIRMED` | Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals, press releases. |
-| **Refuted** | ⚪ `REFUTED` | Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach. | Target verification, HaveIBeenPwned research, researcher audits. |
+| Status | Badge | Color | Description | Primary Sources |
+| :--- | :--- | :---: | :--- | :--- |
+| **Confirmed** | `CONFIRMED` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals, formal press releases. |
+| **Acknowledged** | `ACKNOWLEDGED` | 🟡 Yellow | Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss. | Target status pages, banner notices, initial press replies. |
+| **Developing** | `DEVELOPING` | 🟠 Orange | Corroborated intelligence: independent researchers verify samples or observable outages align with claim. | Independent technical telemetry, sample schema audits. |
+| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web forum leaks, or unverified community chatter. Target has not commented. | Threat actor leak blogs, dark web forums, social tips. |
+| **Refuted** | `REFUTED` | 🔘 Gray | Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach. | Target verification, HaveIBeenPwned research, researcher audits. |
 
 ---
 
@@ -73,7 +74,7 @@ Create a new file in `incidents/` following the naming convention `YYYY-MM-<targ
 id: "2026-09-target-slug"
 target: "Organization Name"
 domain: "target.com"
-status: "CONFIRMED" # EMERGING | ACKNOWLEDGED | CONFIRMED | REFUTED
+status: "CONFIRMED" # EMERGING | DEVELOPING | ACKNOWLEDGED | CONFIRMED | REFUTED
 first_seen: "2026-09-12"
 last_updated: "2026-09-15"
 threat_actor: "Actor Name" # Optional
@@ -87,7 +88,7 @@ tags:
 
 ### YYYY-MM-DD HH:MM UTC
 - **Event:** Single-sentence description of the verified milestone.
-- **Verification:** 🟢 CONFIRMED BY REGULATOR # or CONFIRMED BY TARGET, UNVERIFIED CLAIM, REFUTED
+- **Verification:** CONFIRMED BY REGULATOR # or CONFIRMED BY TARGET, INDEPENDENT VERIFICATION, UNVERIFIED CLAIM, REFUTED
 - **Source:** [Filing / Proof Link](https://example.com)
 ```
 

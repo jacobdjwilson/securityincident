@@ -4,26 +4,29 @@
 
 ---
 
-## 1. Ground-Truth Status Colors
+## 1. Ground-Truth Status Colors (5-Tier Telemetry Model)
 
-These 4 functional status hues define the core telemetry across cards, badges, and logo timeline dots:
+These 5 functional status hues define the core telemetry across cards, badges, and logo timeline dots:
 
-| Status | Swatch | HEX | RGB | HSL | Functional Meaning |
-| :--- | :---: | :--- | :--- | :--- | :--- |
-| **`EMERGING`** | 🟡 | `#F59E0B` | `245, 158, 11` | `38°, 92%, 50%` | Dark web forum claims, leak postings, unverified rumors |
-| **`ACKNOWLEDGED`** | 🟠 | `#F97316` | `249, 115, 22` | `25°, 95%, 53%` | Target confirms IT disruption or active investigation |
-| **`CONFIRMED`** | 🔴 | `#EF4444` | `239, 68, 68` | `0°, 84%, 60%` | SEC Form 8-K, state AG breach notice, target admission |
-| **`REFUTED`** | ⚪ | `#64748B` | `100, 116, 139` | `215°, 16%, 47%` | Disproven claim, recycled historical dump, hoax |
+| Status | Tier | HEX (Dark) | HEX (Light) | Functional Meaning |
+| :--- | :---: | :--- | :--- | :--- |
+| **`CONFIRMED`** | 🟢 Green | `#10B981` | `#047857` | **Highest assurance:** SEC Form 8-K, state AG notice, target formal admission |
+| **`ACKNOWLEDGED`** | 🟡 Yellow | `#FACC15` | `#A16207` | Target acknowledges IT disruption or active cybersecurity investigation |
+| **`DEVELOPING`** | 🟠 Orange | `#FB923C` | `#C2410C` | Independent researcher corroboration, sample verification, or telemetry alignment |
+| **`EMERGING`** | 🔴 Red | `#F87171` | `#B91C1C` | Unilateral dark web claims, extortion site countdowns, uncorroborated chatter |
+| **`REFUTED`** | 🔘 Gray | `#94A3B8` | `#475569` | Disproven claim, recycled historical marketing dump, extortion hoax |
 
 ---
 
 ## 2. Verification Badge Accents
 
-| Verification Tier | HEX | RGB | Purpose |
+| Verification Tier | HEX (Dark) | HEX (Light) | Purpose |
 | :--- | :--- | :--- | :--- |
-| **Regulator / SEC 8-K** | `#10B981` | `16, 185, 129` | Highest assurance: Regulatory filings & government notices |
-| **Independent Research** | `#06B6D4` | `6, 182, 212` | Analyst audits, HaveIBeenPwned verification, telemetry |
-| **Target Statement** | `#3B82F6` | `59, 130, 246` | Official bulletins, status pages, target advisories |
+| **Regulator / SEC 8-K** | `#10B981` | `#047857` | Highest assurance: Regulatory filings & government notices |
+| **Target Statement** | `#06B6D4` | `#0284C7` | Official bulletins, status pages, target advisories |
+| **Independent Research** | `#FB923C` | `#C2410C` | Analyst audits, HaveIBeenPwned research, telemetry |
+| **Unverified Claim** | `#F87171` | `#B91C1C` | Threat actor forum claims, leak blog postings, uncorroborated |
+| **Refuted** | `#94A3B8` | `#475569` | Explicitly disproven with forensic evidence |
 
 ---
 

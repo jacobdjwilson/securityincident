@@ -25,18 +25,18 @@
 
   <!-- Telemetry Milestone Nodes (Top to Bottom) -->
   
-  <!-- Milestone Node at Y=240 -->
+  <!-- Milestone Node at Y=240 (EMERGING - Red) -->
   <g class="timeline-node">
-    <circle cx="400" cy="240" r="38" fill="rgba(245, 158, 11, 0.45)" />
-    <circle cx="400" cy="240" r="28" fill="#070b14" stroke="#f59e0b" stroke-width="6" />
-    <circle cx="400" cy="240" r="16" fill="#fbbf24" />
+    <circle cx="400" cy="240" r="38" fill="rgba(239, 68, 68, 0.45)" />
+    <circle cx="400" cy="240" r="28" fill="#070b14" stroke="#ef4444" stroke-width="6" />
+    <circle cx="400" cy="240" r="16" fill="#f87171" />
     
     <!-- Telemetry Horizontal Hash Marks -->
     <line x1="330" y1="240" x2="360" y2="240" stroke="#334155" stroke-width="4" stroke-linecap="round" />
     <line x1="440" y1="240" x2="470" y2="240" stroke="#334155" stroke-width="4" stroke-linecap="round" />
   </g>
 
-  <!-- Milestone Node at Y=390 -->
+  <!-- Milestone Node at Y=390 (DEVELOPING - Orange) -->
   <g class="timeline-node">
     <circle cx="400" cy="390" r="38" fill="rgba(249, 115, 22, 0.45)" />
     <circle cx="400" cy="390" r="28" fill="#070b14" stroke="#f97316" stroke-width="6" />
@@ -47,11 +47,11 @@
     <line x1="440" y1="390" x2="470" y2="390" stroke="#334155" stroke-width="4" stroke-linecap="round" />
   </g>
 
-  <!-- Milestone Node at Y=540 -->
+  <!-- Milestone Node at Y=540 (ACKNOWLEDGED - Yellow) -->
   <g class="timeline-node">
-    <circle cx="400" cy="540" r="38" fill="rgba(239, 68, 68, 0.45)" />
-    <circle cx="400" cy="540" r="28" fill="#070b14" stroke="#ef4444" stroke-width="6" />
-    <circle cx="400" cy="540" r="16" fill="#f87171" />
+    <circle cx="400" cy="540" r="38" fill="rgba(250, 204, 21, 0.45)" />
+    <circle cx="400" cy="540" r="28" fill="#070b14" stroke="#facc15" stroke-width="6" />
+    <circle cx="400" cy="540" r="16" fill="#fde047" />
     
     <!-- Telemetry Horizontal Hash Marks -->
     <line x1="330" y1="540" x2="360" y2="540" stroke="#334155" stroke-width="4" stroke-linecap="round" />

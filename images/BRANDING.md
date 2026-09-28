@@ -12,16 +12,16 @@ The `securityincident.net` logo fuses two foundational ideas:
       ▲
      / \        THE SHIELD
     |   |       Perimeter integrity, tamper-resistance, and git-native verification.
-    | ● |       ─ 1. EMERGING (Amber)
-    | ● |       ─ 2. ACKNOWLEDGED (Orange)       THE TIMELINE
-    | ● |       ─ 3. CONFIRMED (Crimson)         Chronological milestones over
-    | ● |       ─ 4. VERIFIED (Emerald)          speculative categorization.
+    | ● |       ─ 1. EMERGING (Red)
+    | ● |       ─ 2. DEVELOPING (Orange)         THE TIMELINE
+    | ● |       ─ 3. ACKNOWLEDGED (Yellow)       Chronological milestones over
+    | ● |       ─ 4. CONFIRMED (Green)           speculative categorization.
      \ /
       ▼
 ```
 
 * **The Shield:** Represents defensible ground truth, verification rigor, and tamper-resistant Git tracking.
-* **The Timeline Nodes:** Four vertical chronological nodes representing an incident's observable lifecycle from initial rumor to regulatory confirmation.
+* **The Timeline Nodes:** Four vertical chronological nodes representing an incident's observable lifecycle from initial rumor to regulatory confirmation (Red &rarr; Orange &rarr; Yellow &rarr; Green).
 
 ---
 
