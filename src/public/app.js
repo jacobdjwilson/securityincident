@@ -1,8 +1,33 @@
 /**
- * securityincident.net - Client-side Filtering & Instant Search
+ * securityincident.net - Client-side Filtering, Instant Search & Theme Toggling
  */
 
+// Initialize Theme from localStorage or system preference
+function initTheme() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (!toggleBtn) return;
+
+  toggleBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+
+  // Listen to OS theme changes if user hasn't explicitly set a preference
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        const osTheme = e.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', osTheme);
+      }
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+
   const searchInput = document.getElementById('search-input');
   const filterButtons = document.querySelectorAll('.filter-btn');
   const incidentCards = document.querySelectorAll('.incident-card');
@@ -16,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === '/' && document.activeElement !== searchInput) {
       e.preventDefault();
-      searchInput.focus();
+      if (searchInput) searchInput.focus();
     } else if (e.key === 'Escape' && document.activeElement === searchInput) {
       searchInput.value = '';
       searchQuery = '';

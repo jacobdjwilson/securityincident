@@ -6,8 +6,10 @@ import { marked } from 'marked';
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
 const PUBLIC_DIR = path.join(ROOT_DIR, 'src', 'public');
+const IMAGES_DIR = path.join(ROOT_DIR, 'images');
 const DIST_DIR = path.join(ROOT_DIR, 'dist');
 const DIST_INCIDENTS_DIR = path.join(DIST_DIR, 'incidents');
+const DIST_IMAGES_DIR = path.join(DIST_DIR, 'images');
 
 // GitHub repository info for community links
 const GITHUB_REPO_URL = 'https://github.com/jacobdjwilson/securityincident';
@@ -75,13 +77,18 @@ function renderHeader(isSubpage = false) {
   return `
   <header class="site-header">
     <div class="container header-inner">
-      <a href="${prefix}" class="brand">
-        <div class="brand-icon">!</div>
+      <a href="${prefix}" class="brand" title="securityincident.net — Home">
+        <img src="${prefix}images/logo.svg" alt="securityincident.net logo" class="brand-logo-img logo-dark-img">
+        <img src="${prefix}images/logo-light.svg" alt="securityincident.net logo" class="brand-logo-img logo-light-img">
         <div class="brand-title">securityincident<span>.net</span></div>
       </a>
       <nav class="nav-links">
         <a href="${prefix}" class="nav-link">Live Index</a>
         <a href="${prefix}about.html" class="nav-link">Verification Standard</a>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light and dark mode" title="Toggle theme">
+          <span class="theme-icon-sun">☀️</span>
+          <span class="theme-icon-moon">🌙</span>
+        </button>
         <a href="${GITHUB_REPO_URL}" target="_blank" rel="noopener" class="github-badge">
           <span>GitHub</span>
         </a>
@@ -163,9 +170,18 @@ function generateIndexHtml(incidents) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>securityincident.net | Open Web Incident Status & Milestone Tracker</title>
   <meta name="description" content="A 100% Git-native clearinghouse tracking real-time status and verified milestone timelines for cybersecurity incidents on the open web.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
   ${renderHeader(false)}
@@ -204,7 +220,7 @@ function generateIndexHtml(incidents) {
     </div>
 
     <div id="empty-state" style="display: none; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
-      <p style="font-size: 1.1rem; margin-bottom: 0.5rem; color: #fff;">No matching security incidents found</p>
+      <p style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);">No matching security incidents found</p>
       <p style="font-size: 0.9rem;">Try modifying your search query or filter selection.</p>
     </div>
   </main>
@@ -252,9 +268,18 @@ function generateIncidentDetailHtml(inc) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${inc.target} Security Incident Timeline | securityincident.net</title>
   <meta name="description" content="Verified status and chronological milestone timeline for the ${inc.target} security incident.">
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
   <link rel="stylesheet" href="../style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
   ${renderHeader(true)}
@@ -316,6 +341,8 @@ function generateIncidentDetailHtml(inc) {
   </main>
 
   ${renderFooter()}
+
+  <script src="../app.js"></script>
 </body>
 </html>`;
 }
@@ -328,7 +355,16 @@ function generateAboutHtml() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verification Standard &amp; Philosophy | securityincident.net</title>
   <meta name="description" content="How securityincident.net verifies security incident statuses and milestones on the open web.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="stylesheet" href="style.css">
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
   ${renderHeader(false)}
@@ -343,17 +379,17 @@ function generateAboutHtml() {
       </p>
     </div>
 
-    <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; color: var(--text-secondary); line-height: 1.7; display: flex; flex-direction: column; gap: 1.5rem;">
-      <h2 style="color: #fff; font-size: 1.3rem;">1. Status Over Categorization</h2>
+    <div class="about-panel">
+      <h2>1. Status Over Categorization</h2>
       <p>
         In early stages of a security incident, the "type" is almost always subjective or inaccurate. An incident that begins as an "unplanned IT maintenance outage" frequently evolves into an "unauthorized access event," which later becomes a "data exfiltration" or "ransomware extortion."
       </p>
       <p>
         Rather than pinning incidents to rigid categories, we focus on what people actually need to know:
-        <strong style="color: #fff;">Is it an unconfirmed rumor, has the target acknowledged an investigation, or has an official regulator confirmed it?</strong>
+        <strong>Is it an unconfirmed rumor, has the target acknowledged an investigation, or has an official regulator confirmed it?</strong>
       </p>
 
-      <h2 style="color: #fff; font-size: 1.3rem;">2. The 4 Observable Statuses</h2>
+      <h2>2. The 4 Observable Statuses</h2>
       <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
         <li><strong style="color: var(--status-emerging)">🟡 Emerging:</strong> Early dark web claim, extortion countdown, or unverified community chatter. Target has made no public statement.</li>
         <li><strong style="color: var(--status-acknowledged)">🟠 Acknowledged:</strong> Target publicly acknowledges an IT disruption or active investigation, without yet admitting data loss or an unauthorized breach.</li>
@@ -361,26 +397,28 @@ function generateAboutHtml() {
         <li><strong style="color: var(--status-refuted)">⚪ Refuted:</strong> Confirmed hoax, recycled public data dump, or proven false alarm.</li>
       </ul>
 
-      <h2 style="color: #fff; font-size: 1.3rem;">3. 100% Git-Native &amp; Transparent</h2>
+      <h2>3. 100% Git-Native &amp; Transparent</h2>
       <p>
         Every incident is stored as an open Markdown document in our GitHub repository. We use GitHub Actions to automate indexing from regulatory RSS and infosec feeds, with zero complex databases. Anyone can audit our sources or submit updates via Pull Request.
       </p>
 
-      <h2 style="color: #fff; font-size: 1.3rem;">4. How to Contribute via GitHub PR</h2>
+      <h2>4. How to Contribute via GitHub PR</h2>
       <p>
         Because all incidents are stored as flat Markdown files in Git, you don't need special permissions or database access to contribute. You can propose updates in two easy ways:
       </p>
       <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
         <li><strong>In-Browser (Zero Setup):</strong> On any incident detail page, click the <em>"Edit on GitHub →"</em> button at the bottom of the timeline. Use GitHub's web editor to add your milestone with a verified primary source link and click <em>"Propose changes"</em> to automatically submit a Pull Request.</li>
-        <li><strong>Local PR Workflow:</strong> Fork the repository, create a new incident in <code style="color: var(--accent-cyan);">incidents/YYYY-MM-&lt;slug&gt;.md</code>, and open a Pull Request.</li>
+        <li><strong>Local PR Workflow:</strong> Fork the repository, create a new incident in <code style="color: var(--cyan-accent);">incidents/YYYY-MM-&lt;slug&gt;.md</code>, and open a Pull Request.</li>
       </ul>
       <p>
-        For detailed schema requirements and verification standards, read our <a href="${GITHUB_REPO_URL}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="color: var(--accent-cyan); text-decoration: underline;">Contributing Guidelines</a> on GitHub.
+        For detailed schema requirements and verification standards, read our <a href="${GITHUB_REPO_URL}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="color: var(--cyan-accent); text-decoration: underline;">Contributing Guidelines</a> on GitHub.
       </p>
     </div>
   </main>
 
   ${renderFooter()}
+
+  <script src="app.js"></script>
 </body>
 </html>`;
 }
@@ -394,10 +432,22 @@ async function build() {
   }
   fs.mkdirSync(DIST_DIR, { recursive: true });
   fs.mkdirSync(DIST_INCIDENTS_DIR, { recursive: true });
+  fs.mkdirSync(DIST_IMAGES_DIR, { recursive: true });
 
-  // Copy static assets
+  // Copy static frontend assets
   fs.copyFileSync(path.join(PUBLIC_DIR, 'style.css'), path.join(DIST_DIR, 'style.css'));
   fs.copyFileSync(path.join(PUBLIC_DIR, 'app.js'), path.join(DIST_DIR, 'app.js'));
+
+  // Copy images from images/ to dist/images/
+  if (fs.existsSync(IMAGES_DIR)) {
+    const imgFiles = fs.readdirSync(IMAGES_DIR);
+    for (const f of imgFiles) {
+      const srcPath = path.join(IMAGES_DIR, f);
+      if (fs.statSync(srcPath).isFile()) {
+        fs.copyFileSync(srcPath, path.join(DIST_IMAGES_DIR, f));
+      }
+    }
+  }
 
   // Create .nojekyll for GitHub Pages
   fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
@@ -448,7 +498,7 @@ async function build() {
   // Output search index JSON for fast searching or external consumption
   fs.writeFileSync(path.join(DIST_DIR, 'search-index.json'), JSON.stringify(incidents, null, 2), 'utf-8');
 
-  console.log(`✅ Successfully built ${incidents.length} incident pages to dist/`);
+  console.log(`✅ Successfully built ${incidents.length} incident pages & assets to dist/`);
 }
 
 build().catch(err => {
