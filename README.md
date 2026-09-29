@@ -42,6 +42,28 @@ Unlike opaque proprietary risk ratings, **securityincident.net** computes confid
 
 ---
 
+## 🏛️ First-Party Intelligence Source & Machine-Readable APIs
+
+Rather than simply linking to third-party articles, **securityincident.net** indexes raw disclosures and serves as an authoritative first-party primary intelligence source:
+
+* **⚡ Flat-File REST API (Serverless & Zero-Latency):**
+  * Catalog Endpoint: [`/api/v1/incidents.json`](api/v1/incidents.json) (Full structured index with confidence scores, timestamps, source domains, and milestone timelines)
+  * Incident Dossier Endpoint: `/api/v1/incidents/{id}.json` (Granular machine-readable dossier for any tracked incident)
+  * Telemetry Metrics & Trends Endpoint: [`/api/v1/stats.json`](api/v1/stats.json) (Aggregated status distribution, corroborated percentage, 30-day velocity, top threat actors, and top sectors)
+* **🛡️ STIX 2.1 CTI Feed:**
+  * Endpoint: [`/api/v1/stix21.json`](api/v1/stix21.json)
+  * Fully compliant with OASIS STIX 2.1 threat intelligence standards. Emits an interconnected bundle of `identity` (victim organization & author), `incident`, `threat-actor`, and `relationship` (`targets`, `attributed-to`) objects with deterministic UUIDs for direct ingestion into SIEM/SOAR platforms (OpenCTI, MISP, Microsoft Sentinel, Splunk).
+* **🎨 Embeddable Live SVG Status Badges:**
+  * Endpoint: `/badges/{id}.svg`
+  * Real-time vector SVG badges showing current status and confidence score (e.g. `securityincident.net: CONFIRMED 100%`) for embedding directly in GitHub repository READMEs, status pages, or internal dashboards:
+    ```markdown
+    [![Incident Status](https://securityincident.net/badges/2026-07-river-financial.svg)](https://securityincident.net/incidents/2026-07-river-financial.html)
+    ```
+* **📚 Academic & Investigative Citation Generator:**
+  * Every incident detail page includes a 1-click formatted APA reference ready for inclusion in threat reports, academic papers, and investigative reporting.
+
+---
+
 ## 📁 Repository Structure
 
 ```
@@ -49,7 +71,7 @@ securityincident/
 ├── .github/
 │   └── workflows/
 │       ├── deploy.yml         # Deploys dist/ to GitHub Pages on push to main
-│       ├── validate-pr.yml    # Validates incident schemas & build on PRs
+│       ├── validate-pr.yml    # Validates incident schemas, feeds, APIs & build on PRs
 │       └── ingest.yml         # Automated threat feed ingestion, SEC 8-K polling & PR proposing
 ├── incidents/                 # Flat Markdown database (1 file per incident)
 │   ├── 2026-07-river-financial.md
@@ -60,16 +82,22 @@ securityincident/
 │   ├── feeds.json             # Active regulatory & investigative feed sources
 │   └── weights.json           # Open Weights confidence model configuration
 ├── scripts/
-│   ├── build.js               # SSG: outputs dist/ (HTML, feed.xml, feed.json & search-index.json)
+│   ├── build.js               # SSG: outputs dist/ (HTML, APIs, STIX 2.1, badges, feeds)
 │   ├── weights.js             # Deterministic Open Weights correlation scoring engine
-│   ├── validate.js            # Schema, milestone, and feed validator (npm test)
+│   ├── stix.js                # OASIS STIX 2.1 CTI bundle generator
+│   ├── badges.js              # Live SVG status badge generator
+│   ├── validate.js            # Comprehensive schema, feed, STIX & API validator (npm test)
 │   ├── ingest.js              # Real-time feed aggregator & SEC 8-K poller
 │   ├── ingest-history.js      # 90-day historical data populator with rate-limiting
+│   ├── regulatory/
+│   │   ├── sec-edgar.js       # SEC EDGAR Form 8-K Item 1.05 EFTS client
+│   │   └── state-ag.js        # Multi-state breach notification portal scrapers
 │   └── serve.js               # Local lightweight HTTP preview server
 ├── src/
 │   └── public/
 │       ├── style.css          # High-density dual-mode SOC telemetry CSS
-│       └── app.js             # Client-side instant filter, sort, search & theme toggle
+│       ├── app.js             # Client-side instant filter, sort, search, chip & clipboard tools
+│       └── fontawesome.js     # FontAwesome icon bundle
 ├── ARCHITECTURE.md            # Architectural and technical specification
 ├── CONTRIBUTING.md            # Guide for proposing incidents & milestones via PR
 ├── package.json

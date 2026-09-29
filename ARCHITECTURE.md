@@ -117,8 +117,8 @@ securityincident/
 ├── .github/
 │   └── workflows/
 │       ├── deploy.yml         # Builds static site & deploys to GitHub Pages on push to main
-│       ├── validate-pr.yml    # Validates schemas, milestones & build on PRs
-│       └── ingest.yml         # Scheduled cron polling for SEC 8-Ks & RSS
+│       ├── validate-pr.yml    # Validates schemas, milestones, APIs, STIX & build on PRs
+│       └── ingest.yml         # Scheduled cron polling for SEC 8-Ks & multi-state AG notices
 ├── incidents/                 # Flat Markdown database (1 file per incident)
 │   ├── 2026-07-amgen.md
 │   ├── 2026-07-river-financial.md
@@ -128,17 +128,22 @@ securityincident/
 │   ├── feeds.json             # Curated regulatory & threat intelligence feed sources
 │   └── weights.json           # Open Weights deterministic confidence scoring weights
 ├── scripts/
-│   ├── build.js               # Static generator: outputs dist/ (HTML, feed.xml, feed.json, search-index.json)
+│   ├── build.js               # Static generator: outputs dist/ (HTML, APIs, STIX 2.1, badges, feeds)
 │   ├── weights.js             # Deterministic Open Weights correlation calculation engine
-│   ├── validate.js            # Automated incident schema & RSS feed compliance validator
+│   ├── stix.js                # OASIS STIX 2.1 CTI bundle generator
+│   ├── badges.js              # Live SVG status badge generator
+│   ├── validate.js            # Automated incident schema, feed, STIX & API compliance validator
 │   ├── ingest.js              # Real-time threat feed & SEC 8-K aggregator
 │   ├── ingest-history.js      # 90-day historical data populator with rate-limiting
+│   ├── regulatory/
+│   │   ├── sec-edgar.js       # SEC EDGAR Form 8-K Item 1.05 EFTS client
+│   │   └── state-ag.js        # Multi-state breach notification portal scrapers
 │   └── serve.js               # Local lightweight HTTP preview server
 ├── src/
 │   └── public/                # CSS, client-side JS, favicon, web assets
 │       ├── style.css          # Vanilla CSS (dual-mode dark/light, high-density telemetry, responsive)
-│       ├── app.js             # Client-side filtering, instant search, sorting & theme toggle
-│       └── fontawesome.js     # Official FontAwesome icon bundle
+│       ├── app.js             # Client-side filtering, instant search, sorting, chips & clipboard tools
+│       └── fontawesome.js     # FontAwesome icon bundle
 ├── images/                    # Brand assets (logos, favicons, COLOR.md, BRANDING.md)
 ├── package.json               # Build scripts and minimal dependencies (gray-matter, marked)
 └── README.md
@@ -152,7 +157,31 @@ All automated ingest scripts adhere to strict network politeness rules:
 
 ---
 
-## 6. Multi-Phase Development Roadmap
+## 6. First-Party Intelligence, STIX 2.1 & REST API Specification
+
+Instead of merely aggregating hyperlinks, `securityincident.net` serves as an authoritative first-party intelligence producer:
+
+### 1. Flat REST API (`/api/v1/`)
+* **Index Endpoint (`/api/v1/incidents.json`):** Full serialized array of incident dossiers, confidence scores, source domains, and milestone timelines.
+* **Item Dossier (`/api/v1/incidents/{id}.json`):** Single-incident structured JSON for automated pipelines.
+* **Telemetry Trends Endpoint (`/api/v1/stats.json`):** Status distribution, corroboration rate, 30-day velocity, top threat actors, and top sector breakdowns.
+
+### 2. OASIS STIX 2.1 CTI Bundle (`/api/v1/stix21.json`)
+Constructed using RFC 4122-compliant deterministic UUIDs:
+* **Identity Objects:** Author organization (`securityincident.net`) and victim organizations.
+* **Incident Objects:** Standardized STIX 2.1 incidents with confidence scores and external reference evidence arrays.
+* **Threat-Actor Objects:** Attributed threat actor entities when corroborated.
+* **Relationship Objects:** SDO relationships (`targets` and `attributed-to`).
+
+### 3. Live Embeddable SVG Status Badges (`/badges/{id}.svg`)
+Dual-color vector status badges designed for embedding directly in GitHub READMEs, portal status boards, and documentation:
+```markdown
+[![Incident Status](https://securityincident.net/badges/2026-07-river-financial.svg)](https://securityincident.net/incidents/2026-07-river-financial.html)
+```
+
+---
+
+## 7. Multi-Phase Development Roadmap
 
 ### Phase 1: Open Weights Correlation Engine & High-Assurance Telemetry (COMPLETED)
 - [x] Defined open-source correlation model in `sources/weights.json`.
@@ -171,10 +200,13 @@ All automated ingest scripts adhere to strict network politeness rules:
 - [x] Automated PR proposing workflow for verified regulatory disclosures (`.github/workflows/ingest.yml`).
 - [x] Rate limiting (1200ms delay), HTTP 304 conditional cache validation, and User-Agent identification.
 
-### Phase 3: Community & Telemetry Integrations
-- [ ] STIX/TAXII 2.1 machine-readable export endpoint.
-- [ ] Automated Mastodon/Bluesky verified status bot.
-- [ ] RSS/JSON feed subscriber badge and webhook triggers.
+### Phase 3: First-Party Intelligence, STIX 2.1 & Trend Telemetry (COMPLETED)
+- [x] Machine-readable flat-file REST APIs (`/api/v1/incidents.json`, `/api/v1/incidents/{id}.json`, `/api/v1/stats.json`).
+- [x] OASIS STIX 2.1 CTI Threat Intel Bundle export (`/api/v1/stix21.json`) with deterministic UUIDs and graph relationships.
+- [x] Live vector SVG status badges (`/badges/{id}.svg`) with 1-click Markdown embed copy.
+- [x] Academic & investigative APA citation generator on all incident pages.
+- [x] Executive telemetry & trends dashboard on homepage (KPI metrics cards, segmented status meter, high-impact spotlight grid, quick filter chips).
+- [x] Comprehensive test automation suite in `scripts/validate.js` covering markdown schemas, RSS 2.0, JSON Feed, STIX 2.1, REST APIs, and SVG badges.
 
 ### Phase 4: Decentralized Verification & Cryptographic Attribution
 - [ ] Signed Git commits for immutable cryptographic attribution of incident milestones.
