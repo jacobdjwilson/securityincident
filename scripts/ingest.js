@@ -2,6 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { validateIncidentFile } from './validate.js';
+import { fetchSecItem105Filings } from './regulatory/sec-edgar.js';
+import { fetchAllStateAgNotices } from './regulatory/state-ag.js';
+import { calculateConfidenceScore } from './weights.js';
 
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
@@ -10,8 +13,8 @@ const CACHE_DIR = path.join(ROOT_DIR, '.cache');
 const CACHE_FILE = path.join(CACHE_DIR, 'feed-cache.json');
 
 const USER_AGENT = 'securityincident-telemetry-bot/1.0 (+https://securityincident.net; intelligence@securityincident.net)';
-const REQUEST_DELAY_MS = 1000;
-const REQUEST_TIMEOUT_MS = 10000;
+const REQUEST_DELAY_MS = 1200;
+const REQUEST_TIMEOUT_MS = 12000;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -144,27 +147,32 @@ const KNOWN_TARGETS = {
   'ticketmaster': { name: 'Ticketmaster', domain: 'ticketmaster.com', slug: 'ticketmaster' },
   'snowflake': { name: 'Snowflake', domain: 'snowflake.com', slug: 'snowflake' },
   'change healthcare': { name: 'Change Healthcare', domain: 'changehealthcare.com', slug: 'change-healthcare' },
-  'ascension': { name: 'Ascension Health', domain: 'ascension.org', slug: 'ascension-health' }
+  'ascension': { name: 'Ascension Health', domain: 'ascension.org', slug: 'ascension-health' },
+  'upbound': { name: 'Upbound Group', domain: 'upbound.com', slug: 'upbound-group' },
+  'river financial': { name: 'River Financial', domain: 'riverbankandtrust.com', slug: 'river-financial' },
+  'amgen': { name: 'Amgen', domain: 'amgen.com', slug: 'amgen' },
+  'adapthealth': { name: 'AdaptHealth', domain: 'adapthealth.com', slug: 'adapthealth' },
+  'navient': { name: 'Navient', domain: 'navient.com', slug: 'navient' },
+  'nutex health': { name: 'Nutex Health', domain: 'nutexhealth.com', slug: 'nutex-health' },
+  'boston scientific': { name: 'Boston Scientific', domain: 'bostonscientific.com', slug: 'boston-scientific' },
+  'gyazo': { name: 'Gyazo', domain: 'gyazo.com', slug: 'gyazo' },
+  'greenberg traurig': { name: 'Greenberg Traurig', domain: 'gtlaw.com', slug: 'greenberg-traurig' }
 };
 
 function isSecurityIncident(title, description) {
   const text = `${title} ${description}`.toLowerCase();
-
   for (const excl of EXCLUSION_KEYWORDS) {
     if (text.includes(excl)) return false;
   }
-
   return INCIDENT_KEYWORDS.some(kw => text.includes(kw));
 }
 
 function isVendorPatchAdvisory(title, description) {
-  // Routine software updates/patches where vendor fixes a flaw (not a victim breach)
   if (/\b(?:patches|plugs|fixes|releases patch for|releases security update for)\b/i.test(title)) {
     if (!/\b(?:breach|extort|stolen data|ransomware|exfiltrat|infiltrat|hacked)\b/i.test(title)) {
       return true;
     }
   }
-  // Attributions where a security researcher reported another company's bug
   if (/\b(?:-reported zero-day|reported by|credited with discovering)\b/i.test(title)) {
     return true;
   }
@@ -232,23 +240,14 @@ function isValidTargetCandidate(candidate) {
   if (!candidate || candidate.length < 3 || candidate.length > 40) return false;
   const lower = candidate.toLowerCase();
   if (INVALID_TARGETS.has(lower)) return false;
-
-  // Reject threat actors (they are adversaries, not targets)
   if (detectThreatActor(candidate) !== null) return false;
-
-  // Reject malware, botnets, campaigns, technical terms
   if (/\b(?:botnet|malware|trojan|stealer|ransomware|backdoor|spyware|exploit|docker|flaw|firmware|scam|scammers|hackers|investigation|phishing|campaign|zero-day|zeroday|vulnerability|payload|botnets)\b/i.test(lower)) {
     return false;
   }
-
-  // Reject trailing prepositions or verbs
   if (/\b(?:on|in|at|by|for|with|puts|uses|linked|targeting|targets|into|from|over|to)$/i.test(lower)) {
     return false;
   }
-
-  // Must have at least one alphabetical character
   if (!/[a-z]/i.test(candidate)) return false;
-
   return true;
 }
 
@@ -261,16 +260,13 @@ function extractTargetEntity(title, link = '', description = '') {
     .replace(/^UK:\s*/i, '')
     .trim();
 
-  // Strip leading national/geographic qualifiers (e.g. "Japan's Keio", "U.S. Defense", "Russian pizza")
   cleaned = cleaned
     .replace(/^(?:Japan's|UK's|U\.S\.|US|Australia's|Canada's|France's|Germany's|Russian)\s+/i, '')
     .trim();
 
   const lowerTitle = cleaned.toLowerCase();
 
-  // 1. Check known entities in title
   for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
-    // If the entity is preceded by "fake", "impersonating", "spoofing", skip (e.g. "fake Cloudflare lure")
     if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${key}\\b`, 'i').test(lowerTitle)) {
       continue;
     }
@@ -279,7 +275,6 @@ function extractTargetEntity(title, link = '', description = '') {
     }
   }
 
-  // 2. Pattern: "[Target] hacked by...", "[Target] hit by...", "[Target] confirms...", "[Target] says...", "[Target] suffers..."
   const match1 = cleaned.match(/^([A-Z0-9][a-zA-Z0-9\s&.'-]{2,35}?)\s+(?:hacked|hit by|targeted by|confirms|investigating|suffers|reports|resumes|faces|discloses|breached|warns|says|admits|halts|shuts down)/i);
   if (match1) {
     const candidate = match1[1].trim();
@@ -289,7 +284,6 @@ function extractTargetEntity(title, link = '', description = '') {
     }
   }
 
-  // 3. Pattern: "[Target] Data Breach Impacts...", "[Target] Cyberattack Exposes..."
   const match2 = cleaned.match(/^([A-Z0-9][a-zA-Z0-9\s&.'-]{2,35}?)\s+(?:data breach|cyberattack|security incident|ransomware attack)\s+(?:impacts|exposes|affects|leaves|leads|disrupts)/i);
   if (match2) {
     const candidate = match2[1].trim();
@@ -299,7 +293,6 @@ function extractTargetEntity(title, link = '', description = '') {
     }
   }
 
-  // 4. Pattern: "Cyberattack on [Target]...", "Data breach at [Target]...", "Ransomware attack hits [Target]..."
   const match3 = cleaned.match(/(?:cyberattack on|data breach at|ransomware attack hits|breach at|attack targets|hacked by)\s+([A-Z0-9][a-zA-Z0-9\s&.'-]{2,35}?)(?:\s+(?:exposes|disrupts|hits|impacts|causes|leaves|in|\.|$))/i);
   if (match3) {
     const candidate = match3[1].trim();
@@ -309,7 +302,6 @@ function extractTargetEntity(title, link = '', description = '') {
     }
   }
 
-  // 5. Fallback: check known entities in URL path slug only (e.g. /dodo-confirms-data-breach)
   const urlLower = link.toLowerCase();
   for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
     const slugPattern = new RegExp(`(?:[-_/])${key.replace(/\\s+/g, '-')}(?:[-_/]|\\.html|$)`, 'i');
@@ -323,10 +315,13 @@ function extractTargetEntity(title, link = '', description = '') {
 
 function slugify(text) {
   return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
-    .slice(0, 30);
+    .slice(0, 30)
+    .replace(/-+$/, '');
 }
 
 function formatDateIso(dateObj) {
@@ -359,22 +354,261 @@ function loadExistingSourceUrls() {
   return urls;
 }
 
+/**
+ * Searches across all existing markdown files to find if an incident for this target already exists
+ */
+function findExistingIncidentFilePath(targetSlug, targetName) {
+  if (!fs.existsSync(INCIDENTS_DIR)) return null;
+  const files = fs.readdirSync(INCIDENTS_DIR).filter(f => f.endsWith('.md'));
+
+  // 1. Direct slug match on filename: e.g. *-targetSlug.md
+  for (const f of files) {
+    if (f.endsWith(`-${targetSlug}.md`)) {
+      return path.join(INCIDENTS_DIR, f);
+    }
+  }
+
+  // 2. Check frontmatter target or id
+  const targetLower = (targetName || '').toLowerCase().trim();
+  if (targetLower) {
+    for (const f of files) {
+      try {
+        const content = fs.readFileSync(path.join(INCIDENTS_DIR, f), 'utf-8');
+        const { data } = matter(content);
+        if (data && data.target && data.target.toLowerCase().trim() === targetLower) {
+          return path.join(INCIDENTS_DIR, f);
+        }
+      } catch {}
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Robust milestone upsert function ensuring canonical file matching, validation, and rollback on error
+ */
+function upsertIncidentMilestone({
+  incidentId,
+  target,
+  domain,
+  status,
+  verification,
+  event,
+  sourceTitle,
+  sourceUrl,
+  timeUtc,
+  dateIso,
+  summary,
+  tags = [],
+  threatActor = null
+}) {
+  const targetSlug = slugify(target);
+  const existingPath = findExistingIncidentFilePath(targetSlug, target);
+  const incidentFilePath = existingPath || path.join(INCIDENTS_DIR, `${incidentId}.md`);
+  const incidentFileName = path.basename(incidentFilePath);
+
+  if (fs.existsSync(incidentFilePath)) {
+    try {
+      const existingRaw = fs.readFileSync(incidentFilePath, 'utf-8');
+      const parsed = matter(existingRaw);
+
+      if (parsed.content.includes(sourceUrl)) {
+        return { action: 'skipped', reason: 'already_present' };
+      }
+
+      console.log(`   ➕ Corroborating milestone to: ${incidentFileName} [${verification}]`);
+      const newMilestone = `\n### ${timeUtc}\n- **Event:** ${event}\n- **Verification:** ${verification}\n- **Source:** [${sourceTitle}](${sourceUrl})\n`;
+      const updatedContent = parsed.content.trim() + '\n' + newMilestone;
+
+      const dates = [parsed.data.first_seen, parsed.data.last_updated, dateIso].filter(Boolean).sort();
+      parsed.data.first_seen = dates[0];
+      parsed.data.last_updated = dates[dates.length - 1];
+
+      const statusRank = { 'REFUTED': 0, 'EMERGING': 1, 'DEVELOPING': 2, 'ACKNOWLEDGED': 3, 'CONFIRMED': 4 };
+      const currentStatus = parsed.data.status || 'EMERGING';
+      if ((statusRank[status] || 0) > (statusRank[currentStatus] || 0)) {
+        parsed.data.status = status;
+      }
+
+      for (const t of tags) {
+        if (!parsed.data.tags.includes(t)) {
+          parsed.data.tags.push(t);
+        }
+      }
+
+      if (threatActor && !parsed.data.threat_actor) {
+        parsed.data.threat_actor = threatActor;
+      }
+
+      fs.writeFileSync(incidentFilePath, matter.stringify(updatedContent, parsed.data), 'utf-8');
+      const errors = validateIncidentFile(incidentFileName);
+      if (errors.length === 0) {
+        return { action: 'updated', id: parsed.data.id || incidentFileName.replace('.md', '') };
+      } else {
+        console.warn(`   ⚠️ Validation error on update:`, errors);
+        fs.writeFileSync(incidentFilePath, existingRaw, 'utf-8'); // rollback
+        return { action: 'error', errors };
+      }
+    } catch (err) {
+      console.error(`   ❌ Failed updating incident ${incidentFileName}:`, err.message);
+      return { action: 'error', error: err.message };
+    }
+  } else {
+    // Only create a new incident if it passes target candidate validation
+    if (!isValidTargetCandidate(target)) {
+      return { action: 'skipped', reason: 'invalid_candidate' };
+    }
+
+    console.log(`   ✨ New Incident Discovered: [${status}] ${target} (${incidentId})`);
+    const frontmatter = {
+      id: incidentId,
+      target,
+      domain: domain || `${targetSlug.replace(/-/g, '')}.com`,
+      status,
+      first_seen: dateIso,
+      last_updated: dateIso,
+      threat_actor: threatActor,
+      summary: summary || `${event}. Verified cybersecurity telemetry and event monitoring.`,
+      tags
+    };
+
+    const milestoneBody = `## Timeline\n\n### ${timeUtc}\n- **Event:** ${event}\n- **Verification:** ${verification}\n- **Source:** [${sourceTitle}](${sourceUrl})\n`;
+    fs.writeFileSync(incidentFilePath, matter.stringify(milestoneBody, frontmatter), 'utf-8');
+
+    const errors = validateIncidentFile(incidentFileName);
+    if (errors.length === 0) {
+      return { action: 'created', id: incidentId };
+    } else {
+      console.warn(`   ⚠️ Validation errors on new incident, removing:`, errors);
+      try { fs.unlinkSync(incidentFilePath); } catch {}
+      return { action: 'error', errors };
+    }
+  }
+}
+
 export async function ingestFeeds() {
-  console.log('📡 Starting automated cybersecurity incident ingestion...');
+  console.log('📡 Starting automated cybersecurity incident ingestion (Phase 2 Regulatory & Threat Telemetry)...');
 
   if (!fs.existsSync(SOURCES_FILE)) {
     console.error(`❌ Sources file not found: ${SOURCES_FILE}`);
     return { success: false, newIncidents: 0, updatedIncidents: 0 };
   }
 
-  const sources = JSON.parse(fs.readFileSync(SOURCES_FILE, 'utf-8')).filter(s => s.enabled);
-  console.log(`📋 Loaded ${sources.length} active feed sources.`);
-
-  // Load existing source URLs across all markdown incident records for stateless deduplication
   const existingSourceUrls = loadExistingSourceUrls();
   console.log(`📑 Indexed ${existingSourceUrls.size} existing source links across incident records.`);
 
-  // Load cache
+  let totalNew = 0;
+  let totalUpdated = 0;
+
+  // =========================================================================
+  // 1. SEC EDGAR Form 8-K Item 1.05 EFTS Regulatory Pipeline
+  // =========================================================================
+  console.log('\n--- 1. SEC EDGAR Item 1.05 Pipeline ---');
+  try {
+    const secFilings = await fetchSecItem105Filings({ days: 30 });
+    for (const filing of secFilings) {
+      if (existingSourceUrls.has(filing.sourceUrl)) continue;
+
+      const res = upsertIncidentMilestone({
+        incidentId: filing.id,
+        target: filing.target,
+        domain: filing.domain,
+        status: filing.status,
+        verification: filing.verification,
+        event: `SEC Form 8-K Item 1.05 Material Cybersecurity Incident Filing`,
+        sourceTitle: filing.sourceTitle,
+        sourceUrl: filing.sourceUrl,
+        timeUtc: filing.timeUtc,
+        dateIso: filing.fileDate,
+        summary: filing.summary,
+        tags: filing.tags
+      });
+
+      if (res.action === 'created') {
+        totalNew++;
+        existingSourceUrls.add(filing.sourceUrl);
+      } else if (res.action === 'updated') {
+        totalUpdated++;
+        existingSourceUrls.add(filing.sourceUrl);
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ SEC EDGAR EFTS ingestion error:', err.message);
+  }
+
+  // =========================================================================
+  // 2. Multi-State Attorney General Regulatory Pipeline (California, Washington, etc.)
+  // =========================================================================
+  console.log('\n--- 2. Multi-State Regulatory Breach Pipeline ---');
+  try {
+    const stateNotices = await fetchAllStateAgNotices();
+    for (const notice of stateNotices) {
+      if (existingSourceUrls.has(notice.sourceUrl)) continue;
+
+      const targetSlug = notice.targetSlug;
+      const target = notice.target;
+      const existingFile = findExistingIncidentFilePath(targetSlug, target);
+
+      if (existingFile) {
+        // Corroborate existing incident record with State AG notice
+        const res = upsertIncidentMilestone({
+          incidentId: path.basename(existingFile, '.md'),
+          target,
+          domain: notice.domain,
+          status: notice.status,
+          verification: notice.verification,
+          event: notice.sourceTitle,
+          sourceTitle: notice.sourceTitle,
+          sourceUrl: notice.sourceUrl,
+          timeUtc: notice.timeUtc,
+          dateIso: notice.fileDate,
+          summary: notice.summary,
+          tags: notice.tags
+        });
+
+        if (res.action === 'updated') {
+          totalUpdated++;
+          existingSourceUrls.add(notice.sourceUrl);
+        }
+      } else {
+        // Only create new incidents if organization passes strict candidate checks
+        if (!isValidTargetCandidate(target)) continue;
+
+        const ym = notice.fileDate.slice(0, 7);
+        const incidentId = `${ym}-${targetSlug}`;
+
+        const res = upsertIncidentMilestone({
+          incidentId,
+          target,
+          domain: notice.domain,
+          status: notice.status,
+          verification: notice.verification,
+          event: notice.sourceTitle,
+          sourceTitle: notice.sourceTitle,
+          sourceUrl: notice.sourceUrl,
+          timeUtc: notice.timeUtc,
+          dateIso: notice.fileDate,
+          summary: notice.summary,
+          tags: notice.tags
+        });
+
+        if (res.action === 'created') {
+          totalNew++;
+          existingSourceUrls.add(notice.sourceUrl);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ Multi-State Attorney General ingestion error:', err.message);
+  }
+
+  // =========================================================================
+  // 3. RSS / Atom Threat Intelligence & Investigative News Feeds
+  // =========================================================================
+  console.log('\n--- 3. Threat Intelligence & Investigative RSS Feeds ---');
+  const sources = JSON.parse(fs.readFileSync(SOURCES_FILE, 'utf-8')).filter(s => s.enabled && s.id !== 'sec-edgar-8k');
+
   if (!fs.existsSync(CACHE_DIR)) {
     fs.mkdirSync(CACHE_DIR, { recursive: true });
   }
@@ -392,8 +626,6 @@ export async function ingestFeeds() {
   }
 
   const seenSet = new Set(cache.seenLinks);
-  let totalNew = 0;
-  let totalUpdated = 0;
 
   for (const source of sources) {
     console.log(`\n⏳ Fetching: ${source.name} (${source.url})...`);
@@ -448,82 +680,6 @@ export async function ingestFeeds() {
           continue;
         }
 
-        // Special handling for SEC EDGAR 8-K Form filings
-        if (source.id === 'sec-edgar-8k') {
-          const descLower = item.description.toLowerCase();
-          const isCyberItem = descLower.includes('item 1.05') || descLower.includes('material cybersecurity');
-          if (!isCyberItem) {
-            continue;
-          }
-
-          const filerMatch = item.title.match(/^8-K\s*-\s*(.*?)\s*\(\d+\)/i);
-          const rawTarget = filerMatch ? filerMatch[1].trim() : item.title;
-          const target = rawTarget
-            .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO)\b\.?/gi, '')
-            .trim();
-          const targetSlug = slugify(target);
-
-          let itemDate = new Date();
-          if (item.pubDate) {
-            const parsed = new Date(item.pubDate);
-            if (!isNaN(parsed.getTime())) itemDate = parsed;
-          }
-          const dateIso = formatDateIso(itemDate);
-          const dateUtc = formatUtcTimestamp(itemDate);
-          const ym = dateIso.slice(0, 7);
-
-          const incidentId = `${ym}-${targetSlug}`;
-          const incidentFileName = `${incidentId}.md`;
-          const incidentFilePath = path.join(INCIDENTS_DIR, incidentFileName);
-
-          const summary = `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`;
-          const verification = 'CONFIRMED BY REGULATOR';
-          const status = 'CONFIRMED';
-
-          if (fs.existsSync(incidentFilePath)) {
-            const existingRaw = fs.readFileSync(incidentFilePath, 'utf-8');
-            const parsed = matter(existingRaw);
-            if (!parsed.content.includes(item.link)) {
-              console.log(`   ➕ Appending SEC 8-K milestone to: ${incidentId}`);
-              const newMilestone = `\n### ${dateUtc}\n- **Event:** SEC Form 8-K Item 1.05 Material Cybersecurity Incident Filing\n- **Verification:** ${verification}\n- **Source:** [SEC EDGAR 8-K Disclosure](${item.link})\n`;
-              const updatedContent = parsed.content.trim() + '\n' + newMilestone;
-              parsed.data.last_updated = dateIso;
-              parsed.data.status = 'CONFIRMED';
-              if (!parsed.data.tags.includes('sec-8k')) parsed.data.tags.push('sec-8k');
-              fs.writeFileSync(incidentFilePath, matter.stringify(updatedContent, parsed.data), 'utf-8');
-              existingSourceUrls.add(item.link);
-              seenSet.add(item.link);
-              totalUpdated++;
-            }
-          } else {
-            console.log(`   🚨 High-Assurance SEC 8-K Incident: ${target} (${incidentId})`);
-            const frontmatter = {
-              id: incidentId,
-              target,
-              domain: `${targetSlug.replace(/-/g, '')}.com`,
-              status: 'CONFIRMED',
-              first_seen: dateIso,
-              last_updated: dateIso,
-              threat_actor: null,
-              summary,
-              tags: ['regulatory', 'sec-8k', 'confirmed']
-            };
-            const milestoneBody = `## Timeline\n\n### ${dateUtc}\n- **Event:** SEC Form 8-K Item 1.05 Material Cybersecurity Incident Filing\n- **Verification:** ${verification}\n- **Source:** [SEC EDGAR 8-K Disclosure](${item.link})\n`;
-            fs.writeFileSync(incidentFilePath, matter.stringify(milestoneBody, frontmatter), 'utf-8');
-            const errors = validateIncidentFile(incidentFileName);
-            if (errors.length === 0) {
-              existingSourceUrls.add(item.link);
-              seenSet.add(item.link);
-              totalNew++;
-            } else {
-              console.warn(`   ⚠️ Validation error on SEC incident:`, errors);
-              try { fs.unlinkSync(incidentFilePath); } catch {}
-            }
-          }
-          continue;
-        }
-
-        // Standard RSS/Atom feed processing
         if (!isSecurityIncident(item.title, item.description)) {
           continue;
         }
@@ -532,7 +688,6 @@ export async function ingestFeeds() {
           continue;
         }
 
-        // Extract entity
         const entityInfo = extractTargetEntity(item.title, item.link, item.description);
         if (!entityInfo) {
           continue;
@@ -547,23 +702,17 @@ export async function ingestFeeds() {
         let itemDate = new Date();
         if (item.pubDate) {
           const parsed = new Date(item.pubDate);
-          if (!isNaN(parsed.getTime())) {
-            itemDate = parsed;
-          }
+          if (!isNaN(parsed.getTime())) itemDate = parsed;
         }
 
         const dateIso = formatDateIso(itemDate);
         const dateUtc = formatUtcTimestamp(itemDate);
         const ym = dateIso.slice(0, 7);
-
         const incidentId = `${ym}-${targetSlug}`;
-        const incidentFileName = `${incidentId}.md`;
-        const incidentFilePath = path.join(INCIDENTS_DIR, incidentFileName);
+        const existingPath = findExistingIncidentFilePath(targetSlug, target);
 
-        // Check for routine vendor patch notices
         if (isVendorPatchAdvisory(item.title, item.description)) {
-          // Only append if the target already has an open incident record to avoid false positive breach files
-          if (!fs.existsSync(incidentFilePath)) {
+          if (!existingPath) {
             continue;
           }
         }
@@ -580,78 +729,30 @@ export async function ingestFeeds() {
           summary = summary.slice(0, 247).trim() + '...';
         }
 
-        if (fs.existsSync(incidentFilePath)) {
-          // Update existing incident
-          try {
-            const existingRaw = fs.readFileSync(incidentFilePath, 'utf-8');
-            const parsed = matter(existingRaw);
+        const res = upsertIncidentMilestone({
+          incidentId,
+          target,
+          domain,
+          status,
+          verification,
+          event: cleanHtml(item.title),
+          sourceTitle: `${source.name} Report`,
+          sourceUrl: item.link,
+          timeUtc: dateUtc,
+          dateIso,
+          summary,
+          tags: [source.type, status.toLowerCase()],
+          threatActor
+        });
 
-            if (!parsed.content.includes(item.link)) {
-              console.log(`   ➕ Appending milestone to: ${incidentId}`);
-
-              const newMilestone = `\n### ${dateUtc}\n- **Event:** ${cleanHtml(item.title)}\n- **Verification:** ${verification}\n- **Source:** [${source.name} Intelligence Notice](${item.link})\n`;
-              const updatedContent = parsed.content.trim() + '\n' + newMilestone;
-
-              // Ensure date order
-              const dates = [parsed.data.first_seen, parsed.data.last_updated, dateIso].filter(Boolean).sort();
-              parsed.data.first_seen = dates[0];
-              parsed.data.last_updated = dates[dates.length - 1];
-
-              const statusRank = { 'REFUTED': 0, 'EMERGING': 1, 'DEVELOPING': 2, 'ACKNOWLEDGED': 3, 'CONFIRMED': 4 };
-              const currentStatus = parsed.data.status || 'EMERGING';
-              if ((statusRank[status] || 0) > (statusRank[currentStatus] || 0)) {
-                parsed.data.status = status;
-              }
-
-              if (threatActor && !parsed.data.threat_actor) {
-                parsed.data.threat_actor = threatActor;
-              }
-
-              const newFileContent = matter.stringify(updatedContent, parsed.data);
-              fs.writeFileSync(incidentFilePath, newFileContent, 'utf-8');
-
-              const errors = validateIncidentFile(incidentFileName);
-              if (errors.length === 0) {
-                totalUpdated++;
-                existingSourceUrls.add(item.link);
-                seenSet.add(item.link);
-              } else {
-                console.warn(`   ⚠️ Validation warning on updated ${incidentFileName}:`, errors);
-              }
-            }
-          } catch (err) {
-            console.error(`   ❌ Failed updating incident ${incidentId}:`, err.message);
-          }
-        } else {
-          // Create new incident
-          console.log(`   ✨ New Verified Incident Discovered: [${status}] ${target} (${incidentId})`);
-
-          const frontmatter = {
-            id: incidentId,
-            target,
-            domain,
-            status,
-            first_seen: dateIso,
-            last_updated: dateIso,
-            threat_actor: threatActor || null,
-            summary,
-            tags: [source.type, status.toLowerCase()]
-          };
-
-          const milestoneBody = `## Timeline\n\n### ${dateUtc}\n- **Event:** ${cleanHtml(item.title)}\n- **Verification:** ${verification}\n- **Source:** [${source.name} Report](${item.link})\n`;
-
-          const markdownContent = matter.stringify(milestoneBody, frontmatter);
-          fs.writeFileSync(incidentFilePath, markdownContent, 'utf-8');
-
-          const errors = validateIncidentFile(incidentFileName);
-          if (errors.length === 0) {
-            totalNew++;
-            existingSourceUrls.add(item.link);
-            seenSet.add(item.link);
-          } else {
-            console.warn(`   ⚠️ Validation errors on new ${incidentFileName}, removing:`, errors);
-            try { fs.unlinkSync(incidentFilePath); } catch {}
-          }
+        if (res.action === 'created') {
+          totalNew++;
+          existingSourceUrls.add(item.link);
+          seenSet.add(item.link);
+        } else if (res.action === 'updated') {
+          totalUpdated++;
+          existingSourceUrls.add(item.link);
+          seenSet.add(item.link);
         }
       }
 
@@ -665,7 +766,7 @@ export async function ingestFeeds() {
   cache.seenLinks = [...seenSet].slice(-500);
   fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2), 'utf-8');
 
-  console.log(`\n🎉 Ingestion complete: ${totalNew} new incident(s) discovered, ${totalUpdated} incident(s) updated.`);
+  console.log(`\n🎉 Ingestion complete: ${totalNew} new incident(s) discovered, ${totalUpdated} incident(s) corroborated/updated.`);
   return { success: true, newIncidents: totalNew, updatedIncidents: totalUpdated };
 }
 

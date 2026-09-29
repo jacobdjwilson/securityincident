@@ -4,7 +4,7 @@ target: AdaptHealth
 domain: adapthealth.com
 status: CONFIRMED
 first_seen: '2026-07-02'
-last_updated: '2026-07-02'
+last_updated: '2026-08-14'
 threat_actor: null
 summary: >-
   Healthcare solutions provider AdaptHealth Corp disclosed an external threat
@@ -15,6 +15,8 @@ tags:
   - sec-8k
   - healthcare
   - confirmed
+  - state-ag
+  - washington
 ---
 ## Timeline
 
@@ -22,3 +24,8 @@ tags:
 - **Event:** SEC Form 8-K Item 1.05 Filing: AdaptHealth confirms threat actor breached company systems and exfiltrated files.
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Item 1.05 (Adsh 0001104659-26-080297)](https://www.sec.gov/Archives/edgar/data/1725255/000110465926080297/0001104659-26-080297-index.htm)
+
+### 2026-08-14 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42340.pdf)

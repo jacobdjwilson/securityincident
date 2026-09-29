@@ -1,0 +1,23 @@
+---
+id: 2026-09-demera-demera-cameron
+target: DeMera DeMera Cameron
+domain: demerademeracameron.com
+status: CONFIRMED
+first_seen: '2026-09-01'
+last_updated: '2026-09-01'
+threat_actor: null
+summary: >-
+  State of California Department of Justice data breach disclosure notice filed
+  by DeMera DeMera Cameron.
+tags:
+  - regulatory
+  - state-ag
+  - california
+  - confirmed
+---
+## Timeline
+
+### 2026-09-01 17:00 UTC
+- **Event:** California Attorney General Data Breach Disclosure Notice
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-629160)

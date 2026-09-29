@@ -164,10 +164,12 @@ All automated ingest scripts adhere to strict network politeness rules:
 - [x] Populated 90 days of security incident data (40 incidents across July - September 2026).
 - [x] Dual-mode Vanilla CSS styling for dark SOC mode and light analyst mode.
 
-### Phase 2: Automated Ingestion & Regulatory Pipelines
-- [ ] Scheduled SEC EDGAR Form 8-K Item 1.05 EFTS polling (`.github/workflows/ingest.yml`).
-- [ ] State Attorney General data breach portal scrapers (California, Texas, Maine, Massachusetts).
-- [ ] Automated PR proposing workflow for verified regulatory disclosures.
+### Phase 2: Automated Ingestion & Regulatory Pipelines (COMPLETED)
+- [x] Scheduled SEC EDGAR Form 8-K Item 1.05 EFTS polling (`scripts/regulatory/sec-edgar.js` & `.github/workflows/ingest.yml`).
+- [x] Multi-State Attorney General data breach portal scrapers (`scripts/regulatory/state-ag.js` for California DOJ SB-24 and Washington State AG RCW 19.255 statutory disclosures).
+- [x] Canonical entity resolution across historical months (`findExistingIncidentFilePath` in `scripts/ingest.js`).
+- [x] Automated PR proposing workflow for verified regulatory disclosures (`.github/workflows/ingest.yml`).
+- [x] Rate limiting (1200ms delay), HTTP 304 conditional cache validation, and User-Agent identification.
 
 ### Phase 3: Community & Telemetry Integrations
 - [ ] STIX/TAXII 2.1 machine-readable export endpoint.
