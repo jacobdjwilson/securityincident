@@ -26,31 +26,52 @@ To deliver maximum clarity, we establish clear levels of confidence and correlat
 
 ---
 
+## ⚖️ Open Weights Correlation Engine
+
+Unlike opaque proprietary risk ratings, **securityincident.net** computes confidence scores deterministically using open weights defined in [`sources/weights.json`](sources/weights.json) and executed via [`scripts/weights.js`](scripts/weights.js):
+
+* **Base Verification Tier:**
+  * 🟢 `CONFIRMED BY REGULATOR`: **1.00 (100%)** — SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR.
+  * 🟢 `CONFIRMED BY TARGET`: **0.90 (90%)** — Target press releases, security advisories, status page bulletins.
+  * 🟠 `INDEPENDENT VERIFICATION`: **0.65 (65%)** — Forensic research, HaveIBeenPwned audit, technical sample analysis.
+  * 🟡 `ACKNOWLEDGED`: **0.45 (45%)** — Target publicly confirms disruption or investigation without breach admission.
+  * 🔴 `UNVERIFIED CLAIM`: **0.20 (20%)** — Dark web leak sites, extortion blogs, community chatter.
+  * 🔘 `REFUTED`: **0.00 (0%)** — Proven false alarm, recycled historical leak, or mislabeled web scrape.
+* **Cross-Domain Corroboration:** +0.05 (+5%) per independent source domain that corroborates an event, capped at +0.15 (+15%).
+* **Machine-Readable Syndication:** Real-time feed available in both [RSS 2.0 (`dist/feed.xml`)](feed.xml) and [JSON Feed v1.1 (`dist/feed.json`)](feed.json) with `_open_weights` metadata.
+
+---
+
 ## 📁 Repository Structure
 
 ```
 securityincident/
 ├── .github/
 │   └── workflows/
-│       ├── deploy.yml       # Deploys dist/ to GitHub Pages on push to main
-│       ├── validate-pr.yml  # Validates incident schemas & build on PRs
-│       └── ingest.yml       # Automated threat feed ingestion, SEC 8-K polling & PR proposing
-├── incidents/               # Flat Markdown database (1 file per incident)
+│       ├── deploy.yml         # Deploys dist/ to GitHub Pages on push to main
+│       ├── validate-pr.yml    # Validates incident schemas & build on PRs
+│       └── ingest.yml         # Automated threat feed ingestion, SEC 8-K polling & PR proposing
+├── incidents/                 # Flat Markdown database (1 file per incident)
+│   ├── 2026-07-river-financial.md
+│   ├── 2026-07-amgen.md
 │   ├── 2026-09-citrix.md
-│   ├── 2026-09-keio-corp.md
-│   ├── 2026-09-times-car.md
-│   ├── 2026-09-us-dod-pentagon.md
-│   └── 2026-09-dodo-pizza.md
+│   └── ...
+├── sources/
+│   ├── feeds.json             # Active regulatory & investigative feed sources
+│   └── weights.json           # Open Weights confidence model configuration
 ├── scripts/
-│   ├── build.js             # Parses incidents/*.md, outputs dist/ (HTML, feed.xml & search-index.json)
-│   ├── validate.js          # Schema, milestone, and RSS validator (npm test)
-│   └── serve.js             # Local lightweight HTTP preview server
+│   ├── build.js               # SSG: outputs dist/ (HTML, feed.xml, feed.json & search-index.json)
+│   ├── weights.js             # Deterministic Open Weights correlation scoring engine
+│   ├── validate.js            # Schema, milestone, and feed validator (npm test)
+│   ├── ingest.js              # Real-time feed aggregator & SEC 8-K poller
+│   ├── ingest-history.js      # 90-day historical data populator with rate-limiting
+│   └── serve.js               # Local lightweight HTTP preview server
 ├── src/
 │   └── public/
-│       ├── style.css        # High-density dual-mode SOC telemetry CSS
-│       └── app.js           # Client-side instant filter, search & theme toggle
-├── ARCHITECTURE.md          # Architectural and technical specification
-├── CONTRIBUTING.md          # Guide for proposing incidents & milestones via PR
+│       ├── style.css          # High-density dual-mode SOC telemetry CSS
+│       └── app.js             # Client-side instant filter, sort, search & theme toggle
+├── ARCHITECTURE.md            # Architectural and technical specification
+├── CONTRIBUTING.md            # Guide for proposing incidents & milestones via PR
 ├── package.json
 └── README.md
 ```

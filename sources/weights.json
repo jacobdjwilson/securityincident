@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "name": "Open Weights Correlation Model",
+  "description": "Deterministic, open-source confidence scoring weights for cybersecurity incident verification and corroboration.",
+  "tiers": {
+    "CONFIRMED BY REGULATOR": {
+      "baseWeight": 1.00,
+      "color": "var(--status-confirmed)",
+      "badge": "CONFIRMED",
+      "description": "Official government regulatory filings (e.g. SEC Form 8-K Item 1.05, State AG breach notifications, HHS OCR, CISA advisory)."
+    },
+    "CONFIRMED BY TARGET": {
+      "baseWeight": 0.90,
+      "color": "var(--status-confirmed)",
+      "badge": "CONFIRMED",
+      "description": "Direct public confirmation from the target organization (official blog, press release, status bulletin)."
+    },
+    "INDEPENDENT VERIFICATION": {
+      "baseWeight": 0.65,
+      "color": "var(--status-developing)",
+      "badge": "DEVELOPING",
+      "description": "Technical telemetry, investigative reporting, or sample data validation by reputable cybersecurity researchers."
+    },
+    "ACKNOWLEDGED": {
+      "baseWeight": 0.45,
+      "color": "var(--status-acknowledged)",
+      "badge": "ACKNOWLEDGED",
+      "description": "Target public acknowledgment of IT disruption or active investigation without breach admission."
+    },
+    "UNVERIFIED CLAIM": {
+      "baseWeight": 0.20,
+      "color": "var(--status-emerging)",
+      "badge": "EMERGING",
+      "description": "Unilateral threat actor claim, leak site listing, dark web forum dump, or community chatter."
+    },
+    "REFUTED": {
+      "baseWeight": 0.00,
+      "color": "var(--status-refuted)",
+      "badge": "REFUTED",
+      "description": "Proven false alarm, recycled historical leak, or public web scrape mislabeled as an intrusion."
+    }
+  },
+  "corroboration": {
+    "bonusPerAdditionalSource": 0.05,
+    "maxBonus": 0.15
+  },
+  "recency": {
+    "decayStartsAfterDays": 90,
+    "decayRatePerMonth": 0.02,
+    "minDecayFloor": 0.85
+  }
+}

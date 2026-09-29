@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import { calculateConfidenceScore, extractDomainFromUrl } from './weights.js';
 
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
@@ -141,6 +142,10 @@ function generateRssFeed(incidents) {
     if (inc.threat_actor) {
       descriptionHtml += `<strong>Threat Actor:</strong> ${escapeXml(inc.threat_actor)}<br/>\n`;
     }
+    if (inc.confidence) {
+      descriptionHtml += `<strong>Open Weights Confidence:</strong> ${inc.confidence.confidencePercent}% (${escapeXml(inc.confidence.topTier)})<br/>\n`;
+      descriptionHtml += `<strong>Corroborated Source Domains:</strong> ${inc.confidence.uniqueSourcesCount}<br/>\n`;
+    }
     descriptionHtml += `<strong>First Seen:</strong> ${escapeXml(inc.first_seen)}<br/>\n`;
     descriptionHtml += `<strong>Last Updated:</strong> ${escapeXml(inc.last_updated)}</p>\n`;
     descriptionHtml += `<p>${safeSummary}</p>\n`;
@@ -193,6 +198,33 @@ ${itemsXml}
 `;
 }
 
+function generateJsonFeed(incidents) {
+  return JSON.stringify({
+    version: 'https://jsonfeed.org/version/1.1',
+    title: 'securityincident.net | Real-Time Incident Status & Milestone Timeline Index',
+    home_page_url: `${SITE_URL}/`,
+    feed_url: `${SITE_URL}/feed.json`,
+    description: 'A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.',
+    items: incidents.map(inc => ({
+      id: `${SITE_URL}/incidents/${inc.id}.html`,
+      url: `${SITE_URL}/incidents/${inc.id}.html`,
+      title: `[${inc.status}] ${inc.target} - Security Incident Timeline`,
+      summary: inc.summary,
+      date_modified: inc.last_updated ? `${inc.last_updated}T00:00:00Z` : undefined,
+      date_published: inc.first_seen ? `${inc.first_seen}T00:00:00Z` : undefined,
+      tags: [inc.status, ...(inc.tags || [])],
+      _open_weights: inc.confidence ? {
+        confidence_percent: inc.confidence.confidencePercent,
+        score: inc.confidence.score,
+        base_weight: inc.confidence.baseWeight,
+        corroboration_bonus: inc.confidence.corroborationBonus,
+        unique_sources_count: inc.confidence.uniqueSourcesCount,
+        top_tier: inc.confidence.topTier
+      } : undefined
+    }))
+  }, null, 2);
+}
+
 function renderHeader(isSubpage = false) {
   const prefix = isSubpage ? '../' : './';
   return `
@@ -209,6 +241,10 @@ function renderHeader(isSubpage = false) {
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml" class="nav-link nav-rss" title="RSS Telemetry Feed">
           <i class="fa-solid fa-rss"></i>
           <span>RSS</span>
+        </a>
+        <a href="${prefix}feed.json" target="_blank" rel="alternate" type="application/feed+json" class="nav-link nav-rss" title="JSON Feed v1.1">
+          <i class="fa-solid fa-code"></i>
+          <span>JSON</span>
         </a>
         
         <!-- Sophisticated Theme Switch Toggle with Sun & Moon Icons -->
@@ -241,6 +277,7 @@ function renderFooter(isSubpage = false) {
       </div>
       <div class="footer-links">
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml"><i class="fa-solid fa-rss" style="color: var(--status-developing);"></i> RSS Feed</a>
+        <a href="${prefix}feed.json" target="_blank" rel="alternate" type="application/feed+json"><i class="fa-solid fa-code" style="color: var(--cyan-accent);"></i> JSON Feed</a>
         <a href="${GITHUB_REPO_URL}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Audit on GitHub</a>
         <a href="${GITHUB_REPO_URL}/tree/main/incidents" target="_blank" rel="noopener"><i class="fa-solid fa-code-pull-request"></i> Add Incident via PR</a>
       </div>
@@ -261,6 +298,7 @@ function generateIndexHtml(incidents) {
   const cardsHtml = incidents.map(inc => {
     const latestMilestone = inc.milestones && inc.milestones.length > 0 ? inc.milestones[0] : null;
     const actorHtml = inc.threat_actor ? `<span class="footer-actor"><i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}</span>` : '';
+    const conf = inc.confidence || { confidencePercent: 20, badgeClass: 'emerging', uniqueSourcesCount: 1, topTier: 'UNVERIFIED CLAIM' };
 
     return `
       <a href="incidents/${inc.id}.html" class="incident-card" 
@@ -269,13 +307,33 @@ function generateIndexHtml(incidents) {
          data-domain="${inc.domain}" 
          data-summary="${inc.summary}" 
          data-actor="${inc.threat_actor || ''}" 
-         data-tags="${(inc.tags || []).join(' ')}">
+         data-tags="${(inc.tags || []).join(' ')}"
+         data-confidence="${conf.confidencePercent}"
+         data-updated="${inc.last_updated || ''}"
+         data-first-seen="${inc.first_seen || ''}"
+         data-milestones="${inc.milestones.length}">
         <div class="card-top">
           <div class="card-title-group">
             <h2 class="card-target-name">${inc.target}</h2>
             <span class="card-domain">${inc.domain}</span>
           </div>
-          ${getStatusBadgeHtml(inc.status)}
+          <div class="card-status-cluster">
+            ${getStatusBadgeHtml(inc.status)}
+          </div>
+        </div>
+
+        <div class="card-confidence-bar-wrap" title="Open Weights Confidence Score: ${conf.confidencePercent}% (${conf.topTier})">
+          <div class="card-confidence-meter">
+            <div class="confidence-fill ${conf.badgeClass}" style="width: ${conf.confidencePercent}%;"></div>
+          </div>
+          <div class="card-confidence-meta">
+            <span class="confidence-badge ${conf.badgeClass}">
+              <i class="fa-solid fa-shield-halved"></i> ${conf.confidencePercent}% Confidence
+            </span>
+            <span class="sources-count-badge" title="${conf.uniqueSourcesCount} independent domain(s) corroborated">
+              <i class="fa-solid fa-network-wired"></i> ${conf.uniqueSourcesCount} source${conf.uniqueSourcesCount === 1 ? '' : 's'}
+            </span>
+          </div>
         </div>
 
         <p class="card-summary">${inc.summary}</p>
@@ -308,6 +366,7 @@ function generateIndexHtml(incidents) {
   <meta name="description" content="A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
+  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -326,7 +385,7 @@ function generateIndexHtml(incidents) {
 
   <main class="container">
     <section class="hero">
-      <div class="hero-pill"><i class="fa-solid fa-satellite-dish"></i> OPEN-WEB SECURITY INTELLIGENCE &bull; OPEN WEIGHTS</div>
+      <div class="hero-pill"><i class="fa-solid fa-scale-balanced"></i> OPEN-WEB SECURITY INTELLIGENCE &bull; OPEN WEIGHTS ENGINE</div>
       <h1 class="hero-title">Real-Time Incident Status &amp; Timeline Index</h1>
       <p class="hero-desc">
         A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.
@@ -340,28 +399,40 @@ function generateIndexHtml(incidents) {
         <span class="search-kbd">/</span>
       </div>
 
-      <div class="filter-pills">
-        <button class="filter-btn active" data-filter="ALL">
-          <i class="fa-solid fa-layer-group"></i> All <span class="filter-count">${counts.ALL}</span>
-        </button>
-        <button class="filter-btn" data-filter="CONFIRMED">
-          <span class="status-dot-indicator confirmed"></span> Confirmed <span class="filter-count">${counts.CONFIRMED}</span>
-        </button>
-        <button class="filter-btn" data-filter="ACKNOWLEDGED">
-          <span class="status-dot-indicator acknowledged"></span> Acknowledged <span class="filter-count">${counts.ACKNOWLEDGED}</span>
-        </button>
-        <button class="filter-btn" data-filter="DEVELOPING">
-          <span class="status-dot-indicator developing"></span> Developing <span class="filter-count">${counts.DEVELOPING}</span>
-        </button>
-        <button class="filter-btn" data-filter="EMERGING">
-          <span class="status-dot-indicator emerging"></span> Emerging <span class="filter-count">${counts.EMERGING}</span>
-        </button>
-        <button class="filter-btn" data-filter="REFUTED">
-          <span class="status-dot-indicator refuted"></span> Refuted <span class="filter-count">${counts.REFUTED}</span>
-        </button>
-        <span id="results-count" style="margin-left: auto; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
-          ${counts.ALL} incidents
-        </span>
+      <div class="controls-action-row">
+        <div class="filter-pills">
+          <button class="filter-btn active" data-filter="ALL">
+            <i class="fa-solid fa-layer-group"></i> All <span class="filter-count">${counts.ALL}</span>
+          </button>
+          <button class="filter-btn" data-filter="CONFIRMED">
+            <span class="status-dot-indicator confirmed"></span> Confirmed <span class="filter-count">${counts.CONFIRMED}</span>
+          </button>
+          <button class="filter-btn" data-filter="ACKNOWLEDGED">
+            <span class="status-dot-indicator acknowledged"></span> Acknowledged <span class="filter-count">${counts.ACKNOWLEDGED}</span>
+          </button>
+          <button class="filter-btn" data-filter="DEVELOPING">
+            <span class="status-dot-indicator developing"></span> Developing <span class="filter-count">${counts.DEVELOPING}</span>
+          </button>
+          <button class="filter-btn" data-filter="EMERGING">
+            <span class="status-dot-indicator emerging"></span> Emerging <span class="filter-count">${counts.EMERGING}</span>
+          </button>
+          <button class="filter-btn" data-filter="REFUTED">
+            <span class="status-dot-indicator refuted"></span> Refuted <span class="filter-count">${counts.REFUTED}</span>
+          </button>
+        </div>
+
+        <div class="sort-wrapper">
+          <label for="sort-select" class="sort-label"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort:</label>
+          <select id="sort-select" class="sort-select" aria-label="Sort security incidents">
+            <option value="recent">Latest Update</option>
+            <option value="confidence">Highest Confidence</option>
+            <option value="first_seen">First Seen</option>
+            <option value="milestones">Most Milestones</option>
+          </select>
+          <span id="results-count" class="results-counter">
+            ${counts.ALL} incidents
+          </span>
+        </div>
       </div>
     </div>
 
@@ -383,6 +454,22 @@ function generateIndexHtml(incidents) {
 }
 
 function generateIncidentDetailHtml(inc) {
+  const conf = inc.confidence || {
+    confidencePercent: 20,
+    score: 0.20,
+    baseWeight: 0.20,
+    corroborationBonus: 0.0,
+    uniqueSourcesCount: 1,
+    topTier: 'UNVERIFIED CLAIM',
+    badgeClass: 'emerging'
+  };
+
+  const uniqueDomains = [...new Set(
+    (inc.milestones || [])
+      .map(m => m.sourceUrl ? extractDomainFromUrl(m.sourceUrl) : null)
+      .filter(d => d && d !== 'unknown')
+  )];
+
   const milestonesHtml = (inc.milestones || []).map(m => {
     const verifClass = getVerificationClass(m.verification);
     const verifIcon = getVerificationIcon(m.verification);
@@ -425,6 +512,7 @@ function generateIncidentDetailHtml(inc) {
   <meta name="description" content="Verified status and chronological milestone timeline for the ${inc.target} security incident.">
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="../feed.xml">
+  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="../feed.json">
   <link rel="stylesheet" href="../style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -475,6 +563,56 @@ function generateIncidentDetailHtml(inc) {
       </div>
     </div>
 
+    <!-- Phase 1: Open Weights Telemetry & Confidence Breakdown Card -->
+    <div class="open-weights-card">
+      <div class="open-weights-header">
+        <div class="ow-title-group">
+          <div class="ow-pill"><i class="fa-solid fa-scale-balanced"></i> OPEN WEIGHTS TELEMETRY &bull; DETERMINISTIC CONFIDENCE</div>
+          <h2 class="ow-headline">Confidence &amp; Source Corroboration</h2>
+        </div>
+        <div class="ow-score-badge ${conf.badgeClass}">
+          <span class="ow-score-num">${conf.confidencePercent}%</span>
+          <span class="ow-score-label">CONFIDENCE</span>
+        </div>
+      </div>
+
+      <div class="ow-meter-track">
+        <div class="ow-meter-fill ${conf.badgeClass}" style="width: ${conf.confidencePercent}%;"></div>
+      </div>
+
+      <div class="ow-metrics-grid">
+        <div class="ow-metric-box">
+          <span class="ow-metric-label">Top Verification Tier</span>
+          <span class="ow-metric-val ${conf.badgeClass}"><i class="${getVerificationIcon(conf.topTier)}"></i> ${conf.topTier}</span>
+          <span class="ow-metric-sub">Base weight: ${(conf.baseWeight * 100).toFixed(0)}%</span>
+        </div>
+        <div class="ow-metric-box">
+          <span class="ow-metric-label">Cross-Domain Corroboration</span>
+          <span class="ow-metric-val font-mono">+${(conf.corroborationBonus * 100).toFixed(0)}%</span>
+          <span class="ow-metric-sub">${conf.uniqueSourcesCount} independent domain${conf.uniqueSourcesCount === 1 ? '' : 's'}</span>
+        </div>
+        <div class="ow-metric-box">
+          <span class="ow-metric-label">Composite Score</span>
+          <span class="ow-metric-val font-mono">${(conf.score * 100).toFixed(0)}%</span>
+          <span class="ow-metric-sub">Open-weights deterministic formula</span>
+        </div>
+        <div class="ow-metric-box">
+          <span class="ow-metric-label">Observable Status</span>
+          <span class="ow-metric-val">${inc.status}</span>
+          <span class="ow-metric-sub">Ground Truth Telemetry</span>
+        </div>
+      </div>
+
+      ${uniqueDomains.length > 0 ? `
+      <div class="ow-domains-row">
+        <span class="ow-domains-title"><i class="fa-solid fa-network-wired"></i> Corroborated Source Domains:</span>
+        <div class="ow-domains-list">
+          ${uniqueDomains.map(d => `<span class="ow-domain-tag"><i class="fa-solid fa-shield-halved"></i> ${d}</span>`).join('')}
+        </div>
+      </div>
+      ` : ''}
+    </div>
+
     <h2 class="timeline-section-title">
       <span>Milestone Timeline</span>
       <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted); font-family: var(--font-mono);">
@@ -511,9 +649,10 @@ function generateAboutHtml() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verification Standard &amp; Philosophy | securityincident.net</title>
-  <meta name="description" content="How securityincident.net verifies security incident statuses and milestones on the open web.">
+  <meta name="description" content="How securityincident.net verifies security incident statuses and milestones on the open web using deterministic open weights.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
+  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
   <link rel="stylesheet" href="style.css">
   <script src="fontawesome.js"></script>
   <script>
@@ -541,13 +680,66 @@ function generateAboutHtml() {
     <div class="about-panel">
       <h2>1. Neutral Intelligence Through Open Curation</h2>
       <p>
-        We provide a reliable and neutral source of cybersecurity intelligence by curating security data across its entire lifecycle, ranging from early rumors to formal regulatory filings.
+        Modern security incident reporting is plagued by corporate PR ambiguity, premature categorization, and recycled claims. We provide a reliable and neutral source of cybersecurity intelligence by curating security data across its entire lifecycle, ranging from early dark web rumors to formal regulatory disclosures.
       </p>
       <p>
         To deliver maximum clarity, we establish clear levels of confidence and correlate diverse data sources using open weights. Built entirely on open editing through GitHub pull requests, <strong>securityincident.net</strong> empowers security professionals, researchers, and organizations to maintain a transparent, verifiable, and high-signal record of security incidents without corporate bias or editorial filler.
       </p>
 
-      <h2>2. The 5 Observable Statuses</h2>
+      <h2>2. Open Weights Correlation Model</h2>
+      <p>
+        Unlike opaque black-box AI scores or proprietary vendor risk ratings, our confidence scoring is 100% deterministic, auditable, and open-source. The scoring model is defined in <code>sources/weights.json</code> and calculates a composite score based on the highest verification tier achieved and independent cross-domain corroboration:
+      </p>
+
+      <div class="about-weights-table-wrap">
+        <table class="about-weights-table">
+          <thead>
+            <tr>
+              <th>Verification Tier</th>
+              <th>Base Weight</th>
+              <th>Primary Sources</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="verify-badge regulator"><i class="fa-solid fa-building-shield"></i> CONFIRMED BY REGULATOR</span></td>
+              <td class="font-mono"><strong>1.00 (100%)</strong></td>
+              <td>SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR, CISA advisory.</td>
+            </tr>
+            <tr>
+              <td><span class="verify-badge target"><i class="fa-solid fa-bullhorn"></i> CONFIRMED BY TARGET</span></td>
+              <td class="font-mono"><strong>0.90 (90%)</strong></td>
+              <td>Official corporate press release, company security blog, direct target status bulletin.</td>
+            </tr>
+            <tr>
+              <td><span class="verify-badge independent"><i class="fa-solid fa-microscope"></i> INDEPENDENT VERIFICATION</span></td>
+              <td class="font-mono"><strong>0.65 (65%)</strong></td>
+              <td>Reputable cybersecurity researcher analysis, HaveIBeenPwned audit, forensic investigative reporting.</td>
+            </tr>
+            <tr>
+              <td><span class="verify-badge" style="color: var(--status-acknowledged); background: var(--status-acknowledged-bg);"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span></td>
+              <td class="font-mono"><strong>0.45 (45%)</strong></td>
+              <td>Target publicly confirms operational disruption or active investigation without confirming data compromise.</td>
+            </tr>
+            <tr>
+              <td><span class="verify-badge unverified"><i class="fa-solid fa-bolt"></i> UNVERIFIED CLAIM</span></td>
+              <td class="font-mono"><strong>0.20 (20%)</strong></td>
+              <td>Threat actor leak blog, dark web forum listing, unverified community chatter.</td>
+            </tr>
+            <tr>
+              <td><span class="verify-badge refuted"><i class="fa-solid fa-ban"></i> REFUTED</span></td>
+              <td class="font-mono"><strong>0.00 (0%)</strong></td>
+              <td>Proven false alarm, recycled historical data, or web scrape mislabeled as a breach.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top: 1rem;">
+        <strong>Cross-Domain Corroboration Bonus:</strong> For every independent source domain that corroborates an event (e.g. SEC EDGAR + BleepingComputer + Krebs on Security), a +0.05 (+5%) corroboration bonus is awarded, up to a maximum boost of +0.15 (+15%), capped at 1.00 (100%).
+      </p>
+
+      <h2>3. The 5 Observable Statuses</h2>
       <div class="about-status-grid">
         <div class="about-status-card">
           <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
@@ -571,12 +763,12 @@ function generateAboutHtml() {
         </div>
       </div>
 
-      <h2>3. 100% Git-Native &amp; Transparent</h2>
+      <h2>4. 100% Git-Native &amp; Transparent</h2>
       <p>
-        Every incident is stored as an open Markdown document in our GitHub repository. We use GitHub Actions to automate indexing from regulatory RSS and infosec feeds, with zero complex databases. Anyone can audit our sources or submit updates via Pull Request.
+        Every incident is stored as an open Markdown document in our GitHub repository. We use GitHub Actions to automate indexing from regulatory RSS and infosec feeds, with zero complex databases. Anyone can audit our sources, examine historical revisions in Git, or submit updates via Pull Request.
       </p>
 
-      <h2>4. How to Contribute via GitHub PR</h2>
+      <h2>5. How to Contribute via GitHub PR</h2>
       <p>
         Because all incidents are stored as flat Markdown files in Git, you don't need special permissions or database access to contribute. You can propose updates in two easy ways:
       </p>
@@ -598,7 +790,7 @@ function generateAboutHtml() {
 }
 
 async function build() {
-  console.log('⚡ Starting securityincident.net build...');
+  console.log('⚡ Starting securityincident.net build with Phase 1 Open Weights Engine...');
 
   // Ensure directories exist
   if (fs.existsSync(DIST_DIR)) {
@@ -654,14 +846,17 @@ async function build() {
       milestones
     };
 
+    // Calculate deterministic Open Weights Confidence Score
+    incidentObj.confidence = calculateConfidenceScore(incidentObj);
+
     incidents.push(incidentObj);
 
-    // Generate individual incident HTML page
+    // Generate individual incident HTML page with confidence telemetry
     const incidentHtml = generateIncidentDetailHtml(incidentObj);
     fs.writeFileSync(path.join(DIST_INCIDENTS_DIR, `${incidentObj.id}.html`), incidentHtml, 'utf-8');
   }
 
-  // Sort incidents by last_updated descending
+  // Sort incidents by last_updated descending by default
   incidents.sort((a, b) => (b.last_updated || '').localeCompare(a.last_updated || ''));
 
   // Generate homepage index.html
@@ -672,19 +867,23 @@ async function build() {
   const aboutHtml = generateAboutHtml();
   fs.writeFileSync(path.join(DIST_DIR, 'about.html'), aboutHtml, 'utf-8');
 
-  // Output search index JSON for fast searching or external consumption
+  // Output search index JSON with confidence scores for instant client search
   fs.writeFileSync(path.join(DIST_DIR, 'search-index.json'), JSON.stringify(incidents, null, 2), 'utf-8');
 
   // Output RSS 2.0 Feed
   const rssXml = generateRssFeed(incidents);
   fs.writeFileSync(path.join(DIST_DIR, 'feed.xml'), rssXml, 'utf-8');
 
+  // Output JSON Feed v1.1 with Open Weights Telemetry
+  const jsonFeed = generateJsonFeed(incidents);
+  fs.writeFileSync(path.join(DIST_DIR, 'feed.json'), jsonFeed, 'utf-8');
+
   // Copy CNAME if present
   if (fs.existsSync(path.join(ROOT_DIR, 'CNAME'))) {
     fs.copyFileSync(path.join(ROOT_DIR, 'CNAME'), path.join(DIST_DIR, 'CNAME'));
   }
 
-  console.log(`✅ Successfully built ${incidents.length} incident pages, RSS feed & assets to dist/`);
+  console.log(`✅ Successfully built ${incidents.length} incident pages, RSS feed, JSON feed & assets to dist/`);
 }
 
 build().catch(err => {
