@@ -1,9 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { marked } from 'marked';
 import { calculateConfidenceScore, extractDomainFromUrl } from './weights.js';
-import { generateStix21Bundle } from './stix.js';
-import { generateIncidentBadgeSvg } from './badges.js';
 
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
@@ -12,9 +11,6 @@ const IMAGES_DIR = path.join(ROOT_DIR, 'images');
 const DIST_DIR = path.join(ROOT_DIR, 'dist');
 const DIST_INCIDENTS_DIR = path.join(DIST_DIR, 'incidents');
 const DIST_IMAGES_DIR = path.join(DIST_DIR, 'images');
-const DIST_API_DIR = path.join(DIST_DIR, 'api', 'v1');
-const DIST_API_INCIDENTS_DIR = path.join(DIST_API_DIR, 'incidents');
-const DIST_BADGES_DIR = path.join(DIST_DIR, 'badges');
 
 // GitHub repository and domain info
 const GITHUB_REPO_URL = 'https://github.com/jacobdjwilson/securityincident';
@@ -51,6 +47,13 @@ function getStatusBadgeHtml(status) {
   else if (s === 'REFUTED') icon = 'fa-solid fa-ban';
 
   return `<span class="status-badge status-${s}"><i class="${icon}"></i> ${s}</span>`;
+}
+
+function formatAffectedCount(num) {
+  if (num === null || num === undefined) return '—';
+  if (num >= 1000000) return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+  return String(num);
 }
 
 function parseMilestones(markdownContent) {
@@ -202,64 +205,26 @@ ${itemsXml}
 `;
 }
 
-function generateJsonFeed(incidents) {
-  return JSON.stringify({
-    version: 'https://jsonfeed.org/version/1.1',
-    title: 'securityincident.net | Real-Time Incident Status & Milestone Timeline Index',
-    home_page_url: `${SITE_URL}/`,
-    feed_url: `${SITE_URL}/feed.json`,
-    description: 'A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.',
-    items: incidents.map(inc => ({
-      id: `${SITE_URL}/incidents/${inc.id}.html`,
-      url: `${SITE_URL}/incidents/${inc.id}.html`,
-      title: `[${inc.status}] ${inc.target} - Security Incident Timeline`,
-      summary: inc.summary,
-      date_modified: inc.last_updated ? `${inc.last_updated}T00:00:00Z` : undefined,
-      date_published: inc.first_seen ? `${inc.first_seen}T00:00:00Z` : undefined,
-      tags: [inc.status, ...(inc.tags || [])],
-      _open_weights: inc.confidence ? {
-        confidence_percent: inc.confidence.confidencePercent,
-        score: inc.confidence.score,
-        base_weight: inc.confidence.baseWeight,
-        corroboration_bonus: inc.confidence.corroborationBonus,
-        unique_sources_count: inc.confidence.uniqueSourcesCount,
-        top_tier: inc.confidence.topTier
-      } : undefined
-    }))
-  }, null, 2);
-}
-
 function renderHeader(isSubpage = false) {
   const prefix = isSubpage ? '../' : './';
   return `
   <header class="site-header">
     <div class="container header-inner">
-      <a href="${prefix}" class="brand" title="securityincident.net — Real-Time Incident Status & Timeline Index">
+      <a href="${prefix}" class="brand" title="securityincident.net — Real-Time Incident Status & Milestone Timeline Index">
         <img src="${prefix}images/logo.svg" alt="securityincident.net logo" class="brand-logo-img logo-dark-img">
         <img src="${prefix}images/logo-light.svg" alt="securityincident.net logo" class="brand-logo-img logo-light-img">
         <div class="brand-title">securityincident<span>.net</span></div>
       </a>
       <nav class="nav-links">
-        <a href="${prefix}" class="nav-link">Live Index</a>
+        <a href="${prefix}#incidents-anchor" class="nav-link">Incidents</a>
+        <a href="${prefix}#charts-anchor" class="nav-link">Telemetry</a>
         <a href="${prefix}about.html" class="nav-link">Verification Standard</a>
-        <a href="${prefix}api/v1/incidents.json" target="_blank" class="nav-link nav-rss" title="REST Flat-File API">
-          <i class="fa-solid fa-bolt"></i>
-          <span>API</span>
-        </a>
-        <a href="${prefix}api/v1/stix21.json" target="_blank" class="nav-link nav-rss" title="STIX 2.1 Threat Intel Feed">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>STIX 2.1</span>
-        </a>
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml" class="nav-link nav-rss" title="RSS Telemetry Feed">
           <i class="fa-solid fa-rss"></i>
           <span>RSS</span>
         </a>
-        <a href="${prefix}feed.json" target="_blank" rel="alternate" type="application/feed+json" class="nav-link nav-rss" title="JSON Feed v1.1">
-          <i class="fa-solid fa-code"></i>
-          <span>JSON</span>
-        </a>
         
-        <!-- Sophisticated Theme Switch Toggle with Sun & Moon Icons -->
+        <!-- Theme Switch Toggle with Sun & Moon Icons -->
         <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light and dark mode" title="Toggle theme">
           <span class="theme-toggle-track">
             <span class="theme-toggle-thumb">
@@ -288,12 +253,10 @@ function renderFooter(isSubpage = false) {
         Powered by open weights correlation and community-driven GitHub PR editing.
       </div>
       <div class="footer-links">
-        <a href="${prefix}api/v1/incidents.json" target="_blank"><i class="fa-solid fa-bolt" style="color: var(--status-acknowledged);"></i> REST API</a>
-        <a href="${prefix}api/v1/stix21.json" target="_blank"><i class="fa-solid fa-shield-halved" style="color: var(--status-confirmed);"></i> STIX 2.1 Feed</a>
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml"><i class="fa-solid fa-rss" style="color: var(--status-developing);"></i> RSS Feed</a>
-        <a href="${prefix}feed.json" target="_blank" rel="alternate" type="application/feed+json"><i class="fa-solid fa-code" style="color: var(--cyan-accent);"></i> JSON Feed</a>
+        <a href="${prefix}about.html"><i class="fa-solid fa-shield-halved" style="color: var(--status-confirmed);"></i> Verification Standards</a>
         <a href="${GITHUB_REPO_URL}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Audit on GitHub</a>
-        <a href="${GITHUB_REPO_URL}/tree/main/incidents" target="_blank" rel="noopener"><i class="fa-solid fa-code-pull-request"></i> Add Incident via PR</a>
+        <a href="${GITHUB_REPO_URL}/tree/main/incidents" target="_blank" rel="noopener"><i class="fa-solid fa-code-pull-request"></i> Propose Incident via PR</a>
       </div>
     </div>
   </footer>`;
@@ -456,15 +419,20 @@ function generateIndexHtml(incidents, stats) {
 
   const cardsHtml = incidents.map(inc => {
     const latestMilestone = inc.milestones && inc.milestones.length > 0 ? inc.milestones[0] : null;
-    const actorHtml = inc.threat_actor ? `<span class="footer-actor"><i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}</span>` : '';
+    const actorHtml = inc.threat_actor && inc.threat_actor !== 'Unknown' && inc.threat_actor !== 'Unattributed'
+      ? `<span class="footer-actor"><i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}</span>`
+      : '';
     const conf = inc.confidence || { confidencePercent: 20, badgeClass: 'emerging', uniqueSourcesCount: 1, topTier: 'UNVERIFIED CLAIM' };
     const month = (inc.first_seen || inc.last_updated || '').slice(0, 7);
+    const affectedFormatted = formatAffectedCount(inc.affected_records);
 
     return `
       <a href="incidents/${inc.id}.html" class="incident-card" 
          data-status="${inc.status}" 
          data-target="${inc.target}" 
          data-domain="${inc.domain}" 
+         data-industry="${inc.industry || ''}"
+         data-type="${inc.incident_type || ''}"
          data-summary="${inc.summary}" 
          data-actor="${inc.threat_actor || ''}" 
          data-tags="${(inc.tags || []).join(' ')}"
@@ -481,6 +449,12 @@ function generateIndexHtml(incidents, stats) {
           <div class="card-status-cluster">
             ${getStatusBadgeHtml(inc.status)}
           </div>
+        </div>
+
+        <div class="card-forensic-tags">
+          ${inc.industry ? `<span class="card-tag card-tag-industry"><i class="fa-solid fa-industry"></i> ${inc.industry}</span>` : ''}
+          ${inc.incident_type ? `<span class="card-tag card-tag-type"><i class="fa-solid fa-crosshairs"></i> ${inc.incident_type}</span>` : ''}
+          ${inc.affected_records ? `<span class="card-tag card-tag-affected font-mono"><i class="fa-solid fa-users"></i> ${affectedFormatted}</span>` : ''}
         </div>
 
         <div class="card-confidence-bar-wrap" title="Open Weights Confidence Score: ${conf.confidencePercent}% (${conf.topTier})">
@@ -521,12 +495,15 @@ function generateIndexHtml(incidents, stats) {
   const tableRowsHtml = incidents.map(inc => {
     const conf = inc.confidence || { confidencePercent: 20, badgeClass: 'emerging', uniqueSourcesCount: 1 };
     const month = (inc.first_seen || inc.last_updated || '').slice(0, 7);
+    const affectedFormatted = formatAffectedCount(inc.affected_records);
 
     return `
       <tr class="telemetry-row" 
           data-status="${inc.status}" 
           data-target="${inc.target}" 
           data-domain="${inc.domain}" 
+          data-industry="${inc.industry || ''}"
+          data-type="${inc.incident_type || ''}"
           data-summary="${inc.summary}" 
           data-actor="${inc.threat_actor || ''}" 
           data-tags="${(inc.tags || []).join(' ')}"
@@ -540,15 +517,17 @@ function generateIndexHtml(incidents, stats) {
           <span class="table-target-domain">${inc.domain}</span>
         </td>
         <td class="col-status">${getStatusBadgeHtml(inc.status)}</td>
+        <td class="col-industry"><span class="table-industry-tag">${inc.industry || 'Enterprise'}</span></td>
+        <td class="col-type"><span class="table-type-tag">${inc.incident_type || 'Unauthorized Access'}</span></td>
+        <td class="col-affected font-mono">${affectedFormatted}</td>
         <td class="col-confidence">
           <div class="table-conf-cell">
             <span class="confidence-badge ${conf.badgeClass}"><i class="fa-solid fa-shield-halved"></i> ${conf.confidencePercent}%</span>
             <span class="table-source-count">${conf.uniqueSourcesCount} src</span>
           </div>
         </td>
-        <td class="col-actor font-mono">${inc.threat_actor ? `<i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}` : '<span class="text-muted">—</span>'}</td>
+        <td class="col-actor font-mono">${inc.threat_actor && inc.threat_actor !== 'Unknown' && inc.threat_actor !== 'Unattributed' ? `<i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}` : '<span class="text-muted">—</span>'}</td>
         <td class="col-date font-mono">${inc.last_updated}</td>
-        <td class="col-milestones"><span class="milestone-count-pill">${inc.milestones.length}</span></td>
         <td class="col-action">
           <a href="incidents/${inc.id}.html" class="btn-table-dossier">Dossier <i class="fa-solid fa-arrow-right"></i></a>
         </td>
@@ -571,7 +550,6 @@ function generateIndexHtml(incidents, stats) {
   <meta name="description" content="A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
-  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -831,10 +809,12 @@ function generateIndexHtml(incidents, stats) {
           <tr>
             <th class="col-target">Organization &amp; Domain</th>
             <th class="col-status">Status</th>
-            <th class="col-confidence">Confidence Score</th>
+            <th class="col-industry">Industry</th>
+            <th class="col-type">Incident Type</th>
+            <th class="col-affected">Affected Records</th>
+            <th class="col-confidence">Confidence</th>
             <th class="col-actor">Threat Actor</th>
             <th class="col-date">Last Updated</th>
-            <th class="col-milestones">Milestones</th>
             <th class="col-action">Action</th>
           </tr>
         </thead>
@@ -853,7 +833,7 @@ function generateIndexHtml(incidents, stats) {
     <!-- Pagination Controls -->
     <div class="pagination-bar" id="pagination-bar">
       <div class="pagination-info" id="pagination-info">
-        Showing 1–20 of 125 incidents
+        Showing 1–20 of ${stats.total_incidents} incidents
       </div>
       <div class="pagination-nav" id="pagination-nav">
         <!-- Rendered by app.js -->
@@ -927,7 +907,6 @@ function generateIncidentDetailHtml(inc) {
   <meta name="description" content="Verified status and chronological milestone timeline for the ${inc.target} security incident.">
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="../feed.xml">
-  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="../feed.json">
   <link rel="stylesheet" href="../style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -947,6 +926,7 @@ function generateIncidentDetailHtml(inc) {
   <main class="container detail-page">
     <a href="../" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to all incidents</a>
 
+    <!-- Executive Forensic Header & Metadata Profile -->
     <div class="detail-header">
       <div class="detail-top">
         <div>
@@ -960,22 +940,59 @@ function generateIncidentDetailHtml(inc) {
 
       <div class="detail-meta-grid">
         <div class="meta-item">
-          <span class="meta-label">Current Status</span>
+          <span class="meta-label">Observable Status</span>
           <span class="meta-val">${inc.status}</span>
         </div>
         <div class="meta-item">
+          <span class="meta-label">Industry / Sector</span>
+          <span class="meta-val">${inc.industry || 'Technology & Commercial'}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Incident Classification</span>
+          <span class="meta-val">${inc.incident_type || 'Network Intrusion & Data Exfiltration'}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Attributed Threat Actor</span>
+          <span class="meta-val">${inc.threat_actor && inc.threat_actor !== 'Unknown' && inc.threat_actor !== 'Unattributed' ? inc.threat_actor : 'Unattributed / Unknown'}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Affected Population</span>
+          <span class="meta-val font-mono">${inc.affected_records ? Number(inc.affected_records).toLocaleString() + ' records' : 'Scope Under Audit'}</span>
+        </div>
+        <div class="meta-item">
           <span class="meta-label">First Seen</span>
-          <span class="meta-val">${inc.first_seen}</span>
+          <span class="meta-val font-mono">${inc.first_seen}</span>
         </div>
         <div class="meta-item">
           <span class="meta-label">Last Updated</span>
-          <span class="meta-val">${inc.last_updated}</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Threat Actor</span>
-          <span class="meta-val">${inc.threat_actor || 'Unattributed / Unknown'}</span>
+          <span class="meta-val font-mono">${inc.last_updated}</span>
         </div>
       </div>
+
+      ${inc.compromised_data && inc.compromised_data.length > 0 ? `
+      <div class="forensic-meta-section">
+        <span class="forensic-section-label"><i class="fa-solid fa-triangle-exclamation"></i> Compromised Data Classes:</span>
+        <div class="compromised-pills-row">
+          ${inc.compromised_data.map(d => `<span class="compromised-pill"><i class="fa-solid fa-shield-halved"></i> ${d}</span>`).join('')}
+        </div>
+      </div>
+      ` : ''}
+
+      ${inc.regulatory_filings && inc.regulatory_filings.length > 0 ? `
+      <div class="forensic-meta-section">
+        <span class="forensic-section-label"><i class="fa-solid fa-building-columns"></i> Statutory Regulatory Filings:</span>
+        <div class="filings-pills-row">
+          ${inc.regulatory_filings.map(f => `
+            <a href="${f.url}" target="_blank" rel="noopener nofollow" class="filing-pill">
+              <i class="fa-solid fa-file-contract"></i>
+              <strong>${f.regulator}</strong>: ${f.form || f.notice_id || 'Disclosure Notice'}
+              ${f.accession_number ? `<span class="filing-acc font-mono">(${f.accession_number})</span>` : ''}
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+      ` : ''}
     </div>
 
     <!-- Phase 1: Open Weights Telemetry & Confidence Breakdown Card -->
@@ -1028,6 +1045,18 @@ function generateIncidentDetailHtml(inc) {
       ` : ''}
     </div>
 
+    <!-- Technical Forensic Narrative Dossier -->
+    ${inc.narrativeHtml ? `
+    <div class="narrative-card">
+      <div class="narrative-card-header">
+        <h3><i class="fa-solid fa-file-waveform"></i> Technical Forensic Briefing</h3>
+      </div>
+      <div class="narrative-body markdown-content">
+        ${inc.narrativeHtml}
+      </div>
+    </div>
+    ` : ''}
+
     <h2 class="timeline-section-title">
       <span>Milestone Timeline</span>
       <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted); font-family: var(--font-mono);">
@@ -1037,56 +1066,6 @@ function generateIncidentDetailHtml(inc) {
 
     <div class="timeline-container">
       ${milestonesHtml}
-    </div>
-
-    <!-- Phase 3: First-Party Intelligence & Dossier Export Section -->
-    <div class="dossier-export-box">
-      <div class="dossier-export-header">
-        <div class="dossier-title-group">
-          <h3><i class="fa-solid fa-database"></i> First-Party Intelligence &amp; Dossier Export</h3>
-          <p>Authoritative machine-readable endpoints and citations for threat intelligence platforms, SIEM/SOAR pipelines, and security researchers.</p>
-        </div>
-        <div class="dossier-btn-group">
-          <a href="../api/v1/incidents/${inc.id}.json" target="_blank" download="${inc.id}-dossier.json" class="btn-dossier-download">
-            <i class="fa-solid fa-file-arrow-down"></i> Download JSON Dossier
-          </a>
-        </div>
-      </div>
-
-      <div class="dossier-grid">
-        <!-- Direct API Box -->
-        <div class="dossier-card">
-          <div class="dossier-card-title"><i class="fa-solid fa-bolt"></i> REST API Endpoint</div>
-          <div class="copy-field">
-            <code id="api-url-code">${SITE_URL}/api/v1/incidents/${inc.id}.json</code>
-            <button class="btn-copy" data-copy-target="api-url-code" title="Copy API URL">
-              <i class="fa-regular fa-copy"></i> Copy URL
-            </button>
-          </div>
-        </div>
-
-        <!-- Live SVG Status Badge -->
-        <div class="dossier-card">
-          <div class="dossier-card-title"><i class="fa-solid fa-shield-halved"></i> Live SVG Status Badge</div>
-          <div class="badge-preview-row">
-            <img src="../badges/${inc.id}.svg" alt="Live Status Badge for ${inc.target}" class="live-svg-badge">
-            <button class="btn-copy btn-badge-copy" data-copy-text="[![${inc.target} Incident Status](${SITE_URL}/badges/${inc.id}.svg)](${SITE_URL}/incidents/${inc.id}.html)" title="Copy Markdown Embed">
-              <i class="fa-regular fa-copy"></i> Copy Markdown Badge
-            </button>
-          </div>
-        </div>
-
-        <!-- Cite This Record -->
-        <div class="dossier-card dossier-card-wide">
-          <div class="dossier-card-title"><i class="fa-solid fa-quote-left"></i> Academic &amp; Investigative Citation</div>
-          <div class="citation-code-wrap">
-            <code id="citation-apa">securityincident.net (${inc.last_updated ? inc.last_updated.slice(0, 4) : '2026'}). Incident Intelligence Dossier: ${inc.target} [Status: ${inc.status}, Confidence: ${conf.confidencePercent}%]. Retrieved from ${SITE_URL}/incidents/${inc.id}.html</code>
-            <button class="btn-copy" data-copy-target="citation-apa" title="Copy Citation">
-              <i class="fa-regular fa-copy"></i> Copy APA
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="github-cta-box">
@@ -1117,7 +1096,6 @@ function generateAboutHtml() {
   <meta name="description" content="How securityincident.net verifies security incident statuses and milestones on the open web using deterministic open weights.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
-  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
   <link rel="stylesheet" href="style.css">
   <script src="fontawesome.js"></script>
   <script>
@@ -1255,18 +1233,15 @@ function generateAboutHtml() {
 }
 
 async function build() {
-  console.log('⚡ Starting securityincident.net build (Phase 3 First-Party Intelligence, STIX 2.1 & Trend Telemetry)...');
+  console.log('⚡ Starting securityincident.net build (Pure Flat-File Static Site & Verified Telemetry Index)...');
 
-  // Ensure directories exist
+  // Ensure clean dist directory
   if (fs.existsSync(DIST_DIR)) {
     fs.rmSync(DIST_DIR, { recursive: true, force: true });
   }
   fs.mkdirSync(DIST_DIR, { recursive: true });
   fs.mkdirSync(DIST_INCIDENTS_DIR, { recursive: true });
   fs.mkdirSync(DIST_IMAGES_DIR, { recursive: true });
-  fs.mkdirSync(DIST_API_DIR, { recursive: true });
-  fs.mkdirSync(DIST_API_INCIDENTS_DIR, { recursive: true });
-  fs.mkdirSync(DIST_BADGES_DIR, { recursive: true });
 
   // Copy static frontend assets
   fs.copyFileSync(path.join(PUBLIC_DIR, 'style.css'), path.join(DIST_DIR, 'style.css'));
@@ -1289,7 +1264,7 @@ async function build() {
   // Create .nojekyll for GitHub Pages
   fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
 
-  // Read incidents
+  // Read flat incident markdown files
   const files = fs.readdirSync(INCIDENTS_DIR).filter(f => f.endsWith('.md'));
   const incidents = [];
 
@@ -1299,6 +1274,9 @@ async function build() {
     const { data, content: body } = matter(content);
 
     const milestones = parseMilestones(body);
+    const narrativeParts = body.split(/##\s+Timeline/i);
+    const narrativeMarkdown = narrativeParts[0].trim();
+    const narrativeHtml = narrativeMarkdown ? marked.parse(narrativeMarkdown) : '';
 
     const incidentObj = {
       id: data.id || file.replace('.md', ''),
@@ -1306,12 +1284,18 @@ async function build() {
       target: data.target || 'Unknown Target',
       domain: data.domain || '',
       status: (data.status || 'EMERGING').toUpperCase(),
+      industry: data.industry || 'Technology & Commercial',
+      incident_type: data.incident_type || 'Network Intrusion & Data Exfiltration',
+      threat_actor: data.threat_actor || null,
+      affected_records: data.affected_records !== undefined ? data.affected_records : null,
+      compromised_data: data.compromised_data || [],
+      regulatory_filings: data.regulatory_filings || [],
       first_seen: data.first_seen || '',
       last_updated: data.last_updated || '',
-      threat_actor: data.threat_actor || null,
       summary: data.summary || '',
       tags: data.tags || [],
-      milestones
+      milestones,
+      narrativeHtml
     };
 
     // Calculate deterministic Open Weights Confidence Score
@@ -1319,16 +1303,9 @@ async function build() {
 
     incidents.push(incidentObj);
 
-    // Generate individual incident HTML page with confidence telemetry & dossier tools
+    // Generate individual incident HTML page with confidence telemetry & forensic profile
     const incidentHtml = generateIncidentDetailHtml(incidentObj);
     fs.writeFileSync(path.join(DIST_INCIDENTS_DIR, `${incidentObj.id}.html`), incidentHtml, 'utf-8');
-
-    // Generate first-party machine-readable JSON dossier per incident
-    fs.writeFileSync(path.join(DIST_API_INCIDENTS_DIR, `${incidentObj.id}.json`), JSON.stringify(incidentObj, null, 2), 'utf-8');
-
-    // Generate embeddable live SVG status badge
-    const badgeSvg = generateIncidentBadgeSvg(incidentObj);
-    fs.writeFileSync(path.join(DIST_BADGES_DIR, `${incidentObj.id}.svg`), badgeSvg, 'utf-8');
   }
 
   // Sort incidents by last_updated descending by default
@@ -1337,7 +1314,7 @@ async function build() {
   // Compute global telemetry stats & trends
   const stats = computeTelemetryStats(incidents);
 
-  // Generate homepage index.html with trend metrics & spotlight
+  // Generate homepage index.html with trend metrics & charts
   const indexHtml = generateIndexHtml(incidents, stats);
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexHtml, 'utf-8');
 
@@ -1345,31 +1322,19 @@ async function build() {
   const aboutHtml = generateAboutHtml();
   fs.writeFileSync(path.join(DIST_DIR, 'about.html'), aboutHtml, 'utf-8');
 
-  // Output first-party flat-file APIs
-  fs.writeFileSync(path.join(DIST_API_DIR, 'incidents.json'), JSON.stringify(incidents, null, 2), 'utf-8');
-  fs.writeFileSync(path.join(DIST_API_DIR, 'stats.json'), JSON.stringify(stats, null, 2), 'utf-8');
-
-  // Output STIX 2.1 Threat Intel Bundle
-  const stixBundle = generateStix21Bundle(incidents, SITE_URL);
-  fs.writeFileSync(path.join(DIST_API_DIR, 'stix21.json'), JSON.stringify(stixBundle, null, 2), 'utf-8');
-
-  // Output search index JSON with confidence scores for instant client search
+  // Output search index JSON for instant client search
   fs.writeFileSync(path.join(DIST_DIR, 'search-index.json'), JSON.stringify(incidents, null, 2), 'utf-8');
 
-  // Output RSS 2.0 Feed
+  // Output standard RSS 2.0 Feed
   const rssXml = generateRssFeed(incidents);
   fs.writeFileSync(path.join(DIST_DIR, 'feed.xml'), rssXml, 'utf-8');
-
-  // Output JSON Feed v1.1 with Open Weights Telemetry
-  const jsonFeed = generateJsonFeed(incidents);
-  fs.writeFileSync(path.join(DIST_DIR, 'feed.json'), jsonFeed, 'utf-8');
 
   // Copy CNAME if present
   if (fs.existsSync(path.join(ROOT_DIR, 'CNAME'))) {
     fs.copyFileSync(path.join(ROOT_DIR, 'CNAME'), path.join(DIST_DIR, 'CNAME'));
   }
 
-  console.log(`✅ Successfully built ${incidents.length} incident dossiers, REST APIs, STIX 2.1 feed, SVG badges & static site to dist/`);
+  console.log(`✅ Successfully built ${incidents.length} incident dossiers, RSS 2.0 feed & telemetry site to dist/`);
 }
 
 build().catch(err => {

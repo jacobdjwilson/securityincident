@@ -1,41 +1,41 @@
 ---
-id: 2026-08-rb-american-group
-target: RB American Group
-domain: rbamericangroup.com
+id: 2026-08-rockwood-retirement-communities
+target: Rockwood Retirement Communities
+domain: rockwoodretirement.org
 status: CONFIRMED
-first_seen: '2026-08-28'
-last_updated: '2026-08-28'
-threat_actor: RansomHub
+first_seen: '2026-08-20'
+last_updated: '2026-08-20'
+threat_actor: Unattributed
 summary: >-
   Washington State Attorney General formal data breach disclosure notice filed
-  by RB American Group affecting 974 residents.
+  by Rockwood Retirement Communities affecting 7136 residents.
 tags:
   - regulatory
   - state-ag
   - washington
   - confirmed
-industry: Retail & Food Services
+industry: Healthcare & Senior Living
 incident_type: Ransomware Extortion
-affected_records: 98000
+affected_records: 6200
 compromised_data:
-  - Franchise Employee Social Security Numbers (SSNs)
-  - Driver’s License Numbers
-  - Direct Deposit Details
+  - Resident Medical Care Directives
+  - Social Security Numbers (SSNs)
+  - Emergency Family Contact Details
 regulatory_filings:
   - regulator: Washington Attorney General
-    notice_id: WA-2026-03912
+    notice_id: WA-2026-03890
     url: 'https://www.atg.wa.gov/data-breach-notifications'
 ---
 ## Incident Overview
 
-The **RB American Group** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Retail & Food Services** sector, attributed to the **RansomHub** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **98,000 individuals and records**.
+The **Rockwood Retirement Communities** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Healthcare & Senior Living** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **6,200 individuals and records**.
 
 Initial forensics indicate that threat actors successfully circumvented boundary defenses, leading to anomalous data staging and unauthorized exfiltration of sensitive assets. Following discovery, incident response teams initiated containment procedures, isolated affected nodes, and engaged external digital forensics specialists.
 
 ## Compromised Assets & Data Scope
 
 Forensic telemetry and statutory disclosure filings confirm exposure of the following sensitive asset categories:
-- **Primary Data Classes:** Franchise Employee Social Security Numbers (SSNs), Driver’s License Numbers, Direct Deposit Details.
+- **Primary Data Classes:** Resident Medical Care Directives, Social Security Numbers (SSNs), Emergency Family Contact Details.
 - **Infrastructure Impact:** Core operational servers and cloud databases subjected to unauthorized query and exfiltration.
 - **Risk Assessment:** Compromised credentials and identity data carry heightened risk of secondary spearphishing, fraudulent identity claims, and unauthorized account access.
 
@@ -45,7 +45,7 @@ In adherence to statutory breach notification mandates, official filings have be
 
 ## Timeline
 
-### 2026-08-28 16:30 UTC
+### 2026-08-20 16:30 UTC
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
-- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42591.pdf)
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42441.pdf)

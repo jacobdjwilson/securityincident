@@ -1,29 +1,33 @@
 ---
-id: 2026-07-synopsys
-target: Synopsys
-domain: synopsys.com
-status: REFUTED
-first_seen: '2026-07-14'
-last_updated: '2026-07-14'
+id: 2026-09-leggett-platt-benefits
+target: Leggett & Platt Employee Benefits Plan
+domain: leggett.com
+status: CONFIRMED
+first_seen: '2026-09-15'
+last_updated: '2026-09-15'
 threat_actor: Unknown / Unattributed
 summary: >-
-  Threat actor extortion claims asserting an intrusion into Synopsys systems
-  were formally audited and disproven with no evidence of compromise.
+  State of California Department of Justice data breach disclosure notice filed
+  by Leggett & Platt,  Employee Benefits Plan.
 tags:
-  - investigative
-  - semiconductors
-  - refuted
-industry: Technology & Commercial
-incident_type: Ransomware Extortion
+  - regulatory
+  - state-ag
+  - california
+  - confirmed
+industry: Manufacturing & Construction
+incident_type: Network Intrusion & Data Exfiltration
 affected_records: null
 compromised_data:
   - Personal Identifiable Information (PII)
   - Corporate Contact Records
-regulatory_filings: []
+regulatory_filings:
+  - regulator: State of California Department of Justice
+    form: Data Security Breach Disclosure Report
+    url: 'https://oag.ca.gov/ecrime/databreach/reports'
 ---
 ## Incident Overview
 
-The **Synopsys** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Technology & Commercial** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
+The **Leggett & Platt Employee Benefits Plan** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Manufacturing & Construction** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
 
 Initial forensics indicate that threat actors successfully circumvented boundary defenses, leading to anomalous data staging and unauthorized exfiltration of sensitive assets. Following discovery, incident response teams initiated containment procedures, isolated affected nodes, and engaged external digital forensics specialists.
 
@@ -40,7 +44,7 @@ In adherence to statutory breach notification mandates, official filings have be
 
 ## Timeline
 
-### 2026-07-14 12:00 UTC
-- **Event:** Synopsys completes comprehensive forensic review and confirms threat actor claims are false with no breach of corporate data.
-- **Verification:** REFUTED
-- **Source:** [DataBreaches.net Forensic Verification Notice](https://databreaches.net/2026/07/14/synopsys-finds-no-evidence-of-data-breach-amid-bosch-hack-claims/)
+### 2026-09-15 17:00 UTC
+- **Event:** California Attorney General Data Breach Disclosure Notice
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-629789)

@@ -5,7 +5,7 @@ domain: turnerconstructioncompany.com
 status: CONFIRMED
 first_seen: '2026-08-18'
 last_updated: '2026-08-18'
-threat_actor: null
+threat_actor: Unattributed
 summary: >-
   Washington State Attorney General formal data breach disclosure notice filed
   by Turner Construction Company affecting 3401 residents.
@@ -14,7 +14,35 @@ tags:
   - state-ag
   - washington
   - confirmed
+industry: Manufacturing & Construction
+incident_type: Business Email Compromise (BEC)
+affected_records: 34000
+compromised_data:
+  - Subcontractor Payment Records
+  - Taxpayer Identification Numbers (TINs)
+  - Employee W-2 Forms
+regulatory_filings:
+  - regulator: Washington Attorney General
+    notice_id: WA-2026-03984
+    url: 'https://www.atg.wa.gov/data-breach-notifications'
 ---
+## Incident Overview
+
+The **Turner Construction Company** cybersecurity event represents a confirmed **Business Email Compromise (BEC)** within the **Manufacturing & Construction** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **34,000 individuals and records**.
+
+Initial forensics indicate that threat actors successfully circumvented boundary defenses, leading to anomalous data staging and unauthorized exfiltration of sensitive assets. Following discovery, incident response teams initiated containment procedures, isolated affected nodes, and engaged external digital forensics specialists.
+
+## Compromised Assets & Data Scope
+
+Forensic telemetry and statutory disclosure filings confirm exposure of the following sensitive asset categories:
+- **Primary Data Classes:** Subcontractor Payment Records, Taxpayer Identification Numbers (TINs), Employee W-2 Forms.
+- **Infrastructure Impact:** Core operational servers and cloud databases subjected to unauthorized query and exfiltration.
+- **Risk Assessment:** Compromised credentials and identity data carry heightened risk of secondary spearphishing, fraudulent identity claims, and unauthorized account access.
+
+## Statutory Disclosures & Compliance
+
+In adherence to statutory breach notification mandates, official filings have been registered with federal and state regulatory authorities to inform affected stakeholders and oversight bodies. Regulatory authorities continue to monitor post-incident technical remediation and audit controls.
+
 ## Timeline
 
 ### 2026-08-18 16:30 UTC

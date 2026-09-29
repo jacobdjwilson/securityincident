@@ -2340,201 +2340,214 @@ a:hover {
 }
 
 /* ===================================================================
-   Phase 3: First-Party Intelligence & Dossier Export (Detail Page)
+   Forensic Metadata, Rich Flat-File Tags & Technical Briefings
    =================================================================== */
 
-.dossier-export-box {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: var(--card-shadow);
-}
-
-.dossier-export-header {
+/* Homepage Card Forensic Tags */
+.card-forensic-tags {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-subtle);
-  padding-bottom: 1rem;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
-.dossier-title-group h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-primary);
+.card-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
-}
-
-.dossier-title-group h3 i {
-  color: var(--cyan-accent);
-}
-
-.dossier-title-group p {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.btn-dossier-download {
-  background: var(--cyan-accent-soft);
-  color: var(--cyan-accent);
-  border: 1px solid var(--cyan-accent);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  font-size: 0.82rem;
+  gap: 0.35rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-dossier-download:hover {
-  background: var(--cyan-accent);
-  color: #020617;
-  text-decoration: none;
-}
-
-.dossier-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.dossier-card {
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1rem;
+  color: var(--text-secondary);
+}
+
+.card-tag-industry {
+  color: var(--cyan-accent);
+  border-color: rgba(6, 182, 212, 0.25);
+  background: var(--cyan-accent-soft);
+}
+
+.card-tag-type {
+  color: var(--text-secondary);
+}
+
+.card-tag-affected {
+  color: var(--status-acknowledged);
+  border-color: rgba(245, 158, 11, 0.25);
+  background: var(--status-acknowledged-bg);
+}
+
+/* Dense Telemetry Table New Column Tags */
+.table-industry-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: var(--cyan-accent-soft);
+  color: var(--cyan-accent);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  white-space: nowrap;
+}
+
+.table-type-tag {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.col-industry, .col-type, .col-affected {
+  white-space: nowrap;
+}
+
+/* Detail Page: Forensic Meta Sections */
+.forensic-meta-section {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
-.dossier-card-wide {
-  grid-column: 1 / -1;
-}
-
-.dossier-card-title {
-  font-size: 0.78rem;
-  font-weight: 600;
+.forensic-section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   color: var(--text-muted);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-.copy-field {
+.compromised-pills-row, .filings-pills-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg-canvas);
-  border: 1px solid var(--border-subtle);
-  border-radius: 6px;
-  padding: 0.35rem 0.65rem;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.copy-field code {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--cyan-accent);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.btn-copy {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  border-radius: 4px;
-  padding: 0.25rem 0.55rem;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
+.compromised-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-}
-
-.btn-copy:hover {
-  color: var(--text-primary);
-  border-color: var(--cyan-accent);
-}
-
-.badge-preview-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  padding: 0.2rem 0;
-}
-
-.live-svg-badge {
-  height: 22px;
-  border-radius: 4px;
-}
-
-.citation-code-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg-canvas);
-  border: 1px solid var(--border-subtle);
-  border-radius: 6px;
-  padding: 0.5rem 0.75rem;
-  gap: 0.75rem;
-}
-
-.citation-code-wrap code {
-  font-family: var(--font-mono);
+  gap: 0.4rem;
+  background: var(--status-emerging-bg);
+  color: var(--status-emerging);
+  border: 1px solid rgba(239, 68, 68, 0.25);
   font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.filing-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.filing-pill:hover {
+  border-color: var(--cyan-accent);
+  color: var(--cyan-accent);
+  text-decoration: none;
+  background: var(--cyan-accent-soft);
+}
+
+.filing-acc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Technical Forensic Narrative Dossier */
+.narrative-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--card-shadow);
+}
+
+.narrative-card-header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.narrative-card-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.narrative-card-header h3 i {
+  color: var(--cyan-accent);
+}
+
+.markdown-content h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.markdown-content h2:first-child {
+  margin-top: 0;
+}
+
+.markdown-content p {
+  font-size: 0.9rem;
+  line-height: 1.65;
   color: var(--text-secondary);
-  line-height: 1.5;
-  white-space: normal;
-  word-break: break-all;
+  margin-bottom: 1rem;
+}
+
+.markdown-content ul {
+  margin-left: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.markdown-content li {
+  margin-bottom: 0.4rem;
+}
+
+.markdown-content strong {
+  color: var(--text-primary);
 }
 
 @media (max-width: 960px) {
-  .kpi-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .spotlight-grid {
+  .telemetry-bar {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
-  .kpi-grid {
+  .telemetry-bar {
     grid-template-columns: 1fr;
   }
-  .spotlight-grid {
-    grid-template-columns: 1fr;
-  }
-  .dossier-grid {
-    grid-template-columns: 1fr;
-  }
-  .dossier-export-header {
+  .card-forensic-tags {
     flex-direction: column;
-  }
-  .btn-dossier-download {
-    width: 100%;
-    justify-content: center;
+    align-items: flex-start;
   }
 }
 

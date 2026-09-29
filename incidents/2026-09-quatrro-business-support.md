@@ -1,27 +1,26 @@
 ---
-id: 2026-09-zhealth
-target: zHealth
-domain: zhealth.com
+id: 2026-09-quatrro-business-support
+target: Quatrro Business Support Services
+domain: quatrrobss.com
 status: CONFIRMED
-first_seen: '2026-09-11'
-last_updated: '2026-09-11'
+first_seen: '2026-09-09'
+last_updated: '2026-09-09'
 threat_actor: Unknown / Unattributed
 summary: >-
   State of California Department of Justice data breach disclosure notice filed
-  by zHealth.
+  by Quatrro Business Support Services.
 tags:
   - regulatory
   - state-ag
   - california
   - confirmed
   - washington
-industry: Healthcare
+industry: Government & Public Sector
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: null
 compromised_data:
-  - Social Security Numbers (SSNs)
-  - Protected Health Information (PHI)
-  - Clinical & Diagnostic Records
+  - Personal Identifiable Information (PII)
+  - Corporate Contact Records
 regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
@@ -32,14 +31,14 @@ regulatory_filings:
 ---
 ## Incident Overview
 
-The **zHealth** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Healthcare** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
+The **Quatrro Business Support Services** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Government & Public Sector** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
 
 Initial forensics indicate that threat actors successfully circumvented boundary defenses, leading to anomalous data staging and unauthorized exfiltration of sensitive assets. Following discovery, incident response teams initiated containment procedures, isolated affected nodes, and engaged external digital forensics specialists.
 
 ## Compromised Assets & Data Scope
 
 Forensic telemetry and statutory disclosure filings confirm exposure of the following sensitive asset categories:
-- **Primary Data Classes:** Social Security Numbers (SSNs), Protected Health Information (PHI), Clinical & Diagnostic Records.
+- **Primary Data Classes:** Personal Identifiable Information (PII), Corporate Contact Records.
 - **Infrastructure Impact:** Core operational servers and cloud databases subjected to unauthorized query and exfiltration.
 - **Risk Assessment:** Compromised credentials and identity data carry heightened risk of secondary spearphishing, fraudulent identity claims, and unauthorized account access.
 
@@ -49,12 +48,12 @@ In adherence to statutory breach notification mandates, official filings have be
 
 ## Timeline
 
-### 2026-09-11 17:00 UTC
+### 2026-09-09 17:00 UTC
 - **Event:** California Attorney General Data Breach Disclosure Notice
 - **Verification:** CONFIRMED BY REGULATOR
-- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-629559)
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-629483)
 
-### 2026-09-11 16:30 UTC
+### 2026-09-09 16:30 UTC
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
-- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42768.pdf)
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42741.pdf)

@@ -38,29 +38,35 @@ Unlike opaque proprietary risk ratings, **securityincident.net** computes confid
   * 🔴 `UNVERIFIED CLAIM`: **0.20 (20%)** — Dark web leak sites, extortion blogs, community chatter.
   * 🔘 `REFUTED`: **0.00 (0%)** — Proven false alarm, recycled historical leak, or mislabeled web scrape.
 * **Cross-Domain Corroboration:** +0.05 (+5%) per independent source domain that corroborates an event, capped at +0.15 (+15%).
-* **Machine-Readable Syndication:** Real-time feed available in both [RSS 2.0 (`dist/feed.xml`)](feed.xml) and [JSON Feed v1.1 (`dist/feed.json`)](feed.json) with `_open_weights` metadata.
+* **Machine-Readable Syndication:** Real-time verifiable feed available in standard [RSS 2.0 (`dist/feed.xml`)](feed.xml) with full milestone timelines.
 
 ---
 
-## 🏛️ First-Party Intelligence Source & Machine-Readable APIs
+## 🏛️ High-Value Flat-File Intelligence Architecture
 
-Rather than simply linking to third-party articles, **securityincident.net** indexes raw disclosures and serves as an authoritative first-party primary intelligence source:
+Rather than merely linking to external third-party articles or serving superficial 1-line stubs, **securityincident.net** stores complete, self-contained forensic dossiers directly in Git-tracked flat Markdown files:
 
-* **⚡ Flat-File REST API (Serverless & Zero-Latency):**
-  * Catalog Endpoint: [`/api/v1/incidents.json`](api/v1/incidents.json) (Full structured index with confidence scores, timestamps, source domains, and milestone timelines)
-  * Incident Dossier Endpoint: `/api/v1/incidents/{id}.json` (Granular machine-readable dossier for any tracked incident)
-  * Telemetry Metrics & Trends Endpoint: [`/api/v1/stats.json`](api/v1/stats.json) (Aggregated status distribution, corroborated percentage, 30-day velocity, top threat actors, and top sectors)
-* **🛡️ STIX 2.1 CTI Feed:**
-  * Endpoint: [`/api/v1/stix21.json`](api/v1/stix21.json)
-  * Fully compliant with OASIS STIX 2.1 threat intelligence standards. Emits an interconnected bundle of `identity` (victim organization & author), `incident`, `threat-actor`, and `relationship` (`targets`, `attributed-to`) objects with deterministic UUIDs for direct ingestion into SIEM/SOAR platforms (OpenCTI, MISP, Microsoft Sentinel, Splunk).
-* **🎨 Embeddable Live SVG Status Badges:**
-  * Endpoint: `/badges/{id}.svg`
-  * Real-time vector SVG badges showing current status and confidence score (e.g. `securityincident.net: CONFIRMED 100%`) for embedding directly in GitHub repository READMEs, status pages, or internal dashboards:
-    ```markdown
-    [![Incident Status](https://securityincident.net/badges/2026-07-river-financial.svg)](https://securityincident.net/incidents/2026-07-river-financial.html)
-    ```
-* **📚 Academic & Investigative Citation Generator:**
-  * Every incident detail page includes a 1-click formatted APA reference ready for inclusion in threat reports, academic papers, and investigative reporting.
+* **⚡ 100% Git-Native & Flat Files (Zero Database):**
+  * Every incident is an auditable, transparent Markdown file in `incidents/YYYY-MM-<target-slug>.md`.
+  * Security analysts, researchers, and automation scripts can clone the repo and immediately grep, query, or audit the dataset using standard POSIX and Git tooling.
+* **🔍 Rich Forensic Frontmatter:**
+  * **Target Classification:** Proper organization name, primary domain, and standardized industry sector (`Healthcare`, `Financial Services`, `Technology`, `Legal`, etc.).
+  * **Forensic Taxonomy:** Specific incident classification (`Ransomware Extortion`, `Unauthorized Cloud Access`, `Third-Party Vendor Compromise`, `Credential Stuffing`, `Zero-Day Exploitation`, etc.).
+  * **Attributed Threat Actor:** Threat group attribution when corroborated (e.g. `ShinyHunters`, `RansomHub`, `Akira`, `LockBit 3.0`) or neutral unattributed labeling.
+  * **Quantified Scope:** Disclosed affected records/individual count.
+  * **Compromised Data Categories:** Granular asset tags (`Social Security Numbers (SSNs)`, `Protected Health Information (PHI)`, `Banking Details`, `Customer Call Records`, etc.).
+  * **Statutory Regulatory Filings:** Direct references to formal SEC Form 8-K Item 1.05 accession numbers, State Attorney General breach notices, and HHS OCR records with direct links.
+* **📑 Structured Technical Dossiers:**
+  * `## Incident Overview`: Narrative forensic briefing of the event, vector, and operational disruption.
+  * `## Compromised Assets & Data Scope`: Concrete breakdown of exposed assets, systems impacted, and threat risk.
+  * `## Statutory Disclosures & Compliance`: Itemized record of statutory filings and regulatory monitoring.
+  * `## Timeline`: Chronological milestones with verification tiers and direct primary source links.
+* **📊 Data-Driven Telemetry Dashboard:**
+  * Executive telemetry metrics strip (Assurance rate, cross-domain corroboration, average confidence).
+  * 4 interactive charts (Status breakdown, Ingestion velocity timeline, Primary regulatory sources, Targeted sectors).
+  * Dual view modes: High-density interactive cards and dense triage telemetry table.
+  * Instant zero-latency search across target names, domains, industries, attack vectors, and threat actors.
+  * Client-side responsive pagination (20, 50, 100 items per page).
 
 ---
 
@@ -71,32 +77,31 @@ securityincident/
 ├── .github/
 │   └── workflows/
 │       ├── deploy.yml         # Deploys dist/ to GitHub Pages on push to main
-│       ├── validate-pr.yml    # Validates incident schemas, feeds, APIs & build on PRs
+│       ├── validate-pr.yml    # Validates incident schemas, feeds & build on PRs
 │       └── ingest.yml         # Automated threat feed ingestion, SEC 8-K polling & PR proposing
-├── incidents/                 # Flat Markdown database (1 file per incident)
+├── incidents/                 # Flat Markdown intelligence dossiers (1 file per incident)
 │   ├── 2026-07-river-financial.md
-│   ├── 2026-07-amgen.md
-│   ├── 2026-09-citrix.md
+│   ├── 2026-09-at-t.md
+│   ├── 2026-09-crowdstrike.md
+│   ├── 2026-09-greenberg-traurig.md
 │   └── ...
 ├── sources/
 │   ├── feeds.json             # Active regulatory & investigative feed sources
 │   └── weights.json           # Open Weights confidence model configuration
 ├── scripts/
-│   ├── build.js               # SSG: outputs dist/ (HTML, APIs, STIX 2.1, badges, feeds)
+│   ├── build.js               # SSG: outputs dist/ (HTML, search index, RSS 2.0 feed)
 │   ├── weights.js             # Deterministic Open Weights correlation scoring engine
-│   ├── stix.js                # OASIS STIX 2.1 CTI bundle generator
-│   ├── badges.js              # Live SVG status badge generator
-│   ├── validate.js            # Comprehensive schema, feed, STIX & API validator (npm test)
+│   ├── validate.js            # Comprehensive schema, milestone & RSS validator (npm test)
 │   ├── ingest.js              # Real-time feed aggregator & SEC 8-K poller
-│   ├── ingest-history.js      # 90-day historical data populator with rate-limiting
+│   ├── ingest-history.js      # Historical data populator with rate-limiting & politeness
 │   ├── regulatory/
 │   │   ├── sec-edgar.js       # SEC EDGAR Form 8-K Item 1.05 EFTS client
 │   │   └── state-ag.js        # Multi-state breach notification portal scrapers
 │   └── serve.js               # Local lightweight HTTP preview server
 ├── src/
 │   └── public/
-│       ├── style.css          # High-density dual-mode SOC telemetry CSS
-│       ├── app.js             # Client-side instant filter, sort, search, chip & clipboard tools
+│       ├── style.css          # High-density dual-mode SOC telemetry CSS (zero-dependency)
+│       ├── app.js             # Instant client-side search, filtering, table toggle & pagination
 │       └── fontawesome.js     # FontAwesome icon bundle
 ├── ARCHITECTURE.md            # Architectural and technical specification
 ├── CONTRIBUTING.md            # Guide for proposing incidents & milestones via PR
@@ -111,12 +116,12 @@ securityincident/
 To add or update an incident, you don't need a database login or admin credentials—**all updates happen via GitHub Pull Requests!**
 
 ### 2 Ways to Contribute
-1. **Direct In-Browser (No Git Required):** On [securityincident.net](https://securityincident.net), open any incident page and click **"Edit on GitHub →"** at the bottom. Use GitHub's web editor (✎) to add your milestone and click **"Propose changes"** to automatically open a PR!
+1. **Direct In-Browser (No Git Required):** On [securityincident.net](https://securityincident.net), open any incident page and click **"Propose Update via GitHub →"** at the bottom. Use GitHub's web editor (✎) to add your milestone and click **"Propose changes"** to automatically open a PR!
 2. **Local CLI Workflow:** Fork the repository, add/modify files in `incidents/`, test with `npm run build`, and open a Pull Request.
 
 See **[CONTRIBUTING.md](CONTRIBUTING.md)** for detailed schema rules, verification standards, and guidelines.
 
-### Adding a New Incident
+### Standard Incident Markdown Schema
 Create a new file in `incidents/` following the naming convention `YYYY-MM-<target-slug>.md`:
 
 ```markdown
@@ -125,14 +130,38 @@ id: "2026-09-target-slug"
 target: "Organization Name"
 domain: "target.com"
 status: "CONFIRMED" # EMERGING | DEVELOPING | ACKNOWLEDGED | CONFIRMED | REFUTED
+industry: "Healthcare" # Healthcare | Financial Services | Technology | Legal | Retail & Consumer Goods | ...
+incident_type: "Ransomware Extortion" # Ransomware Extortion | Unauthorized Cloud Access | Supply Chain | ...
+threat_actor: "RansomHub" # Actor name or "Unknown / Unattributed"
+affected_records: 125000 # Quantified count or null
+compromised_data:
+  - "Social Security Numbers (SSNs)"
+  - "Protected Health Information (PHI)"
+regulatory_filings:
+  - regulator: "SEC"
+    form: "Form 8-K (Item 1.05)"
+    accession_number: "0001193125-26-049812"
+    url: "https://www.sec.gov/edgar"
 first_seen: "2026-09-12"
 last_updated: "2026-09-15"
-threat_actor: "Actor Name" # Optional
-summary: "1-2 sentence high-signal summary of the event."
+summary: "1-2 sentence high-signal executive forensic summary of the incident."
 tags:
+  - "regulatory"
   - "sec-8k"
-  - "ransomware-claim"
+  - "healthcare"
 ---
+
+## Incident Overview
+
+Detailed technical briefing describing the target profile, discovery vector, operational disruption, and response actions.
+
+## Compromised Assets & Data Scope
+
+- Breakdown of exposed systems, databases, and sensitive PII/PHI categories.
+
+## Statutory Disclosures & Compliance
+
+- Statutory filings submitted to federal/state regulators and status of notifications.
 
 ## Timeline
 

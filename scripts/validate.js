@@ -105,12 +105,32 @@ export function validateIncidentFile(filename) {
     errors.push(`'summary' is too short (${data.summary.trim().length} chars). Provide an informative 1-2 sentence summary.`);
   }
 
-  // 7. Tags validation (optional array)
+  // 7. Optional Rich Forensic Fields validation
+  if (data.industry !== undefined && typeof data.industry !== 'string') {
+    errors.push("'industry' must be a string if specified.");
+  }
+  if (data.incident_type !== undefined && typeof data.incident_type !== 'string') {
+    errors.push("'incident_type' must be a string if specified.");
+  }
+  if (data.threat_actor !== undefined && data.threat_actor !== null && typeof data.threat_actor !== 'string') {
+    errors.push("'threat_actor' must be a string or null if specified.");
+  }
+  if (data.affected_records !== undefined && data.affected_records !== null && typeof data.affected_records !== 'number') {
+    errors.push("'affected_records' must be an integer count or null if specified.");
+  }
+  if (data.compromised_data !== undefined && !Array.isArray(data.compromised_data)) {
+    errors.push("'compromised_data' must be an array of strings if specified.");
+  }
+  if (data.regulatory_filings !== undefined && !Array.isArray(data.regulatory_filings)) {
+    errors.push("'regulatory_filings' must be an array of objects if specified.");
+  }
+
+  // 8. Tags validation (optional array)
   if (data.tags !== undefined && !Array.isArray(data.tags)) {
     errors.push("'tags' must be a list/array of string tags if present.");
   }
 
-  // 8. Body Timeline Validation
+  // 9. Body Timeline Validation
   if (!body.includes('## Timeline')) {
     errors.push("Markdown body must contain a '## Timeline' section.");
   }
@@ -243,127 +263,6 @@ function validateFeedXml(filePath) {
   return errors;
 }
 
-const JSON_FEED_PATH = path.join(ROOT_DIR, 'dist', 'feed.json');
-const STIX_PATH = path.join(ROOT_DIR, 'dist', 'api', 'v1', 'stix21.json');
-const API_DIR = path.join(ROOT_DIR, 'dist', 'api', 'v1');
-const BADGES_DIR = path.join(ROOT_DIR, 'dist', 'badges');
-
-function validateJsonFeed(filePath) {
-  const errors = [];
-  if (!fs.existsSync(filePath)) return errors;
-  try {
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const parsed = JSON.parse(raw);
-    if (!parsed.version || !parsed.version.includes('jsonfeed.org')) {
-      errors.push("feed.json missing valid 'version' specifier (https://jsonfeed.org/version/1.1)");
-    }
-    if (!parsed.title) {
-      errors.push("feed.json missing 'title' property");
-    }
-    if (!Array.isArray(parsed.items) || parsed.items.length === 0) {
-      errors.push("feed.json must have non-empty 'items' array");
-    } else {
-      parsed.items.forEach((item, idx) => {
-        if (!item.id) errors.push(`feed.json item #${idx} missing 'id'`);
-        if (!item.title) errors.push(`feed.json item #${idx} missing 'title'`);
-        if (!item.url) errors.push(`feed.json item #${idx} missing 'url'`);
-      });
-    }
-  } catch (err) {
-    errors.push(`Invalid JSON syntax in feed.json: ${err.message}`);
-  }
-  return errors;
-}
-
-function validateStix21(filePath) {
-  const errors = [];
-  if (!fs.existsSync(filePath)) return errors;
-  try {
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const bundle = JSON.parse(raw);
-    if (bundle.type !== 'bundle') {
-      errors.push(`STIX 2.1 top-level type must be 'bundle', found '${bundle.type}'`);
-    }
-    if (!bundle.id || !bundle.id.startsWith('bundle--')) {
-      errors.push(`STIX 2.1 bundle id must start with 'bundle--', found '${bundle.id}'`);
-    }
-    if (!Array.isArray(bundle.objects) || bundle.objects.length === 0) {
-      errors.push("STIX 2.1 bundle must contain non-empty 'objects' array");
-    } else {
-      const types = new Set(bundle.objects.map(o => o.type));
-      if (!types.has('identity')) errors.push("STIX bundle missing required 'identity' objects");
-      if (!types.has('incident')) errors.push("STIX bundle missing required 'incident' objects");
-      if (!types.has('relationship')) errors.push("STIX bundle missing required 'relationship' objects");
-
-      bundle.objects.forEach((obj, idx) => {
-        if (!obj.type) errors.push(`STIX object #${idx} missing 'type'`);
-        if (obj.spec_version !== '2.1') errors.push(`STIX object #${idx} spec_version must be '2.1', found '${obj.spec_version}'`);
-        if (!obj.id || !obj.id.startsWith(`${obj.type}--`)) errors.push(`STIX object #${idx} invalid ID prefix: '${obj.id}'`);
-        if (!obj.created) errors.push(`STIX object #${idx} missing 'created' timestamp`);
-        if (!obj.modified) errors.push(`STIX object #${idx} missing 'modified' timestamp`);
-      });
-    }
-  } catch (err) {
-    errors.push(`Invalid JSON syntax in STIX bundle: ${err.message}`);
-  }
-  return errors;
-}
-
-function validateApiFiles(apiDir) {
-  const errors = [];
-  if (!fs.existsSync(apiDir)) return errors;
-
-  const incidentsJsonPath = path.join(apiDir, 'incidents.json');
-  const statsJsonPath = path.join(apiDir, 'stats.json');
-
-  if (fs.existsSync(incidentsJsonPath)) {
-    try {
-      const parsed = JSON.parse(fs.readFileSync(incidentsJsonPath, 'utf-8'));
-      if (!Array.isArray(parsed) || parsed.length === 0) {
-        errors.push("api/v1/incidents.json must be a non-empty array");
-      }
-    } catch (err) {
-      errors.push(`api/v1/incidents.json invalid JSON: ${err.message}`);
-    }
-  }
-
-  if (fs.existsSync(statsJsonPath)) {
-    try {
-      const stats = JSON.parse(fs.readFileSync(statsJsonPath, 'utf-8'));
-      if (typeof stats.total_incidents !== 'number' || stats.total_incidents <= 0) {
-        errors.push("api/v1/stats.json missing valid 'total_incidents' count");
-      }
-      if (!stats.status_distribution) {
-        errors.push("api/v1/stats.json missing 'status_distribution'");
-      }
-    } catch (err) {
-      errors.push(`api/v1/stats.json invalid JSON: ${err.message}`);
-    }
-  }
-
-  return errors;
-}
-
-function validateBadges(badgesDir) {
-  const errors = [];
-  if (!fs.existsSync(badgesDir)) return errors;
-
-  const badgeFiles = fs.readdirSync(badgesDir).filter(f => f.endsWith('.svg'));
-  if (badgeFiles.length === 0) {
-    errors.push("dist/badges/ contains no SVG files");
-    return errors;
-  }
-
-  const sampleBadges = badgeFiles.slice(0, 5);
-  for (const b of sampleBadges) {
-    const raw = fs.readFileSync(path.join(badgesDir, b), 'utf-8');
-    if (!raw.includes('<svg') || !raw.includes('</svg>')) {
-      errors.push(`dist/badges/${b} does not contain valid SVG markup`);
-    }
-  }
-  return errors;
-}
-
 export function validateAll() {
   console.log('🔍 Validating incident schema and verification compliance...');
 
@@ -399,54 +298,6 @@ export function validateAll() {
       failureReports.push({ file: 'dist/feed.xml', errors: feedErrors });
     } else {
       console.log('✅ RSS feed (dist/feed.xml) passed structure and compliance validation.');
-    }
-  }
-
-  // If dist/feed.json exists, validate it
-  if (fs.existsSync(JSON_FEED_PATH)) {
-    console.log('📋 Validating JSON Feed v1.1 (dist/feed.json)...');
-    const jsonFeedErrors = validateJsonFeed(JSON_FEED_PATH);
-    if (jsonFeedErrors.length > 0) {
-      totalErrors += jsonFeedErrors.length;
-      failureReports.push({ file: 'dist/feed.json', errors: jsonFeedErrors });
-    } else {
-      console.log('✅ JSON Feed (dist/feed.json) passed structure validation.');
-    }
-  }
-
-  // If dist/api/v1/stix21.json exists, validate it
-  if (fs.existsSync(STIX_PATH)) {
-    console.log('🛡️ Validating STIX 2.1 Threat Intel Bundle (dist/api/v1/stix21.json)...');
-    const stixErrors = validateStix21(STIX_PATH);
-    if (stixErrors.length > 0) {
-      totalErrors += stixErrors.length;
-      failureReports.push({ file: 'dist/api/v1/stix21.json', errors: stixErrors });
-    } else {
-      console.log('✅ STIX 2.1 bundle passed CTI compliance validation.');
-    }
-  }
-
-  // If dist/api/v1 exists, validate REST APIs
-  if (fs.existsSync(API_DIR)) {
-    console.log('⚡ Validating first-party REST APIs (dist/api/v1/)...');
-    const apiErrors = validateApiFiles(API_DIR);
-    if (apiErrors.length > 0) {
-      totalErrors += apiErrors.length;
-      failureReports.push({ file: 'dist/api/v1/', errors: apiErrors });
-    } else {
-      console.log('✅ First-party REST APIs passed validation.');
-    }
-  }
-
-  // If dist/badges exists, validate badges
-  if (fs.existsSync(BADGES_DIR)) {
-    console.log('🎨 Validating SVG status badges (dist/badges/)...');
-    const badgeErrors = validateBadges(BADGES_DIR);
-    if (badgeErrors.length > 0) {
-      totalErrors += badgeErrors.length;
-      failureReports.push({ file: 'dist/badges/', errors: badgeErrors });
-    } else {
-      console.log('✅ SVG status badges passed validation.');
     }
   }
 

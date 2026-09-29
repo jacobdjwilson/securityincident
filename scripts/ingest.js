@@ -168,12 +168,20 @@ function isSecurityIncident(title, description) {
 }
 
 function isVendorPatchAdvisory(title, description) {
-  if (/\b(?:patches|plugs|fixes|releases patch for|releases security update for)\b/i.test(title)) {
-    if (!/\b(?:breach|extort|stolen data|ransomware|exfiltrat|infiltrat|hacked)\b/i.test(title)) {
+  const t = title.toLowerCase();
+  // Vendor issuing warnings or advisories about third-party flaws
+  if (/^(?:google|microsoft|cisa|apple|cisco|mozilla|cloudflare|kiteworks)\s+(?:warns|alerts|urges|releases|plugs|fixes|investigates)\b/i.test(title)) {
+    if (!/\b(?:suffers|confirms breach|compromised|extorted|stolen data)\b/i.test(title)) {
       return true;
     }
   }
-  if (/\b(?:-reported zero-day|reported by|credited with discovering)\b/i.test(title)) {
+  // Software patch roundups, CVE catalogs, and vulnerability advisories
+  if (/\b(?:patches|plugs|fixes|releases patch for|releases security update for|flaw cve-|vulnerability cve-|added to kev)\b/i.test(title)) {
+    if (!/\b(?:breach|extort|stolen data|ransomware|exfiltrat|infiltrat|internal intrusion)\b/i.test(title)) {
+      return true;
+    }
+  }
+  if (/\b(?:-reported zero-day|reported by|credited with discovering|zero-day flaw in)\b/i.test(title)) {
     return true;
   }
   return false;
@@ -314,14 +322,16 @@ function extractTargetEntity(title, link = '', description = '') {
 }
 
 function slugify(text) {
-  return text
+  let slug = text
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 30)
-    .replace(/-+$/, '');
+    .replace(/^-+|-+$/g, '');
+  if (slug.length > 50) {
+    slug = slug.slice(0, 50).replace(/-[^-]*$/, '');
+  }
+  return slug.replace(/-+$/, '');
 }
 
 function formatDateIso(dateObj) {
