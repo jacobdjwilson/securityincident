@@ -1,7 +1,7 @@
 {
   "name": "securityincident.net",
   "version": "1.0.0",
-  "description": "A Git-native index of cybersecurity incident status and milestone verification timelines.",
+  "description": "A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.",
   "main": "scripts/build.js",
   "type": "module",
   "scripts": {

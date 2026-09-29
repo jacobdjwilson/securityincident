@@ -1,6 +1,6 @@
 # Contributing to securityincident.net
 
-> **A 100% Git-native, zero-database index of security incident status and milestone verification timelines.**
+> **A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.**
 
 Thank you for your interest in contributing! This project runs entirely on flat files tracked in Git. There is no SQL database, no CMS, and no private admin portal—**GitHub Pull Requests are our database transactions.**
 
@@ -124,13 +124,13 @@ tags:
 
 ### The 5 Observable Macro Statuses
 
-| Status | Color | When to Use |
-| :--- | :---: | :--- |
-| **`CONFIRMED`** | 🟢 Green | **Highest assurance:** Officially confirmed by the target organization or a government regulator (SEC Form 8-K, State AG breach notice, HHS portal). |
-| **`ACKNOWLEDGED`** | 🟡 Yellow | Target publicly reports an "IT disruption" or active investigation, but has not confirmed an unauthorized intrusion or data loss. |
-| **`DEVELOPING`** | 🟠 Orange | Corroborated intelligence: independent researchers verify sample data, or observed outages align with claims before target response. |
-| **`EMERGING`** | 🔴 Red | Unilateral claim on a dark web forum, leak site listing, or chatter. Target has not acknowledged or commented. |
-| **`REFUTED`** | 🔘 Gray | Proven false alarm, recycled historical data dump, fake sample data, or threat actor retraction. |
+| Status | Color | Description | Primary Sources |
+| :--- | :---: | :--- | :--- |
+| **`CONFIRMED`** | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals, formal press releases. |
+| **`ACKNOWLEDGED`** | 🟡 Yellow | Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss. | Target status pages, banner notices, initial press replies. |
+| **`DEVELOPING`** | 🟠 Orange | Corroborated intelligence: independent researchers verify samples or observable outages align with claims. | Independent technical telemetry, sample schema audits. |
+| **`EMERGING`** | 🔴 Red | Early threat actor claims, dark web forum leaks, or unverified community chatter before target comment. | Threat actor leak blogs, dark web forums, social tips. |
+| **`REFUTED`** | 🔘 Gray | Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach. | Target verification, HaveIBeenPwned research, researcher audits. |
 
 ### Milestone Verification Tiers
 

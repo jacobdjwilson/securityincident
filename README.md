@@ -1,18 +1,16 @@
 # securityincident.net
 
-> **A 100% Git-native, zero-database index of security incident statuses and verifiable milestone timelines on the open web.**
+> **A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.**
 
 Visit the live site: [securityincident.net](https://securityincident.net)
 
 ---
 
-## 🎯 The Philosophy: Status & Timeline Over Categorization
+## 🎯 Our Philosophy: Neutral Intelligence Through Open Curation
 
-In the real world, the "category" or "type" of a security incident is almost always inaccurate or subjective in its early stages. An incident that begins as a reported "system outage" frequently evolves into an "unauthorized access event," which later becomes a "data exfiltration" or "ransomware extortion."
+We provide a reliable and neutral source of cybersecurity intelligence by curating security data across its entire lifecycle, ranging from early rumors to formal regulatory filings. 
 
-Instead of pinning incidents to rigid categories, **securityincident.net** focuses on the observable ground truth:
-1. **Current Observable Status:** Is it an unverified dark web claim, has the target acknowledged an ongoing investigation, has an official regulator confirmed it, or was it debunked?
-2. **Chronological Milestone Timeline:** A sequence of public events with source attribution and verification badges.
+To deliver maximum clarity, we establish clear levels of confidence and correlate diverse data sources using open weights. Built entirely on open editing through GitHub pull requests, **securityincident.net** empowers security professionals, researchers, and organizations to maintain a transparent, verifiable, and high-signal record of security incidents without corporate bias or editorial filler.
 
 ---
 
@@ -22,8 +20,8 @@ Instead of pinning incidents to rigid categories, **securityincident.net** focus
 | :--- | :--- | :---: | :--- | :--- |
 | **Confirmed** | `CONFIRMED` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals, formal press releases. |
 | **Acknowledged** | `ACKNOWLEDGED` | 🟡 Yellow | Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss. | Target status pages, banner notices, initial press replies. |
-| **Developing** | `DEVELOPING` | 🟠 Orange | Corroborated intelligence: independent researchers verify samples or observable outages align with claim. | Independent technical telemetry, sample schema audits. |
-| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web forum leaks, or unverified community chatter. Target has not commented. | Threat actor leak blogs, dark web forums, social tips. |
+| **Developing** | `DEVELOPING` | 🟠 Orange | Corroborated intelligence: independent researchers verify samples or observable outages align with claims. | Independent technical telemetry, sample schema audits. |
+| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web forum leaks, or unverified community chatter before target comment. | Threat actor leak blogs, dark web forums, social tips. |
 | **Refuted** | `REFUTED` | 🔘 Gray | Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach. | Target verification, HaveIBeenPwned research, researcher audits. |
 
 ---
@@ -36,13 +34,13 @@ securityincident/
 │   └── workflows/
 │       ├── deploy.yml       # Deploys dist/ to GitHub Pages on push to main
 │       ├── validate-pr.yml  # Validates incident schemas & build on PRs
-│       └── ingest.yml       # (Roadmap) Cron workflow polling SEC 8-K & RSS
+│       └── ingest.yml       # Automated threat feed ingestion, SEC 8-K polling & PR proposing
 ├── incidents/               # Flat Markdown database (1 file per incident)
-│   ├── 2026-09-crowdstrike.md
-│   ├── 2026-09-apex-pay.md
-│   ├── 2026-09-vortex-cloud.md
-│   ├── 2026-09-medix-health.md
-│   └── 2026-09-solaris-telecom.md
+│   ├── 2026-09-citrix.md
+│   ├── 2026-09-keio-corp.md
+│   ├── 2026-09-times-car.md
+│   ├── 2026-09-us-dod-pentagon.md
+│   └── 2026-09-dodo-pizza.md
 ├── scripts/
 │   ├── build.js             # Parses incidents/*.md, outputs dist/ (HTML, feed.xml & search-index.json)
 │   ├── validate.js          # Schema, milestone, and RSS validator (npm test)

@@ -1,5 +1,13 @@
 [
   {
+    "id": "sec-edgar-8k",
+    "name": "SEC EDGAR Form 8-K Filings",
+    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&CIK=&type=8-K&company=&dateb=&owner=include&start=0&count=100&output=atom",
+    "type": "regulatory",
+    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "enabled": true
+  },
+  {
     "id": "cisa-advisories",
     "name": "CISA Cybersecurity Advisories",
     "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",

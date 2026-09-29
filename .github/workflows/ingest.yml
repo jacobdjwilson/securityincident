@@ -2,8 +2,8 @@ name: Daily Incident Ingestion & Telemetry Ingestion
 
 on:
   schedule:
-    # Run once daily at 04:00 UTC (polite off-peak time)
-    - cron: '0 4 * * *'
+    # Run every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       auto_merge:
@@ -94,6 +94,12 @@ jobs:
             --title "$PR_TITLE" \
             --body "$PR_BODY" \
             --base main \
-            --head "$BRANCH_NAME" || {
-              echo "Note: If PR creation is restricted for GITHUB_TOKEN, changes are available on branch $BRANCH_NAME"
+            --head "$BRANCH_NAME" \
+            --label "telemetry" || {
+              echo "::warning::PR creation via gh pr create failed. Changes remain available on branch $BRANCH_NAME"
             }
+
+          if [ "${{ github.event.inputs.auto_merge }}" = "true" ]; then
+            echo "Attempting auto-merge on pull request..."
+            gh pr merge "$BRANCH_NAME" --auto --squash || echo "::warning::Auto-merge could not be enabled automatically."
+          fi

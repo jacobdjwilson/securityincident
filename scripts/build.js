@@ -181,7 +181,7 @@ ${categories}
   <channel>
     <title>securityincident.net | Real-Time Incident Status &amp; Milestone Timeline Index</title>
     <link>${SITE_URL}/</link>
-    <description>A 100% Git-native clearinghouse tracking real-time status and verified milestone timelines for cybersecurity incidents on the open web.</description>
+    <description>A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.</description>
     <language>en-us</language>
     <lastBuildDate>${buildDate}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
@@ -236,8 +236,8 @@ function renderFooter(isSubpage = false) {
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-credits">
-        <strong>securityincident.net</strong> &bull; Git-native open-web security intelligence index.<br>
-        Zero speculative categorization. Ground truth status & milestone verification.
+        <strong>securityincident.net</strong> &bull; Neutral open-web security intelligence index.<br>
+        Powered by open weights correlation and community-driven GitHub PR editing.
       </div>
       <div class="footer-links">
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml"><i class="fa-solid fa-rss" style="color: var(--status-developing);"></i> RSS Feed</a>
@@ -304,8 +304,8 @@ function generateIndexHtml(incidents) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>securityincident.net | Open Web Incident Status & Milestone Tracker</title>
-  <meta name="description" content="A 100% Git-native clearinghouse tracking real-time status and verified milestone timelines for cybersecurity incidents on the open web.">
+  <title>securityincident.net | Real-Time Incident Status &amp; Milestone Timeline Index</title>
+  <meta name="description" content="A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
   <link rel="stylesheet" href="style.css">
@@ -326,11 +326,10 @@ function generateIndexHtml(incidents) {
 
   <main class="container">
     <section class="hero">
-      <div class="hero-pill"><i class="fa-solid fa-satellite-dish"></i> OPEN-WEB SECURITY TELEMETRY &bull; GIT-NATIVE</div>
+      <div class="hero-pill"><i class="fa-solid fa-satellite-dish"></i> OPEN-WEB SECURITY INTELLIGENCE &bull; OPEN WEIGHTS</div>
       <h1 class="hero-title">Real-Time Incident Status &amp; Timeline Index</h1>
       <p class="hero-desc">
-        Tracking cybersecurity events from initial dark web claim to regulatory 8-K confirmation. 
-        Zero speculative categorization—strictly verified public milestones and current ground truth.
+        A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.
       </p>
     </section>
 
@@ -535,41 +534,40 @@ function generateAboutHtml() {
     <div class="detail-header">
       <h1 class="detail-title">Verification Standard &amp; Philosophy</h1>
       <p class="detail-summary">
-        Why securityincident.net prioritizes observable public status and verifiable milestone timelines over subjective categorization.
+        A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.
       </p>
     </div>
 
     <div class="about-panel">
-      <h2>1. Status Over Categorization</h2>
+      <h2>1. Neutral Intelligence Through Open Curation</h2>
       <p>
-        In early stages of a security incident, the "type" is almost always subjective or inaccurate. An incident that begins as an "unplanned IT maintenance outage" frequently evolves into an "unauthorized access event," which later becomes a "data exfiltration" or "ransomware extortion."
+        We provide a reliable and neutral source of cybersecurity intelligence by curating security data across its entire lifecycle, ranging from early rumors to formal regulatory filings.
       </p>
       <p>
-        Rather than pinning incidents to rigid categories, we focus on what people actually need to know:
-        <strong>Is it an unconfirmed rumor, has the target acknowledged an investigation, or has an official regulator confirmed it?</strong>
+        To deliver maximum clarity, we establish clear levels of confidence and correlate diverse data sources using open weights. Built entirely on open editing through GitHub pull requests, <strong>securityincident.net</strong> empowers security professionals, researchers, and organizations to maintain a transparent, verifiable, and high-signal record of security incidents without corporate bias or editorial filler.
       </p>
 
       <h2>2. The 5 Observable Statuses</h2>
       <div class="about-status-grid">
         <div class="about-status-card">
-          <span class="status-badge status-EMERGING"><i class="fa-solid fa-bolt"></i> EMERGING</span>
-          <p>Early unilateral threat actor claim, leak site listing, or unverified community chatter. Target organization has not commented.</p>
-        </div>
-        <div class="about-status-card">
-          <span class="status-badge status-DEVELOPING"><i class="fa-solid fa-satellite-dish"></i> DEVELOPING</span>
-          <p>Corroborated intelligence: independent researchers verify sample data matches target schemas, or observed infrastructure outages align with claims before target response.</p>
+          <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
+          <p><strong>Highest assurance:</strong> Officially verified by the target or government regulator (e.g. SEC Form 8-K Item 1.05, State AG breach portals, formal press releases).</p>
         </div>
         <div class="about-status-card">
           <span class="status-badge status-ACKNOWLEDGED"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span>
-          <p>Target organization publicly acknowledges an active cybersecurity investigation or operational IT disruption, without yet confirming data loss.</p>
+          <p>Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss.</p>
         </div>
         <div class="about-status-card">
-          <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
-          <p>Confirmed by official regulatory filings (e.g. SEC Form 8-K Item 1.05, State AG registry) or formal target breach disclosure.</p>
+          <span class="status-badge status-DEVELOPING"><i class="fa-solid fa-satellite-dish"></i> DEVELOPING</span>
+          <p>Corroborated intelligence: independent researchers verify samples or observable outages align with claims before target response.</p>
+        </div>
+        <div class="about-status-card">
+          <span class="status-badge status-EMERGING"><i class="fa-solid fa-bolt"></i> EMERGING</span>
+          <p>Early threat actor claims, dark web forum leaks, or unverified community chatter before target comment.</p>
         </div>
         <div class="about-status-card">
           <span class="status-badge status-REFUTED"><i class="fa-solid fa-ban"></i> REFUTED</span>
-          <p>Confirmed false alarm, recycled historical data dump, fake sample data, or threat actor retraction.</p>
+          <p>Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach.</p>
         </div>
       </div>
 

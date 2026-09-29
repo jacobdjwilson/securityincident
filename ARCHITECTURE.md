@@ -1,17 +1,17 @@
 # securityincident.net - Architecture & Technical Specification
 
-> **Mission:** A lightweight, high-signal, Git-native index of cybersecurity incidents on the open web, focusing strictly on **incident status** (Emerging, Acknowledged, Confirmed, Refuted) and **milestone verification timelines**.
+> **Mission:** A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.
 
 ---
 
-## 1. Core Principles & Non-Goals
+## 1. Core Principles & Philosophy
 
 ### Core Principles
-1. **Status & Timeline Over Subjective Categorization:** Security incident classifications change constantly during an investigation. Instead of static types, we track the *observable ground truth* of what has been claimed, acknowledged, or officially confirmed.
-2. **Open-Web Reality:** We only index publicly observable information (regulatory filings, dark web leak postings, target public statements, official bulletins). We do not speculate on internal containment or recovery.
-3. **100% Git-Native & Flat Files:** Zero databases. All data lives in `incidents/*.md` as plain Markdown with YAML frontmatter. Every update is tracked with Git history, auditable, and PR-friendly.
-4. **Zero-Cost & Serverless Hosting:** Built statically and deployed to **GitHub Pages** via **GitHub Actions**.
-5. **High-Signal, Zero Fluff:** Clean, fast, high-density interface with dark-mode aesthetic. No corporate filler.
+1. **Neutral Intelligence Through Open Curation:** We provide a reliable and neutral source of cybersecurity intelligence by curating security data across its entire lifecycle, ranging from early rumors to formal regulatory filings.
+2. **Open Weights Correlation & Community PR Editing:** To deliver maximum clarity, we establish clear levels of confidence and correlate diverse data sources using open weights. Built entirely on open editing through GitHub pull requests, we empower security professionals, researchers, and organizations to maintain a transparent, verifiable, and high-signal record of security incidents without corporate bias or editorial filler.
+3. **Status & Timeline Over Speculative Categorization:** Security incident classifications change constantly during an investigation. Instead of speculative types, we track the observable ground truth of what has been claimed, acknowledged, or officially confirmed.
+4. **100% Git-Native & Flat Files:** Zero databases. All data lives in `incidents/*.md` as plain Markdown with YAML frontmatter. Every update is tracked with Git history, auditable, and PR-friendly.
+5. **Zero-Cost & Serverless Hosting:** Built statically and deployed to **GitHub Pages** via **GitHub Actions**.
 
 ### Non-Goals
 * No complex SQL or NoSQL databases.
@@ -31,13 +31,13 @@ Every incident is categorized into exactly one of five top-level ground-truth st
        └─────────────────────┴──────────────────────┴─────────> [ 🔘 REFUTED ]
 ```
 
-| Status | Icon | Color | Description | Trigger Event |
-| :--- | :---: | :---: | :--- | :--- |
-| `EMERGING` | `fa-bolt` | 🔴 Red | Unilateral claim by threat actor, dark web forum listing, or unverified rumor. Target has not responded. | Threat actor leaks sample data, claims victim on extortion site. |
-| `DEVELOPING` | `fa-satellite-dish` | 🟠 Orange | Corroborated intelligence: independent researchers verify sample data, or observed outages align with claims before target response. | Independent researcher analysis, sample verification, or telemetry alignment. |
-| `ACKNOWLEDGED` | `fa-bullhorn` | 🟡 Yellow | Target publicly reports "an IT disruption" or investigation, but has not confirmed an intrusion or data theft. | Status page alert, banner on company homepage, press statement. |
-| `CONFIRMED` | `fa-circle-check` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach notice, company press release. |
-| `REFUTED` | `fa-ban` | 🔘 Gray | The claim was proven false, data was recycled/public scraping, or target proved no breach occurred. | Forensic analysis shows data was old dump; threat actor retracts. |
+| Status | Badge | Color | Description | Primary Sources |
+| :--- | :--- | :---: | :--- | :--- |
+| **Confirmed** | `CONFIRMED` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals, formal press releases. |
+| **Acknowledged** | `ACKNOWLEDGED` | 🟡 Yellow | Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss. | Target status pages, banner notices, initial press replies. |
+| **Developing** | `DEVELOPING` | 🟠 Orange | Corroborated intelligence: independent researchers verify samples or observable outages align with claims. | Independent technical telemetry, sample schema audits. |
+| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web forum leaks, or unverified community chatter before target comment. | Threat actor leak blogs, dark web forums, social tips. |
+| **Refuted** | `REFUTED` | 🔘 Gray | Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach. | Target verification, HaveIBeenPwned research, researcher audits. |
 
 ### Milestone Verification Badges
 Each milestone entry in the timeline is labeled with its verification level:

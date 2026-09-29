@@ -11,7 +11,7 @@ const CACHE_FILE = path.join(CACHE_DIR, 'feed-cache.json');
 
 const USER_AGENT = 'securityincident-telemetry-bot/1.0 (+https://securityincident.net; intelligence@securityincident.net)';
 const REQUEST_DELAY_MS = 1000;
-const REQUEST_TIMEOUT_MS = 8000;
+const REQUEST_TIMEOUT_MS = 10000;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -33,6 +33,8 @@ function cleanHtml(raw) {
     .replace(/&#038;/g, '&')
     .replace(/&#8211;/g, '-')
     .replace(/&#8212;/g, '--')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
     .replace(/&nbsp;/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -100,7 +102,7 @@ const EXCLUSION_KEYWORDS = [
   'interview with', 'cyber security month', 'overview of', 'guide to'
 ];
 
-// Blocklist for invalid or non-organization entities extracted from headline fragments
+// Blocklist for non-organization phrases extracted from headlines
 const INVALID_TARGETS = new Set([
   'unknown organization', 'us soldier', 'former us', 'still on', '77 of',
   'making forensic', 'critical zeroday', 'two alleged', 'canadian man',
@@ -111,32 +113,38 @@ const INVALID_TARGETS = new Set([
   'jadepuffer ai', 'jadepufferlinked attackers', 'jadepuffer agentic',
   'shinyhunters uses', 'pentagon data', 'poland', 'orthanc dicom',
   'conti ransomware', 'compromised github', 'cloudflare fixes',
-  'chrome store', 'openai agent', 'fbi probes', 'microsoft plugs'
+  'chrome store', 'openai agent', 'fbi probes', 'microsoft plugs',
+  'reformed hacker', 'vietnamese man', 'reco raises', 'rig security',
+  'four cyber', 'official mcp', 'one does', 'critical zero-day',
+  'pizza restaurant chain', 'pizza chain', 'restaurant chain',
+  'hospital system', 'school district', 'law firm', 'water utility',
+  'former soldier', 'dutch national', 'security firm', 'tech giant'
 ]);
 
-// Curated entity knowledge map for recognized targets
+// Curated entity knowledge map for recognized organizations and verified domains
 const KNOWN_TARGETS = {
-  'hogan lovells': { name: 'Hogan Lovells', domain: 'hoganlovells.com' },
-  'cadwalader': { name: 'Cadwalader', domain: 'cadwalader.com' },
-  'bitget': { name: 'Bitget', domain: 'bitget.com' },
-  'citrix': { name: 'Citrix', domain: 'citrix.com' },
-  'kiteworks': { name: 'Kiteworks', domain: 'kiteworks.com' },
-  'cloudflare': { name: 'Cloudflare', domain: 'cloudflare.com' },
-  'labcorp': { name: 'Labcorp', domain: 'labcorp.com' },
-  'meta': { name: 'Meta', domain: 'meta.com' },
-  'facebook': { name: 'Meta', domain: 'meta.com' },
-  'nhs': { name: 'NHS England', domain: 'nhs.uk' },
-  'dutch police': { name: 'Dutch Police (Politie)', domain: 'politie.nl' },
-  'google': { name: 'Google', domain: 'google.com' },
-  'microsoft': { name: 'Microsoft', domain: 'microsoft.com' },
-  'openai': { name: 'OpenAI', domain: 'openai.com' },
-  'github': { name: 'GitHub', domain: 'github.com' },
-  'at&t': { name: 'AT&T', domain: 'att.com' },
-  't-mobile': { name: 'T-Mobile', domain: 't-mobile.com' },
-  'ticketmaster': { name: 'Ticketmaster', domain: 'ticketmaster.com' },
-  'snowflake': { name: 'Snowflake', domain: 'snowflake.com' },
-  'change healthcare': { name: 'Change Healthcare', domain: 'changehealthcare.com' },
-  'ascension': { name: 'Ascension Health', domain: 'ascension.org' }
+  'hogan lovells': { name: 'Hogan Lovells', domain: 'hoganlovells.com', slug: 'hogan-lovells' },
+  'cadwalader': { name: 'Cadwalader', domain: 'cadwalader.com', slug: 'cadwalader' },
+  'bitget': { name: 'Bitget', domain: 'bitget.com', slug: 'bitget' },
+  'citrix': { name: 'Citrix', domain: 'citrix.com', slug: 'citrix' },
+  'kiteworks': { name: 'Kiteworks', domain: 'kiteworks.com', slug: 'kiteworks' },
+  'cloudflare': { name: 'Cloudflare', domain: 'cloudflare.com', slug: 'cloudflare' },
+  'labcorp': { name: 'Labcorp', domain: 'labcorp.com', slug: 'labcorp' },
+  'keio': { name: 'Keio Corporation', domain: 'keio.co.jp', slug: 'keio-corp' },
+  'times car': { name: 'Times Car', domain: 'timescar.jp', slug: 'times-car' },
+  'dodo': { name: 'Dodo Brands (Dodo Pizza)', domain: 'dodopizza.com', slug: 'dodo-pizza' },
+  'pentagon': { name: 'U.S. Department of Defense (Pentagon)', domain: 'defense.gov', slug: 'us-dod-pentagon' },
+  'defense manpower': { name: 'Defense Manpower Data Center (DoD)', domain: 'defense.gov', slug: 'us-dod-pentagon' },
+  'fbi': { name: 'Federal Bureau of Investigation (FBI)', domain: 'fbi.gov', slug: 'fbi' },
+  'arizona supreme court': { name: 'Arizona Supreme Court', domain: 'azcourts.gov', slug: 'arizona-supreme-court' },
+  'nhs': { name: 'NHS England', domain: 'nhs.uk', slug: 'nhs-england' },
+  'dutch police': { name: 'Dutch Police (Politie)', domain: 'politie.nl', slug: 'dutch-police-politie' },
+  'at&t': { name: 'AT&T', domain: 'att.com', slug: 'at-t' },
+  't-mobile': { name: 'T-Mobile', domain: 't-mobile.com', slug: 't-mobile' },
+  'ticketmaster': { name: 'Ticketmaster', domain: 'ticketmaster.com', slug: 'ticketmaster' },
+  'snowflake': { name: 'Snowflake', domain: 'snowflake.com', slug: 'snowflake' },
+  'change healthcare': { name: 'Change Healthcare', domain: 'changehealthcare.com', slug: 'change-healthcare' },
+  'ascension': { name: 'Ascension Health', domain: 'ascension.org', slug: 'ascension-health' }
 };
 
 function isSecurityIncident(title, description) {
@@ -147,6 +155,24 @@ function isSecurityIncident(title, description) {
   }
 
   return INCIDENT_KEYWORDS.some(kw => text.includes(kw));
+}
+
+function isVendorPatchAdvisory(title, description) {
+  // Routine software updates/patches where vendor fixes a flaw (not a victim breach)
+  if (/\b(?:patches|plugs|fixes|releases patch for|releases security update for)\b/i.test(title)) {
+    if (!/\b(?:breach|extort|stolen data|ransomware|exfiltrat|infiltrat|hacked)\b/i.test(title)) {
+      return true;
+    }
+  }
+  // Attributions where a security researcher reported another company's bug
+  if (/\b(?:-reported zero-day|reported by|credited with discovering)\b/i.test(title)) {
+    return true;
+  }
+  return false;
+}
+
+function isLawEnforcementAction(title) {
+  return /^(?:FBI|Police|CISA|NCSC|DOJ|SEC|Europol|Authorities|Feds)\s+(?:probes|arrests|charges|sues|raids|warns|seizes|indicts|orders|unveils)\b/i.test(title);
 }
 
 function detectThreatActor(text) {
@@ -170,35 +196,63 @@ function detectStatus(title, desc) {
   if (text.includes('8-k') || text.includes('item 1.05') || text.includes('attorney general') || text.includes('formal filing')) {
     return 'CONFIRMED';
   }
-  if (text.includes('confirms breach') || text.includes('confirms hack') || text.includes('notifies customers') || text.includes('admits breach') || text.includes('confirms unauthorized')) {
+  if (text.includes('confirms breach') || text.includes('confirms hack') || text.includes('confirms data breach') || text.includes('confirms ransomware') || text.includes('notifies customers') || text.includes('admits breach') || text.includes('confirms unauthorized')) {
     return 'CONFIRMED';
   }
   if (text.includes('investigating') || text.includes('reports outage') || text.includes('operational disruption') || text.includes('diverts ambulances') || text.includes('system downtime')) {
     return 'ACKNOWLEDGED';
   }
-  if (text.includes('researchers verify') || text.includes('independently verified') || text.includes('corroborated') || text.includes('samples match') || text.includes('critical zero-day')) {
+  if (text.includes('researchers verify') || text.includes('independently verified') || text.includes('corroborated') || text.includes('samples match')) {
     return 'DEVELOPING';
   }
   if (text.includes('debunked') || text.includes('refuted') || text.includes('false alarm') || text.includes('recycled data') || text.includes('fake sample')) {
     return 'REFUTED';
   }
-  if (text.includes('claims') || text.includes('leak site') || text.includes('threat actor lists') || text.includes('extortion demand') || text.includes('demands ransom')) {
+  if (text.includes('claims') || text.includes('leak site') || text.includes('threat actor lists') || text.includes('extortion demand') || text.includes('demands ransom') || text.includes('hackers say')) {
     return 'EMERGING';
   }
   return 'DEVELOPING';
 }
 
-function extractTargetEntity(title) {
-  const lowerTitle = title.toLowerCase();
+function detectVerification(title, desc, defaultVerification) {
+  const text = `${title} ${desc}`.toLowerCase();
+  if (text.includes('sec 8-k') || text.includes('item 1.05') || text.includes('cisa advisory') || text.includes('attorney general')) {
+    return 'CONFIRMED BY REGULATOR';
+  }
+  if (text.includes('confirms') || text.includes('admits') || text.includes('statement by') || text.includes('official blog') || text.includes('spokesperson said')) {
+    return 'CONFIRMED BY TARGET';
+  }
+  if (text.includes('claims') || text.includes('leak site') || text.includes('forum post') || text.includes('threat actor lists') || text.includes('extortion demand')) {
+    return 'UNVERIFIED CLAIM';
+  }
+  return defaultVerification || 'INDEPENDENT VERIFICATION';
+}
 
-  // 1. Check known entities first
-  for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
-    if (new RegExp(`\\b${key}\\b`, 'i').test(lowerTitle)) {
-      return { target: info.name, domain: info.domain };
-    }
+function isValidTargetCandidate(candidate) {
+  if (!candidate || candidate.length < 3 || candidate.length > 40) return false;
+  const lower = candidate.toLowerCase();
+  if (INVALID_TARGETS.has(lower)) return false;
+
+  // Reject threat actors (they are adversaries, not targets)
+  if (detectThreatActor(candidate) !== null) return false;
+
+  // Reject malware, botnets, campaigns, technical terms
+  if (/\b(?:botnet|malware|trojan|stealer|ransomware|backdoor|spyware|exploit|docker|flaw|firmware|scam|scammers|hackers|investigation|phishing|campaign|zero-day|zeroday|vulnerability|payload|botnets)\b/i.test(lower)) {
+    return false;
   }
 
-  // 2. Pattern: "[Target] hacked by...", "[Target] hit by...", "[Target] confirms..."
+  // Reject trailing prepositions or verbs
+  if (/\b(?:on|in|at|by|for|with|puts|uses|linked|targeting|targets|into|from|over|to)$/i.test(lower)) {
+    return false;
+  }
+
+  // Must have at least one alphabetical character
+  if (!/[a-z]/i.test(candidate)) return false;
+
+  return true;
+}
+
+function extractTargetEntity(title, link = '', description = '') {
   let cleaned = title
     .replace(/^CISA Adds.*to Catalog:?\s*/i, '')
     .replace(/^Alert:\s*/i, '')
@@ -207,22 +261,60 @@ function extractTargetEntity(title) {
     .replace(/^UK:\s*/i, '')
     .trim();
 
-  const match1 = cleaned.match(/^([A-Z0-9][a-zA-Z0-9\s&.'-]{2,30}?)\s+(?:hacked|hit by|targeted by|confirms|investigating|suffers|reports|resumes|faces|discloses|breached|warns)/i);
-  if (match1) {
-    const candidate = match1[1].trim();
-    if (!INVALID_TARGETS.has(candidate.toLowerCase()) && candidate.length >= 3) {
-      const slug = slugify(candidate);
-      return { target: candidate, domain: `${slug.replace(/-/g, '')}.com` };
+  // Strip leading national/geographic qualifiers (e.g. "Japan's Keio", "U.S. Defense", "Russian pizza")
+  cleaned = cleaned
+    .replace(/^(?:Japan's|UK's|U\.S\.|US|Australia's|Canada's|France's|Germany's|Russian)\s+/i, '')
+    .trim();
+
+  const lowerTitle = cleaned.toLowerCase();
+
+  // 1. Check known entities in title
+  for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
+    // If the entity is preceded by "fake", "impersonating", "spoofing", skip (e.g. "fake Cloudflare lure")
+    if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${key}\\b`, 'i').test(lowerTitle)) {
+      continue;
+    }
+    if (new RegExp(`\\b${key}\\b`, 'i').test(lowerTitle)) {
+      return { target: info.name, domain: info.domain, slug: info.slug };
     }
   }
 
-  // 3. Pattern: "Cyberattack on [Target] exposes...", "Data breach at [Target]..."
-  const match2 = cleaned.match(/(?:cyberattack on|data breach at|ransomware attack hits|breach at|attack targets)\s+([A-Z0-9][a-zA-Z0-9\s&.'-]{2,30}?)(?:\s+(?:exposes|disrupts|hits|impacts|causes|leaves|in|\.|$))/i);
+  // 2. Pattern: "[Target] hacked by...", "[Target] hit by...", "[Target] confirms...", "[Target] says...", "[Target] suffers..."
+  const match1 = cleaned.match(/^([A-Z0-9][a-zA-Z0-9\s&.'-]{2,35}?)\s+(?:hacked|hit by|targeted by|confirms|investigating|suffers|reports|resumes|faces|discloses|breached|warns|says|admits|halts|shuts down)/i);
+  if (match1) {
+    const candidate = match1[1].trim();
+    if (isValidTargetCandidate(candidate)) {
+      const slug = slugify(candidate);
+      return { target: candidate, domain: `${slug.replace(/-/g, '')}.com`, slug };
+    }
+  }
+
+  // 3. Pattern: "[Target] Data Breach Impacts...", "[Target] Cyberattack Exposes..."
+  const match2 = cleaned.match(/^([A-Z0-9][a-zA-Z0-9\s&.'-]{2,35}?)\s+(?:data breach|cyberattack|security incident|ransomware attack)\s+(?:impacts|exposes|affects|leaves|leads|disrupts)/i);
   if (match2) {
     const candidate = match2[1].trim();
-    if (!INVALID_TARGETS.has(candidate.toLowerCase()) && candidate.length >= 3) {
+    if (isValidTargetCandidate(candidate)) {
       const slug = slugify(candidate);
-      return { target: candidate, domain: `${slug.replace(/-/g, '')}.com` };
+      return { target: candidate, domain: `${slug.replace(/-/g, '')}.com`, slug };
+    }
+  }
+
+  // 4. Pattern: "Cyberattack on [Target]...", "Data breach at [Target]...", "Ransomware attack hits [Target]..."
+  const match3 = cleaned.match(/(?:cyberattack on|data breach at|ransomware attack hits|breach at|attack targets|hacked by)\s+([A-Z0-9][a-zA-Z0-9\s&.'-]{2,35}?)(?:\s+(?:exposes|disrupts|hits|impacts|causes|leaves|in|\.|$))/i);
+  if (match3) {
+    const candidate = match3[1].trim();
+    if (isValidTargetCandidate(candidate)) {
+      const slug = slugify(candidate);
+      return { target: candidate, domain: `${slug.replace(/-/g, '')}.com`, slug };
+    }
+  }
+
+  // 5. Fallback: check known entities in URL path slug only (e.g. /dodo-confirms-data-breach)
+  const urlLower = link.toLowerCase();
+  for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
+    const slugPattern = new RegExp(`(?:[-_/])${key.replace(/\\s+/g, '-')}(?:[-_/]|\\.html|$)`, 'i');
+    if (slugPattern.test(urlLower)) {
+      return { target: info.name, domain: info.domain, slug: info.slug };
     }
   }
 
@@ -251,6 +343,22 @@ function formatUtcTimestamp(dateObj) {
   return `${y}-${m}-${d} ${hh}:${mm} UTC`;
 }
 
+function loadExistingSourceUrls() {
+  const urls = new Set();
+  if (!fs.existsSync(INCIDENTS_DIR)) return urls;
+  const files = fs.readdirSync(INCIDENTS_DIR).filter(f => f.endsWith('.md'));
+  for (const file of files) {
+    try {
+      const content = fs.readFileSync(path.join(INCIDENTS_DIR, file), 'utf-8');
+      const matches = content.matchAll(/\[.*?\]\((https?:\/\/[^\s\)]+)\)/g);
+      for (const m of matches) {
+        urls.add(m[1].trim());
+      }
+    } catch {}
+  }
+  return urls;
+}
+
 export async function ingestFeeds() {
   console.log('📡 Starting automated cybersecurity incident ingestion...');
 
@@ -261,6 +369,10 @@ export async function ingestFeeds() {
 
   const sources = JSON.parse(fs.readFileSync(SOURCES_FILE, 'utf-8')).filter(s => s.enabled);
   console.log(`📋 Loaded ${sources.length} active feed sources.`);
+
+  // Load existing source URLs across all markdown incident records for stateless deduplication
+  const existingSourceUrls = loadExistingSourceUrls();
+  console.log(`📑 Indexed ${existingSourceUrls.size} existing source links across incident records.`);
 
   // Load cache
   if (!fs.existsSync(CACHE_DIR)) {
@@ -331,25 +443,103 @@ export async function ingestFeeds() {
       const items = parseFeedXml(xmlText);
       console.log(`   📥 Received ${items.length} items from ${source.name}`);
 
-      const recentItems = items.slice(0, 15);
-
-      for (const item of recentItems) {
-        if (seenSet.has(item.link)) {
+      for (const item of items) {
+        if (existingSourceUrls.has(item.link) || seenSet.has(item.link)) {
           continue;
         }
 
+        // Special handling for SEC EDGAR 8-K Form filings
+        if (source.id === 'sec-edgar-8k') {
+          const descLower = item.description.toLowerCase();
+          const isCyberItem = descLower.includes('item 1.05') || descLower.includes('material cybersecurity');
+          if (!isCyberItem) {
+            continue;
+          }
+
+          const filerMatch = item.title.match(/^8-K\s*-\s*(.*?)\s*\(\d+\)/i);
+          const rawTarget = filerMatch ? filerMatch[1].trim() : item.title;
+          const target = rawTarget
+            .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO)\b\.?/gi, '')
+            .trim();
+          const targetSlug = slugify(target);
+
+          let itemDate = new Date();
+          if (item.pubDate) {
+            const parsed = new Date(item.pubDate);
+            if (!isNaN(parsed.getTime())) itemDate = parsed;
+          }
+          const dateIso = formatDateIso(itemDate);
+          const dateUtc = formatUtcTimestamp(itemDate);
+          const ym = dateIso.slice(0, 7);
+
+          const incidentId = `${ym}-${targetSlug}`;
+          const incidentFileName = `${incidentId}.md`;
+          const incidentFilePath = path.join(INCIDENTS_DIR, incidentFileName);
+
+          const summary = `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`;
+          const verification = 'CONFIRMED BY REGULATOR';
+          const status = 'CONFIRMED';
+
+          if (fs.existsSync(incidentFilePath)) {
+            const existingRaw = fs.readFileSync(incidentFilePath, 'utf-8');
+            const parsed = matter(existingRaw);
+            if (!parsed.content.includes(item.link)) {
+              console.log(`   ➕ Appending SEC 8-K milestone to: ${incidentId}`);
+              const newMilestone = `\n### ${dateUtc}\n- **Event:** SEC Form 8-K Item 1.05 Material Cybersecurity Incident Filing\n- **Verification:** ${verification}\n- **Source:** [SEC EDGAR 8-K Disclosure](${item.link})\n`;
+              const updatedContent = parsed.content.trim() + '\n' + newMilestone;
+              parsed.data.last_updated = dateIso;
+              parsed.data.status = 'CONFIRMED';
+              if (!parsed.data.tags.includes('sec-8k')) parsed.data.tags.push('sec-8k');
+              fs.writeFileSync(incidentFilePath, matter.stringify(updatedContent, parsed.data), 'utf-8');
+              existingSourceUrls.add(item.link);
+              seenSet.add(item.link);
+              totalUpdated++;
+            }
+          } else {
+            console.log(`   🚨 High-Assurance SEC 8-K Incident: ${target} (${incidentId})`);
+            const frontmatter = {
+              id: incidentId,
+              target,
+              domain: `${targetSlug.replace(/-/g, '')}.com`,
+              status: 'CONFIRMED',
+              first_seen: dateIso,
+              last_updated: dateIso,
+              threat_actor: null,
+              summary,
+              tags: ['regulatory', 'sec-8k', 'confirmed']
+            };
+            const milestoneBody = `## Timeline\n\n### ${dateUtc}\n- **Event:** SEC Form 8-K Item 1.05 Material Cybersecurity Incident Filing\n- **Verification:** ${verification}\n- **Source:** [SEC EDGAR 8-K Disclosure](${item.link})\n`;
+            fs.writeFileSync(incidentFilePath, matter.stringify(milestoneBody, frontmatter), 'utf-8');
+            const errors = validateIncidentFile(incidentFileName);
+            if (errors.length === 0) {
+              existingSourceUrls.add(item.link);
+              seenSet.add(item.link);
+              totalNew++;
+            } else {
+              console.warn(`   ⚠️ Validation error on SEC incident:`, errors);
+              try { fs.unlinkSync(incidentFilePath); } catch {}
+            }
+          }
+          continue;
+        }
+
+        // Standard RSS/Atom feed processing
         if (!isSecurityIncident(item.title, item.description)) {
           continue;
         }
 
+        if (isLawEnforcementAction(item.title)) {
+          continue;
+        }
+
         // Extract entity
-        const entityInfo = extractTargetEntity(item.title);
+        const entityInfo = extractTargetEntity(item.title, item.link, item.description);
         if (!entityInfo) {
           continue;
         }
 
         const { target, domain } = entityInfo;
-        const targetSlug = slugify(target);
+        const targetSlug = entityInfo.slug || slugify(target);
         if (!targetSlug || INVALID_TARGETS.has(targetSlug)) {
           continue;
         }
@@ -370,16 +560,24 @@ export async function ingestFeeds() {
         const incidentFileName = `${incidentId}.md`;
         const incidentFilePath = path.join(INCIDENTS_DIR, incidentFileName);
 
+        // Check for routine vendor patch notices
+        if (isVendorPatchAdvisory(item.title, item.description)) {
+          // Only append if the target already has an open incident record to avoid false positive breach files
+          if (!fs.existsSync(incidentFilePath)) {
+            continue;
+          }
+        }
+
         const status = detectStatus(item.title, item.description);
         const threatActor = detectThreatActor(`${item.title} ${item.description}`);
-        const verification = source.defaultVerification || 'INDEPENDENT VERIFICATION';
+        const verification = detectVerification(item.title, item.description, source.defaultVerification);
 
         let summary = cleanHtml(item.description || item.title);
         if (summary.length < 30) {
           summary = `${item.title}. Verified cybersecurity telemetry and event monitoring.`;
         }
         if (summary.length > 250) {
-          summary = summary.slice(0, 247) + '...';
+          summary = summary.slice(0, 247).trim() + '...';
         }
 
         if (fs.existsSync(incidentFilePath)) {
@@ -400,7 +598,7 @@ export async function ingestFeeds() {
               parsed.data.last_updated = dates[dates.length - 1];
 
               const statusRank = { 'REFUTED': 0, 'EMERGING': 1, 'DEVELOPING': 2, 'ACKNOWLEDGED': 3, 'CONFIRMED': 4 };
-              let currentStatus = parsed.data.status || 'EMERGING';
+              const currentStatus = parsed.data.status || 'EMERGING';
               if ((statusRank[status] || 0) > (statusRank[currentStatus] || 0)) {
                 parsed.data.status = status;
               }
@@ -415,6 +613,7 @@ export async function ingestFeeds() {
               const errors = validateIncidentFile(incidentFileName);
               if (errors.length === 0) {
                 totalUpdated++;
+                existingSourceUrls.add(item.link);
                 seenSet.add(item.link);
               } else {
                 console.warn(`   ⚠️ Validation warning on updated ${incidentFileName}:`, errors);
@@ -425,7 +624,7 @@ export async function ingestFeeds() {
           }
         } else {
           // Create new incident
-          console.log(`   ✨ New Real Incident Discovered: [${status}] ${target} (${incidentId})`);
+          console.log(`   ✨ New Verified Incident Discovered: [${status}] ${target} (${incidentId})`);
 
           const frontmatter = {
             id: incidentId,
@@ -447,6 +646,7 @@ export async function ingestFeeds() {
           const errors = validateIncidentFile(incidentFileName);
           if (errors.length === 0) {
             totalNew++;
+            existingSourceUrls.add(item.link);
             seenSet.add(item.link);
           } else {
             console.warn(`   ⚠️ Validation errors on new ${incidentFileName}, removing:`, errors);
