@@ -316,10 +316,28 @@ function computeTelemetryStats(incidents) {
   let active30d = 0;
   let active90d = 0;
   let multiSourceCount = 0;
-  let highConfCount = 0;
+  let totalConfidence = 0;
 
   const threatActorCounts = {};
-  const sectorCounts = {};
+  const monthlyCounts = {};
+
+  const sectorCounts = {
+    'regulatory': 0,
+    'state-ag': 0,
+    'sec-8k': 0,
+    'healthcare': 0,
+    'legal': 0,
+    'financial': 0,
+    'technology': 0,
+    'retail': 0
+  };
+
+  const sourceCategoryCounts = {
+    'State AG Breach Disclosures': 0,
+    'Investigative Threat Telemetry': 0,
+    'SEC EDGAR Form 8-K': 0,
+    'Technical Telemetry / Outage': 0
+  };
 
   for (const inc of incidents) {
     if (inc.last_updated) {
@@ -330,23 +348,54 @@ function computeTelemetryStats(incidents) {
       }
     }
 
-    if (inc.confidence && inc.confidence.uniqueSourcesCount >= 2) {
-      multiSourceCount++;
+    if (inc.confidence) {
+      totalConfidence += inc.confidence.confidencePercent || 0;
+      if (inc.confidence.uniqueSourcesCount >= 2) {
+        multiSourceCount++;
+      }
     }
 
-    if (inc.confidence && inc.confidence.confidencePercent >= 90) {
-      highConfCount++;
+    // Monthly velocity
+    const month = (inc.first_seen || inc.last_updated || '').slice(0, 7);
+    if (month && month.startsWith('202')) {
+      monthlyCounts[month] = (monthlyCounts[month] || 0) + 1;
     }
 
+    // Threat actors
     if (inc.threat_actor && inc.threat_actor !== 'Unknown') {
       threatActorCounts[inc.threat_actor] = (threatActorCounts[inc.threat_actor] || 0) + 1;
     }
 
-    for (const tag of (inc.tags || [])) {
-      const t = tag.toLowerCase();
-      if (!['confirmed', 'acknowledged', 'developing', 'emerging', 'refuted', 'regulatory', 'investigative'].includes(t)) {
-        sectorCounts[t] = (sectorCounts[t] || 0) + 1;
-      }
+    // Tags & Sectors
+    const allTags = (inc.tags || []).map(t => t.toLowerCase());
+    if (allTags.includes('state-ag') || allTags.includes('california') || allTags.includes('washington')) {
+      sectorCounts['state-ag']++;
+      sourceCategoryCounts['State AG Breach Disclosures']++;
+    }
+    if (allTags.includes('sec-8k')) {
+      sectorCounts['sec-8k']++;
+      sourceCategoryCounts['SEC EDGAR Form 8-K']++;
+    }
+    if (allTags.includes('healthcare') || allTags.includes('health') || allTags.includes('medical-device')) {
+      sectorCounts['healthcare']++;
+    }
+    if (allTags.includes('legal') || allTags.includes('law')) {
+      sectorCounts['legal']++;
+    }
+    if (allTags.includes('banking') || allTags.includes('financial')) {
+      sectorCounts['financial']++;
+    }
+    if (allTags.includes('retail') || allTags.includes('consumer')) {
+      sectorCounts['retail']++;
+    }
+    if (allTags.includes('technology') || allTags.includes('tech') || allTags.includes('semiconductors')) {
+      sectorCounts['technology']++;
+    }
+    if (allTags.includes('investigative') || allTags.includes('threat-intel')) {
+      sourceCategoryCounts['Investigative Threat Telemetry']++;
+    }
+    if (allTags.includes('outage') || allTags.includes('exposure') || allTags.includes('leak-site')) {
+      sourceCategoryCounts['Technical Telemetry / Outage']++;
     }
   }
 
@@ -355,22 +404,28 @@ function computeTelemetryStats(incidents) {
     .sort((a, b) => b.count - a.count)
     .slice(0, 5);
 
-  const topSectors = Object.entries(sectorCounts)
-    .map(([sector, count]) => ({ sector, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 8);
+  const topSectors = [
+    { key: 'state-ag', label: 'State AG Breach Notices', count: sectorCounts['state-ag'] },
+    { key: 'sec-8k', label: 'SEC Form 8-K Filings', count: sectorCounts['sec-8k'] },
+    { key: 'healthcare', label: 'Healthcare & Medical', count: sectorCounts['healthcare'] },
+    { key: 'legal', label: 'Legal & Law Firms', count: sectorCounts['legal'] },
+    { key: 'financial', label: 'Banking & Financial', count: sectorCounts['financial'] },
+    { key: 'technology', label: 'Technology & Cloud', count: sectorCounts['technology'] },
+    { key: 'retail', label: 'Retail & Commercial', count: sectorCounts['retail'] }
+  ].filter(s => s.count > 0).sort((a, b) => b.count - a.count);
 
-  // Top spotlight incidents: select top 4 high confidence, multi-source or critical enterprise incidents
-  const topIncidents = [...incidents]
-    .filter(i => i.status === 'CONFIRMED' || i.confidence?.confidencePercent >= 80)
-    .sort((a, b) => {
-      const confDiff = (b.confidence?.confidencePercent || 0) - (a.confidence?.confidencePercent || 0);
-      if (confDiff !== 0) return confDiff;
-      const msDiff = (b.milestones?.length || 0) - (a.milestones?.length || 0);
-      if (msDiff !== 0) return msDiff;
-      return (b.last_updated || '').localeCompare(a.last_updated || '');
-    })
-    .slice(0, 4);
+  const velocityTimeline = [
+    { month: '2026-07', label: 'Jul 2026', count: monthlyCounts['2026-07'] || 0 },
+    { month: '2026-08', label: 'Aug 2026', count: monthlyCounts['2026-08'] || 0 },
+    { month: '2026-09', label: 'Sep 2026', count: monthlyCounts['2026-09'] || 0 }
+  ];
+
+  const sourceCategories = Object.entries(sourceCategoryCounts)
+    .map(([label, count]) => ({ label, count }))
+    .filter(s => s.count > 0)
+    .sort((a, b) => b.count - a.count);
+
+  const avgConfidence = total > 0 ? Math.round(totalConfidence / total) : 0;
 
   return {
     total_incidents: total,
@@ -378,13 +433,13 @@ function computeTelemetryStats(incidents) {
     confirmed_percent: total > 0 ? Math.round((statusCounts.CONFIRMED / total) * 100) : 0,
     corroborated_count: multiSourceCount,
     corroborated_percent: total > 0 ? Math.round((multiSourceCount / total) * 100) : 0,
-    high_confidence_count: highConfCount,
-    high_confidence_percent: total > 0 ? Math.round((highConfCount / total) * 100) : 0,
+    avg_confidence: avgConfidence,
     active_30d_count: active30d,
     active_90d_count: active90d,
+    velocity_timeline: velocityTimeline,
+    source_categories: sourceCategories,
     top_threat_actors: topThreatActors,
     top_sectors: topSectors,
-    top_incidents: topIncidents,
     generated_at: new Date().toISOString()
   };
 }
@@ -403,6 +458,7 @@ function generateIndexHtml(incidents, stats) {
     const latestMilestone = inc.milestones && inc.milestones.length > 0 ? inc.milestones[0] : null;
     const actorHtml = inc.threat_actor ? `<span class="footer-actor"><i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}</span>` : '';
     const conf = inc.confidence || { confidencePercent: 20, badgeClass: 'emerging', uniqueSourcesCount: 1, topTier: 'UNVERIFIED CLAIM' };
+    const month = (inc.first_seen || inc.last_updated || '').slice(0, 7);
 
     return `
       <a href="incidents/${inc.id}.html" class="incident-card" 
@@ -415,6 +471,7 @@ function generateIndexHtml(incidents, stats) {
          data-confidence="${conf.confidencePercent}"
          data-updated="${inc.last_updated || ''}"
          data-first-seen="${inc.first_seen || ''}"
+         data-month="${month}"
          data-milestones="${inc.milestones.length}">
         <div class="card-top">
           <div class="card-title-group">
@@ -452,14 +509,58 @@ function generateIndexHtml(incidents, stats) {
         <div class="card-footer">
           <div class="footer-left">
             <span><i class="fa-solid fa-timeline"></i> ${inc.milestones.length} milestone${inc.milestones.length === 1 ? '' : 's'}</span>
-            <span><i class="fa-regular fa-clock"></i> Updated ${inc.last_updated}</span>
+            <span><i class="fa-regular fa-clock"></i> ${inc.last_updated}</span>
             ${actorHtml}
           </div>
-          <span class="view-link">View Timeline <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="view-link">Dossier <i class="fa-solid fa-arrow-right"></i></span>
         </div>
       </a>
     `;
   }).join('\n');
+
+  const tableRowsHtml = incidents.map(inc => {
+    const conf = inc.confidence || { confidencePercent: 20, badgeClass: 'emerging', uniqueSourcesCount: 1 };
+    const month = (inc.first_seen || inc.last_updated || '').slice(0, 7);
+
+    return `
+      <tr class="telemetry-row" 
+          data-status="${inc.status}" 
+          data-target="${inc.target}" 
+          data-domain="${inc.domain}" 
+          data-summary="${inc.summary}" 
+          data-actor="${inc.threat_actor || ''}" 
+          data-tags="${(inc.tags || []).join(' ')}"
+          data-confidence="${conf.confidencePercent}"
+          data-updated="${inc.last_updated || ''}"
+          data-first-seen="${inc.first_seen || ''}"
+          data-month="${month}"
+          data-milestones="${inc.milestones.length}">
+        <td class="col-target">
+          <a href="incidents/${inc.id}.html" class="table-target-name">${inc.target}</a>
+          <span class="table-target-domain">${inc.domain}</span>
+        </td>
+        <td class="col-status">${getStatusBadgeHtml(inc.status)}</td>
+        <td class="col-confidence">
+          <div class="table-conf-cell">
+            <span class="confidence-badge ${conf.badgeClass}"><i class="fa-solid fa-shield-halved"></i> ${conf.confidencePercent}%</span>
+            <span class="table-source-count">${conf.uniqueSourcesCount} src</span>
+          </div>
+        </td>
+        <td class="col-actor font-mono">${inc.threat_actor ? `<i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}` : '<span class="text-muted">—</span>'}</td>
+        <td class="col-date font-mono">${inc.last_updated}</td>
+        <td class="col-milestones"><span class="milestone-count-pill">${inc.milestones.length}</span></td>
+        <td class="col-action">
+          <a href="incidents/${inc.id}.html" class="btn-table-dossier">Dossier <i class="fa-solid fa-arrow-right"></i></a>
+        </td>
+      </tr>
+    `;
+  }).join('\n');
+
+  // Compute maximums for relative chart bar widths
+  const maxStatusCount = Math.max(...Object.values(stats.status_distribution));
+  const maxVelocityCount = Math.max(...stats.velocity_timeline.map(v => v.count));
+  const maxSourceCount = Math.max(...stats.source_categories.map(s => s.count));
+  const maxSectorCount = Math.max(...stats.top_sectors.map(s => s.count));
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -488,125 +589,171 @@ function generateIndexHtml(incidents, stats) {
   ${renderHeader(false)}
 
   <main class="container">
-    <section class="hero">
-      <div class="hero-pill"><i class="fa-solid fa-scale-balanced"></i> OPEN-WEB SECURITY INTELLIGENCE &bull; OPEN WEIGHTS ENGINE</div>
-      <h1 class="hero-title">Real-Time Incident Status &amp; Timeline Index</h1>
-      <p class="hero-desc">
-        A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.
-      </p>
-    </section>
-
-    <!-- Phase 3: Executive Telemetry & Trends Dashboard -->
-    <section class="telemetry-dashboard">
-      <!-- 4 KPI Metrics Cards -->
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap kpi-blue"><i class="fa-solid fa-layer-group"></i></div>
-          <div class="kpi-body">
-            <div class="kpi-value">${stats.total_incidents}</div>
-            <div class="kpi-label">Indexed Incidents</div>
-            <div class="kpi-sub">100% Flat Git Files</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap kpi-green"><i class="fa-solid fa-certificate"></i></div>
-          <div class="kpi-body">
-            <div class="kpi-value">${stats.confirmed_percent}%</div>
-            <div class="kpi-label">Confirmed Assurance</div>
-            <div class="kpi-sub">${stats.status_distribution.CONFIRMED} Statutory Disclosures</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap kpi-cyan"><i class="fa-solid fa-network-wired"></i></div>
-          <div class="kpi-body">
-            <div class="kpi-value">${stats.corroborated_percent}%</div>
-            <div class="kpi-label">Multi-Source Corroborated</div>
-            <div class="kpi-sub">${stats.corroborated_count} Cross-Jurisdiction</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap kpi-orange"><i class="fa-solid fa-gauge-high"></i></div>
-          <div class="kpi-body">
-            <div class="kpi-value">${stats.active_30d_count}</div>
-            <div class="kpi-label">Active (Last 30 Days)</div>
-            <div class="kpi-sub">Real-Time Velocity</div>
-          </div>
-        </div>
+    <!-- Top Telemetry Strip -->
+    <section class="telemetry-bar">
+      <div class="telemetry-metric">
+        <span class="tm-label">Indexed Incidents</span>
+        <span class="tm-val">${stats.total_incidents}</span>
+        <span class="tm-sub font-mono"><i class="fa-solid fa-arrow-trend-up text-cyan"></i> +${stats.active_30d_count} active (30d)</span>
       </div>
-
-      <!-- Segmented Status Distribution Bar -->
-      <div class="telemetry-bar-card">
-        <div class="bar-header">
-          <span class="bar-title"><i class="fa-solid fa-chart-simple"></i> Telemetry Status Breakdown</span>
-          <div class="bar-legend">
-            <span class="legend-item"><span class="dot dot-confirmed"></span> Confirmed (${stats.status_distribution.CONFIRMED})</span>
-            <span class="legend-item"><span class="dot dot-acknowledged"></span> Acknowledged (${stats.status_distribution.ACKNOWLEDGED})</span>
-            <span class="legend-item"><span class="dot dot-developing"></span> Developing (${stats.status_distribution.DEVELOPING})</span>
-            <span class="legend-item"><span class="dot dot-emerging"></span> Emerging (${stats.status_distribution.EMERGING})</span>
-            <span class="legend-item"><span class="dot dot-refuted"></span> Refuted (${stats.status_distribution.REFUTED})</span>
-          </div>
-        </div>
-        <div class="telemetry-segmented-bar">
-          <div class="bar-segment bar-seg-confirmed" data-filter="CONFIRMED" style="width: ${(stats.status_distribution.CONFIRMED / stats.total_incidents * 100).toFixed(1)}%;" title="Confirmed: ${stats.status_distribution.CONFIRMED} (${(stats.status_distribution.CONFIRMED / stats.total_incidents * 100).toFixed(1)}%)"></div>
-          <div class="bar-segment bar-seg-acknowledged" data-filter="ACKNOWLEDGED" style="width: ${(stats.status_distribution.ACKNOWLEDGED / stats.total_incidents * 100).toFixed(1)}%;" title="Acknowledged: ${stats.status_distribution.ACKNOWLEDGED} (${(stats.status_distribution.ACKNOWLEDGED / stats.total_incidents * 100).toFixed(1)}%)"></div>
-          <div class="bar-segment bar-seg-developing" data-filter="DEVELOPING" style="width: ${(stats.status_distribution.DEVELOPING / stats.total_incidents * 100).toFixed(1)}%;" title="Developing: ${stats.status_distribution.DEVELOPING} (${(stats.status_distribution.DEVELOPING / stats.total_incidents * 100).toFixed(1)}%)"></div>
-          <div class="bar-segment bar-seg-emerging" data-filter="EMERGING" style="width: ${(stats.status_distribution.EMERGING / stats.total_incidents * 100).toFixed(1)}%;" title="Emerging: ${stats.status_distribution.EMERGING} (${(stats.status_distribution.EMERGING / stats.total_incidents * 100).toFixed(1)}%)"></div>
-          <div class="bar-segment bar-seg-refuted" data-filter="REFUTED" style="width: ${(stats.status_distribution.REFUTED / stats.total_incidents * 100).toFixed(1)}%;" title="Refuted: ${stats.status_distribution.REFUTED} (${(stats.status_distribution.REFUTED / stats.total_incidents * 100).toFixed(1)}%)"></div>
-        </div>
+      <div class="telemetry-divider"></div>
+      <div class="telemetry-metric">
+        <span class="tm-label">Confirmed Assurance</span>
+        <span class="tm-val text-confirmed">${stats.confirmed_percent}%</span>
+        <span class="tm-sub">${stats.status_distribution.CONFIRMED} Statutory Disclosures</span>
       </div>
-
-      <!-- Spotlight High-Impact Incidents -->
-      <div class="spotlight-section">
-        <div class="spotlight-header">
-          <h2 class="spotlight-title"><i class="fa-solid fa-fire-flame-curved"></i> High-Impact Incident Spotlight</h2>
-          <span class="spotlight-desc">Highest confidence &amp; multi-source corroborated intelligence</span>
-        </div>
-        <div class="spotlight-grid">
-          ${stats.top_incidents.map(inc => {
-            const conf = inc.confidence || { confidencePercent: 100, badgeClass: 'confirmed', uniqueSourcesCount: 2 };
-            return `
-            <a href="incidents/${inc.id}.html" class="spotlight-card">
-              <div>
-                <div class="spotlight-top">
-                  <div class="spotlight-target">${inc.target}</div>
-                  ${getStatusBadgeHtml(inc.status)}
-                </div>
-                <div class="spotlight-domain">${inc.domain}</div>
-                <div class="spotlight-meta-row">
-                  <span class="confidence-badge ${conf.badgeClass}">
-                    <i class="fa-solid fa-shield-halved"></i> ${conf.confidencePercent}%
-                  </span>
-                  <span class="sources-count-badge">
-                    <i class="fa-solid fa-network-wired"></i> ${conf.uniqueSourcesCount} source${conf.uniqueSourcesCount === 1 ? '' : 's'}
-                  </span>
-                </div>
-                <p class="spotlight-summary">${inc.summary}</p>
-              </div>
-              <div class="spotlight-footer">
-                <span>Updated ${inc.last_updated}</span>
-                <span class="spotlight-cta">Dossier <i class="fa-solid fa-arrow-right"></i></span>
-              </div>
-            </a>`;
-          }).join('\n')}
-        </div>
+      <div class="telemetry-divider"></div>
+      <div class="telemetry-metric">
+        <span class="tm-label">Cross-Domain Corroboration</span>
+        <span class="tm-val text-cyan">${stats.corroborated_percent}%</span>
+        <span class="tm-sub">${stats.corroborated_count} Multi-Source Events</span>
       </div>
-
-      <!-- Quick Filter Sector Chips -->
-      <div class="sector-chips-wrap">
-        <span class="chips-label"><i class="fa-solid fa-tags"></i> Quick Filters:</span>
-        <div class="chips-row">
-          <button class="chip-btn active" data-chip="all">All Sectors</button>
-          <button class="chip-btn" data-chip="sec-8k"><i class="fa-solid fa-building-shield"></i> SEC Form 8-K</button>
-          <button class="chip-btn" data-chip="state-ag"><i class="fa-solid fa-landmark"></i> State AG Portals</button>
-          <button class="chip-btn" data-chip="healthcare"><i class="fa-solid fa-heart-pulse"></i> Healthcare</button>
-          <button class="chip-btn" data-chip="financial"><i class="fa-solid fa-building-columns"></i> Financial</button>
-          <button class="chip-btn" data-chip="legal"><i class="fa-solid fa-scale-balanced"></i> Legal</button>
-          <button class="chip-btn" data-chip="retail"><i class="fa-solid fa-cart-shopping"></i> Retail</button>
-          <button class="chip-btn" data-chip="threat-actor"><i class="fa-solid fa-user-secret"></i> Attributed Actor</button>
-        </div>
+      <div class="telemetry-divider"></div>
+      <div class="telemetry-metric">
+        <span class="tm-label">Mean Confidence Score</span>
+        <span class="tm-val text-developing">${stats.avg_confidence}%</span>
+        <span class="tm-sub">Deterministic Open Weights</span>
       </div>
     </section>
 
+    <!-- Interactive Data-Driven Telemetry Charts Deck -->
+    <section class="charts-section">
+      <div class="charts-section-header">
+        <div class="csh-title-group">
+          <h2 class="csh-title"><i class="fa-solid fa-chart-line"></i> Telemetry Analytics Deck</h2>
+          <span class="csh-desc">Interactive distributions across observable status, ingestion velocity, regulatory pipelines, and industry sectors. Click any chart element to filter data.</span>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <!-- Chart 1: Status & Assurance Breakdown -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title"><i class="fa-solid fa-chart-pie"></i> Observable Status Breakdown</span>
+            <span class="chart-action-hint">Click status to filter</span>
+          </div>
+          <div class="chart-hbars">
+            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="CONFIRMED" title="Filter by CONFIRMED">
+              <span class="hbar-label"><span class="dot dot-confirmed"></span> Confirmed</span>
+              <div class="hbar-track">
+                <div class="hbar-fill bar-confirmed" style="width: ${(stats.status_distribution.CONFIRMED / maxStatusCount * 100).toFixed(1)}%;"></div>
+              </div>
+              <span class="hbar-value font-mono">${stats.status_distribution.CONFIRMED} <small>(${(stats.status_distribution.CONFIRMED / stats.total_incidents * 100).toFixed(0)}%)</small></span>
+            </div>
+            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="DEVELOPING" title="Filter by DEVELOPING">
+              <span class="hbar-label"><span class="dot dot-developing"></span> Developing</span>
+              <div class="hbar-track">
+                <div class="hbar-fill bar-developing" style="width: ${(stats.status_distribution.DEVELOPING / maxStatusCount * 100).toFixed(1)}%;"></div>
+              </div>
+              <span class="hbar-value font-mono">${stats.status_distribution.DEVELOPING} <small>(${(stats.status_distribution.DEVELOPING / stats.total_incidents * 100).toFixed(0)}%)</small></span>
+            </div>
+            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="EMERGING" title="Filter by EMERGING">
+              <span class="hbar-label"><span class="dot dot-emerging"></span> Emerging</span>
+              <div class="hbar-track">
+                <div class="hbar-fill bar-emerging" style="width: ${(stats.status_distribution.EMERGING / maxStatusCount * 100).toFixed(1)}%;"></div>
+              </div>
+              <span class="hbar-value font-mono">${stats.status_distribution.EMERGING} <small>(${(stats.status_distribution.EMERGING / stats.total_incidents * 100).toFixed(0)}%)</small></span>
+            </div>
+            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="ACKNOWLEDGED" title="Filter by ACKNOWLEDGED">
+              <span class="hbar-label"><span class="dot dot-acknowledged"></span> Acknowledged</span>
+              <div class="hbar-track">
+                <div class="hbar-fill bar-acknowledged" style="width: Math.max(4, ${(stats.status_distribution.ACKNOWLEDGED / maxStatusCount * 100).toFixed(1)})%;"></div>
+              </div>
+              <span class="hbar-value font-mono">${stats.status_distribution.ACKNOWLEDGED} <small>(${(stats.status_distribution.ACKNOWLEDGED / stats.total_incidents * 100).toFixed(0)}%)</small></span>
+            </div>
+            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="REFUTED" title="Filter by REFUTED">
+              <span class="hbar-label"><span class="dot dot-refuted"></span> Refuted</span>
+              <div class="hbar-track">
+                <div class="hbar-fill bar-refuted" style="width: Math.max(4, ${(stats.status_distribution.REFUTED / maxStatusCount * 100).toFixed(1)})%;"></div>
+              </div>
+              <span class="hbar-value font-mono">${stats.status_distribution.REFUTED} <small>(${(stats.status_distribution.REFUTED / stats.total_incidents * 100).toFixed(0)}%)</small></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 2: Ingestion & Incident Velocity Timeline -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title"><i class="fa-solid fa-chart-column"></i> Ingestion Velocity Timeline</span>
+            <span class="chart-action-hint">Click month to filter</span>
+          </div>
+          <div class="chart-vbars">
+            ${stats.velocity_timeline.map(v => {
+              const heightPct = Math.round((v.count / maxVelocityCount) * 100);
+              return `
+              <div class="vbar-col chart-click-filter" data-chart-type="month" data-chart-val="${v.month}" title="Filter by ${v.label}">
+                <span class="vbar-count font-mono">${v.count}</span>
+                <div class="vbar-track">
+                  <div class="vbar-fill" style="height: ${heightPct}%;"></div>
+                </div>
+                <span class="vbar-label">${v.label}</span>
+              </div>`;
+            }).join('\n')}
+          </div>
+        </div>
+
+        <!-- Chart 3: Primary Regulatory & Intelligence Sources -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title"><i class="fa-solid fa-landmark"></i> Primary Regulatory &amp; Telemetry Sources</span>
+            <span class="chart-action-hint">Click source to filter</span>
+          </div>
+          <div class="chart-hbars">
+            ${stats.source_categories.map(s => {
+              const widthPct = Math.round((s.count / maxSourceCount) * 100);
+              let chipVal = 'state-ag';
+              if (s.label.includes('8-K')) chipVal = 'sec-8k';
+              else if (s.label.includes('Investigative')) chipVal = 'investigative';
+              else if (s.label.includes('Technical')) chipVal = 'outage';
+              return `
+              <div class="chart-hbar-row chart-click-filter" data-chart-type="source" data-chart-val="${chipVal}" title="Filter by ${s.label}">
+                <span class="hbar-label">${s.label}</span>
+                <div class="hbar-track">
+                  <div class="hbar-fill bar-cyan" style="width: ${widthPct}%;"></div>
+                </div>
+                <span class="hbar-value font-mono">${s.count}</span>
+              </div>`;
+            }).join('\n')}
+          </div>
+        </div>
+
+        <!-- Chart 4: Targeted Industry Sectors -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title"><i class="fa-solid fa-industry"></i> Targeted Industry Sectors</span>
+            <span class="chart-action-hint">Click sector to filter</span>
+          </div>
+          <div class="chart-hbars">
+            ${stats.top_sectors.slice(0, 5).map(s => {
+              const widthPct = Math.round((s.count / maxSectorCount) * 100);
+              return `
+              <div class="chart-hbar-row chart-click-filter" data-chart-type="sector" data-chart-val="${s.key}" title="Filter by ${s.label}">
+                <span class="hbar-label">${s.label}</span>
+                <div class="hbar-track">
+                  <div class="hbar-fill bar-orange" style="width: ${widthPct}%;"></div>
+                </div>
+                <span class="hbar-value font-mono">${s.count}</span>
+              </div>`;
+            }).join('\n')}
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Filter Banner (Visible when any filter is engaged) -->
+      <div id="active-filter-bar" class="active-filter-bar" style="display: none;">
+        <div class="af-left">
+          <span class="af-icon"><i class="fa-solid fa-filter"></i></span>
+          <span class="af-text">Active Filter:</span>
+          <span id="active-filter-pill" class="active-filter-pill">None</span>
+        </div>
+        <button id="btn-clear-filter" class="btn-clear-filter" title="Reset all filters">
+          <i class="fa-solid fa-xmark"></i> Clear Filter
+        </button>
+      </div>
+    </section>
+
+    <!-- Anchors & Controls Bar -->
+    <div id="incidents-anchor"></div>
     <div class="controls-bar">
       <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -617,7 +764,7 @@ function generateIndexHtml(incidents, stats) {
       <div class="controls-action-row">
         <div class="filter-pills">
           <button class="filter-btn active" data-filter="ALL">
-            <i class="fa-solid fa-layer-group"></i> All <span class="filter-count">${counts.ALL}</span>
+            All <span class="filter-count">${counts.ALL}</span>
           </button>
           <button class="filter-btn" data-filter="CONFIRMED">
             <span class="status-dot-indicator confirmed"></span> Confirmed <span class="filter-count">${counts.CONFIRMED}</span>
@@ -636,28 +783,81 @@ function generateIndexHtml(incidents, stats) {
           </button>
         </div>
 
-        <div class="sort-wrapper">
-          <label for="sort-select" class="sort-label"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort:</label>
-          <select id="sort-select" class="sort-select" aria-label="Sort security incidents">
-            <option value="recent">Latest Update</option>
-            <option value="confidence">Highest Confidence</option>
-            <option value="first_seen">First Seen</option>
-            <option value="milestones">Most Milestones</option>
-          </select>
-          <span id="results-count" class="results-counter">
-            ${counts.ALL} incidents
-          </span>
+        <div class="controls-right-group">
+          <!-- View Toggle: Cards vs Table -->
+          <div class="view-toggle-wrap">
+            <button id="btn-view-cards" class="view-btn active" title="Card Grid View">
+              <i class="fa-solid fa-table-cells-large"></i> Cards
+            </button>
+            <button id="btn-view-table" class="view-btn" title="Dense Telemetry Table View">
+              <i class="fa-solid fa-table-list"></i> Table
+            </button>
+          </div>
+
+          <!-- Sort Select -->
+          <div class="sort-wrapper">
+            <label for="sort-select" class="sort-label"><i class="fa-solid fa-arrow-down-short-wide"></i></label>
+            <select id="sort-select" class="sort-select" aria-label="Sort security incidents">
+              <option value="recent">Latest Update</option>
+              <option value="confidence">Highest Confidence</option>
+              <option value="first_seen">First Seen</option>
+              <option value="milestones">Most Milestones</option>
+            </select>
+          </div>
+
+          <!-- Page Size Select -->
+          <div class="page-size-wrap">
+            <label for="page-size-select" class="sort-label"><i class="fa-solid fa-list-ol"></i></label>
+            <select id="page-size-select" class="sort-select" aria-label="Items per page">
+              <option value="20" selected>20 / page</option>
+              <option value="50">50 / page</option>
+              <option value="100">100 / page</option>
+              <option value="all">All</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Presentation View 1: Incident Cards Grid -->
     <div class="incidents-grid" id="incidents-grid">
       ${cardsHtml}
     </div>
 
+    <!-- Presentation View 2: Dense Telemetry Table View -->
+    <div class="telemetry-table-wrap" id="incidents-table-wrap" style="display: none;">
+      <table class="telemetry-table">
+        <thead>
+          <tr>
+            <th class="col-target">Organization &amp; Domain</th>
+            <th class="col-status">Status</th>
+            <th class="col-confidence">Confidence Score</th>
+            <th class="col-actor">Threat Actor</th>
+            <th class="col-date">Last Updated</th>
+            <th class="col-milestones">Milestones</th>
+            <th class="col-action">Action</th>
+          </tr>
+        </thead>
+        <tbody id="telemetry-tbody">
+          ${tableRowsHtml}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
     <div id="empty-state" style="display: none; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
       <p style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);"><i class="fa-solid fa-filter-circle-xmark"></i> No matching security incidents found</p>
-      <p style="font-size: 0.9rem;">Try modifying your search query or filter selection.</p>
+      <p style="font-size: 0.9rem;">Try modifying your search query or clicking "Clear Filter".</p>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-bar" id="pagination-bar">
+      <div class="pagination-info" id="pagination-info">
+        Showing 1–20 of 125 incidents
+      </div>
+      <div class="pagination-nav" id="pagination-nav">
+        <!-- Rendered by app.js -->
+      </div>
     </div>
   </main>
 
