@@ -14,6 +14,7 @@ function cleanCompanyName(raw) {
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, ' ')
     .replace(/\s*\([^)]*\)/g, '') // remove parenthetical like (“GT”) or (U.S.A.)
+    .replace(/\s*,\s*a [A-Za-z\s]+ (?:limited liability company|corporation|company|comp)\b.*$/gi, '')
     .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO|CORPORATION|INCORPORATED|HOLDINGS|LLP|PC)\b\.?/gi, '')
     .replace(/^[,\s.-]+|[,\s.-]+$/g, '')
     .trim();

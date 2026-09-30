@@ -156,7 +156,11 @@ const KNOWN_TARGETS = {
   'nutex health': { name: 'Nutex Health', domain: 'nutexhealth.com', slug: 'nutex-health' },
   'boston scientific': { name: 'Boston Scientific', domain: 'bostonscientific.com', slug: 'boston-scientific' },
   'gyazo': { name: 'Gyazo', domain: 'gyazo.com', slug: 'gyazo' },
-  'greenberg traurig': { name: 'Greenberg Traurig', domain: 'gtlaw.com', slug: 'greenberg-traurig' }
+  'greenberg traurig': { name: 'Greenberg Traurig', domain: 'gtlaw.com', slug: 'greenberg-traurig' },
+  'divd': { name: 'DIVD', domain: 'divd.nl', slug: 'divd' },
+  'medicare australia': { name: 'Medicare Australia', domain: 'servicesaustralia.gov.au', slug: 'medicare-australia' },
+  'dodo pizza': { name: 'Dodo Brands (Dodo Pizza)', domain: 'dodopizza.com', slug: 'dodo-pizza' },
+  'atns': { name: 'Air Traffic and Navigation Services (ATNS)', domain: 'atns.com', slug: 'atns-south-africa' }
 };
 
 function isSecurityIncident(title, description) {
@@ -245,7 +249,7 @@ function detectVerification(title, desc, defaultVerification) {
 }
 
 function isValidTargetCandidate(candidate) {
-  if (!candidate || candidate.length < 3 || candidate.length > 40) return false;
+  if (!candidate || candidate.length < 3 || candidate.length > 70) return false;
   const lower = candidate.toLowerCase();
   if (INVALID_TARGETS.has(lower)) return false;
   if (detectThreatActor(candidate) !== null) return false;
@@ -279,6 +283,17 @@ function extractTargetEntity(title, link = '', description = '') {
       continue;
     }
     if (new RegExp(`\\b${key}\\b`, 'i').test(lowerTitle)) {
+      return { target: info.name, domain: info.domain, slug: info.slug };
+    }
+  }
+
+  // Fallback: check article summary/description for known target entities if headline was generic
+  const lowerDesc = (description || '').toLowerCase();
+  for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
+    if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${key}\\b`, 'i').test(lowerDesc)) {
+      continue;
+    }
+    if (new RegExp(`\\b${key}\\b`, 'i').test(lowerDesc)) {
       return { target: info.name, domain: info.domain, slug: info.slug };
     }
   }
