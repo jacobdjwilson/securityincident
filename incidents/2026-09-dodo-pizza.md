@@ -2,7 +2,7 @@
 id: 2026-09-dodo-pizza
 target: Dodo Brands (Dodo Pizza)
 domain: dodopizza.com
-status: DEVELOPING
+status: CONFIRMED
 first_seen: '2026-09-29'
 last_updated: '2026-09-29'
 threat_actor: Unknown / Unattributed

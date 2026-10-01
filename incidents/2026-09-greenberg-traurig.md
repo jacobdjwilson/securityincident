@@ -26,6 +26,8 @@ compromised_data:
   - Client Retainer Information
   - Social Security Numbers (SSNs)
   - Corporate Financial Disclosures
+  - Confidential Legal Workproduct
+  - Client Information
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09142

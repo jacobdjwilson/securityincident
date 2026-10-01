@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterButtons = document.querySelectorAll('.filter-btn');
   const sortSelect = document.getElementById('sort-select');
   const pageSizeSelect = document.getElementById('page-size-select');
+  const sectorSelect = document.getElementById('sector-select');
+  const dataTypeSelect = document.getElementById('data-type-select');
+  const btnHighImpact = document.getElementById('btn-high-impact');
   const gridContainer = document.getElementById('incidents-grid');
   const tableWrap = document.getElementById('incidents-table-wrap');
   const tableBody = document.getElementById('telemetry-tbody');
@@ -53,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentFilter = 'ALL';      // Status filter
   let currentMonth = 'ALL';       // Month filter from velocity chart
   let currentSector = 'ALL';      // Sector filter from sector/source charts
+  let currentIndustry = 'ALL';    // Industry dropdown filter
+  let currentDataType = 'ALL';    // Compromised data class filter
+  let highImpactOnly = false;     // >100K affected records toggle
   let currentSort = 'recent';
   let searchQuery = '';
   let currentPage = 1;
@@ -166,6 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentFilter !== 'ALL') filters.push(`Status: ${currentFilter}`);
     if (currentMonth !== 'ALL') filters.push(`Month: ${currentMonth}`);
     if (currentSector !== 'ALL') filters.push(`Sector: ${currentSector}`);
+    if (currentIndustry !== 'ALL') filters.push(`Industry: ${currentIndustry}`);
+    if (currentDataType !== 'ALL') filters.push(`Data: ${currentDataType}`);
+    if (highImpactOnly) filters.push(`Impact: >100K Records`);
     if (searchQuery) filters.push(`"${searchQuery}"`);
 
     if (activeFilterBar && activeFilterPill) {
@@ -183,16 +192,52 @@ document.addEventListener('DOMContentLoaded', () => {
       currentFilter = 'ALL';
       currentMonth = 'ALL';
       currentSector = 'ALL';
+      currentIndustry = 'ALL';
+      currentDataType = 'ALL';
+      highImpactOnly = false;
       searchQuery = '';
       currentPage = 1;
 
       if (searchInput) searchInput.value = '';
+      if (sectorSelect) sectorSelect.value = 'ALL';
+      if (dataTypeSelect) dataTypeSelect.value = 'ALL';
+      if (btnHighImpact) btnHighImpact.classList.remove('active');
+
       filterButtons.forEach(b => {
         if (b.getAttribute('data-filter') === 'ALL') b.classList.add('active');
         else b.classList.remove('active');
       });
 
       syncChartHighlights();
+      updateActiveFilterUI();
+      applyFiltersAndPaginate();
+    });
+  }
+
+  // Forensic Filter Controls
+  if (sectorSelect) {
+    sectorSelect.addEventListener('change', (e) => {
+      currentIndustry = e.target.value;
+      currentPage = 1;
+      updateActiveFilterUI();
+      applyFiltersAndPaginate();
+    });
+  }
+
+  if (dataTypeSelect) {
+    dataTypeSelect.addEventListener('change', (e) => {
+      currentDataType = e.target.value;
+      currentPage = 1;
+      updateActiveFilterUI();
+      applyFiltersAndPaginate();
+    });
+  }
+
+  if (btnHighImpact) {
+    btnHighImpact.addEventListener('click', () => {
+      highImpactOnly = !highImpactOnly;
+      btnHighImpact.classList.toggle('active', highImpactOnly);
+      currentPage = 1;
       updateActiveFilterUI();
       applyFiltersAndPaginate();
     });
@@ -219,6 +264,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sortItems() {
     const sortFn = (a, b) => {
+      if (currentSort === 'affected') {
+        const affA = parseInt(a.getAttribute('data-affected') || '0', 10);
+        const affB = parseInt(b.getAttribute('data-affected') || '0', 10);
+        if (affB !== affA) return affB - affA;
+        return (b.getAttribute('data-updated') || '').localeCompare(a.getAttribute('data-updated') || '');
+      }
       if (currentSort === 'confidence') {
         const confA = parseInt(a.getAttribute('data-confidence') || '0', 10);
         const confB = parseInt(b.getAttribute('data-confidence') || '0', 10);
@@ -260,6 +311,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const status = el.getAttribute('data-status') || '';
       const target = el.getAttribute('data-target') || '';
       const domain = el.getAttribute('data-domain') || '';
+      const industry = el.getAttribute('data-industry') || '';
+      const type = el.getAttribute('data-type') || '';
+      const affected = parseInt(el.getAttribute('data-affected') || '0', 10);
+      const compromised = el.getAttribute('data-compromised') || '';
+      const filings = el.getAttribute('data-filings') || '';
       const summary = el.getAttribute('data-summary') || '';
       const actor = el.getAttribute('data-actor') || '';
       const tags = (el.getAttribute('data-tags') || '').toLowerCase();
@@ -271,16 +327,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let matchSector = true;
       if (currentSector !== 'ALL') {
-        matchSector = tags.includes(currentSector.toLowerCase());
+        const secLower = currentSector.toLowerCase();
+        matchSector = tags.includes(secLower) || industry.toLowerCase().includes(secLower);
+      }
+
+      let matchIndustry = true;
+      if (currentIndustry !== 'ALL') {
+        const indLower = currentIndustry.toLowerCase();
+        matchIndustry = industry.toLowerCase().includes(indLower) || tags.includes(indLower);
+      }
+
+      let matchDataType = true;
+      if (currentDataType !== 'ALL') {
+        matchDataType = compromised.toLowerCase().includes(currentDataType.toLowerCase());
+      }
+
+      let matchImpact = true;
+      if (highImpactOnly) {
+        matchImpact = affected >= 100000;
       }
 
       let matchSearch = true;
       if (searchQuery) {
-        const haystack = `${target} ${domain} ${summary} ${actor} ${tags} ${confidence}% ${status}`.toLowerCase();
+        const haystack = `${target} ${domain} ${industry} ${type} ${summary} ${actor} ${tags} ${compromised} ${filings} ${confidence}% ${status}`.toLowerCase();
         matchSearch = haystack.includes(searchQuery);
       }
 
-      return matchStatus && matchMonth && matchSector && matchSearch;
+      return matchStatus && matchMonth && matchSector && matchIndustry && matchDataType && matchImpact && matchSearch;
     };
 
     const matchingCards = cards.filter(matchesFilter);

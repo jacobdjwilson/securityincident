@@ -16,11 +16,12 @@ tags:
   - confirmed
 industry: Healthcare
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 327082
 compromised_data:
   - Social Security Numbers (SSNs)
   - Protected Health Information (PHI)
   - Clinical & Diagnostic Records
+  - Prescription Drug Records
 regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report

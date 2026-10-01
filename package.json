@@ -11,6 +11,7 @@
     "validate": "node scripts/validate.js",
     "ingest": "node scripts/ingest.js",
     "ingest:history": "node scripts/ingest-history.js",
+    "reconcile": "node scripts/reconcile-enrichment.js",
     "dev": "node scripts/build.js && node scripts/serve.js"
   },
   "keywords": [

@@ -18,10 +18,12 @@ tags:
   - california
 industry: Retail & Consumer Goods
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 76327
 compromised_data:
   - Payment Card Details
   - Billing & Shipping Addresses
+  - Customer Personal Identifiable Information (PII)
+  - Social Security Numbers (SSNs)
 regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K (Item 1.05 Material Cybersecurity Incidents)

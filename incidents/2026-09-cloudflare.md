@@ -14,6 +14,8 @@ summary: >-
 tags:
   - threat-intel
   - developing
+compromised_data:
+  - Authentication Credentials
 ---
 ## Timeline
 

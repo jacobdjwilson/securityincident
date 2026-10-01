@@ -105,7 +105,16 @@ export async function fetchSecItem105Filings({ days = 30 } = {}) {
         sourceTitle: `SEC EDGAR 8-K Item 1.05 Filing (${adsh})`,
         sourceUrl: permanentUrl,
         summary: `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`,
-        tags: ['regulatory', 'sec-8k', 'confirmed']
+        tags: ['regulatory', 'sec-8k', 'confirmed'],
+        regulatoryFilings: [
+          {
+            regulator: 'SEC',
+            form: 'Form 8-K Item 1.05',
+            accession_number: adsh,
+            url: permanentUrl,
+            filing_date: fileDate
+          }
+        ]
       });
     }
 

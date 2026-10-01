@@ -2,7 +2,7 @@
 id: 2026-07-anmed-health
 target: AnMed Health
 domain: anmed.org
-status: ACKNOWLEDGED
+status: CONFIRMED
 first_seen: '2026-07-26'
 last_updated: '2026-07-26'
 threat_actor: Unknown / Unattributed

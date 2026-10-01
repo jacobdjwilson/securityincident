@@ -280,6 +280,8 @@ function computeTelemetryStats(incidents) {
   let active90d = 0;
   let multiSourceCount = 0;
   let totalConfidence = 0;
+  let totalAffectedRecords = 0;
+  let incidentsWithAffected = 0;
 
   const threatActorCounts = {};
   const monthlyCounts = {};
@@ -297,12 +299,19 @@ function computeTelemetryStats(incidents) {
 
   const sourceCategoryCounts = {
     'State AG Breach Disclosures': 0,
-    'Investigative Threat Telemetry': 0,
     'SEC EDGAR Form 8-K': 0,
+    'HHS OCR Healthcare Disclosures': 0,
+    'Dark Web Extortion Telemetry': 0,
+    'Investigative Threat Telemetry': 0,
     'Technical Telemetry / Outage': 0
   };
 
   for (const inc of incidents) {
+    if (typeof inc.affected_records === 'number' && inc.affected_records > 0) {
+      totalAffectedRecords += inc.affected_records;
+      incidentsWithAffected++;
+    }
+
     if (inc.last_updated) {
       const upTime = new Date(inc.last_updated).getTime();
       if (!isNaN(upTime)) {
@@ -331,7 +340,9 @@ function computeTelemetryStats(incidents) {
 
     // Tags & Sectors
     const allTags = (inc.tags || []).map(t => t.toLowerCase());
-    if (allTags.includes('state-ag') || allTags.includes('california') || allTags.includes('washington')) {
+    const indLower = (inc.industry || '').toLowerCase();
+
+    if (allTags.includes('state-ag') || allTags.includes('california') || allTags.includes('washington') || allTags.includes('oregon')) {
       sectorCounts['state-ag']++;
       sourceCategoryCounts['State AG Breach Disclosures']++;
     }
@@ -339,19 +350,25 @@ function computeTelemetryStats(incidents) {
       sectorCounts['sec-8k']++;
       sourceCategoryCounts['SEC EDGAR Form 8-K']++;
     }
-    if (allTags.includes('healthcare') || allTags.includes('health') || allTags.includes('medical-device')) {
+    if (allTags.includes('hhs-ocr') || allTags.includes('healthcare') || indLower.includes('health')) {
       sectorCounts['healthcare']++;
+      if (allTags.includes('hhs-ocr')) {
+        sourceCategoryCounts['HHS OCR Healthcare Disclosures']++;
+      }
     }
-    if (allTags.includes('legal') || allTags.includes('law')) {
+    if (allTags.includes('extortion') || allTags.includes('ransomware-claim')) {
+      sourceCategoryCounts['Dark Web Extortion Telemetry']++;
+    }
+    if (indLower.includes('legal') || allTags.includes('legal') || allTags.includes('law')) {
       sectorCounts['legal']++;
     }
-    if (allTags.includes('banking') || allTags.includes('financial')) {
+    if (indLower.includes('finan') || indLower.includes('bank') || allTags.includes('banking') || allTags.includes('financial')) {
       sectorCounts['financial']++;
     }
-    if (allTags.includes('retail') || allTags.includes('consumer')) {
+    if (indLower.includes('retail') || indLower.includes('consumer') || allTags.includes('retail') || allTags.includes('consumer')) {
       sectorCounts['retail']++;
     }
-    if (allTags.includes('technology') || allTags.includes('tech') || allTags.includes('semiconductors')) {
+    if (indLower.includes('tech') || allTags.includes('technology') || allTags.includes('tech') || allTags.includes('semiconductors')) {
       sectorCounts['technology']++;
     }
     if (allTags.includes('investigative') || allTags.includes('threat-intel')) {
@@ -396,6 +413,8 @@ function computeTelemetryStats(incidents) {
     confirmed_percent: total > 0 ? Math.round((statusCounts.CONFIRMED / total) * 100) : 0,
     corroborated_count: multiSourceCount,
     corroborated_percent: total > 0 ? Math.round((multiSourceCount / total) * 100) : 0,
+    total_affected_records: totalAffectedRecords,
+    incidents_with_affected: incidentsWithAffected,
     avg_confidence: avgConfidence,
     active_30d_count: active30d,
     active_90d_count: active90d,
@@ -433,6 +452,9 @@ function generateIndexHtml(incidents, stats) {
          data-domain="${inc.domain}" 
          data-industry="${inc.industry || ''}"
          data-type="${inc.incident_type || ''}"
+         data-affected="${inc.affected_records || 0}"
+         data-compromised="${(inc.compromised_data || []).join(' ')}"
+         data-filings="${(inc.regulatory_filings || []).map(f => f.regulator).join(' ')}"
          data-summary="${inc.summary}" 
          data-actor="${inc.threat_actor || ''}" 
          data-tags="${(inc.tags || []).join(' ')}"
@@ -454,7 +476,9 @@ function generateIndexHtml(incidents, stats) {
         <div class="card-forensic-tags">
           ${inc.industry ? `<span class="card-tag card-tag-industry"><i class="fa-solid fa-industry"></i> ${inc.industry}</span>` : ''}
           ${inc.incident_type ? `<span class="card-tag card-tag-type"><i class="fa-solid fa-crosshairs"></i> ${inc.incident_type}</span>` : ''}
-          ${inc.affected_records ? `<span class="card-tag card-tag-affected font-mono"><i class="fa-solid fa-users"></i> ${affectedFormatted}</span>` : ''}
+          ${inc.affected_records ? `<span class="card-tag card-tag-affected font-mono" title="${Number(inc.affected_records).toLocaleString()} records affected"><i class="fa-solid fa-users"></i> ${affectedFormatted} records</span>` : ''}
+          ${inc.compromised_data && inc.compromised_data.length > 0 ? `<span class="card-tag card-tag-compromised" title="Compromised data classes"><i class="fa-solid fa-file-shield"></i> ${inc.compromised_data[0]}${inc.compromised_data.length > 1 ? ` +${inc.compromised_data.length - 1}` : ''}</span>` : ''}
+          ${inc.regulatory_filings && inc.regulatory_filings.length > 0 ? `<span class="card-tag card-tag-filing" title="Statutory filing on record"><i class="fa-solid fa-landmark"></i> ${inc.regulatory_filings[0].regulator}</span>` : ''}
         </div>
 
         <div class="card-confidence-bar-wrap" title="Open Weights Confidence Score: ${conf.confidencePercent}% (${conf.topTier})">
@@ -504,6 +528,9 @@ function generateIndexHtml(incidents, stats) {
           data-domain="${inc.domain}" 
           data-industry="${inc.industry || ''}"
           data-type="${inc.incident_type || ''}"
+          data-affected="${inc.affected_records || 0}"
+          data-compromised="${(inc.compromised_data || []).join(' ')}"
+          data-filings="${(inc.regulatory_filings || []).map(f => f.regulator).join(' ')}"
           data-summary="${inc.summary}" 
           data-actor="${inc.threat_actor || ''}" 
           data-tags="${(inc.tags || []).join(' ')}"
@@ -519,7 +546,7 @@ function generateIndexHtml(incidents, stats) {
         <td class="col-status">${getStatusBadgeHtml(inc.status)}</td>
         <td class="col-industry"><span class="table-industry-tag">${inc.industry || 'Enterprise'}</span></td>
         <td class="col-type"><span class="table-type-tag">${inc.incident_type || 'Unauthorized Access'}</span></td>
-        <td class="col-affected font-mono">${affectedFormatted}</td>
+        <td class="col-affected font-mono">${inc.affected_records ? `<span class="table-affected-tag font-mono" title="${Number(inc.affected_records).toLocaleString()} records affected">${affectedFormatted}</span>` : '<span class="text-muted font-mono">—</span>'}</td>
         <td class="col-confidence">
           <div class="table-conf-cell">
             <span class="confidence-badge ${conf.badgeClass}"><i class="fa-solid fa-shield-halved"></i> ${conf.confidencePercent}%</span>
@@ -579,6 +606,12 @@ function generateIndexHtml(incidents, stats) {
         <span class="tm-label">Confirmed Assurance</span>
         <span class="tm-val text-confirmed">${stats.confirmed_percent}%</span>
         <span class="tm-sub">${stats.status_distribution.CONFIRMED} Statutory Disclosures</span>
+      </div>
+      <div class="telemetry-divider"></div>
+      <div class="telemetry-metric">
+        <span class="tm-label">Disclosed Impact</span>
+        <span class="tm-val text-developing">${formatAffectedCount(stats.total_affected_records)}+</span>
+        <span class="tm-sub font-mono">${stats.incidents_with_affected} Disclosed Scopes</span>
       </div>
       <div class="telemetry-divider"></div>
       <div class="telemetry-metric">
@@ -680,14 +713,17 @@ function generateIndexHtml(incidents, stats) {
             ${stats.source_categories.map(s => {
               const widthPct = Math.round((s.count / maxSourceCount) * 100);
               let chipVal = 'state-ag';
-              if (s.label.includes('8-K')) chipVal = 'sec-8k';
-              else if (s.label.includes('Investigative')) chipVal = 'investigative';
-              else if (s.label.includes('Technical')) chipVal = 'outage';
+              let barClass = 'bar-cyan';
+              if (s.label.includes('8-K')) { chipVal = 'sec-8k'; barClass = 'bar-confirmed'; }
+              else if (s.label.includes('HHS OCR')) { chipVal = 'hhs-ocr'; barClass = 'bar-cyan'; }
+              else if (s.label.includes('Dark Web') || s.label.includes('Extortion')) { chipVal = 'extortion'; barClass = 'bar-emerging'; }
+              else if (s.label.includes('Investigative')) { chipVal = 'investigative'; barClass = 'bar-cyan'; }
+              else if (s.label.includes('Technical')) { chipVal = 'outage'; barClass = 'bar-developing'; }
               return `
               <div class="chart-hbar-row chart-click-filter" data-chart-type="source" data-chart-val="${chipVal}" title="Filter by ${s.label}">
                 <span class="hbar-label">${s.label}</span>
                 <div class="hbar-track">
-                  <div class="hbar-fill bar-cyan" style="width: ${widthPct}%;"></div>
+                  <div class="hbar-fill ${barClass}" style="width: ${widthPct}%;"></div>
                 </div>
                 <span class="hbar-value font-mono">${s.count}</span>
               </div>`;
@@ -777,6 +813,7 @@ function generateIndexHtml(incidents, stats) {
             <label for="sort-select" class="sort-label"><i class="fa-solid fa-arrow-down-short-wide"></i></label>
             <select id="sort-select" class="sort-select" aria-label="Sort security incidents">
               <option value="recent">Latest Update</option>
+              <option value="affected">Highest Impact (Records)</option>
               <option value="confidence">Highest Confidence</option>
               <option value="first_seen">First Seen</option>
               <option value="milestones">Most Milestones</option>
@@ -793,6 +830,41 @@ function generateIndexHtml(incidents, stats) {
               <option value="all">All</option>
             </select>
           </div>
+        </div>
+      </div>
+
+      <!-- Forensic & Sector Filtering Strip -->
+      <div class="forensic-filter-row">
+        <div class="forensic-filter-group">
+          <label for="sector-select" class="forensic-filter-label"><i class="fa-solid fa-industry"></i> Sector:</label>
+          <select id="sector-select" class="forensic-select" aria-label="Filter by industry sector">
+            <option value="ALL">All Sectors</option>
+            <option value="Healthcare">Healthcare &amp; Medical</option>
+            <option value="Financial">Financial Services &amp; Banking</option>
+            <option value="Legal">Legal &amp; Law Firms</option>
+            <option value="Technology">Technology &amp; Cloud</option>
+            <option value="Retail">Retail &amp; Consumer</option>
+            <option value="Telecommunications">Telecommunications</option>
+            <option value="Food & Agriculture">Food &amp; Agriculture</option>
+          </select>
+        </div>
+
+        <div class="forensic-filter-group">
+          <label for="data-type-select" class="forensic-filter-label"><i class="fa-solid fa-file-shield"></i> Data Type:</label>
+          <select id="data-type-select" class="forensic-select" aria-label="Filter by compromised data class">
+            <option value="ALL">All Data Classes</option>
+            <option value="SSN">Social Security (SSN)</option>
+            <option value="PHI">Protected Health (PHI)</option>
+            <option value="Financial">Financial &amp; Banking</option>
+            <option value="Credentials">Credentials &amp; Passwords</option>
+            <option value="PII">Personal Identity (PII)</option>
+          </select>
+        </div>
+
+        <div class="forensic-filter-group">
+          <button id="btn-high-impact" class="filter-chip-btn" title="Filter to incidents with > 100,000 compromised records">
+            <i class="fa-solid fa-users-viewfinder"></i> &gt; 100K Records
+          </button>
         </div>
       </div>
     </div>

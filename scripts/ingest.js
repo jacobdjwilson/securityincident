@@ -4,6 +4,9 @@ import matter from 'gray-matter';
 import { validateIncidentFile } from './validate.js';
 import { fetchSecItem105Filings } from './regulatory/sec-edgar.js';
 import { fetchAllStateAgNotices } from './regulatory/state-ag.js';
+import { fetchHhsOcrBreaches } from './regulatory/hhs-ocr.js';
+import { fetchDarkWebVictims } from './regulatory/darkweb.js';
+import { reconcileIncidents } from './reconcile-enrichment.js';
 import { calculateConfidenceScore } from './weights.js';
 
 const ROOT_DIR = process.cwd();
@@ -426,7 +429,12 @@ function upsertIncidentMilestone({
   dateIso,
   summary,
   tags = [],
-  threatActor = null
+  threatActor = null,
+  industry = null,
+  incidentType = null,
+  affectedRecords = null,
+  compromisedData = [],
+  regulatoryFilings = []
 }) {
   const targetSlug = slugify(target);
   const existingPath = findExistingIncidentFilePath(targetSlug, target);
@@ -462,8 +470,41 @@ function upsertIncidentMilestone({
         }
       }
 
-      if (threatActor && !parsed.data.threat_actor) {
+      if (threatActor && (!parsed.data.threat_actor || parsed.data.threat_actor === 'Unknown')) {
         parsed.data.threat_actor = threatActor;
+      }
+
+      if (industry && !parsed.data.industry) {
+        parsed.data.industry = industry;
+      }
+
+      if (incidentType && !parsed.data.incident_type) {
+        parsed.data.incident_type = incidentType;
+      }
+
+      if (typeof affectedRecords === 'number' && affectedRecords > 0) {
+        if (!parsed.data.affected_records || affectedRecords > parsed.data.affected_records) {
+          parsed.data.affected_records = affectedRecords;
+        }
+      }
+
+      if (Array.isArray(compromisedData) && compromisedData.length > 0) {
+        if (!Array.isArray(parsed.data.compromised_data)) parsed.data.compromised_data = [];
+        for (const item of compromisedData) {
+          if (!parsed.data.compromised_data.includes(item)) {
+            parsed.data.compromised_data.push(item);
+          }
+        }
+      }
+
+      if (Array.isArray(regulatoryFilings) && regulatoryFilings.length > 0) {
+        if (!Array.isArray(parsed.data.regulatory_filings)) parsed.data.regulatory_filings = [];
+        for (const filing of regulatoryFilings) {
+          const exists = parsed.data.regulatory_filings.some(f => f.url === filing.url || (f.regulator === filing.regulator && f.form === filing.form));
+          if (!exists) {
+            parsed.data.regulatory_filings.push(filing);
+          }
+        }
       }
 
       fs.writeFileSync(incidentFilePath, matter.stringify(updatedContent, parsed.data), 'utf-8');
@@ -497,6 +538,12 @@ function upsertIncidentMilestone({
       summary: summary || `${event}. Verified cybersecurity telemetry and event monitoring.`,
       tags
     };
+
+    if (industry) frontmatter.industry = industry;
+    if (incidentType) frontmatter.incident_type = incidentType;
+    if (typeof affectedRecords === 'number' && affectedRecords > 0) frontmatter.affected_records = affectedRecords;
+    if (Array.isArray(compromisedData) && compromisedData.length > 0) frontmatter.compromised_data = compromisedData;
+    if (Array.isArray(regulatoryFilings) && regulatoryFilings.length > 0) frontmatter.regulatory_filings = regulatoryFilings;
 
     const milestoneBody = `## Timeline\n\n### ${timeUtc}\n- **Event:** ${event}\n- **Verification:** ${verification}\n- **Source:** [${sourceTitle}](${sourceUrl})\n`;
     fs.writeFileSync(incidentFilePath, matter.stringify(milestoneBody, frontmatter), 'utf-8');
@@ -547,7 +594,8 @@ export async function ingestFeeds() {
         timeUtc: filing.timeUtc,
         dateIso: filing.fileDate,
         summary: filing.summary,
-        tags: filing.tags
+        tags: filing.tags,
+        regulatoryFilings: filing.regulatoryFilings
       });
 
       if (res.action === 'created') {
@@ -563,7 +611,7 @@ export async function ingestFeeds() {
   }
 
   // =========================================================================
-  // 2. Multi-State Attorney General Regulatory Pipeline (California, Washington, etc.)
+  // 2. Multi-State Attorney General Regulatory Pipeline (California, Washington, Oregon)
   // =========================================================================
   console.log('\n--- 2. Multi-State Regulatory Breach Pipeline ---');
   try {
@@ -589,7 +637,9 @@ export async function ingestFeeds() {
           timeUtc: notice.timeUtc,
           dateIso: notice.fileDate,
           summary: notice.summary,
-          tags: notice.tags
+          tags: notice.tags,
+          affectedRecords: notice.affectedRecords,
+          regulatoryFilings: notice.regulatoryFilings
         });
 
         if (res.action === 'updated') {
@@ -615,7 +665,9 @@ export async function ingestFeeds() {
           timeUtc: notice.timeUtc,
           dateIso: notice.fileDate,
           summary: notice.summary,
-          tags: notice.tags
+          tags: notice.tags,
+          affectedRecords: notice.affectedRecords,
+          regulatoryFilings: notice.regulatoryFilings
         });
 
         if (res.action === 'created') {
@@ -629,9 +681,153 @@ export async function ingestFeeds() {
   }
 
   // =========================================================================
-  // 3. RSS / Atom Threat Intelligence & Investigative News Feeds
+  // 3. HHS OCR Federal Healthcare Data Breach Regulatory Pipeline
   // =========================================================================
-  console.log('\n--- 3. Threat Intelligence & Investigative RSS Feeds ---');
+  console.log('\n--- 3. HHS OCR Healthcare Regulatory Pipeline ---');
+  try {
+    const hhsBreaches = await fetchHhsOcrBreaches();
+    for (const breach of hhsBreaches) {
+      if (existingSourceUrls.has(breach.sourceUrl)) continue;
+
+      const targetSlug = breach.targetSlug;
+      const target = breach.target;
+      const existingFile = findExistingIncidentFilePath(targetSlug, target);
+
+      if (existingFile) {
+        const res = upsertIncidentMilestone({
+          incidentId: path.basename(existingFile, '.md'),
+          target,
+          domain: breach.domain,
+          status: breach.status,
+          verification: breach.verification,
+          event: breach.event,
+          sourceTitle: breach.sourceTitle,
+          sourceUrl: breach.sourceUrl,
+          timeUtc: breach.timeUtc,
+          dateIso: breach.fileDate,
+          summary: breach.summary,
+          tags: breach.tags,
+          industry: breach.industry,
+          incidentType: breach.incidentType,
+          affectedRecords: breach.affectedRecords,
+          compromisedData: breach.compromisedData,
+          regulatoryFilings: breach.regulatoryFilings
+        });
+
+        if (res.action === 'updated') {
+          totalUpdated++;
+          existingSourceUrls.add(breach.sourceUrl);
+        }
+      } else {
+        if (!isValidTargetCandidate(target)) continue;
+
+        const ym = breach.fileDate.slice(0, 7);
+        const incidentId = `${ym}-${targetSlug}`;
+
+        const res = upsertIncidentMilestone({
+          incidentId,
+          target,
+          domain: breach.domain,
+          status: breach.status,
+          verification: breach.verification,
+          event: breach.event,
+          sourceTitle: breach.sourceTitle,
+          sourceUrl: breach.sourceUrl,
+          timeUtc: breach.timeUtc,
+          dateIso: breach.fileDate,
+          summary: breach.summary,
+          tags: breach.tags,
+          industry: breach.industry,
+          incidentType: breach.incidentType,
+          affectedRecords: breach.affectedRecords,
+          compromisedData: breach.compromisedData,
+          regulatoryFilings: breach.regulatoryFilings
+        });
+
+        if (res.action === 'created') {
+          totalNew++;
+          existingSourceUrls.add(breach.sourceUrl);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ HHS OCR ingestion error:', err.message);
+  }
+
+  // =========================================================================
+  // 4. Real-Time Dark Web Ransomware Extortion Leak Telemetry Pipeline
+  // =========================================================================
+  console.log('\n--- 4. Dark Web Extortion Telemetry Pipeline ---');
+  try {
+    const darkWebVictims = await fetchDarkWebVictims({ limit: 40 });
+    for (const victim of darkWebVictims) {
+      if (existingSourceUrls.has(victim.sourceUrl)) continue;
+
+      const targetSlug = victim.targetSlug;
+      const target = victim.target;
+      const existingFile = findExistingIncidentFilePath(targetSlug, target);
+
+      if (existingFile) {
+        const res = upsertIncidentMilestone({
+          incidentId: path.basename(existingFile, '.md'),
+          target,
+          domain: victim.domain,
+          status: victim.status,
+          verification: victim.verification,
+          event: victim.event,
+          sourceTitle: victim.sourceTitle,
+          sourceUrl: victim.sourceUrl,
+          timeUtc: victim.timeUtc,
+          dateIso: victim.fileDate,
+          summary: victim.summary,
+          tags: victim.tags,
+          threatActor: victim.threatActor,
+          industry: victim.industry,
+          affectedRecords: victim.affectedRecords
+        });
+
+        if (res.action === 'updated') {
+          totalUpdated++;
+          existingSourceUrls.add(victim.sourceUrl);
+        }
+      } else {
+        if (!isValidTargetCandidate(target)) continue;
+
+        const ym = victim.fileDate.slice(0, 7);
+        const incidentId = `${ym}-${targetSlug}`;
+
+        const res = upsertIncidentMilestone({
+          incidentId,
+          target,
+          domain: victim.domain,
+          status: victim.status,
+          verification: victim.verification,
+          event: victim.event,
+          sourceTitle: victim.sourceTitle,
+          sourceUrl: victim.sourceUrl,
+          timeUtc: victim.timeUtc,
+          dateIso: victim.fileDate,
+          summary: victim.summary,
+          tags: victim.tags,
+          threatActor: victim.threatActor,
+          industry: victim.industry,
+          affectedRecords: victim.affectedRecords
+        });
+
+        if (res.action === 'created') {
+          totalNew++;
+          existingSourceUrls.add(victim.sourceUrl);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ Dark web telemetry ingestion error:', err.message);
+  }
+
+  // =========================================================================
+  // 5. RSS / Atom Threat Intelligence & Investigative News Feeds
+  // =========================================================================
+  console.log('\n--- 5. Threat Intelligence & Investigative RSS Feeds ---');
   const sources = JSON.parse(fs.readFileSync(SOURCES_FILE, 'utf-8')).filter(s => s.enabled && s.id !== 'sec-edgar-8k');
 
   if (!fs.existsSync(CACHE_DIR)) {
@@ -790,6 +986,19 @@ export async function ingestFeeds() {
 
   cache.seenLinks = [...seenSet].slice(-500);
   fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2), 'utf-8');
+
+  // =========================================================================
+  // 6. Downstream Intelligence Reconciliation & Forensic Audit
+  // =========================================================================
+  console.log('\n--- 6. Downstream Intelligence Reconciliation & Forensic Audit ---');
+  try {
+    const reconcileStats = reconcileIncidents();
+    if (reconcileStats && reconcileStats.reconciled > 0) {
+      totalUpdated += reconcileStats.reconciled;
+    }
+  } catch (err) {
+    console.warn('⚠️ Downstream reconciliation audit error:', err.message);
+  }
 
   console.log(`\n🎉 Ingestion complete: ${totalNew} new incident(s) discovered, ${totalUpdated} incident(s) corroborated/updated.`);
   return { success: true, newIncidents: totalNew, updatedIncidents: totalUpdated };

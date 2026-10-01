@@ -21,6 +21,7 @@ compromised_data:
   - Corporate Customer Data Warehouses
   - Authentication Credentials
   - Client Database Backups
+  - Customer Data Warehouses
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Disclosures across impacted customers
