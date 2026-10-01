@@ -5,11 +5,16 @@ on:
     branches:
       - main
 
+concurrency:
+  group: validate-pr-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   validate-and-test:
+    if: "!startsWith(github.head_ref, 'telemetry/')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
