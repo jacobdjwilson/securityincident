@@ -4,7 +4,7 @@ target: U.S. Department of Defense (Pentagon)
 domain: defense.gov
 status: DEVELOPING
 first_seen: '2026-09-26'
-last_updated: '2026-09-29'
+last_updated: '2026-10-01'
 threat_actor: Unattributed
 summary: >-
   Sean Lyngaas and Davis Winkie report: A data breach at the Pentagon’s vast HR
@@ -14,6 +14,7 @@ summary: >-
 tags:
   - investigative
   - developing
+  - threat-intel
 industry: Government & Defense
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: 240000
@@ -54,3 +55,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Pentagon Personnel Agency Data Breach Impacts 3 Million People
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Intelligence Notice](https://www.securityweek.com/pentagon-personnel-agency-data-breach-impacts-3-million-people/)
+
+### 2026-10-01 09:44 UTC
+- **Event:** Hackers stole Pentagon personnel records of over 3 million people
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/hackers-breach-pentagon-human-resources-management-system-steal-data-of-nearly-3-million-people/)
