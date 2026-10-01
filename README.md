@@ -18,10 +18,10 @@ To deliver maximum clarity, we establish clear levels of confidence and correlat
 
 | Status | Badge | Color | Description | Primary Sources |
 | :--- | :--- | :---: | :--- | :--- |
-| **Confirmed** | `CONFIRMED` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals, formal press releases. |
+| **Confirmed** | `CONFIRMED` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals (CA, WA, OR), HHS OCR healthcare disclosures, formal press releases. |
 | **Acknowledged** | `ACKNOWLEDGED` | 🟡 Yellow | Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss. | Target status pages, banner notices, initial press replies. |
 | **Developing** | `DEVELOPING` | 🟠 Orange | Corroborated intelligence: independent researchers verify samples or observable outages align with claims. | Independent technical telemetry, sample schema audits. |
-| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web forum leaks, or unverified community chatter before target comment. | Threat actor leak blogs, dark web forums, social tips. |
+| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web extortion blogs, or unverified community chatter before target comment. | Dark web ransomware leak sites, extortion blogs, threat actor forum posts. |
 | **Refuted** | `REFUTED` | 🔘 Gray | Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach. | Target verification, HaveIBeenPwned research, researcher audits. |
 
 ---
@@ -31,7 +31,7 @@ To deliver maximum clarity, we establish clear levels of confidence and correlat
 Unlike opaque proprietary risk ratings, **securityincident.net** computes confidence scores deterministically using open weights defined in [`sources/weights.json`](sources/weights.json) and executed via [`scripts/weights.js`](scripts/weights.js):
 
 * **Base Verification Tier:**
-  * 🟢 `CONFIRMED BY REGULATOR`: **1.00 (100%)** — SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR.
+  * 🟢 `CONFIRMED BY REGULATOR`: **1.00 (100%)** — SEC Form 8-K Item 1.05, State AG breach portals (CA DOJ, WA AG, OR DOJ), HHS OCR breach records.
   * 🟢 `CONFIRMED BY TARGET`: **0.90 (90%)** — Target press releases, security advisories, status page bulletins.
   * 🟠 `INDEPENDENT VERIFICATION`: **0.65 (65%)** — Forensic research, HaveIBeenPwned audit, technical sample analysis.
   * 🟡 `ACKNOWLEDGED`: **0.45 (45%)** — Target publicly confirms disruption or investigation without breach admission.
@@ -51,7 +51,7 @@ Rather than merely linking to external third-party articles or serving superfici
   * Security analysts, researchers, and automation scripts can clone the repo and immediately grep, query, or audit the dataset using standard POSIX and Git tooling.
 * **🔍 Rich Forensic Frontmatter:**
   * **Target Classification:** Proper organization name, primary domain, and standardized industry sector (`Healthcare`, `Financial Services`, `Technology`, `Legal`, etc.).
-  * **Forensic Taxonomy:** Specific incident classification (`Ransomware Extortion`, `Unauthorized Cloud Access`, `Third-Party Vendor Compromise`, `Credential Stuffing`, `Zero-Day Exploitation`, etc.).
+  * **Forensic Taxonomy:** Specific incident classification (`Ransomware Extortion`, `Unauthorized Cloud Access`, `Third-Party Vendor Compromise`, `Credential Stuffing`, `Zero-Day Exploitation`, `Network Intrusion & Data Exfiltration`).
   * **Attributed Threat Actor:** Threat group attribution when corroborated (e.g. `ShinyHunters`, `RansomHub`, `Akira`, `LockBit 3.0`) or neutral unattributed labeling.
   * **Quantified Scope:** Disclosed affected records/individual count.
   * **Compromised Data Categories:** Granular asset tags (`Social Security Numbers (SSNs)`, `Protected Health Information (PHI)`, `Banking Details`, `Customer Call Records`, etc.).
@@ -61,11 +61,13 @@ Rather than merely linking to external third-party articles or serving superfici
   * `## Compromised Assets & Data Scope`: Concrete breakdown of exposed assets, systems impacted, and threat risk.
   * `## Statutory Disclosures & Compliance`: Itemized record of statutory filings and regulatory monitoring.
   * `## Timeline`: Chronological milestones with verification tiers and direct primary source links.
-* **📊 Data-Driven Telemetry Dashboard:**
-  * Executive telemetry metrics strip (Assurance rate, cross-domain corroboration, average confidence).
+* **📊 Data-Driven Telemetry Dashboard & Forensic UI:**
+  * **Disclosed Impact Metric:** Aggregate real-time counter of total cumulative impacted records and confirmed disclosure scopes.
+  * **Forensic Filtering Controls:** Instant filtering by Sector dropdown, Compromised Data Class dropdown, and quick High-Impact toggle (>100K records).
+  * **Sorting Capabilities:** Instant client-side sorting by Latest Update, Highest Impact (Records), Highest Confidence, First Seen, and Most Milestones.
   * 4 interactive charts (Status breakdown, Ingestion velocity timeline, Primary regulatory sources, Targeted sectors).
   * Dual view modes: High-density interactive cards and dense triage telemetry table.
-  * Instant zero-latency search across target names, domains, industries, attack vectors, and threat actors.
+  * Instant zero-latency search across target names, domains, industries, attack vectors, compromised data, and threat actors.
   * Client-side responsive pagination (20, 50, 100 items per page).
 
 ---
@@ -76,35 +78,38 @@ Rather than merely linking to external third-party articles or serving superfici
 securityincident/
 ├── .github/
 │   └── workflows/
-│       ├── deploy.yml         # Deploys dist/ to GitHub Pages on push to main
-│       ├── validate-pr.yml    # Validates incident schemas, feeds & build on PRs
-│       └── ingest.yml         # Automated threat feed ingestion, SEC 8-K polling & PR proposing
-├── incidents/                 # Flat Markdown intelligence dossiers (1 file per incident)
+│       ├── deploy.yml                 # Deploys dist/ to GitHub Pages on push to main
+│       ├── validate-pr.yml            # Validates incident schemas, feeds & build on PRs
+│       └── ingest.yml                 # Automated 6-stage raw ingestion & PR proposing
+├── incidents/                         # Flat Markdown intelligence dossiers (1 file per incident)
 │   ├── 2026-07-river-financial.md
 │   ├── 2026-09-at-t.md
 │   ├── 2026-09-crowdstrike.md
 │   ├── 2026-09-greenberg-traurig.md
 │   └── ...
 ├── sources/
-│   ├── feeds.json             # Active regulatory & investigative feed sources
-│   └── weights.json           # Open Weights confidence model configuration
+│   ├── feeds.json                     # Active regulatory & investigative feed sources
+│   └── weights.json                   # Open Weights confidence model configuration
 ├── scripts/
-│   ├── build.js               # SSG: outputs dist/ (HTML, search index, RSS 2.0 feed)
-│   ├── weights.js             # Deterministic Open Weights correlation scoring engine
-│   ├── validate.js            # Comprehensive schema, milestone & RSS validator (npm test)
-│   ├── ingest.js              # Real-time feed aggregator & SEC 8-K poller
-│   ├── ingest-history.js      # Historical data populator with rate-limiting & politeness
+│   ├── build.js                       # SSG: outputs dist/ (HTML, search index, RSS 2.0 feed)
+│   ├── weights.js                     # Deterministic Open Weights correlation scoring engine
+│   ├── validate.js                    # Comprehensive schema, milestone & RSS validator (npm test)
+│   ├── ingest.js                      # 6-stage raw feed aggregator & regulatory poller
+│   ├── ingest-history.js              # Historical data populator with rate-limiting & reconciliation
+│   ├── reconcile-enrichment.js        # Downstream cross-checking & forensic reconciliation engine
 │   ├── regulatory/
-│   │   ├── sec-edgar.js       # SEC EDGAR Form 8-K Item 1.05 EFTS client
-│   │   └── state-ag.js        # Multi-state breach notification portal scrapers
-│   └── serve.js               # Local lightweight HTTP preview server
+│   │   ├── sec-edgar.js               # SEC EDGAR Form 8-K Item 1.05 EFTS client
+│   │   ├── state-ag.js                # Multi-state breach notification scrapers (CA, WA, OR)
+│   │   ├── hhs-ocr.js                 # HHS OCR federal healthcare breach syndication
+│   │   └── darkweb.js                 # Real-time dark web extortion & ransomware disclosures
+│   └── serve.js                       # Local lightweight HTTP preview server
 ├── src/
 │   └── public/
-│       ├── style.css          # High-density dual-mode SOC telemetry CSS (zero-dependency)
-│       ├── app.js             # Instant client-side search, filtering, table toggle & pagination
-│       └── fontawesome.js     # FontAwesome icon bundle
-├── ARCHITECTURE.md            # Architectural and technical specification
-├── CONTRIBUTING.md            # Guide for proposing incidents & milestones via PR
+│       ├── style.css                  # High-density dual-mode SOC telemetry CSS (zero-dependency)
+│       ├── app.js                     # Instant client-side search, filtering, table toggle & pagination
+│       └── fontawesome.js             # FontAwesome icon bundle
+├── ARCHITECTURE.md                    # Architectural and technical specification
+├── CONTRIBUTING.md                    # Guide for proposing incidents & milestones via PR
 ├── package.json
 └── README.md
 ```
@@ -173,7 +178,7 @@ Detailed technical briefing describing the target profile, discovery vector, ope
 
 ---
 
-## 💻 Local Development
+## 💻 Local Development & Telemetry Tooling
 
 1. **Install dependencies:**
    ```bash
@@ -190,7 +195,17 @@ Detailed technical briefing describing the target profile, discovery vector, ope
    npm run build
    ```
 
-4. **Start local preview server:**
+4. **Run downstream forensic reconciliation audit:**
+   ```bash
+   npm run reconcile
+   ```
+
+5. **Execute multi-source live ingestion:**
+   ```bash
+   npm run ingest
+   ```
+
+6. **Start local preview server:**
    ```bash
    npm run serve
    # Or run build + serve together:
@@ -208,3 +223,4 @@ To activate on GitHub:
 1. Go to repository **Settings** &rarr; **Pages**.
 2. Under **Build and deployment** &rarr; **Source**, select **GitHub Actions**.
 3. Push to `main` branch to trigger the build.
+

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { validateIncidentFile } from './validate.js';
+import { reconcileIncidents } from './reconcile-enrichment.js';
 
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
@@ -458,10 +459,32 @@ export async function populateHistoricalData() {
     const lastUpdated = dates[dates.length - 1] || firstSeen;
 
     if (fs.existsSync(filePath)) {
-      // Append any new milestones
+      // Append any new milestones and enrich missing metadata
       const existingRaw = fs.readFileSync(filePath, 'utf-8');
       const parsed = matter(existingRaw);
       let modified = false;
+
+      // Enrich missing frontmatter attributes if available
+      if (!parsed.data.industry && item.industry) {
+        parsed.data.industry = item.industry;
+        modified = true;
+      }
+      if (!parsed.data.incident_type && item.incident_type) {
+        parsed.data.incident_type = item.incident_type;
+        modified = true;
+      }
+      if ((parsed.data.affected_records === undefined || parsed.data.affected_records === null) && item.affected_records) {
+        parsed.data.affected_records = item.affected_records;
+        modified = true;
+      }
+      if ((!parsed.data.compromised_data || parsed.data.compromised_data.length === 0) && item.compromised_data && item.compromised_data.length > 0) {
+        parsed.data.compromised_data = item.compromised_data;
+        modified = true;
+      }
+      if ((!parsed.data.regulatory_filings || parsed.data.regulatory_filings.length === 0) && item.regulatory_filings && item.regulatory_filings.length > 0) {
+        parsed.data.regulatory_filings = item.regulatory_filings;
+        modified = true;
+      }
 
       for (const m of item.milestones) {
         if (!parsed.content.includes(m.sourceUrl)) {
@@ -487,7 +510,7 @@ export async function populateHistoricalData() {
         }
       }
     } else {
-      // Create new incident
+      // Create new incident with full forensic schema & technical dossier sections
       console.log(`   ✨ Ingesting: [${item.status}] ${item.target} (${filename})`);
 
       const frontmatter = {
@@ -497,12 +520,37 @@ export async function populateHistoricalData() {
         status: item.status,
         first_seen: firstSeen,
         last_updated: lastUpdated,
-        threat_actor: item.threat_actor || null,
+        threat_actor: item.threat_actor || 'Unknown / Unattributed',
+        industry: item.industry || 'Technology',
+        incident_type: item.incident_type || 'Data Breach & Unauthorized Access',
+        affected_records: item.affected_records || null,
+        compromised_data: item.compromised_data || [],
+        regulatory_filings: item.regulatory_filings || [],
         summary: item.summary,
         tags: item.tags || []
       };
 
-      let body = '## Timeline\n';
+      let body = `## Incident Overview\n\n${item.summary}\n\n`;
+      body += `## Compromised Assets & Data Scope\n\n`;
+      if (item.compromised_data && item.compromised_data.length > 0) {
+        body += `- **Primary Data Classes:** ${item.compromised_data.join(', ')}.\n`;
+      } else {
+        body += `- Forensic scope under active investigation.\n`;
+      }
+      if (item.affected_records) {
+        body += `- **Disclosed Affected Population:** Approximately ${item.affected_records.toLocaleString()} individuals or records.\n`;
+      }
+
+      body += `\n## Statutory Disclosures & Compliance\n\n`;
+      if (item.regulatory_filings && item.regulatory_filings.length > 0) {
+        for (const rf of item.regulatory_filings) {
+          body += `- Statutory filing submitted to ${rf.regulator || 'regulatory authority'} (${rf.form || 'Statutory Notice'})${rf.accession_number ? ` under accession ${rf.accession_number}` : ''}.\n`;
+        }
+      } else {
+        body += `- Formal regulatory filings and statutory notices under continuous review.\n`;
+      }
+
+      body += `\n## Timeline\n`;
       for (const m of item.milestones) {
         body += `\n### ${m.time}\n- **Event:** ${m.event}\n- **Verification:** ${m.verification}\n- **Source:** [${m.sourceTitle}](${m.sourceUrl})\n`;
         existingSourceUrls.add(m.sourceUrl);
@@ -518,11 +566,22 @@ export async function populateHistoricalData() {
       }
     }
 
-    // Rate consideration: 50ms pause between disk iterations, or network rate limit if fetching live
+    // Rate consideration: 50ms pause between disk iterations
     await sleep(50);
   }
 
   console.log(`\n🎉 Historical 90-day ingestion complete: ${createdCount} created, ${updatedCount} updated.`);
+
+  console.log('\n🔄 Executing downstream reconciliation audit across all incident files...');
+  try {
+    const reconcileStats = reconcileIncidents();
+    if (reconcileStats && reconcileStats.reconciled > 0) {
+      console.log(`✨ Reconciled and enriched ${reconcileStats.reconciled} additional dossiers.`);
+    }
+  } catch (err) {
+    console.warn('⚠️ Downstream reconciliation warning:', err.message);
+  }
+
 }
 
 // Run directly

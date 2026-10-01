@@ -33,15 +33,15 @@ Every incident is categorized into exactly one of five top-level ground-truth st
 
 | Status | Badge | Color | Description | Primary Sources |
 | :--- | :--- | :---: | :--- | :--- |
-| **Confirmed** | `CONFIRMED` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals, formal press releases. |
+| **Confirmed** | `CONFIRMED` | 🟢 Green | **Highest assurance:** Officially verified by the target or government regulator. | SEC Form 8-K Item 1.05, State AG breach portals (CA, WA, OR), HHS OCR healthcare disclosures, formal press releases. |
 | **Acknowledged** | `ACKNOWLEDGED` | 🟡 Yellow | Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss. | Target status pages, banner notices, initial press replies. |
 | **Developing** | `DEVELOPING` | 🟠 Orange | Corroborated intelligence: independent researchers verify samples or observable outages align with claims. | Independent technical telemetry, sample schema audits. |
-| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web forum leaks, or unverified community chatter before target comment. | Threat actor leak blogs, dark web forums, social tips. |
+| **Emerging** | `EMERGING` | 🔴 Red | Early threat actor claims, dark web extortion blogs, or unverified community chatter before target comment. | Dark web ransomware leak sites, extortion blogs, threat actor forum posts. |
 | **Refuted** | `REFUTED` | 🔘 Gray | Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach. | Target verification, HaveIBeenPwned research, researcher audits. |
 
 ### Milestone Verification Badges
 Each milestone entry in the timeline is labeled with its verification level:
-* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K, State Attorney General notice, HHS breach portal, CISA advisory.
+* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K, State Attorney General notice (CA DOJ, WA AG, OR DOJ), HHS OCR breach report, CISA advisory.
 * `CONFIRMED BY TARGET` (🟢 Green / Teal): Target press release, official blog post, status page.
 * `INDEPENDENT VERIFICATION` (🟠 Orange): Independent researcher or news outlet verifying data validity.
 * `UNVERIFIED CLAIM` (🔴 Red): Threat actor leak post, breach forum listing, anonymous leak.
@@ -91,7 +91,19 @@ domain: "riverbankandtrust.com"
 status: "CONFIRMED" # EMERGING | DEVELOPING | ACKNOWLEDGED | CONFIRMED | REFUTED
 first_seen: "2026-07-06"
 last_updated: "2026-07-30"
-threat_actor: null # Optional or threat actor string
+threat_actor: "Unknown / Unattributed"
+industry: "Financial Services" # Healthcare | Financial Services | Technology | Legal | Retail & Consumer Goods | ...
+incident_type: "Network Intrusion & Data Exfiltration"
+affected_records: 48000 # Disclosed affected individuals count or null
+compromised_data:
+  - "Social Security Numbers (SSNs)"
+  - "Financial Account Numbers"
+  - "Direct Deposit & Banking Details"
+regulatory_filings:
+  - regulator: "SEC"
+    form: "Form 8-K (Item 1.05)"
+    accession_number: "0001193125-26-295704"
+    url: "https://www.sec.gov/Archives/edgar/data/1641601/000119312526295704/0001193125-26-295704-index.htm"
 summary: "River Financial Corporation disclosed an unauthorized network intrusion into its banking network involving corporate data exfiltration."
 tags:
   - "regulatory"
@@ -99,6 +111,19 @@ tags:
   - "banking"
   - "confirmed"
 ---
+
+## Incident Overview
+
+The **River Financial** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Financial Services** sector...
+
+## Compromised Assets & Data Scope
+
+- **Primary Data Classes:** Social Security Numbers (SSNs), Financial Account Numbers, Direct Deposit & Banking Details.
+- **Disclosed Affected Population:** Approximately 48,000 individuals or records.
+
+## Statutory Disclosures & Compliance
+
+- Statutory filing submitted to SEC (Form 8-K Item 1.05) under accession 0001193125-26-295704.
 
 ## Timeline
 
@@ -116,38 +141,48 @@ tags:
 securityincident/
 ├── .github/
 │   └── workflows/
-│       ├── deploy.yml         # Builds static site & deploys to GitHub Pages on push to main
-│       ├── validate-pr.yml    # Validates schemas, milestones & build on PRs
-│       └── ingest.yml         # Scheduled cron polling for SEC 8-Ks & multi-state AG notices
-├── incidents/                 # Flat Markdown database (1 file per incident)
+│       ├── deploy.yml                 # Builds static site & deploys to GitHub Pages on push to main
+│       ├── validate-pr.yml            # Validates schemas, milestones & build on PRs
+│       └── ingest.yml                 # Scheduled cron polling for direct raw feeds & PR proposing
+├── incidents/                         # Flat Markdown database (1 file per incident)
 │   ├── 2026-07-river-financial.md
 │   ├── 2026-09-at-t.md
 │   ├── 2026-09-crowdstrike.md
 │   ├── 2026-09-greenberg-traurig.md
 │   └── ...
 ├── sources/
-│   ├── feeds.json             # Curated regulatory & threat intelligence feed sources
-│   └── weights.json           # Open Weights deterministic confidence scoring weights
+│   ├── feeds.json                     # Curated regulatory & threat intelligence feed sources
+│   └── weights.json                   # Open Weights deterministic confidence scoring weights
 ├── scripts/
-│   ├── build.js               # Static generator: outputs dist/ (HTML, search index, RSS 2.0)
-│   ├── weights.js             # Deterministic Open Weights correlation calculation engine
-│   ├── enrich-incidents.js    # Data upgrade engine for forensic frontmatter & narrative dossiers
-│   ├── validate.js            # Automated incident schema, milestone & RSS compliance validator
-│   ├── ingest.js              # Real-time threat feed & SEC 8-K aggregator
-│   ├── ingest-history.js      # Historical data populator with rate-limiting
+│   ├── build.js                       # Static generator: outputs dist/ (HTML, search index, RSS 2.0)
+│   ├── weights.js                     # Deterministic Open Weights correlation calculation engine
+│   ├── validate.js                    # Automated incident schema, milestone & RSS compliance validator
+│   ├── ingest.js                      # 6-stage real-time raw feed & regulatory aggregator
+│   ├── ingest-history.js              # Historical data populator with rate-limiting & reconciliation
+│   ├── reconcile-enrichment.js        # Downstream cross-checking & forensic reconciliation engine
 │   ├── regulatory/
-│   │   ├── sec-edgar.js       # SEC EDGAR Form 8-K Item 1.05 EFTS client
-│   │   └── state-ag.js        # Multi-state breach notification portal scrapers
-│   └── serve.js               # Local lightweight HTTP preview server
+│   │   ├── sec-edgar.js               # SEC EDGAR Form 8-K Item 1.05 EFTS client
+│   │   ├── state-ag.js                # Multi-state breach notification scrapers (CA, WA, OR)
+│   │   ├── hhs-ocr.js                 # HHS OCR federal healthcare data breach syndication
+│   │   └── darkweb.js                 # Real-time dark web extortion & ransomware disclosures
+│   └── serve.js                       # Local lightweight HTTP preview server
 ├── src/
-│   └── public/                # CSS, client-side JS, favicon, web assets
-│       ├── style.css          # Vanilla CSS (dual-mode dark/light, high-density telemetry, responsive)
-│       ├── app.js             # Client-side filtering, instant search, sorting, charts & pagination
-│       └── fontawesome.js     # FontAwesome icon bundle
-├── images/                    # Brand assets (logos, favicons, COLOR.md, BRANDING.md)
-├── package.json               # Build scripts and minimal dependencies (gray-matter, marked)
+│   └── public/                        # CSS, client-side JS, favicon, web assets
+│       ├── style.css                  # Vanilla CSS (dual-mode dark/light, high-density telemetry, responsive)
+│       ├── app.js                     # Client-side filtering, instant search, sorting, charts & pagination
+│       └── fontawesome.js             # FontAwesome icon bundle
+├── images/                            # Brand assets (logos, favicons, COLOR.md, BRANDING.md)
+├── package.json                       # Build scripts and minimal dependencies (gray-matter, marked)
 └── README.md
 ```
+
+### The 6-Stage Telemetry Ingestion Pipeline
+1. **SEC EDGAR EFTS:** Real-time polling for Form 8-K Item 1.05 material cybersecurity incident filings and amendments.
+2. **Multi-State AG Portals:** Automated extraction of statutory breach notices across California DOJ (SB-24), Washington State AG (RCW 19.255), and Oregon DOJ consumer protection portals.
+3. **HHS OCR Healthcare Disclosures:** Federal healthcare data breach syndication tracking HIPAA covered entities, affected individual tallies, and business associate disclosures.
+4. **Dark Web Extortion Telemetry:** Live monitoring of ransomware gang extortion sites (LockBit, RansomHub, Akira, Qilin, etc.) with group attribution and victim domain mapping.
+5. **Syndicated Threat Telemetry:** Syndicated technical telemetry from independent researchers and investigative reporters.
+6. **Downstream Intelligence Reconciliation:** Forensic audit cross-checking affected records counts, compromised data classes, and elevating status tiers based on corroboration.
 
 ### Rate Considerations & Network Politeness
 All automated ingest scripts adhere to strict network politeness rules:
@@ -163,7 +198,7 @@ Rather than merely linking to external third-party articles or serving superfici
 
 ### 1. Granular Structured Metadata
 * **Industry / Sector:** Standardized taxonomy (`Healthcare`, `Financial Services`, `Technology`, `Legal`, `Retail & Consumer Goods`, `Manufacturing & Construction`, `Transportation & Logistics`, `Government & Public Sector`, `Education & Research`).
-* **Incident Classification:** Explicit attack vector (`Ransomware Extortion`, `Unauthorized Cloud Access`, `Third-Party Vendor Compromise`, `Credential Stuffing Attack`, `Zero-Day Vulnerability Exploitation`, `Business Email Compromise`).
+* **Incident Classification:** Explicit attack vector (`Ransomware Extortion`, `Unauthorized Cloud Access`, `Third-Party Vendor Compromise`, `Credential Stuffing Attack`, `Zero-Day Vulnerability Exploitation`, `Network Intrusion & Data Exfiltration`).
 * **Attributed Threat Actor:** Threat group identification when corroborated (e.g. `ShinyHunters`, `RansomHub`, `Akira`, `LockBit 3.0`) or neutral attribution labeling.
 * **Affected Population Scope:** Disclosed number of impacted individuals or systems.
 * **Compromised Asset Categories:** Specific exposed data categories (e.g. `Social Security Numbers (SSNs)`, `Protected Health Information (PHI)`, `Banking Details`, `Call Detail Records (CDRs)`).
@@ -172,14 +207,17 @@ Rather than merely linking to external third-party articles or serving superfici
 ### 2. Forensic Markdown Dossiers
 Each flat file in `incidents/` includes structured technical narrative sections:
 * `## Incident Overview`: Objective briefing detailing organizational footprint, root cause, and disruption.
-* `## Compromised Assets & Data Scope`: Itemized breakdown of exposed systems and threat risk.
+* `## Compromised Assets & Data Scope`: Itemized breakdown of exposed systems, affected counts, and threat risk.
 * `## Statutory Disclosures & Compliance`: Chronological log of regulatory filings and notifications.
 * `## Timeline`: Verifiable milestones with timestamps, verification badges, and primary source links.
 
 ### 3. High-Density Telemetry & Client-Side Interactivity
 * **Interactive Trend Charts:** Pure CSS/JS telemetry charts (Status distribution, monthly velocity, primary regulatory sources, targeted sectors) with click-to-filter capability.
+* **Aggregate Disclosed Impact Metric:** Real-time calculated tally of cumulative disclosed impacted individuals and confirmed disclosure scopes.
+* **Forensic Filtering Controls:** Instant dropdown filtering by Industry Sector, Compromised Data Class, and quick toggle for High-Impact events (>100K affected records).
+* **Sorting Capabilities:** Instant client-side sorting by Latest Update, Highest Impact (Records), Highest Confidence, First Seen, and Most Milestones.
 * **Dual View Presentation:** High-density incident cards and ultra-dense triage table with sortable columns.
-* **Instant Client-Side Search:** Zero-latency fuzzy search across target names, domains, industries, attack vectors, and threat actors.
+* **Instant Client-Side Search:** Zero-latency multi-attribute search across target names, domains, industries, attack vectors, compromised data, and threat actors.
 * **Client-Side Pagination:** Smooth client-side pagination (20, 50, 100 items per page) without page reloads.
 
 ---
@@ -202,14 +240,18 @@ Each flat file in `incidents/` includes structured technical narrative sections:
 - [x] Automated PR proposing workflow for verified regulatory disclosures (`.github/workflows/ingest.yml`).
 - [x] Rate limiting (1200ms delay), HTTP 304 conditional cache validation, and User-Agent identification.
 
-### Phase 3: High-Value Flat-File Intelligence & Trend Telemetry (COMPLETED)
-- [x] Comprehensive flat-file data upgrade across all 117 incident files with rich forensic frontmatter (`industry`, `incident_type`, `threat_actor`, `affected_records`, `compromised_data`, `regulatory_filings`).
-- [x] Full technical narrative dossiers (`## Incident Overview`, `## Compromised Assets & Data Scope`, `## Statutory Disclosures & Compliance`, and verifiable `## Timeline`).
-- [x] Purged all unrequested features and "AI slop" (markdown badges, fake REST API directories, STIX exports).
-- [x] High-density data-driven telemetry dashboard with 4 interactive charts (Status Breakdown, Ingestion Velocity, Regulatory Sources, Targeted Sectors).
-- [x] Dense telemetry triage table view with dual-mode toggle (Cards vs Table) and client-side pagination (20, 50, 100 items/page).
-- [x] Comprehensive test automation suite in `scripts/validate.js` covering markdown schemas, rich frontmatter fields, milestones, and RSS 2.0 compliance.
+### Phase 3: Direct Raw Feeds, Reconciliation Engine & Forensic UI Controls (COMPLETED)
+- [x] Integrated HHS OCR federal healthcare cybersecurity breach syndication (`scripts/regulatory/hhs-ocr.js`).
+- [x] Expanded multi-state AG portal coverage with Oregon Department of Justice statutory breach disclosures.
+- [x] Integrated real-time dark web extortion telemetry feed (`scripts/regulatory/darkweb.js`).
+- [x] Developed downstream intelligence reconciliation & forensic audit engine (`scripts/reconcile-enrichment.js`).
+- [x] Implemented Disclosed Impact aggregate counter (total affected records & disclosed scopes) in top telemetry strip.
+- [x] Added forensic filtering controls: Sector filter, Compromised Data Class filter, High-Impact toggle (>100K records), and Highest Impact sorting.
+- [x] Upgraded scheduled CI/CD ingestion workflow (`.github/workflows/ingest.yml`) with automated PR summaries and reconcile-only dispatch.
+- [x] Enhanced historical populator (`scripts/ingest-history.js`) with rich forensic metadata and automated post-ingestion reconciliation.
 
 ### Phase 4: Decentralized Verification & Cryptographic Attribution
 - [ ] Signed Git commits for immutable cryptographic attribution of incident milestones.
 - [ ] Community-driven weights proposal and vote through GitHub PR governance.
+- [ ] Automated historical archive backfilling for multi-year regulatory datasets.
+
