@@ -79,6 +79,64 @@ const ENTITY_ENRICHMENT_CATALOG = {
     threat_actor: 'ShinyHunters',
     affected_records: 560000000,
     compromised_data: ['Customer Names', 'Email Addresses', 'Payment Card Details', 'Order Histories']
+  },
+  'microsoft-midnight-blizzard': {
+    industry: 'Technology',
+    incident_type: 'Nation-State Password Spray & Cloud Access',
+    threat_actor: 'Midnight Blizzard',
+    compromised_data: ['Senior Leadership Corporate Email Accounts', 'Source Code Repositories']
+  },
+  'hewlett-packard-enterprise': {
+    industry: 'Technology',
+    incident_type: 'Nation-State Cloud Intrusion',
+    threat_actor: 'Midnight Blizzard',
+    compromised_data: ['Cybersecurity Team Mailboxes', 'Executive Communications']
+  },
+  'loandepot': {
+    industry: 'Financial Services',
+    incident_type: 'Ransomware Extortion & Encryption',
+    affected_records: 16600000,
+    compromised_data: ['Social Security Numbers (SSNs)', 'Mortgage Applications', 'Customer PII']
+  },
+  'prudential-financial': {
+    industry: 'Financial Services',
+    incident_type: 'Administrative Cloud Intrusion',
+    threat_actor: 'ALPHV',
+    affected_records: 32183,
+    compromised_data: ['Employee Records', 'Contractor Information', 'Limited Customer PII']
+  },
+  'first-american-financial': {
+    industry: 'Financial Services',
+    incident_type: 'Network Intrusion & Disruption',
+    affected_records: 44000,
+    compromised_data: ['Title Insurance Records', 'Escrow Documents', 'Customer Identifiers']
+  },
+  'vf-corporation': {
+    industry: 'Retail & Consumer Goods',
+    incident_type: 'Ransomware Extortion & Encryption',
+    threat_actor: 'ALPHV',
+    affected_records: 35500000,
+    compromised_data: ['Customer Personal Information', 'Order Records', 'Account Details']
+  },
+  'halliburton': {
+    industry: 'Energy & Oil Field Services',
+    incident_type: 'Network Intrusion & Ransomware',
+    threat_actor: 'RansomHub',
+    compromised_data: ['Internal Business Applications', 'Corporate Telemetry']
+  },
+  'advance-auto-parts': {
+    industry: 'Retail & Consumer Goods',
+    incident_type: 'Third-Party Cloud Account Takeover',
+    threat_actor: 'UNC5537',
+    affected_records: 380000000,
+    compromised_data: ['Customer Profiles', 'Social Security Numbers (SSNs)', 'Driver License Numbers']
+  },
+  'cdk-global': {
+    industry: 'Automotive & Software Services',
+    incident_type: 'Ransomware Extortion & Software Outage',
+    threat_actor: 'BlackSuit',
+    affected_records: 15000000,
+    compromised_data: ['Dealership Management Systems', 'Customer Records']
   }
 };
 

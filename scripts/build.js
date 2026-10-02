@@ -205,6 +205,72 @@ ${itemsXml}
 `;
 }
 
+function generateJsonFeed(incidents) {
+  return JSON.stringify({
+    version: 'https://jsonfeed.org/version/1.1',
+    title: 'securityincident.net | Real-Time Incident Status & Milestone Timeline Index',
+    home_page_url: `${SITE_URL}/`,
+    feed_url: `${SITE_URL}/feed.json`,
+    description: 'A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.',
+    icon: `${SITE_URL}/images/favicon.svg`,
+    favicon: `${SITE_URL}/images/favicon.svg`,
+    authors: [
+      {
+        name: 'securityincident.net',
+        url: `${SITE_URL}/about.html`
+      }
+    ],
+    items: incidents.map(inc => {
+      const permalink = `${SITE_URL}/incidents/${inc.id}.html`;
+      const dateModified = inc.last_updated ? `${inc.last_updated}T00:00:00Z` : undefined;
+      const datePublished = inc.first_seen ? `${inc.first_seen}T00:00:00Z` : dateModified;
+
+      let htmlContent = `<p><strong>Status:</strong> ${escapeXml(inc.status)}<br/>\n`;
+      htmlContent += `<strong>Target Domain:</strong> ${escapeXml(inc.domain)}<br/>\n`;
+      if (inc.industry) htmlContent += `<strong>Industry:</strong> ${escapeXml(inc.industry)}<br/>\n`;
+      if (inc.incident_type) htmlContent += `<strong>Incident Type:</strong> ${escapeXml(inc.incident_type)}<br/>\n`;
+      if (inc.threat_actor) htmlContent += `<strong>Threat Actor:</strong> ${escapeXml(inc.threat_actor)}<br/>\n`;
+      if (inc.affected_records) htmlContent += `<strong>Affected Population:</strong> ${Number(inc.affected_records).toLocaleString()} records<br/>\n`;
+      if (inc.confidence) {
+        htmlContent += `<strong>Open Weights Confidence:</strong> ${inc.confidence.confidencePercent}% (${escapeXml(inc.confidence.topTier)})<br/>\n`;
+      }
+      htmlContent += `</p>\n<p>${escapeXml(inc.summary || '')}</p>\n`;
+
+      if (inc.milestones && inc.milestones.length > 0) {
+        htmlContent += `<h3>Milestone Timeline</h3>\n<ul>\n`;
+        inc.milestones.forEach(m => {
+          htmlContent += `<li><strong>${escapeXml(m.time)}</strong> [${escapeXml(m.verification)}]: ${escapeXml(m.event)}`;
+          if (m.sourceUrl) {
+            htmlContent += ` (<a href="${escapeXml(m.sourceUrl)}">${escapeXml(m.sourceTitle || 'Source')}</a>)`;
+          }
+          htmlContent += `</li>\n`;
+        });
+        htmlContent += `</ul>\n`;
+      }
+      htmlContent += `<p><a href="${permalink}">View Full Verified Timeline &amp; Evidence on securityincident.net</a></p>`;
+
+      return {
+        id: permalink,
+        url: permalink,
+        title: `[${inc.status}] ${inc.target} — ${inc.summary}`,
+        content_html: htmlContent,
+        summary: inc.summary || '',
+        date_published: datePublished,
+        date_modified: dateModified,
+        tags: [inc.status, inc.industry, ...(inc.tags || [])].filter(Boolean),
+        _open_weights: inc.confidence ? {
+          score: inc.confidence.score,
+          percent: inc.confidence.confidencePercent,
+          top_tier: inc.confidence.topTier,
+          base_weight: inc.confidence.baseWeight,
+          corroboration_bonus: inc.confidence.corroborationBonus,
+          unique_domains: inc.confidence.uniqueSourcesCount
+        } : undefined
+      };
+    })
+  }, null, 2);
+}
+
 function renderHeader(isSubpage = false) {
   const prefix = isSubpage ? '../' : './';
   return `
@@ -577,6 +643,7 @@ function generateIndexHtml(incidents, stats) {
   <meta name="description" content="A neutral, high-signal index tracking real-time status and verified milestone timelines for cybersecurity incidents across the open web, powered by open weights correlation and community PR editing.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
+  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -979,6 +1046,7 @@ function generateIncidentDetailHtml(inc) {
   <meta name="description" content="Verified status and chronological milestone timeline for the ${inc.target} security incident.">
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="../feed.xml">
+  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="../feed.json">
   <link rel="stylesheet" href="../style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1168,6 +1236,7 @@ function generateAboutHtml() {
   <meta name="description" content="How securityincident.net verifies security incident statuses and milestones on the open web using deterministic open weights.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
+  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
   <link rel="stylesheet" href="style.css">
   <script src="fontawesome.js"></script>
   <script>
@@ -1401,12 +1470,16 @@ async function build() {
   const rssXml = generateRssFeed(incidents);
   fs.writeFileSync(path.join(DIST_DIR, 'feed.xml'), rssXml, 'utf-8');
 
+  // Output standard JSON Feed v1.1
+  const jsonFeed = generateJsonFeed(incidents);
+  fs.writeFileSync(path.join(DIST_DIR, 'feed.json'), jsonFeed, 'utf-8');
+
   // Copy CNAME if present
   if (fs.existsSync(path.join(ROOT_DIR, 'CNAME'))) {
     fs.copyFileSync(path.join(ROOT_DIR, 'CNAME'), path.join(DIST_DIR, 'CNAME'));
   }
 
-  console.log(`✅ Successfully built ${incidents.length} incident dossiers, RSS 2.0 feed & telemetry site to dist/`);
+  console.log(`✅ Successfully built ${incidents.length} incident dossiers, RSS 2.0 feed, JSON Feed v1.1 & telemetry site to dist/`);
 }
 
 build().catch(err => {

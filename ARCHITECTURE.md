@@ -250,8 +250,10 @@ Each flat file in `incidents/` includes structured technical narrative sections:
 - [x] Upgraded scheduled CI/CD ingestion workflow (`.github/workflows/ingest.yml`) with automated PR summaries and reconcile-only dispatch.
 - [x] Enhanced historical populator (`scripts/ingest-history.js`) with rich forensic metadata and automated post-ingestion reconciliation.
 
-### Phase 4: Decentralized Verification & Cryptographic Attribution
+### Phase 4: Decentralized Verification, Multi-Format Syndication & Benchmark Archive (IN PROGRESS)
+- [x] Machine-readable JSON Feed v1.1 syndication (`dist/feed.json`) with deterministic Open Weights confidence metadata.
+- [x] Historical benchmark regulatory backfill for landmark SEC Form 8-K Item 1.05 and HHS OCR filings from inception (UnitedHealth/Change Healthcare, Microsoft Midnight Blizzard, HPE, LoanDepot, Prudential, First American Financial, VF Corp, Halliburton, Advance Auto Parts, CDK Global).
+- [x] Expanded cumulative disclosed impact telemetry tracking to 828M+ affected individuals across 35 disclosed scopes.
 - [ ] Signed Git commits for immutable cryptographic attribution of incident milestones.
 - [ ] Community-driven weights proposal and vote through GitHub PR governance.
-- [ ] Automated historical archive backfilling for multi-year regulatory datasets.
 

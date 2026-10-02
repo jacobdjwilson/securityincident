@@ -263,6 +263,51 @@ function validateFeedXml(filePath) {
   return errors;
 }
 
+const JSON_FEED_PATH = path.join(ROOT_DIR, 'dist', 'feed.json');
+
+function validateFeedJson(filePath) {
+  const errors = [];
+  if (!fs.existsSync(filePath)) {
+    return errors;
+  }
+
+  let raw;
+  try {
+    raw = fs.readFileSync(filePath, 'utf-8');
+  } catch (err) {
+    errors.push(`Could not read JSON feed: ${err.message}`);
+    return errors;
+  }
+
+  let json;
+  try {
+    json = JSON.parse(raw);
+  } catch (err) {
+    errors.push(`JSON feed parsing failed: ${err.message}`);
+    return errors;
+  }
+
+  if (json.version !== 'https://jsonfeed.org/version/1.1') {
+    errors.push(`JSON feed must specify version 'https://jsonfeed.org/version/1.1', found: '${json.version}'`);
+  }
+  if (!json.title) errors.push("JSON feed missing 'title'");
+  if (!json.home_page_url) errors.push("JSON feed missing 'home_page_url'");
+  if (!json.feed_url) errors.push("JSON feed missing 'feed_url'");
+  if (!Array.isArray(json.items)) {
+    errors.push("JSON feed 'items' must be an array");
+  } else {
+    for (let i = 0; i < json.items.length; i++) {
+      const item = json.items[i];
+      if (!item.id) errors.push(`JSON feed item #${i} missing 'id'`);
+      if (!item.url) errors.push(`JSON feed item #${i} missing 'url'`);
+      if (!item.title) errors.push(`JSON feed item #${i} missing 'title'`);
+      if (!item.content_html && !item.content_text) errors.push(`JSON feed item #${i} missing 'content_html' or 'content_text'`);
+    }
+  }
+
+  return errors;
+}
+
 export function validateAll() {
   console.log('🔍 Validating incident schema and verification compliance...');
 
@@ -298,6 +343,18 @@ export function validateAll() {
       failureReports.push({ file: 'dist/feed.xml', errors: feedErrors });
     } else {
       console.log('✅ RSS feed (dist/feed.xml) passed structure and compliance validation.');
+    }
+  }
+
+  // If dist/feed.json exists, validate it too
+  if (fs.existsSync(JSON_FEED_PATH)) {
+    console.log('📡 Validating generated JSON Feed v1.1 (dist/feed.json)...');
+    const jsonFeedErrors = validateFeedJson(JSON_FEED_PATH);
+    if (jsonFeedErrors.length > 0) {
+      totalErrors += jsonFeedErrors.length;
+      failureReports.push({ file: 'dist/feed.json', errors: jsonFeedErrors });
+    } else {
+      console.log('✅ JSON Feed (dist/feed.json) passed structure and compliance validation.');
     }
   }
 

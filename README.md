@@ -37,8 +37,7 @@ Unlike opaque proprietary risk ratings, **securityincident.net** computes confid
   * 🟡 `ACKNOWLEDGED`: **0.45 (45%)** — Target publicly confirms disruption or investigation without breach admission.
   * 🔴 `UNVERIFIED CLAIM`: **0.20 (20%)** — Dark web leak sites, extortion blogs, community chatter.
   * 🔘 `REFUTED`: **0.00 (0%)** — Proven false alarm, recycled historical leak, or mislabeled web scrape.
-* **Cross-Domain Corroboration:** +0.05 (+5%) per independent source domain that corroborates an event, capped at +0.15 (+15%).
-* **Machine-Readable Syndication:** Real-time verifiable feed available in standard [RSS 2.0 (`dist/feed.xml`)](feed.xml) with full milestone timelines.
+* **Machine-Readable Syndication:** Real-time verifiable feeds available in standard [RSS 2.0 (`dist/feed.xml`)](feed.xml) and [JSON Feed v1.1 (`dist/feed.json`)](feed.json) with full milestone timelines and Open Weights confidence metrics.
 
 ---
 
