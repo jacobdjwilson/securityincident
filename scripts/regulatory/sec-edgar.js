@@ -29,10 +29,10 @@ function slugify(text) {
 /**
  * Fetch SEC Form 8-K Item 1.05 cybersecurity filings within a given rolling window
  * @param {Object} options
- * @param {number} options.days - number of days to look back (default 30)
+ * @param {number} options.days - number of days to look back (default 90)
  * @returns {Promise<Array>} array of structured regulatory incident records
  */
-export async function fetchSecItem105Filings({ days = 30 } = {}) {
+export async function fetchSecItem105Filings({ days = 90 } = {}) {
   const endDateObj = new Date();
   const startDateObj = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 

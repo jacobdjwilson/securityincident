@@ -144,12 +144,8 @@ securityincident/
 │       ├── deploy.yml                 # Builds static site & deploys to GitHub Pages on push to main
 │       ├── validate-pr.yml            # Validates schemas, milestones & build on PRs
 │       └── ingest.yml                 # Scheduled cron polling for direct raw feeds & PR proposing
-├── incidents/                         # Flat Markdown database (1 file per incident)
-│   ├── 2026-07-river-financial.md
-│   ├── 2026-09-at-t.md
-│   ├── 2026-09-crowdstrike.md
-│   ├── 2026-09-greenberg-traurig.md
-│   └── ...
+├── incidents/                         # Dynamic flat-file database (YYYY-MM-<target-slug>.md)
+│   └── [Dynamically synchronized incident dossiers via automated ingestion & PRs]
 ├── sources/
 │   ├── feeds.json                     # Curated regulatory & threat intelligence feed sources
 │   └── weights.json                   # Open Weights deterministic confidence scoring weights

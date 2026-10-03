@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+  workflow_run:
+    workflows: ["Automated Incident Telemetry Ingestion"]
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -20,6 +26,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

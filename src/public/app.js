@@ -1,7 +1,12 @@
 /**
- * securityincident.net - Interactive Telemetry Deck, Charts, Client-side Filtering,
- * Sorting, Dense Table View & High-Density Pagination
- * Powered by Open Weights Correlation Engine
+ * securityincident.net - Interactive Client Script
+ * Powers:
+ * - Real-Time Breaking Threat Newsfeed / Stream (index.html)
+ * - Stream Tabs (Trending, Emerging, Confirmed, All)
+ * - Expandable Telemetry & Granular Filters Drawer
+ * - Deep Telemetry Analytics Deck & Dense Table View (telemetry.html)
+ * - Pipeline Health Status Monitoring (status.html)
+ * - 1-Click Link Sharing with Toast Notifications
  */
 
 // Initialize Theme from localStorage or system preference
@@ -32,12 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Elements
   const searchInput = document.getElementById('search-input');
+  const streamTabs = document.querySelectorAll('.stream-tab');
   const filterButtons = document.querySelectorAll('.filter-btn');
-  const sortSelect = document.getElementById('sort-select');
+  const sortSelect = document.getElementById('sort-select') || document.getElementById('drawer-sort-select');
   const pageSizeSelect = document.getElementById('page-size-select');
-  const sectorSelect = document.getElementById('sector-select');
-  const dataTypeSelect = document.getElementById('data-type-select');
-  const btnHighImpact = document.getElementById('btn-high-impact');
+  const sectorSelect = document.getElementById('sector-select') || document.getElementById('drawer-sector-select');
+  const dataTypeSelect = document.getElementById('data-type-select') || document.getElementById('drawer-data-select');
+  const btnHighImpact = document.getElementById('btn-high-impact') || document.getElementById('drawer-btn-high-impact');
+  const feedContainer = document.getElementById('incidents-feed');
   const gridContainer = document.getElementById('incidents-grid');
   const tableWrap = document.getElementById('incidents-table-wrap');
   const tableBody = document.getElementById('telemetry-tbody');
@@ -51,8 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const paginationInfo = document.getElementById('pagination-info');
   const paginationNav = document.getElementById('pagination-nav');
   const chartClickElements = document.querySelectorAll('.chart-click-filter');
+  const topicChips = document.querySelectorAll('.qt-chip');
+  const btnToggleDrawer = document.getElementById('btn-toggle-drawer');
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+  const telemetryDrawer = document.getElementById('telemetry-drawer');
+  const drawerActiveCount = document.getElementById('drawer-active-count');
+  const toastNotify = document.getElementById('toast-notify');
+  const toastMessage = document.getElementById('toast-message');
 
   // State
+  let currentStream = 'trending'; // 'trending' | 'emerging' | 'confirmed' | 'all'
   let currentFilter = 'ALL';      // Status filter
   let currentMonth = 'ALL';       // Month filter from velocity chart
   let currentSector = 'ALL';      // Sector filter from sector/source charts
@@ -62,10 +77,154 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSort = 'recent';
   let searchQuery = '';
   let currentPage = 1;
-  let itemsPerPage = 20;
-  let currentView = localStorage.getItem('view_mode') || 'cards';
+  let itemsPerPage = feedContainer ? 20 : (pageSizeSelect ? parseInt(pageSizeSelect.value, 10) || 50 : 20);
+  let currentView = localStorage.getItem('view_mode') || 'table';
 
-  // 1. Initialize View Mode (Cards vs Dense Table)
+  // 1. Toast Notification Helper
+  function showToast(msg) {
+    if (!toastNotify) return;
+    if (toastMessage) toastMessage.textContent = msg;
+    toastNotify.style.display = 'flex';
+    toastNotify.classList.add('toast-show');
+    setTimeout(() => {
+      toastNotify.classList.remove('toast-show');
+      setTimeout(() => {
+        toastNotify.style.display = 'none';
+      }, 300);
+    }, 2500);
+  }
+
+  // 2. Stream Tabs Switching (Trending, Emerging, Confirmed, All)
+  if (streamTabs && streamTabs.length > 0) {
+    streamTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        streamTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentStream = tab.getAttribute('data-stream') || 'all';
+
+        if (currentStream === 'emerging') {
+          currentFilter = 'EMERGING';
+          currentSort = 'recent';
+        } else if (currentStream === 'confirmed') {
+          currentFilter = 'CONFIRMED';
+          currentSort = 'recent';
+        } else if (currentStream === 'trending') {
+          currentFilter = 'ALL';
+          currentSort = 'trending';
+        } else {
+          currentFilter = 'ALL';
+          currentSort = 'recent';
+        }
+
+        // Synchronize filter buttons if present
+        filterButtons.forEach(b => {
+          if (b.getAttribute('data-filter') === currentFilter) b.classList.add('active');
+          else b.classList.remove('active');
+        });
+
+        currentPage = 1;
+        sortItems();
+        updateDrawerBadge();
+        updateActiveFilterUI();
+        applyFiltersAndPaginate();
+      });
+    });
+  }
+
+  // 3. Telemetry Drawer Expand/Collapse
+  if (btnToggleDrawer && telemetryDrawer) {
+    btnToggleDrawer.addEventListener('click', () => {
+      const isExpanded = telemetryDrawer.style.display === 'block';
+      telemetryDrawer.style.display = isExpanded ? 'none' : 'block';
+      btnToggleDrawer.setAttribute('aria-expanded', !isExpanded);
+      btnToggleDrawer.classList.toggle('active', !isExpanded);
+    });
+  }
+
+  if (btnCloseDrawer && telemetryDrawer) {
+    btnCloseDrawer.addEventListener('click', () => {
+      telemetryDrawer.style.display = 'none';
+      if (btnToggleDrawer) {
+        btnToggleDrawer.setAttribute('aria-expanded', 'false');
+        btnToggleDrawer.classList.remove('active');
+      }
+    });
+  }
+
+  function updateDrawerBadge() {
+    let count = 0;
+    if (currentFilter !== 'ALL' && currentStream === 'all') count++;
+    if (currentIndustry !== 'ALL') count++;
+    if (currentDataType !== 'ALL') count++;
+    if (highImpactOnly) count++;
+    if (currentSort !== 'recent' && currentSort !== 'trending') count++;
+
+    if (drawerActiveCount) {
+      if (count > 0) {
+        drawerActiveCount.style.display = 'inline-block';
+        drawerActiveCount.textContent = count;
+      } else {
+        drawerActiveCount.style.display = 'none';
+      }
+    }
+  }
+
+  // 4. Quick Topic Chips (#Ransomware, #SEC-8K, etc.)
+  topicChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const topic = chip.getAttribute('data-topic');
+      if (topic === 'high-impact') {
+        highImpactOnly = !highImpactOnly;
+        chip.classList.toggle('active', highImpactOnly);
+        if (btnHighImpact) btnHighImpact.classList.toggle('active', highImpactOnly);
+      } else if (topic === 'healthcare') {
+        currentIndustry = currentIndustry === 'Healthcare' ? 'ALL' : 'Healthcare';
+        if (sectorSelect) sectorSelect.value = currentIndustry;
+        chip.classList.toggle('active', currentIndustry === 'Healthcare');
+      } else if (topic === 'financial') {
+        currentIndustry = currentIndustry === 'Financial' ? 'ALL' : 'Financial';
+        if (sectorSelect) sectorSelect.value = currentIndustry;
+        chip.classList.toggle('active', currentIndustry === 'Financial');
+      } else {
+        if (searchInput) {
+          if (searchQuery.includes(topic)) {
+            searchInput.value = '';
+            searchQuery = '';
+            chip.classList.remove('active');
+          } else {
+            searchInput.value = topic;
+            searchQuery = topic.toLowerCase();
+            topicChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+          }
+        }
+      }
+      currentPage = 1;
+      updateDrawerBadge();
+      updateActiveFilterUI();
+      applyFiltersAndPaginate();
+    });
+  });
+
+  // 5. 1-Click Share Button (Copy permalink to clipboard)
+  document.addEventListener('click', (e) => {
+    const shareBtn = e.target.closest('.btn-action-share');
+    if (shareBtn) {
+      const id = shareBtn.getAttribute('data-id');
+      const url = `https://securityincident.net/incidents/${id}.html`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast(`Dossier link copied to clipboard!`);
+        }).catch(() => {
+          showToast(`Copied: ${url}`);
+        });
+      } else {
+        showToast(`Copied: ${url}`);
+      }
+    }
+  });
+
+  // 6. View Mode Toggle (Cards vs Dense Table on Telemetry Page)
   function setViewMode(mode) {
     currentView = mode;
     localStorage.setItem('view_mode', mode);
@@ -84,23 +243,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnViewCards) btnViewCards.addEventListener('click', () => setViewMode('cards'));
   if (btnViewTable) btnViewTable.addEventListener('click', () => setViewMode('table'));
-  setViewMode(currentView);
+  if (tableWrap || gridContainer) {
+    setViewMode(currentView);
+  }
 
-  // 2. Keyboard shortcut: '/' to focus search, Esc to clear
+  // 7. Keyboard Shortcut: '/' to focus search, Esc to clear and close drawer
   document.addEventListener('keydown', (e) => {
     if (e.key === '/' && document.activeElement !== searchInput) {
       e.preventDefault();
       if (searchInput) searchInput.focus();
-    } else if (e.key === 'Escape' && document.activeElement === searchInput) {
-      searchInput.value = '';
-      searchQuery = '';
-      currentPage = 1;
-      applyFiltersAndPaginate();
-      searchInput.blur();
+    } else if (e.key === 'Escape') {
+      if (document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchQuery = '';
+        currentPage = 1;
+        updateActiveFilterUI();
+        applyFiltersAndPaginate();
+        searchInput.blur();
+      }
+      if (telemetryDrawer && telemetryDrawer.style.display === 'block') {
+        telemetryDrawer.style.display = 'none';
+        if (btnToggleDrawer) {
+          btnToggleDrawer.setAttribute('aria-expanded', 'false');
+          btnToggleDrawer.classList.remove('active');
+        }
+      }
     }
   });
 
-  // 3. Search Input
+  // 8. Search Input
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.toLowerCase().trim();
@@ -110,20 +281,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Status Filter Buttons
+  // 9. Status Filter Buttons
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentFilter = btn.getAttribute('data-filter') || 'ALL';
       currentPage = 1;
+
+      // Update stream tab selection if status changed
+      if (streamTabs && streamTabs.length > 0) {
+        streamTabs.forEach(t => t.classList.remove('active'));
+        if (currentFilter === 'EMERGING') {
+          const emergingTab = document.querySelector('.stream-tab[data-stream="emerging"]');
+          if (emergingTab) emergingTab.classList.add('active');
+        } else if (currentFilter === 'CONFIRMED') {
+          const confirmedTab = document.querySelector('.stream-tab[data-stream="confirmed"]');
+          if (confirmedTab) confirmedTab.classList.add('active');
+        } else {
+          const allTab = document.querySelector('.stream-tab[data-stream="all"]');
+          if (allTab) allTab.classList.add('active');
+        }
+      }
+
       syncChartHighlights();
+      updateDrawerBadge();
       updateActiveFilterUI();
       applyFiltersAndPaginate();
     });
   });
 
-  // 5. Interactive Chart Clicks
+  // 10. Interactive Chart Clicks (on Telemetry Page)
   chartClickElements.forEach(el => {
     el.addEventListener('click', () => {
       const chartType = el.getAttribute('data-chart-type');
@@ -143,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       currentPage = 1;
       syncChartHighlights();
+      updateDrawerBadge();
       updateActiveFilterUI();
       applyFiltersAndPaginate();
 
@@ -166,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Active Filter Bar & Reset
+  // 11. Active Filter Bar & Reset
   function updateActiveFilterUI() {
     const filters = [];
     if (currentFilter !== 'ALL') filters.push(`Status: ${currentFilter}`);
@@ -208,7 +397,16 @@ document.addEventListener('DOMContentLoaded', () => {
         else b.classList.remove('active');
       });
 
+      if (streamTabs && streamTabs.length > 0) {
+        streamTabs.forEach(t => t.classList.remove('active'));
+        const allTab = document.querySelector('.stream-tab[data-stream="all"]');
+        if (allTab) allTab.classList.add('active');
+      }
+
+      topicChips.forEach(c => c.classList.remove('active'));
+
       syncChartHighlights();
+      updateDrawerBadge();
       updateActiveFilterUI();
       applyFiltersAndPaginate();
     });
@@ -219,6 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sectorSelect.addEventListener('change', (e) => {
       currentIndustry = e.target.value;
       currentPage = 1;
+      updateDrawerBadge();
       updateActiveFilterUI();
       applyFiltersAndPaginate();
     });
@@ -228,6 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dataTypeSelect.addEventListener('change', (e) => {
       currentDataType = e.target.value;
       currentPage = 1;
+      updateDrawerBadge();
       updateActiveFilterUI();
       applyFiltersAndPaginate();
     });
@@ -238,21 +438,23 @@ document.addEventListener('DOMContentLoaded', () => {
       highImpactOnly = !highImpactOnly;
       btnHighImpact.classList.toggle('active', highImpactOnly);
       currentPage = 1;
+      updateDrawerBadge();
       updateActiveFilterUI();
       applyFiltersAndPaginate();
     });
   }
 
-  // 7. Sort Dropdown
+  // 12. Sort Dropdown
   if (sortSelect) {
     sortSelect.addEventListener('change', (e) => {
       currentSort = e.target.value;
       sortItems();
+      updateDrawerBadge();
       applyFiltersAndPaginate();
     });
   }
 
-  // 8. Page Size Dropdown
+  // 13. Page Size Dropdown
   if (pageSizeSelect) {
     pageSizeSelect.addEventListener('change', (e) => {
       const val = e.target.value;
@@ -264,6 +466,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sortItems() {
     const sortFn = (a, b) => {
+      if (currentSort === 'trending') {
+        const affA = parseInt(a.getAttribute('data-affected') || '0', 10);
+        const affB = parseInt(b.getAttribute('data-affected') || '0', 10);
+        const mA = parseInt(a.getAttribute('data-milestones') || '0', 10);
+        const mB = parseInt(b.getAttribute('data-milestones') || '0', 10);
+        const scoreA = (affA > 0 ? Math.log10(affA) : 0) + (mA * 2);
+        const scoreB = (affB > 0 ? Math.log10(affB) : 0) + (mB * 2);
+        if (Math.abs(scoreB - scoreA) > 1.5) return scoreB - scoreA;
+        return (b.getAttribute('data-updated') || '').localeCompare(a.getAttribute('data-updated') || '');
+      }
       if (currentSort === 'affected') {
         const affA = parseInt(a.getAttribute('data-affected') || '0', 10);
         const affB = parseInt(b.getAttribute('data-affected') || '0', 10);
@@ -289,6 +501,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return (b.getAttribute('data-updated') || '').localeCompare(a.getAttribute('data-updated') || '');
     };
 
+    if (feedContainer) {
+      const feedCards = Array.from(feedContainer.querySelectorAll('.feed-card'));
+      feedCards.sort(sortFn);
+      feedCards.forEach(c => feedContainer.appendChild(c));
+    }
+
     if (gridContainer) {
       const cards = Array.from(gridContainer.querySelectorAll('.incident-card'));
       cards.sort(sortFn);
@@ -302,10 +520,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 9. Filtering and Pagination Engine
+  // 14. Filtering and Pagination Engine
   function applyFiltersAndPaginate() {
+    const feedCards = feedContainer ? Array.from(feedContainer.querySelectorAll('.feed-card')) : [];
     const cards = gridContainer ? Array.from(gridContainer.querySelectorAll('.incident-card')) : [];
     const rows = tableBody ? Array.from(tableBody.querySelectorAll('.telemetry-row')) : [];
+
+    const activeList = feedCards.length > 0 ? feedCards : (cards.length > 0 ? cards : rows);
 
     const matchesFilter = (el) => {
       const status = el.getAttribute('data-status') || '';
@@ -356,8 +577,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return matchStatus && matchMonth && matchSector && matchIndustry && matchDataType && matchImpact && matchSearch;
     };
 
-    const matchingCards = cards.filter(matchesFilter);
-    const totalMatching = matchingCards.length;
+    const matchingItems = activeList.filter(matchesFilter);
+    const totalMatching = matchingItems.length;
 
     // Handle Empty State
     if (emptyState) {
@@ -371,34 +592,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const startIdx = itemsPerPage === Infinity ? 0 : (currentPage - 1) * itemsPerPage;
     const endIdx = itemsPerPage === Infinity ? totalMatching : Math.min(startIdx + itemsPerPage, totalMatching);
 
-    // Apply visibility to Cards
-    cards.forEach(card => {
-      if (matchesFilter(card)) {
-        const indexInMatching = matchingCards.indexOf(card);
-        if (indexInMatching >= startIdx && indexInMatching < endIdx) {
-          card.style.display = 'flex';
+    // Apply visibility to Feed Cards (Home Page Stream)
+    if (feedCards.length > 0) {
+      feedCards.forEach(card => {
+        if (matchesFilter(card)) {
+          const indexInMatching = matchingItems.indexOf(card);
+          if (indexInMatching >= startIdx && indexInMatching < endIdx) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
         } else {
           card.style.display = 'none';
         }
-      } else {
-        card.style.display = 'none';
-      }
-    });
+      });
+    }
 
-    // Apply visibility to Table Rows identically
-    const matchingRows = rows.filter(matchesFilter);
-    rows.forEach(row => {
-      if (matchesFilter(row)) {
-        const indexInMatching = matchingRows.indexOf(row);
-        if (indexInMatching >= startIdx && indexInMatching < endIdx) {
-          row.style.display = 'table-row';
+    // Apply visibility to Grid Cards (Telemetry Page)
+    if (cards.length > 0) {
+      cards.forEach(card => {
+        if (matchesFilter(card)) {
+          const indexInMatching = matchingItems.indexOf(card);
+          if (indexInMatching >= startIdx && indexInMatching < endIdx) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Apply visibility to Table Rows (Telemetry Page)
+    if (rows.length > 0) {
+      rows.forEach(row => {
+        if (matchesFilter(row)) {
+          const indexInMatching = matchingItems.indexOf(row);
+          if (indexInMatching >= startIdx && indexInMatching < endIdx) {
+            row.style.display = 'table-row';
+          } else {
+            row.style.display = 'none';
+          }
         } else {
           row.style.display = 'none';
         }
-      } else {
-        row.style.display = 'none';
-      }
-    });
+      });
+    }
 
     // Render Pagination Controls
     renderPaginationUI(totalMatching, totalPages, startIdx, endIdx);
@@ -434,12 +674,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentPage > 1) {
         currentPage--;
         applyFiltersAndPaginate();
-        scrollToIncidents();
+        scrollToTop();
       }
     });
     paginationNav.appendChild(prevBtn);
 
-    // Page Number Buttons
+    // Page Numbers
     const maxVisiblePages = 7;
     let startPage = Math.max(1, currentPage - 3);
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
@@ -471,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentPage < totalPages) {
         currentPage++;
         applyFiltersAndPaginate();
-        scrollToIncidents();
+        scrollToTop();
       }
     });
     paginationNav.appendChild(nextBtn);
@@ -484,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPage !== pageNum) {
           currentPage = pageNum;
           applyFiltersAndPaginate();
-          scrollToIncidents();
+          scrollToTop();
         }
       });
       paginationNav.appendChild(pBtn);
@@ -498,40 +738,13 @@ document.addEventListener('DOMContentLoaded', () => {
       paginationNav.appendChild(span);
     }
 
-    function scrollToIncidents() {
-      const anchor = document.getElementById('incidents-anchor');
-      if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function scrollToTop() {
+      const target = document.querySelector('.feed-controls-panel') || document.getElementById('incidents-anchor');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
-  // 10. 1-Click Clipboard Copy Buttons
-  document.querySelectorAll('.btn-copy').forEach(btn => {
-    btn.addEventListener('click', () => {
-      let textToCopy = '';
-      const targetId = btn.getAttribute('data-copy-target');
-      const directText = btn.getAttribute('data-copy-text');
-
-      if (directText) {
-        textToCopy = directText;
-      } else if (targetId) {
-        const el = document.getElementById(targetId);
-        if (el) textToCopy = el.textContent || el.innerText || '';
-      }
-
-      if (textToCopy && navigator.clipboard) {
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          const originalHtml = btn.innerHTML;
-          btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--status-confirmed);"></i> Copied!';
-          setTimeout(() => {
-            btn.innerHTML = originalHtml;
-          }, 2000);
-        }).catch(err => {
-          console.warn('Clipboard write failed:', err);
-        });
-      }
-    });
-  });
-
   // Initial Run
+  sortItems();
   applyFiltersAndPaginate();
 });

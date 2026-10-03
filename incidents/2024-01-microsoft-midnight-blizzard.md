@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: '2024-01-12'
-last_updated: '2024-03-08'
+last_updated: '2026-10-01'
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -28,6 +28,8 @@ tags:
   - nation-state
   - apt29
   - confirmed
+  - threat-intel
+  - developing
 ---
 ## Incident Overview
 
@@ -57,3 +59,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Microsoft Form 8-K update discloses threat actor used exfiltrated email secrets to gain unauthorized access to internal source code repositories.
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Item 1.05 Update (Adsh 0000789019-24-000008)](https://www.sec.gov/Archives/edgar/data/789019/000078901924000008/msft-20240308.htm)
+
+### 2026-10-01 19:32 UTC
+- **Event:** Microsoft says threat actors are ahead in the early AI race
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/microsoft-says-threat-actors-are-ahead-in-the-early-ai-race/)

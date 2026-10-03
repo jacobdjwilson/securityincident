@@ -4,7 +4,7 @@ target: Greenberg Traurig
 domain: gtlaw.com
 status: CONFIRMED
 first_seen: '2026-09-09'
-last_updated: '2026-09-14'
+last_updated: '2026-10-01'
 threat_actor: RansomHub
 summary: >-
   Global law firm Greenberg Traurig was compromised by Silent Ransom Group,
@@ -32,6 +32,10 @@ regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09142
     url: 'https://oag.ca.gov/ecrime/databreach/reports'
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice
+    url: 'https://oag.ca.gov/ecrime/databreach/reports/sb24-630659'
+    filing_date: '2026-10-01'
 ---
 ## Incident Overview
 
@@ -61,3 +65,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Disclosure Notice
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-629493)
+
+### 2026-10-01 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-630659)

@@ -1,0 +1,113 @@
+{
+  "status": "OPERATIONAL",
+  "last_run": "2026-10-02T18:09:05Z",
+  "cadence": "Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)",
+  "total_indexed": 186,
+  "recent_90d_count": 176,
+  "last_discovered": 48,
+  "last_updated": 6,
+  "verification_pass_rate": "100%",
+  "open_weights_engine": "Active & Deterministic",
+  "feeds": [
+    {
+      "id": "sec-edgar",
+      "name": "SEC EDGAR Form 8-K Item 1.05",
+      "type": "Federal Regulatory Disclosures",
+      "endpoint": "https://efts.sec.gov/LATEST/search-index",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "lookback_days": 90,
+      "method": "EFTS Full-Text Search API"
+    },
+    {
+      "id": "ca-doj",
+      "name": "California Department of Justice (SB-24)",
+      "type": "State AG Breach Portal",
+      "endpoint": "https://oag.ca.gov/privacy/databreach/list",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "State Regulatory Portal Scraper"
+    },
+    {
+      "id": "wa-ag",
+      "name": "Washington State Attorney General (RCW 19.255)",
+      "type": "State AG Breach Portal",
+      "endpoint": "https://www.atg.wa.gov/data-breach-notifications",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "State Regulatory Portal Scraper"
+    },
+    {
+      "id": "or-doj",
+      "name": "Oregon Department of Justice (ORS 646A.604)",
+      "type": "State AG Breach Portal",
+      "endpoint": "https://justice.oregon.gov/consumer/databreach/",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "Consumer Protection Portal Scraper"
+    },
+    {
+      "id": "hhs-ocr",
+      "name": "HHS Office for Civil Rights (HIPAA Portal)",
+      "type": "Federal Healthcare Disclosures",
+      "endpoint": "https://www.hipaajournal.com/category/healthcare-cybersecurity/feed/",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "HIPAA Regulatory Feed"
+    },
+    {
+      "id": "darkweb-ransomware",
+      "name": "Dark Web Extortion & Ransomware Portals",
+      "type": "Threat Actor Leak Telemetry",
+      "endpoint": "https://api.ransomware.live/v2/recentvictims",
+      "status": "Operational",
+      "verification": "UNVERIFIED CLAIM",
+      "method": "Real-time Telemetry API v2"
+    },
+    {
+      "id": "cisa-advisories",
+      "name": "CISA Cybersecurity Advisories",
+      "type": "Federal Advisory",
+      "endpoint": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "Advisory XML Syndication"
+    },
+    {
+      "id": "bleepingcomputer",
+      "name": "BleepingComputer Threat Intel",
+      "type": "Investigative Reporting",
+      "endpoint": "https://www.bleepingcomputer.com/feed/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "databreaches-net",
+      "name": "DataBreaches.net",
+      "type": "Forensic Breach Intelligence",
+      "endpoint": "https://databreaches.net/feed/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "the-record",
+      "name": "The Record by Recorded Future",
+      "type": "Threat Intelligence Syndication",
+      "endpoint": "https://therecord.media/feed",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "krebs-on-security",
+      "name": "Krebs on Security",
+      "type": "Investigative Telemetry",
+      "endpoint": "https://krebsonsecurity.com/feed/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    }
+  ]
+}

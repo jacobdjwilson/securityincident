@@ -57,25 +57,35 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BRANCH_NAME="telemetry/ingest-pending"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          # Check for existing open telemetry PR
-          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number -q '.[0].number')
-          if [ -n "$EXISTING_PR" ]; then
-            echo "Found existing open PR #$EXISTING_PR on branch $BRANCH_NAME"
-            echo "has_open_pr=true" >> "$GITHUB_OUTPUT"
-            echo "pr_number=$EXISTING_PR" >> "$GITHUB_OUTPUT"
-            git fetch origin "$BRANCH_NAME"
-            git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"
-            git merge origin/main --no-edit || true
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.auto_merge }}" = "true" ]; then
+            echo "Direct publishing mode active (schedule or auto_merge)."
+            echo "mode=direct" >> "$GITHUB_OUTPUT"
+            echo "target_branch=main" >> "$GITHUB_OUTPUT"
+            git checkout main
           else
-            echo "No open telemetry PR found. Working off clean main."
-            echo "has_open_pr=false" >> "$GITHUB_OUTPUT"
-            git checkout -B "$BRANCH_NAME"
+            echo "Pull request review mode active."
+            echo "mode=pr" >> "$GITHUB_OUTPUT"
+            BRANCH_NAME="telemetry/ingest-pending"
+            
+            # Check for existing open telemetry PR
+            EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number -q '.[0].number' || true)
+            if [ -n "$EXISTING_PR" ]; then
+              echo "Found existing open PR #$EXISTING_PR on branch $BRANCH_NAME"
+              echo "has_open_pr=true" >> "$GITHUB_OUTPUT"
+              echo "pr_number=$EXISTING_PR" >> "$GITHUB_OUTPUT"
+              git fetch origin "$BRANCH_NAME"
+              git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"
+              git merge origin/main --no-edit || true
+            else
+              echo "No open telemetry PR found. Working off clean main."
+              echo "has_open_pr=false" >> "$GITHUB_OUTPUT"
+              git checkout -B "$BRANCH_NAME"
+            fi
+            echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
           fi
-          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Ingest Direct Raw Feeds & Regulatory Disclosures
         if: ${{ !inputs.reconcile_only }}
@@ -97,47 +107,56 @@ jobs:
       - name: Check for Discovered Incidents or Updates
         id: git_status
         run: |
-          if [ -n "$(git status --porcelain incidents/)" ]; then
+          if [ -n "$(git status --porcelain incidents/ sources/)" ]; then
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            echo "New or updated incidents detected."
+            echo "New or updated incidents or telemetry detected."
           else
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "No new incident telemetry discovered in this cycle."
           fi
 
-      - name: Propose or Update Ingestion via Pull Request
+      - name: Publish or Propose Ingestion via Pull Request
         if: steps.git_status.outputs.has_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           CURRENT_DATE=$(date -u +"%Y-%m-%d")
-          BRANCH_NAME="${{ steps.branch_sync.outputs.branch_name }}"
-          HAS_OPEN_PR="${{ steps.branch_sync.outputs.has_open_pr }}"
-          PR_NUMBER="${{ steps.branch_sync.outputs.pr_number }}"
+          MODE="${{ steps.branch_sync.outputs.mode }}"
           
-          # Capture list of modified or created dossiers before staging
-          CHANGED_SUMMARY=$(git status --porcelain incidents/ | sed 's/^.../* `/; s/$/`/')
-          
-          git add incidents/ sources/
-          git commit -m "telemetry(ingest): update security incident index [$CURRENT_DATE]"
-          
-          COMMIT_SHA=$(git rev-parse HEAD)
-          
-          # Immediately register status check so PR satisfies branch protection for 1-tap merge
-          gh api "repos/${{ github.repository }}/statuses/${COMMIT_SHA}" \
-            -f state="success" \
-            -f context="validate-and-test" \
-            -f description="Schema compliance and build verified in ingestion workflow" || true
-            
-          git push -u origin "$BRANCH_NAME" --force-with-lease || git push -u origin "$BRANCH_NAME"
-          
-          if [ "$HAS_OPEN_PR" = "true" ]; then
-            echo "Successfully updated existing telemetry PR #$PR_NUMBER"
-            gh pr edit "$PR_NUMBER" --title "telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]" || true
+          if [ "$MODE" = "direct" ]; then
+            echo "Directly publishing updates to main branch..."
+            git add incidents/ sources/
+            git commit -m "telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]"
+            git push origin main
+            echo "Successfully pushed ingestion updates to main. GitHub Pages deployment will trigger automatically."
           else
-            PR_TITLE="telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]"
-            PR_BODY="### Automated Incident Telemetry Ingestion (Direct Raw Telemetry & Forensic Reconciliation)
+            BRANCH_NAME="${{ steps.branch_sync.outputs.branch_name }}"
+            HAS_OPEN_PR="${{ steps.branch_sync.outputs.has_open_pr }}"
+            PR_NUMBER="${{ steps.branch_sync.outputs.pr_number }}"
             
+            # Capture list of modified or created dossiers before staging
+            CHANGED_SUMMARY=$(git status --porcelain incidents/ | sed 's/^.../* `/; s/$/`/')
+            
+            git add incidents/ sources/
+            git commit -m "telemetry(ingest): update security incident index [$CURRENT_DATE]"
+            
+            COMMIT_SHA=$(git rev-parse HEAD)
+            
+            # Immediately register status check so PR satisfies branch protection for 1-tap merge
+            gh api "repos/${{ github.repository }}/statuses/${COMMIT_SHA}" \
+              -f state="success" \
+              -f context="validate-and-test" \
+              -f description="Schema compliance and build verified in ingestion workflow" || true
+              
+            git push -u origin "$BRANCH_NAME" --force-with-lease || git push -u origin "$BRANCH_NAME"
+            
+            if [ "$HAS_OPEN_PR" = "true" ]; then
+              echo "Successfully updated existing telemetry PR #$PR_NUMBER"
+              gh pr edit "$PR_NUMBER" --title "telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]" || true
+            else
+              PR_TITLE="telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]"
+              PR_BODY="### Automated Incident Telemetry Ingestion (Direct Raw Telemetry & Forensic Reconciliation)
+              
 This automated pull request was generated by the continuous threat feed, regulatory disclosure, and forensic reconciliation pipeline.
 
 #### Direct Raw Sources Audited:
@@ -160,14 +179,15 @@ ${CHANGED_SUMMARY}
 
 *Ready for 1-tap review and merge via GitHub Mobile or Web.*"
 
-            gh pr create \
-              --title "$PR_TITLE" \
-              --body "$PR_BODY" \
-              --base main \
-              --head "$BRANCH_NAME" \
-              --label "telemetry" || {
-                echo "::warning::PR creation via gh pr create failed. Changes remain available on branch $BRANCH_NAME"
-              }
+              gh pr create \
+                --title "$PR_TITLE" \
+                --body "$PR_BODY" \
+                --base main \
+                --head "$BRANCH_NAME" \
+                --label "telemetry" || {
+                  echo "::warning::PR creation via gh pr create failed. Changes remain available on branch $BRANCH_NAME"
+                }
+            fi
           fi
 
 
