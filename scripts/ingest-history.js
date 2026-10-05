@@ -457,7 +457,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0000731766-24-000010',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/731766/000073176624000010/uhg-20240221.htm'
       },
       {
         regulator: 'HHS OCR',
@@ -519,7 +519,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0000789019-24-000004',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/1137774/000113777424000012/pru-20240212.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'nation-state', 'apt29', 'confirmed'],
@@ -568,7 +568,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0001645590-24-000003',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/789019/000078901924000004/msft-20240119.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'technology', 'nation-state', 'confirmed'],
@@ -611,7 +611,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0001831631-24-000002',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/1831631/000183163124000002/lndi-20240108.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'financial', 'mortgage', 'confirmed'],
@@ -660,7 +660,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0001137774-24-000012',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/1645590/000164559024000003/hpe-20240119.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'financial', 'insurance', 'confirmed'],
@@ -709,7 +709,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0001472787-23-000072',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/1158449/000115844924000163/aap-20240605.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'financial', 'title-insurance', 'confirmed'],
@@ -758,7 +758,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0000103379-23-000039',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/45012/000004501224000067/hal-20240823.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'retail', 'ransomware', 'confirmed'],
@@ -807,7 +807,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0000045012-24-000067',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/103379/000010337923000039/vfc-20231215.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'energy', 'oil-gas', 'confirmed'],
@@ -857,7 +857,7 @@ const HISTORICAL_LANDMARK_REGULATORY_INCIDENTS = [
         regulator: 'SEC',
         form: 'Form 8-K (Item 1.05)',
         accession_number: '0001158449-24-000163',
-        url: 'https://www.sec.gov/edgar'
+        url: 'https://www.sec.gov/Archives/edgar/data/1472787/000147278723000072/faf-20231220.htm'
       }
     ],
     tags: ['regulatory', 'sec-8k', 'retail', 'snowflake-cloud', 'confirmed'],

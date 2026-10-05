@@ -23,8 +23,15 @@ compromised_data:
   - Clinical & Diagnostic Records
 regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
-    form: Form 8-K (Item 1.05 Material Cybersecurity Incidents)
-    url: 'https://www.sec.gov/edgar/browse/?CIK=NutexHealth'
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0001628280-26-059602
+    filing_date: '2026-08-14'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1479681/000162828026059602/0001628280-26-059602-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Nutex Health
+      Inc. regarding hospital micro-facility network outage and electronic
+      medical record protection response.
 ---
 ## Incident Overview
 

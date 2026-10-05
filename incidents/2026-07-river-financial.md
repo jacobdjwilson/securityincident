@@ -24,8 +24,15 @@ compromised_data:
   - Direct Deposit & Banking Details
 regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
-    form: Form 8-K (Item 1.05 Material Cybersecurity Incidents)
-    url: 'https://www.sec.gov/edgar/browse/?CIK=RiverFinancial'
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0001193125-26-295704
+    filing_date: '2026-07-19'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1641601/000119312526295704/0001193125-26-295704-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by River
+      Financial regarding financial brokerage application interface intrusion
+      and containment.
 ---
 ## Incident Overview
 

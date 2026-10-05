@@ -22,10 +22,16 @@ compromised_data:
   - Protected Health Information (PHI)
   - Clinical Trial Registry Data
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
-    accession_number: 0001645147-26-000034
-    url: 'https://www.sec.gov/edgar/browse/?CIK=0001645147'
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0001645113-26-000065
+    filing_date: '2026-09-10'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1645113/000164511326000065/0001645113-26-000065-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by NovoCure
+      Limited reporting unauthorized access across European and North American
+      administrative network segments.
 ---
 ## Incident Overview
 

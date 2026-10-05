@@ -23,10 +23,16 @@ compromised_data:
   - Medical Device Diagnostic Logs
   - Employee Personnel Records
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
-    accession_number: 0000088461-26-000019
-    url: 'https://www.sec.gov/edgar/browse/?CIK=0000088461'
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0000885725-26-000059
+    filing_date: '2026-09-18'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/885725/000088572526000059/0000885725-26-000059-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Boston
+      Scientific Corporation regarding unauthorized access to commercial IT
+      networks and implementation of isolation protocols.
 ---
 ## Incident Overview
 

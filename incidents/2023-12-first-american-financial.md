@@ -14,10 +14,16 @@ compromised_data:
   - Escrow Documents
   - Customer Identifiers
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001472787-23-000072
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2023-12-20'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1472787/000147278723000072/faf-20231220.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by First
+      American Financial Corporation regarding cybersecurity incident leading to
+      isolation of systems and disruption of title and closing operations.
 summary: >-
   First American Financial filed the very first SEC Form 8-K Item 1.05
   disclosure under the SEC mandate following an unauthorized network intrusion

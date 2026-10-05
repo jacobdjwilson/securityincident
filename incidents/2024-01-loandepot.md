@@ -17,10 +17,16 @@ compromised_data:
   - Mortgage Applications
   - Customer PII
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001831631-24-000002
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2024-01-08'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1831631/000183163124000002/lndi-20240108.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by loanDepot,
+      Inc. confirming unauthorized third-party ransomware attack encrypting
+      company servers and exfiltrating 16.9M customer records.
 summary: >-
   LoanDepot filed Form 8-K Item 1.05 disclosing a major ransomware extortion
   attack encrypting mortgage servicing systems and compromising 16.6 million

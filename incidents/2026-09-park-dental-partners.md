@@ -22,10 +22,16 @@ compromised_data:
   - Patient Social Security Numbers (SSNs)
   - Dental Insurance Claim Details
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
-    accession_number: 0001193125-26-049812
-    url: 'https://www.sec.gov/edgar'
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0001104659-26-104300
+    filing_date: '2026-09-22'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/2069604/000110465926104300/0001104659-26-104300-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Park Dental
+      Partners reporting ransomware extortion attack resulting in clinical
+      system encryption and patient record exfiltration.
 ---
 ## Incident Overview
 

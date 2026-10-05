@@ -16,10 +16,16 @@ compromised_data:
   - Order Records
   - Account Details
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0000103379-23-000039
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2023-12-15'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/103379/000010337923000039/vfc-20231215.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by V.F.
+      Corporation reporting threat actor disruption of commercial operations,
+      fulfillment systems, and exfiltration of personal consumer data.
 summary: >-
   VF Corporation (parent of Vans, The North Face, and Timberland) filed Form 8-K
   Item 1.05 following an ALPHV ransomware attack compromising 35.5 million

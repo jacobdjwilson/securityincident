@@ -26,8 +26,15 @@ compromised_data:
   - Social Security Numbers (SSNs)
 regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
-    form: Form 8-K (Item 1.05 Material Cybersecurity Incidents)
-    url: 'https://www.sec.gov/edgar/browse/?CIK=UpboundGroup'
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0001193125-26-310605
+    filing_date: '2026-07-21'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/933036/000119312526310605/0001193125-26-310605-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Upbound
+      Group, Inc. detailing unauthorized access to corporate network systems and
+      customer leasing accounts.
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
     url: 'https://oag.ca.gov/ecrime/databreach/reports'

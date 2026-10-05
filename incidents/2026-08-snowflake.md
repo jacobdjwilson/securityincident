@@ -23,10 +23,16 @@ compromised_data:
   - Client Database Backups
   - Customer Data Warehouses
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K Disclosures across impacted customers
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K (Item 8.01 Other Events - Customer Cybersecurity Disclosures)
     accession_number: 0001640147-24-000042
-    url: 'https://www.sec.gov/edgar/browse/?CIK=0001640147'
+    filing_date: '2024-06-03'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1640147/000164014724000042/0001640147-24-000042-index.htm
+    description: >-
+      Form 8-K filing regarding customer account security disclosures detailing
+      threat actor credential stuffing against customer demo environments
+      lacking multi-factor authentication.
 ---
 ## Incident Overview
 
@@ -43,7 +49,7 @@ Forensic telemetry and statutory disclosure filings confirm exposure of the foll
 
 ## Statutory Disclosures & Compliance
 
-In adherence to statutory breach notification mandates, official filings have been registered with federal and state regulatory authorities to inform affected stakeholders and oversight bodies. Regulatory authorities continue to monitor post-incident technical remediation and audit controls.
+- **U.S. Securities and Exchange Commission (SEC) (Form 8-K (Item 8.01 Other Events - Customer Cybersecurity Disclosures)):** Official regulatory filing under accession/tracking ID `0001640147-24-000042` (Filed: 2024-06-03). Form 8-K filing regarding customer account security disclosures detailing threat actor credential stuffing against customer demo environments lacking multi-factor authentication. Direct Document Link: [Form 8-K (Item 8.01 Other Events - Customer Cybersecurity Disclosures)](https://www.sec.gov/Archives/edgar/data/1640147/000164014724000042/0001640147-24-000042-index.htm)
 
 ## Timeline
 

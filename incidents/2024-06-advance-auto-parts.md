@@ -15,10 +15,16 @@ compromised_data:
   - Driver License Numbers
   - Purchasing & Loyalty Data
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001158449-24-000163
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2024-06-05'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1158449/000115844924000163/aap-20240605.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Advance Auto
+      Parts, Inc. regarding unauthorized access to third-party cloud data
+      environment containing customer and employee records.
 summary: >-
   Automotive retailer Advance Auto Parts filed Form 8-K Item 1.05 after
   cybercriminals compromised its cloud database tenant, stealing 380 million

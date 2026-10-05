@@ -17,10 +17,16 @@ compromised_data:
   - Contractor Information
   - Limited Customer PII
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001137774-24-000012
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2024-02-12'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1137774/000113777424000012/pru-20240212.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Prudential
+      Financial, Inc. reporting cybercrime threat group accessing administrative
+      systems and user credential data.
 summary: >-
   Prudential Financial filed Form 8-K Item 1.05 following an administrative
   system intrusion by the ALPHV / BlackCat ransomware group compromising

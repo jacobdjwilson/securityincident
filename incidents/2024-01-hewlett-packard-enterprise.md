@@ -14,10 +14,16 @@ compromised_data:
   - Executive Communications
   - Legal & Business Unit Records
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001645590-24-000003
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2024-01-19'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1645590/000164559024000003/hpe-20240119.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Hewlett
+      Packard Enterprise Company reporting nation-state actor Midnight Blizzard
+      accessing corporate cloud email environment and exfiltrating messages.
 summary: >-
   Hewlett Packard Enterprise filed Form 8-K Item 1.05 disclosing that
   nation-state actor Midnight Blizzard compromised its cloud-based Office 365

@@ -17,10 +17,17 @@ compromised_data:
   - Medical Claims
   - Billing Information
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0000731766-24-000010
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2024-02-21'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/731766/000073176624000010/uhg-20240221.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by UnitedHealth
+      Group reporting suspected cybercrime intrusion into Change Healthcare IT
+      environments resulting in nationwide healthcare billing and pharmacy
+      disruptions.
   - regulator: HHS OCR
     form: HIPAA Breach Portal Report
     accession_number: HHS-OCR-2024-001

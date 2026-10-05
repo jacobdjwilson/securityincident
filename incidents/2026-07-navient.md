@@ -23,8 +23,15 @@ compromised_data:
   - Confidential Corporate Communications
 regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
-    form: Form 8-K (Item 1.05 Material Cybersecurity Incidents)
-    url: 'https://www.sec.gov/edgar/browse/?CIK=Navient'
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0001140361-26-027441
+    filing_date: '2026-07-25'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1593538/000114036126027441/0001140361-26-027441-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Navient
+      Corporation regarding student loan borrower servicing data security review
+      and remediation containment.
 ---
 ## Incident Overview
 

@@ -24,10 +24,16 @@ compromised_data:
   - Medical Diagnosis Codes
   - Clinical Care Authorizations
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
-    accession_number: 0001558370-26-008129
-    url: 'https://www.sec.gov/edgar/browse/?CIK=0001558370'
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
+    accession_number: 0001104659-26-109813
+    filing_date: '2026-09-15'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/1083446/000110465926109813/0001104659-26-109813-index.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Astrana
+      Health, Inc. reporting provider network server access and HIPAA patient
+      notification procedures.
 ---
 ## Incident Overview
 

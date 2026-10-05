@@ -14,10 +14,17 @@ compromised_data:
   - Cybersecurity Strategy Communications
   - Source Code Repositories
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0000789019-24-000004
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2024-01-19'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/789019/000078901924000004/msft-20240119.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Microsoft
+      Corporation regarding Russian state-sponsored threat actor Midnight
+      Blizzard accessing senior leadership email accounts and internal
+      cybersecurity communications.
 summary: >-
   Microsoft disclosed an intrusion by Russian foreign intelligence threat group
   Midnight Blizzard (APT29), accessing senior leadership corporate emails and

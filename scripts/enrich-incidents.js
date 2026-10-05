@@ -160,7 +160,7 @@ const CATALOG = {
     affected_records: 62000,
     compromised_data: ['Dental Imaging & X-Rays', 'Patient Social Security Numbers (SSNs)', 'Dental Insurance Claim Details'],
     regulatory_filings: [
-      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0001193125-26-049812', url: 'https://www.sec.gov/edgar' }
+      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0001104659-26-104300', url: 'https://www.sec.gov/Archives/edgar/data/2069604/000110465926104300/0001104659-26-104300-index.htm' }
     ]
   },
   'see-s-candies': {

@@ -15,10 +15,16 @@ compromised_data:
   - Operational Logistics Records
   - Corporate Telemetry
 regulatory_filings:
-  - regulator: SEC
-    form: Form 8-K (Item 1.05)
+  - regulator: U.S. Securities and Exchange Commission (SEC)
+    form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0000045012-24-000067
-    url: 'https://www.sec.gov/edgar'
+    filing_date: '2024-08-23'
+    url: >-
+      https://www.sec.gov/Archives/edgar/data/45012/000004501224000067/hal-20240823.htm
+    description: >-
+      Item 1.05 Material Cybersecurity Incident disclosure filed by Halliburton
+      Company reporting unauthorized third-party access to internal enterprise
+      IT systems and activation of incident response protocols.
 summary: >-
   Oilfield services corporation Halliburton filed Form 8-K Item 1.05 disclosing
   an unauthorized intrusion by RansomHub that forced the company to take global
