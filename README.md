@@ -26,17 +26,28 @@ To deliver maximum clarity, we establish clear levels of confidence and correlat
 
 ---
 
-## ⚖️ Open Weights Correlation Engine
+## ⚖️ Granular Open Weights Correlation Engine (v2.0)
 
-Unlike opaque proprietary risk ratings, **securityincident.net** computes confidence scores deterministically using open weights defined in [`sources/weights.json`](sources/weights.json) and executed via [`scripts/weights.js`](scripts/weights.js):
+Unlike opaque proprietary risk ratings, **securityincident.net** computes confidence scores deterministically using open weights defined in [`sources/weights.json`](sources/weights.json) and executed via [`scripts/weights.js`](scripts/weights.js) across **four orthogonal dimensions**:
 
-* **Base Verification Tier:**
-  * 🟢 `CONFIRMED BY REGULATOR`: **1.00 (100%)** — SEC Form 8-K Item 1.05, State AG breach portals (CA DOJ, WA AG, OR DOJ), HHS OCR breach records.
-  * 🟢 `CONFIRMED BY TARGET`: **0.90 (90%)** — Target press releases, security advisories, status page bulletins.
-  * 🟠 `INDEPENDENT VERIFICATION`: **0.65 (65%)** — Forensic research, HaveIBeenPwned audit, technical sample analysis.
-  * 🟡 `ACKNOWLEDGED`: **0.45 (45%)** — Target publicly confirms disruption or investigation without breach admission.
-  * 🔴 `UNVERIFIED CLAIM`: **0.20 (20%)** — Dark web leak sites, extortion blogs, community chatter.
+* **1. Primary Authority Base Floor:**
+  * 🟢 `CONFIRMED BY REGULATOR`: **0.65 (65%)** — SEC Form 8-K Item 1.05, State AG breach portals (CA DOJ, WA AG, OR DOJ), HHS OCR, CISA KEV directives.
+  * 🟢 `CONFIRMED BY TARGET`: **0.50 (50%)** — Target press releases, security advisories, status page bulletins.
+  * 🟠 `INDEPENDENT VERIFICATION`: **0.32 (32%)** — Forensic research, HaveIBeenPwned audit, technical sample analysis.
+  * 🟡 `ACKNOWLEDGED`: **0.18 (18%)** — Target publicly confirms disruption or investigation without breach admission.
+  * 🔴 `UNVERIFIED CLAIM`: **0.06 (6%)** — Dark web leak sites, extortion blogs, community chatter (low baseline floor).
   * 🔘 `REFUTED`: **0.00 (0%)** — Proven false alarm, recycled historical leak, or mislabeled web scrape.
+* **2. Evidence Specificity & Data Quality Bonus (+0% to +23%):**
+  * Statutory regulatory filings on record: **+12%**
+  * Verified primary domain resolution: **+3%**
+  * Disclosed compromised data categories: **+4%**
+  * Quantified affected victim population count: **+4%**
+* **3. Corroboration & Multi-Source Domain Curve (+0% to +25%):**
+  * Independent source domains: 2 domains (**+7%**), 3 domains (**+12%**), 4 domains (**+16%**), 5+ domains (**+20%**).
+  * Cross-tier correlation boost (threat telemetry corroborated by target or regulatory disclosure): **+5%**.
+* **4. Temporal Dynamics & Milestone Depth (-10% to +5%):**
+  * Timeline depth: &ge;3 milestones (**+3%**), &ge;5 milestones (**+5%**).
+  * Uncorroborated staleness decay: Unverified dark web claims decay over time (**-3%** at 14 days, **-5%** at 30 days) to prevent unconfirmed adversary bluffs from retaining confidence.
 * **Machine-Readable Syndication:** Real-time verifiable feeds available in standard [RSS 2.0 (`dist/feed.xml`)](feed.xml) and [JSON Feed v1.1 (`dist/feed.json`)](feed.json) with full milestone timelines and Open Weights confidence metrics.
 
 ---

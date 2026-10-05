@@ -650,22 +650,6 @@ function generateFeedCardHtml(inc) {
 function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
   const feedCardsHtml = incidents.map(inc => generateFeedCardHtml(inc)).join('\n');
 
-  // Breaking ticker: 5 most recent incidents
-  const tickerIncidents = incidents.slice(0, 6);
-  const tickerHtml = tickerIncidents.map(inc => {
-    const s = inc.status.toUpperCase();
-    const relTime = getRelativeTimeString(inc.last_updated || inc.first_seen);
-    return `
-      <a href="incidents/${inc.id}.html" class="ticker-item">
-        <span class="ticker-badge status-${s}">${s}</span>
-        <strong class="ticker-target">${inc.target}</strong>
-        <span class="ticker-sep">&bull;</span>
-        <span class="ticker-summary">${escapeXml(inc.summary.slice(0, 95))}${inc.summary.length > 95 ? '...' : ''}</span>
-        <span class="ticker-time font-mono">${relTime}</span>
-      </a>
-    `;
-  }).join('');
-
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -691,17 +675,6 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
 </head>
 <body class="page-stream">
   ${renderHeader(false, 'feed')}
-
-  <!-- Breaking News / Threat Intelligence Ticker -->
-  <section class="breaking-ticker-wrap">
-    <div class="ticker-label"><span class="ticker-pulse"></span> BREAKING INTEL</div>
-    <div class="ticker-viewport">
-      <div class="ticker-track">
-        ${tickerHtml}
-        ${tickerHtml}
-      </div>
-    </div>
-  </section>
 
   <main class="container feed-container">
     <!-- Stream Hero Section -->
@@ -1718,6 +1691,33 @@ function generateStatusHtml(stats, pipelineStatus = {}) {
 </html>`;
 }
 
+function generateFallbackBriefingHtml(inc) {
+  const filingsText = inc.regulatory_filings && inc.regulatory_filings.length > 0
+    ? `Formal statutory disclosures on record include ${inc.regulatory_filings.map(f => `<strong>${f.regulator}</strong> (${f.form || f.notice_id || 'Disclosure Notice'})`).join(', ')}.`
+    : `No formal federal or state regulatory filings have been confirmed at this time.`;
+
+  const dataScopeText = inc.compromised_data && inc.compromised_data.length > 0
+    ? `Forensic telemetry identifies exposure across: <strong>${inc.compromised_data.join(', ')}</strong>.`
+    : `Compromised data scope remains under technical forensic audit.`;
+
+  const recordsText = inc.affected_records
+    ? `Disclosed impact quantification estimates approximately <strong>${Number(inc.affected_records).toLocaleString()}</strong> affected individuals or consumer records.`
+    : `Quantified victim population has not yet been formally disclosed in public filings.`;
+
+  return `
+    <h2>Incident Overview</h2>
+    <p>${escapeXml(inc.summary)}</p>
+    <p>This security event involves <strong>${escapeXml(inc.target)}</strong> (${escapeXml(inc.domain || 'domain undisclosed')}), categorized under <strong>${escapeXml(inc.industry || 'Commercial Enterprise')}</strong>. Observable incident classification indicates <strong>${escapeXml(inc.incident_type || 'Unauthorized Access & Infrastructure Exploitation')}</strong>.</p>
+
+    <h2>Compromised Assets &amp; Data Scope</h2>
+    <p>${dataScopeText} ${recordsText}</p>
+    ${inc.threat_actor && inc.threat_actor !== 'Unknown' && inc.threat_actor !== 'Unattributed' ? `<p><strong>Threat Actor Attribution:</strong> Activity corroborated with tactics associated with <strong>${escapeXml(inc.threat_actor)}</strong>.</p>` : ''}
+
+    <h2>Statutory Disclosures &amp; Compliance</h2>
+    <p>${filingsText}</p>
+  `;
+}
+
 function generateIncidentDetailHtml(inc) {
   const conf = inc.confidence || {
     confidencePercent: 20,
@@ -1885,24 +1885,24 @@ function generateIncidentDetailHtml(inc) {
 
       <div class="ow-metrics-grid">
         <div class="ow-metric-box">
-          <span class="ow-metric-label">Top Verification Tier</span>
+          <span class="ow-metric-label">1. Primary Authority</span>
           <span class="ow-metric-val ${conf.badgeClass}"><i class="${getVerificationIcon(conf.topTier)}"></i> ${conf.topTier}</span>
           <span class="ow-metric-sub">Base weight: ${(conf.baseWeight * 100).toFixed(0)}%</span>
         </div>
         <div class="ow-metric-box">
-          <span class="ow-metric-label">Cross-Domain Corroboration</span>
+          <span class="ow-metric-label">2. Evidence Specificity</span>
+          <span class="ow-metric-val font-mono">+${((conf.evidenceBonus || 0) * 100).toFixed(0)}%</span>
+          <span class="ow-metric-sub">${inc.regulatory_filings && inc.regulatory_filings.length > 0 ? 'Statutory Filing Verified' : 'Domain & Scope Telemetry'}</span>
+        </div>
+        <div class="ow-metric-box">
+          <span class="ow-metric-label">3. Corroboration Curve</span>
           <span class="ow-metric-val font-mono">+${(conf.corroborationBonus * 100).toFixed(0)}%</span>
           <span class="ow-metric-sub">${conf.uniqueSourcesCount} independent domain${conf.uniqueSourcesCount === 1 ? '' : 's'}</span>
         </div>
         <div class="ow-metric-box">
-          <span class="ow-metric-label">Composite Score</span>
-          <span class="ow-metric-val font-mono">${(conf.score * 100).toFixed(0)}%</span>
-          <span class="ow-metric-sub">Open-weights deterministic formula</span>
-        </div>
-        <div class="ow-metric-box">
-          <span class="ow-metric-label">Observable Status</span>
-          <span class="ow-metric-val">${inc.status}</span>
-          <span class="ow-metric-sub">Ground Truth Telemetry</span>
+          <span class="ow-metric-label">4. Timeline &amp; Staleness</span>
+          <span class="ow-metric-val font-mono">${(conf.temporalFactor || 0) >= 0 ? '+' : ''}${((conf.temporalFactor || 0) * 100).toFixed(0)}%</span>
+          <span class="ow-metric-sub">${inc.milestones.length} milestone${inc.milestones.length === 1 ? '' : 's'} logged</span>
         </div>
       </div>
 
@@ -1917,16 +1917,14 @@ function generateIncidentDetailHtml(inc) {
     </div>
 
     <!-- Technical Forensic Narrative Dossier -->
-    ${inc.narrativeHtml ? `
     <div class="narrative-card">
       <div class="narrative-card-header">
         <h3><i class="fa-solid fa-file-waveform"></i> Technical Forensic Briefing</h3>
       </div>
       <div class="narrative-body markdown-content">
-        ${inc.narrativeHtml}
+        ${inc.narrativeHtml || generateFallbackBriefingHtml(inc)}
       </div>
     </div>
-    ` : ''}
 
     <h2 class="timeline-section-title">
       <span>Milestone Timeline</span>
@@ -2001,9 +1999,9 @@ function generateAboutHtml() {
         To deliver maximum clarity, we establish clear levels of confidence and correlate diverse data sources using open weights. Built entirely on open editing through GitHub pull requests, <strong>securityincident.net</strong> empowers security professionals, researchers, and organizations to maintain a transparent, verifiable, and high-signal record of security incidents without corporate bias or editorial filler.
       </p>
 
-      <h2>2. Open Weights Correlation Model</h2>
+      <h2>2. Granular Open Weights Correlation Model (v2.0)</h2>
       <p>
-        Unlike opaque black-box AI scores or proprietary vendor risk ratings, our confidence scoring is 100% deterministic, auditable, and open-source. The scoring model is defined in <code>sources/weights.json</code> and calculates a composite score based on the highest verification tier achieved and independent cross-domain corroboration:
+        Unlike opaque black-box AI scores or proprietary vendor risk ratings, our confidence scoring is 100% deterministic, auditable, and open-source. Defined in <code>sources/weights.json</code> and executed in <code>scripts/weights.js</code>, confidence is evaluated continuously across <strong>four orthogonal dimensions</strong> rather than clumping into coarse tiers:
       </p>
 
       <div class="about-weights-table-wrap">
@@ -2011,35 +2009,35 @@ function generateAboutHtml() {
           <thead>
             <tr>
               <th>Verification Tier</th>
-              <th>Base Weight</th>
+              <th>Primary Authority Baseline</th>
               <th>Primary Sources</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><span class="verify-badge regulator"><i class="fa-solid fa-building-shield"></i> CONFIRMED BY REGULATOR</span></td>
-              <td class="font-mono"><strong>1.00 (100%)</strong></td>
-              <td>SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR, CISA advisory.</td>
+              <td class="font-mono"><strong>0.65 (65%)</strong></td>
+              <td>SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR, CISA KEV advisory.</td>
             </tr>
             <tr>
               <td><span class="verify-badge target"><i class="fa-solid fa-bullhorn"></i> CONFIRMED BY TARGET</span></td>
-              <td class="font-mono"><strong>0.90 (90%)</strong></td>
+              <td class="font-mono"><strong>0.50 (50%)</strong></td>
               <td>Official corporate press release, company security blog, direct target status bulletin.</td>
             </tr>
             <tr>
               <td><span class="verify-badge independent"><i class="fa-solid fa-microscope"></i> INDEPENDENT VERIFICATION</span></td>
-              <td class="font-mono"><strong>0.65 (65%)</strong></td>
+              <td class="font-mono"><strong>0.32 (32%)</strong></td>
               <td>Reputable cybersecurity researcher analysis, HaveIBeenPwned audit, forensic investigative reporting.</td>
             </tr>
             <tr>
               <td><span class="verify-badge" style="color: var(--status-acknowledged); background: var(--status-acknowledged-bg);"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span></td>
-              <td class="font-mono"><strong>0.45 (45%)</strong></td>
+              <td class="font-mono"><strong>0.18 (18%)</strong></td>
               <td>Target publicly confirms operational disruption or active investigation without confirming data compromise.</td>
             </tr>
             <tr>
               <td><span class="verify-badge unverified"><i class="fa-solid fa-bolt"></i> UNVERIFIED CLAIM</span></td>
-              <td class="font-mono"><strong>0.20 (20%)</strong></td>
-              <td>Threat actor leak blog, dark web forum listing, unverified community chatter.</td>
+              <td class="font-mono"><strong>0.06 (6%)</strong></td>
+              <td>Threat actor leak blog, dark web forum listing, unverified community chatter (low baseline floor).</td>
             </tr>
             <tr>
               <td><span class="verify-badge refuted"><i class="fa-solid fa-ban"></i> REFUTED</span></td>
@@ -2050,9 +2048,15 @@ function generateAboutHtml() {
         </table>
       </div>
 
-      <p style="margin-top: 1rem;">
-        <strong>Cross-Domain Corroboration Bonus:</strong> For every independent source domain that corroborates an event (e.g. SEC EDGAR + BleepingComputer + Krebs on Security), a +0.05 (+5%) corroboration bonus is awarded, up to a maximum boost of +0.15 (+15%), capped at 1.00 (100%).
-      </p>
+      <div class="ow-dimensions-doc" style="margin-top: 1.25rem;">
+        <p><strong>Multi-Dimensional Scoring Dimensions:</strong></p>
+        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.7;">
+          <li><strong>1. Primary Authority Base:</strong> 6% baseline for raw unverified claims up to 65% for statutory regulatory disclosures.</li>
+          <li><strong>2. Evidence Specificity &amp; Data Quality (+0% to +23%):</strong> Statutory regulatory filings (+12%), verified primary domain (+3%), disclosed compromised data classes (+4%), and quantified affected records (+4%).</li>
+          <li><strong>3. Corroboration &amp; Multi-Source Curve (+0% to +25%):</strong> Logarithmic curve for independent source domains (2 domains: +7%, 3 domains: +12%, 4 domains: +16%, 5+ domains: +20%), plus a +5% cross-tier correlation boost when threat telemetry is corroborated by target or regulatory disclosure.</li>
+          <li><strong>4. Temporal Dynamics &amp; Unverified Staleness Decay (-10% to +5%):</strong> Milestone timeline depth (+3% for &ge;3 milestones, +5% for &ge;5 milestones). Dormant uncorroborated darkweb claims decay over time (-3% at 14 days, -5% at 30 days) to prevent adversary bluffs from retaining confidence.</li>
+        </ul>
+      </div>
 
       <h2>3. The 5 Observable Statuses</h2>
       <div class="about-status-grid">

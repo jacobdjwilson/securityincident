@@ -49,29 +49,38 @@ Each milestone entry in the timeline is labeled with its verification level:
 
 ---
 
-## 3. Open Weights Mathematical Correlation Model
+## 3. Granular Open Weights Mathematical Correlation Model (v2.0)
 
 Unlike opaque proprietary risk ratings, `securityincident.net` relies on an open-source, deterministic mathematical correlation model configured in [`sources/weights.json`](sources/weights.json) and executed via [`scripts/weights.js`](scripts/weights.js).
 
 ### Composite Confidence Score Formula
 
-The confidence score $C$ for any incident is calculated as:
+The confidence score $C$ for any incident is evaluated continuously across four orthogonal dimensions:
 
-$$C = \min\left(1.00, \max\left(0.00, W_{\text{base}} + B_{\text{corroboration}}\right)\right)$$
+$$C = \min\left(1.00, \max\left(0.02, W_{\text{base}} + B_{\text{evidence}} + B_{\text{corroboration}} + T_{\text{temporal}}\right)\right)$$
 
 Where:
-* **$W_{\text{base}}$** is the highest verification tier achieved across all logged milestones:
-  * `CONFIRMED BY REGULATOR`: $1.00$ ($100\%$)
-  * `CONFIRMED BY TARGET`: $0.90$ ($90\%$)
-  * `INDEPENDENT VERIFICATION`: $0.65$ ($65\%$)
-  * `ACKNOWLEDGED`: $0.45$ ($45\%$)
-  * `UNVERIFIED CLAIM`: $0.20$ ($20\%$)
-  * `REFUTED`: $0.00$ ($0\%$)
-* **$B_{\text{corroboration}}$** is the cross-domain corroboration bonus awarded when multiple independent domains verify or report on the incident:
-
-$$B_{\text{corroboration}} = \min\left(0.15, \max\left(0, (N_{\text{domains}} - 1) \times 0.05\right)\right)$$
-
-Where $N_{\text{domains}}$ is the count of unique, independent hostnames among all cited primary source URLs (e.g., `sec.gov`, `bleepingcomputer.com`, `thehackernews.com`).
+* **$W_{\text{base}}$** is the baseline authority floor corresponding to the highest verification tier achieved:
+  * `CONFIRMED BY REGULATOR`: $0.65$ ($65\%$) — SEC Form 8-K Item 1.05, State AG portals, HHS OCR, CISA KEV directives.
+  * `CONFIRMED BY TARGET`: $0.50$ ($50\%$) — Target corporate press releases, security advisories, status bulletins.
+  * `INDEPENDENT VERIFICATION`: $0.32$ ($32\%$) — Threat intelligence telemetry, researcher sample audits.
+  * `ACKNOWLEDGED`: $0.18$ ($18\%$) — Target publicly acknowledges IT disruption or active investigation.
+  * `UNVERIFIED CLAIM`: $0.06$ ($6\%$) — Unilateral threat actor claim, dark web leak site listing, forum dump.
+  * `REFUTED`: $0.00$ ($0\%$) — Disproven claim or recycled historical breach.
+* **$B_{\text{evidence}}$** represents concrete data quality & specificity bonuses ($0.00 \le B_{\text{evidence}} \le 0.23$):
+  * Statutory regulatory filing on record: $+0.12$
+  * Verified primary domain resolution: $+0.03$
+  * Disclosed compromised data categories: $+0.04$
+  * Disclosed affected record count: $+0.04$
+* **$B_{\text{corroboration}}$** is the logarithmic cross-domain corroboration curve ($0.00 \le B_{\text{corroboration}} \le 0.25$):
+  * $N_{\text{domains}} = 2$: $+0.07$
+  * $N_{\text{domains}} = 3$: $+0.12$
+  * $N_{\text{domains}} = 4$: $+0.16$
+  * $N_{\text{domains}} \ge 5$: $+0.20$
+  * Cross-tier correlation boost (threat actor claim corroborated by target or regulatory disclosure): $+0.05$
+* **$T_{\text{temporal}}$** incorporates milestone progression and uncorroborated staleness decay ($-0.10 \le T_{\text{temporal}} \le +0.05$):
+  * Milestone depth: $\ge 3$ milestones ($+0.03$), $\ge 5$ milestones ($+0.05$)
+  * Dormant uncorroborated claim decay: $-0.03$ after 14 days, $-0.05$ after 30 days without independent corroboration.
 
 ---
 
