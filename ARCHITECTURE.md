@@ -219,7 +219,15 @@ Each flat file in `incidents/` includes structured technical narrative sections:
 ### 3. High-Density Telemetry & Client-Side Interactivity
 * **Interactive Trend Charts:** Pure CSS/JS telemetry charts (Status distribution, monthly velocity, primary regulatory sources, targeted sectors) with click-to-filter capability.
 * **Aggregate Disclosed Impact Metric:** Real-time calculated tally of cumulative disclosed impacted individuals and confirmed disclosure scopes.
-* **Forensic Filtering Controls:** Instant dropdown filtering by Industry Sector, Compromised Data Class, and quick toggle for High-Impact events (>100K affected records).
+* **Multi-Field Intelligent Filtering:** Instant dropdown filtering across:
+  * **Industry Sector:** Healthcare, Financial, Legal, Technology, Government, Critical Infrastructure, Retail, Telecommunications, Education, Manufacturing.
+  * **Incident Classification:** Ransomware Extortion, Zero-Day Exploitation, Unauthorized Cloud Access, Supply Chain, Credential Stuffing, Network Intrusion.
+  * **Compromised Data Class:** SSN, PHI, Financial, Credentials, PII, Intellectual Property.
+  * **Statutory Regulatory Filing:** SEC Form 8-K, State AGs (CA, WA, OR), HHS OCR (HIPAA), CISA Directives.
+  * **Affected Records Scope:** Disclosed Only, >10K Records, >100K Records, >1M Records.
+* **Client-Side Telemetry Export Toolbar:** Instant 1-click export of currently filtered records directly to:
+  * **JSON (`.json`):** Full telemetry payload with filtering metadata, timestamps, and structured arrays.
+  * **CSV (`.csv`):** Standard RFC-4180 compliant CSV format for spreadsheet analysis and board reporting.
 * **Sorting Capabilities:** Instant client-side sorting by Latest Update, Highest Impact (Records), Highest Confidence, First Seen, and Most Milestones.
 * **Dual View Presentation:** High-density incident cards and ultra-dense triage table with sortable columns.
 * **Instant Client-Side Search:** Zero-latency multi-attribute search across target names, domains, industries, attack vectors, compromised data, and threat actors.
@@ -255,10 +263,22 @@ Each flat file in `incidents/` includes structured technical narrative sections:
 - [x] Upgraded scheduled CI/CD ingestion workflow (`.github/workflows/ingest.yml`) with automated PR summaries and reconcile-only dispatch.
 - [x] Enhanced historical populator (`scripts/ingest-history.js`) with rich forensic metadata and automated post-ingestion reconciliation.
 
-### Phase 4: Decentralized Verification, Multi-Format Syndication & Benchmark Archive (IN PROGRESS)
+### Phase 4: Intelligent Filtering, Data Export & Agent Standards (COMPLETED)
 - [x] Machine-readable JSON Feed v1.1 syndication (`dist/feed.json`) with deterministic Open Weights confidence metadata.
-- [x] Historical benchmark regulatory backfill for landmark SEC Form 8-K Item 1.05 and HHS OCR filings from inception (UnitedHealth/Change Healthcare, Microsoft Midnight Blizzard, HPE, LoanDepot, Prudential, First American Financial, VF Corp, Halliburton, Advance Auto Parts, CDK Global).
-- [x] Expanded cumulative disclosed impact telemetry tracking to 828M+ affected individuals across 35 disclosed scopes.
-- [ ] Signed Git commits for immutable cryptographic attribution of incident milestones.
-- [ ] Community-driven weights proposal and vote through GitHub PR governance.
+- [x] Historical benchmark regulatory backfill for landmark SEC Form 8-K Item 1.05 and HHS OCR filings from inception.
+- [x] Granular multi-field filtering on Analytics Deck: Industry Sector, Attack Vector Type, Compromised Data Class, Statutory Filing, and Population Scope.
+- [x] Client-side 1-click Export to JSON and RFC-4180 CSV with real-time matching record counts.
+- [x] Adopted standardized Agent Coding Architecture: External scripts in `.github/scripts/`, zero inline workflow logic, versioned JSON artifacts in `.github/artifacts/`, and standalone Markdown prompts in `.github/ai-prompts/`.
+- [x] Quota-aware AI incident processing with persistent SHA-256 disk cache and statutory regulatory invariance.
+- [x] Automated CI code integrity release gate (`.github/scripts/verify_code_integrity.py`).
+
+---
+
+## 8. Agent Automation & CI/CD Architecture
+
+Following the design standards established in `awesome-annual-security-reports`:
+* **Zero Inline Workflow Scripts:** `.github/workflows/` workflows contain zero embedded shell script logic, delegating domain logic to `.github/scripts/` and npm scripts.
+* **Deterministic Configuration:** Operational thresholds and paths are declared in `.github/artifacts/workflow-config.json`, `.github/artifacts/ai-models.json`, and `.github/artifacts/incident-categories.json`.
+* **Prompt Instructions:** Standalone instructions in `.github/ai-prompts/` ensure reproducible AI output structures across model tiers with fallback ladders.
+* **Release Gating:** Automated verification of script docstrings, prompt schemas, and JSON configs runs on every pull request and deploy.
 

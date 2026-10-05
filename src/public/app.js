@@ -42,7 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const sortSelect = document.getElementById('sort-select') || document.getElementById('drawer-sort-select');
   const pageSizeSelect = document.getElementById('page-size-select');
   const sectorSelect = document.getElementById('sector-select') || document.getElementById('drawer-sector-select');
+  const typeSelect = document.getElementById('type-select');
   const dataTypeSelect = document.getElementById('data-type-select') || document.getElementById('drawer-data-select');
+  const filingSelect = document.getElementById('filing-select');
+  const scopeSelect = document.getElementById('scope-select');
+  const btnExportJson = document.getElementById('btn-export-json');
+  const btnExportCsv = document.getElementById('btn-export-csv');
+  const exportCountBadge = document.getElementById('export-count-badge');
   const btnHighImpact = document.getElementById('btn-high-impact') || document.getElementById('drawer-btn-high-impact');
   const feedContainer = document.getElementById('incidents-feed');
   const gridContainer = document.getElementById('incidents-grid');
@@ -72,7 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentMonth = 'ALL';       // Month filter from velocity chart
   let currentSector = 'ALL';      // Sector filter from sector/source charts
   let currentIndustry = 'ALL';    // Industry dropdown filter
+  let currentType = 'ALL';        // Incident classification type filter
   let currentDataType = 'ALL';    // Compromised data class filter
+  let currentFiling = 'ALL';      // Statutory regulatory filing filter
+  let currentScope = 'ALL';       // Affected records scope filter
   let highImpactOnly = false;     // >100K affected records toggle
   let currentSort = 'recent';
   let searchQuery = '';
@@ -155,7 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let count = 0;
     if (currentFilter !== 'ALL' && currentStream === 'all') count++;
     if (currentIndustry !== 'ALL') count++;
+    if (currentType !== 'ALL') count++;
     if (currentDataType !== 'ALL') count++;
+    if (currentFiling !== 'ALL') count++;
+    if (currentScope !== 'ALL') count++;
     if (highImpactOnly) count++;
     if (currentSort !== 'recent' && currentSort !== 'trending') count++;
 
@@ -362,7 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentMonth !== 'ALL') filters.push(`Month: ${currentMonth}`);
     if (currentSector !== 'ALL') filters.push(`Sector: ${currentSector}`);
     if (currentIndustry !== 'ALL') filters.push(`Industry: ${currentIndustry}`);
+    if (currentType !== 'ALL') filters.push(`Type: ${currentType}`);
     if (currentDataType !== 'ALL') filters.push(`Data: ${currentDataType}`);
+    if (currentFiling !== 'ALL') filters.push(`Filing: ${currentFiling}`);
+    if (currentScope !== 'ALL') filters.push(`Scope: ${currentScope}`);
     if (highImpactOnly) filters.push(`Impact: >100K Records`);
     if (searchQuery) filters.push(`"${searchQuery}"`);
 
@@ -382,14 +397,20 @@ document.addEventListener('DOMContentLoaded', () => {
       currentMonth = 'ALL';
       currentSector = 'ALL';
       currentIndustry = 'ALL';
+      currentType = 'ALL';
       currentDataType = 'ALL';
+      currentFiling = 'ALL';
+      currentScope = 'ALL';
       highImpactOnly = false;
       searchQuery = '';
       currentPage = 1;
 
       if (searchInput) searchInput.value = '';
       if (sectorSelect) sectorSelect.value = 'ALL';
+      if (typeSelect) typeSelect.value = 'ALL';
       if (dataTypeSelect) dataTypeSelect.value = 'ALL';
+      if (filingSelect) filingSelect.value = 'ALL';
+      if (scopeSelect) scopeSelect.value = 'ALL';
       if (btnHighImpact) btnHighImpact.classList.remove('active');
 
       filterButtons.forEach(b => {
@@ -423,9 +444,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (typeSelect) {
+    typeSelect.addEventListener('change', (e) => {
+      currentType = e.target.value;
+      currentPage = 1;
+      updateDrawerBadge();
+      updateActiveFilterUI();
+      applyFiltersAndPaginate();
+    });
+  }
+
   if (dataTypeSelect) {
     dataTypeSelect.addEventListener('change', (e) => {
       currentDataType = e.target.value;
+      currentPage = 1;
+      updateDrawerBadge();
+      updateActiveFilterUI();
+      applyFiltersAndPaginate();
+    });
+  }
+
+  if (filingSelect) {
+    filingSelect.addEventListener('change', (e) => {
+      currentFiling = e.target.value;
+      currentPage = 1;
+      updateDrawerBadge();
+      updateActiveFilterUI();
+      applyFiltersAndPaginate();
+    });
+  }
+
+  if (scopeSelect) {
+    scopeSelect.addEventListener('change', (e) => {
+      currentScope = e.target.value;
       currentPage = 1;
       updateDrawerBadge();
       updateActiveFilterUI();
@@ -520,7 +571,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 14. Filtering and Pagination Engine
+  // 14. Forensic Matching Engine
+  function matchesFilter(el) {
+    const status = el.getAttribute('data-status') || '';
+    const target = el.getAttribute('data-target') || '';
+    const domain = el.getAttribute('data-domain') || '';
+    const industry = el.getAttribute('data-industry') || '';
+    const type = el.getAttribute('data-type') || '';
+    const affected = parseInt(el.getAttribute('data-affected') || '0', 10);
+    const compromised = el.getAttribute('data-compromised') || '';
+    const filings = el.getAttribute('data-filings') || '';
+    const summary = el.getAttribute('data-summary') || '';
+    const actor = el.getAttribute('data-actor') || '';
+    const tags = (el.getAttribute('data-tags') || '').toLowerCase();
+    const month = el.getAttribute('data-month') || '';
+    const confidence = el.getAttribute('data-confidence') || '';
+
+    const matchStatus = (currentFilter === 'ALL' || status === currentFilter);
+    const matchMonth = (currentMonth === 'ALL' || month === currentMonth);
+
+    let matchSector = true;
+    if (currentSector !== 'ALL') {
+      const secLower = currentSector.toLowerCase();
+      matchSector = tags.includes(secLower) || industry.toLowerCase().includes(secLower);
+    }
+
+    let matchIndustry = true;
+    if (currentIndustry !== 'ALL') {
+      const indLower = currentIndustry.toLowerCase();
+      matchIndustry = industry.toLowerCase().includes(indLower) || tags.includes(indLower);
+    }
+
+    let matchType = true;
+    if (currentType !== 'ALL') {
+      matchType = type.toLowerCase().includes(currentType.toLowerCase());
+    }
+
+    let matchDataType = true;
+    if (currentDataType !== 'ALL') {
+      matchDataType = compromised.toLowerCase().includes(currentDataType.toLowerCase());
+    }
+
+    let matchFiling = true;
+    if (currentFiling !== 'ALL') {
+      matchFiling = filings.toLowerCase().includes(currentFiling.toLowerCase());
+    }
+
+    let matchScope = true;
+    if (currentScope === 'DISCLOSED') {
+      matchScope = affected > 0;
+    } else if (currentScope === '10K') {
+      matchScope = affected >= 10000;
+    } else if (currentScope === '100K') {
+      matchScope = affected >= 100000;
+    } else if (currentScope === '1M') {
+      matchScope = affected >= 1000000;
+    }
+
+    let matchImpact = true;
+    if (highImpactOnly) {
+      matchImpact = affected >= 100000;
+    }
+
+    let matchSearch = true;
+    if (searchQuery) {
+      const haystack = `${target} ${domain} ${industry} ${type} ${summary} ${actor} ${tags} ${compromised} ${filings} ${confidence}% ${status}`.toLowerCase();
+      matchSearch = haystack.includes(searchQuery);
+    }
+
+    return matchStatus && matchMonth && matchSector && matchIndustry && matchType && matchDataType && matchFiling && matchScope && matchImpact && matchSearch;
+  }
+
+  // 15. Filtering and Pagination Engine
   function applyFiltersAndPaginate() {
     const feedCards = feedContainer ? Array.from(feedContainer.querySelectorAll('.feed-card')) : [];
     const cards = gridContainer ? Array.from(gridContainer.querySelectorAll('.incident-card')) : [];
@@ -528,57 +650,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const activeList = feedCards.length > 0 ? feedCards : (cards.length > 0 ? cards : rows);
 
-    const matchesFilter = (el) => {
-      const status = el.getAttribute('data-status') || '';
-      const target = el.getAttribute('data-target') || '';
-      const domain = el.getAttribute('data-domain') || '';
-      const industry = el.getAttribute('data-industry') || '';
-      const type = el.getAttribute('data-type') || '';
-      const affected = parseInt(el.getAttribute('data-affected') || '0', 10);
-      const compromised = el.getAttribute('data-compromised') || '';
-      const filings = el.getAttribute('data-filings') || '';
-      const summary = el.getAttribute('data-summary') || '';
-      const actor = el.getAttribute('data-actor') || '';
-      const tags = (el.getAttribute('data-tags') || '').toLowerCase();
-      const month = el.getAttribute('data-month') || '';
-      const confidence = el.getAttribute('data-confidence') || '';
-
-      const matchStatus = (currentFilter === 'ALL' || status === currentFilter);
-      const matchMonth = (currentMonth === 'ALL' || month === currentMonth);
-
-      let matchSector = true;
-      if (currentSector !== 'ALL') {
-        const secLower = currentSector.toLowerCase();
-        matchSector = tags.includes(secLower) || industry.toLowerCase().includes(secLower);
-      }
-
-      let matchIndustry = true;
-      if (currentIndustry !== 'ALL') {
-        const indLower = currentIndustry.toLowerCase();
-        matchIndustry = industry.toLowerCase().includes(indLower) || tags.includes(indLower);
-      }
-
-      let matchDataType = true;
-      if (currentDataType !== 'ALL') {
-        matchDataType = compromised.toLowerCase().includes(currentDataType.toLowerCase());
-      }
-
-      let matchImpact = true;
-      if (highImpactOnly) {
-        matchImpact = affected >= 100000;
-      }
-
-      let matchSearch = true;
-      if (searchQuery) {
-        const haystack = `${target} ${domain} ${industry} ${type} ${summary} ${actor} ${tags} ${compromised} ${filings} ${confidence}% ${status}`.toLowerCase();
-        matchSearch = haystack.includes(searchQuery);
-      }
-
-      return matchStatus && matchMonth && matchSector && matchIndustry && matchDataType && matchImpact && matchSearch;
-    };
-
     const matchingItems = activeList.filter(matchesFilter);
     const totalMatching = matchingItems.length;
+
+    // Update Export Counter Badge
+    if (exportCountBadge) {
+      exportCountBadge.textContent = `${totalMatching} record${totalMatching === 1 ? '' : 's'} matching`;
+    }
 
     // Handle Empty State
     if (emptyState) {
@@ -742,6 +820,166 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector('.feed-controls-panel') || document.getElementById('incidents-anchor');
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  // 16. Export Data to JSON and CSV
+  function getExportRecords() {
+    const feedCards = feedContainer ? Array.from(feedContainer.querySelectorAll('.feed-card')) : [];
+    const cards = gridContainer ? Array.from(gridContainer.querySelectorAll('.incident-card')) : [];
+    const rows = tableBody ? Array.from(tableBody.querySelectorAll('.telemetry-row')) : [];
+
+    const activeList = rows.length > 0 ? rows : (cards.length > 0 ? cards : feedCards);
+    const matching = activeList.filter(matchesFilter);
+
+    return matching.map(el => {
+      const id = el.getAttribute('data-id') || '';
+      const target = el.getAttribute('data-target') || '';
+      const domain = el.getAttribute('data-domain') || '';
+      const status = el.getAttribute('data-status') || '';
+      const industry = el.getAttribute('data-industry') || '';
+      const incident_type = el.getAttribute('data-type') || '';
+      const affected_raw = el.getAttribute('data-affected');
+      const affected_records = (affected_raw && affected_raw !== '0') ? parseInt(affected_raw, 10) : null;
+      const compromised_data = (el.getAttribute('data-compromised') || '').split(/\s+/).filter(Boolean);
+      const regulatory_filings = (el.getAttribute('data-filings') || '').split(/\s+/).filter(Boolean);
+      const confidence = parseInt(el.getAttribute('data-confidence') || '0', 10);
+      const actor_raw = el.getAttribute('data-actor');
+      const threat_actor = (actor_raw && actor_raw !== 'Unknown' && actor_raw !== 'Unattributed') ? actor_raw : null;
+      const first_seen = el.getAttribute('data-first-seen') || '';
+      const last_updated = el.getAttribute('data-updated') || '';
+      const summary = el.getAttribute('data-summary') || '';
+      const tags = (el.getAttribute('data-tags') || '').split(/\s+/).filter(Boolean);
+      const dossier_url = id ? `https://securityincident.net/incidents/${id}.html` : '';
+
+      return {
+        id,
+        target,
+        domain,
+        status,
+        industry,
+        incident_type,
+        affected_records,
+        compromised_data,
+        regulatory_filings,
+        confidence_score_percent: confidence,
+        threat_actor,
+        first_seen,
+        last_updated,
+        summary,
+        tags,
+        dossier_url
+      };
+    });
+  }
+
+  function downloadFile(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 100);
+  }
+
+  function escapeCsvCell(val) {
+    if (val === null || val === undefined) return '';
+    const str = String(val);
+    if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+  }
+
+  if (btnExportJson) {
+    btnExportJson.addEventListener('click', () => {
+      const records = getExportRecords();
+      if (records.length === 0) {
+        showToast('No records match current filters to export.');
+        return;
+      }
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const exportPayload = {
+        metadata: {
+          source: 'securityincident.net Telemetry Deck',
+          exported_at: new Date().toISOString(),
+          record_count: records.length,
+          filters: {
+            status: currentFilter,
+            sector: currentIndustry,
+            type: currentType,
+            data_class: currentDataType,
+            statutory_filing: currentFiling,
+            scope: currentScope,
+            query: searchQuery || null
+          }
+        },
+        incidents: records
+      };
+      const jsonContent = JSON.stringify(exportPayload, null, 2);
+      downloadFile(jsonContent, `securityincident-telemetry-${dateStr}.json`, 'application/json');
+      showToast(`Exported ${records.length} record${records.length === 1 ? '' : 's'} to JSON`);
+    });
+  }
+
+  if (btnExportCsv) {
+    btnExportCsv.addEventListener('click', () => {
+      const records = getExportRecords();
+      if (records.length === 0) {
+        showToast('No records match current filters to export.');
+        return;
+      }
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const headers = [
+        'ID',
+        'Target',
+        'Domain',
+        'Status',
+        'Industry',
+        'Incident Type',
+        'Affected Records',
+        'Compromised Data',
+        'Regulatory Filings',
+        'Confidence Score (%)',
+        'Threat Actor',
+        'First Seen',
+        'Last Updated',
+        'Summary',
+        'Tags',
+        'Dossier URL'
+      ];
+
+      const csvLines = [headers.join(',')];
+      records.forEach(r => {
+        const row = [
+          escapeCsvCell(r.id),
+          escapeCsvCell(r.target),
+          escapeCsvCell(r.domain),
+          escapeCsvCell(r.status),
+          escapeCsvCell(r.industry),
+          escapeCsvCell(r.incident_type),
+          escapeCsvCell(r.affected_records !== null ? r.affected_records : ''),
+          escapeCsvCell(r.compromised_data.join('; ')),
+          escapeCsvCell(r.regulatory_filings.join('; ')),
+          escapeCsvCell(r.confidence_score_percent),
+          escapeCsvCell(r.threat_actor || ''),
+          escapeCsvCell(r.first_seen),
+          escapeCsvCell(r.last_updated),
+          escapeCsvCell(r.summary),
+          escapeCsvCell(r.tags.join('; ')),
+          escapeCsvCell(r.dossier_url)
+        ];
+        csvLines.push(row.join(','));
+      });
+
+      const csvContent = csvLines.join('\r\n');
+      downloadFile(csvContent, `securityincident-telemetry-${dateStr}.csv`, 'text/csv;charset=utf-8;');
+      showToast(`Exported ${records.length} record${records.length === 1 ? '' : 's'} to CSV`);
+    });
   }
 
   // Initial Run

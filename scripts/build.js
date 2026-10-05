@@ -541,6 +541,7 @@ function generateFeedCardHtml(inc) {
 
   return `
     <article class="feed-card"
+       data-id="${inc.id}"
        data-status="${inc.status}" 
        data-target="${inc.target}" 
        data-domain="${inc.domain}" 
@@ -914,6 +915,7 @@ function generateTelemetryHtml(incidents, stats) {
 
     return `
       <a href="incidents/${inc.id}.html" class="incident-card" 
+         data-id="${inc.id}"
          data-status="${inc.status}" 
          data-target="${inc.target}" 
          data-domain="${inc.domain}" 
@@ -990,6 +992,7 @@ function generateTelemetryHtml(incidents, stats) {
 
     return `
       <tr class="telemetry-row" 
+          data-id="${inc.id}"
           data-status="${inc.status}" 
           data-target="${inc.target}" 
           data-domain="${inc.domain}" 
@@ -1319,9 +1322,25 @@ function generateTelemetryHtml(incidents, stats) {
             <option value="Financial">Financial Services &amp; Banking</option>
             <option value="Legal">Legal &amp; Law Firms</option>
             <option value="Technology">Technology &amp; Cloud</option>
-            <option value="Retail">Retail &amp; Consumer</option>
+            <option value="Government">Government &amp; Defense</option>
+            <option value="Critical Infrastructure">Critical Infrastructure &amp; Energy</option>
+            <option value="Retail">Retail &amp; Consumer Goods</option>
             <option value="Telecommunications">Telecommunications</option>
-            <option value="Food & Agriculture">Food &amp; Agriculture</option>
+            <option value="Education">Education &amp; Research</option>
+            <option value="Manufacturing">Manufacturing &amp; Industrial</option>
+          </select>
+        </div>
+
+        <div class="forensic-filter-group">
+          <label for="type-select" class="forensic-filter-label"><i class="fa-solid fa-crosshairs"></i> Type:</label>
+          <select id="type-select" class="forensic-select" aria-label="Filter by incident classification">
+            <option value="ALL">All Types</option>
+            <option value="Ransomware Extortion">Ransomware Extortion</option>
+            <option value="Zero-Day Exploitation">Zero-Day Exploitation</option>
+            <option value="Unauthorized Cloud Access">Unauthorized Cloud Access</option>
+            <option value="Supply Chain">Supply Chain &amp; Vendor</option>
+            <option value="Credential Stuffing">Credential Stuffing</option>
+            <option value="Network Intrusion">Network Intrusion &amp; Exfiltration</option>
           </select>
         </div>
 
@@ -1334,12 +1353,45 @@ function generateTelemetryHtml(incidents, stats) {
             <option value="Financial">Financial &amp; Banking</option>
             <option value="Credentials">Credentials &amp; Passwords</option>
             <option value="PII">Personal Identity (PII)</option>
+            <option value="Intellectual Property">Intellectual Property</option>
           </select>
         </div>
 
         <div class="forensic-filter-group">
-          <button id="btn-high-impact" class="filter-chip-btn" title="Filter to incidents with > 100,000 compromised records">
-            <i class="fa-solid fa-users-viewfinder"></i> &gt; 100K Records
+          <label for="filing-select" class="forensic-filter-label"><i class="fa-solid fa-building-columns"></i> Statutory Filing:</label>
+          <select id="filing-select" class="forensic-select" aria-label="Filter by regulatory filing">
+            <option value="ALL">All Filings</option>
+            <option value="SEC">SEC Form 8-K (Item 1.05)</option>
+            <option value="State AG">State AGs (CA, WA, OR)</option>
+            <option value="HHS">HHS OCR (HIPAA)</option>
+            <option value="CISA">CISA Directives &amp; KEV</option>
+          </select>
+        </div>
+
+        <div class="forensic-filter-group">
+          <label for="scope-select" class="forensic-filter-label"><i class="fa-solid fa-users"></i> Scope:</label>
+          <select id="scope-select" class="forensic-select" aria-label="Filter by affected records">
+            <option value="ALL">All Scopes</option>
+            <option value="DISCLOSED">Disclosed Records Only</option>
+            <option value="10K">&gt; 10K Records</option>
+            <option value="100K">&gt; 100K Records</option>
+            <option value="1M">&gt; 1M Records</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Export Toolbar Strip -->
+      <div class="telemetry-export-bar">
+        <div class="export-bar-left">
+          <span class="export-label"><i class="fa-solid fa-cloud-arrow-down text-cyan"></i> Data Export:</span>
+          <span id="export-count-badge" class="export-count-badge font-mono">${stats.total_incidents} records matching</span>
+        </div>
+        <div class="export-bar-actions">
+          <button id="btn-export-json" class="btn-export" title="Export currently filtered telemetry records to JSON">
+            <i class="fa-solid fa-file-code"></i> Export JSON
+          </button>
+          <button id="btn-export-csv" class="btn-export" title="Export currently filtered telemetry records to CSV">
+            <i class="fa-solid fa-file-csv"></i> Export CSV
           </button>
         </div>
       </div>

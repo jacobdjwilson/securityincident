@@ -1,0 +1,35 @@
+{
+  "_comment": "AI model hierarchy, task routing, and quota retry policies for securityincident.net",
+  "task_models": {
+    "summarization": {
+      "_comment": "Generates neutral, high-signal 1-2 sentence incident summaries from raw threat reports",
+      "primary": "gemini-2.5-flash",
+      "secondary": "gemini-1.5-flash",
+      "tertiary": "gemini-1.5-flash-8b"
+    },
+    "categorization": {
+      "_comment": "Classifies industry sector, attack vector classification, and forensic tags",
+      "primary": "gemini-2.5-flash",
+      "secondary": "gemini-1.5-flash",
+      "tertiary": "gemini-1.5-flash-8b"
+    },
+    "impact_extraction": {
+      "_comment": "Extracts quantified affected record counts and compromised data categories from unstructured text",
+      "primary": "gemini-2.5-flash",
+      "secondary": "gemini-1.5-flash",
+      "tertiary": "gemini-1.5-flash-8b"
+    }
+  },
+  "model_hierarchy": [
+    "gemini-2.5-flash",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-8b"
+  ],
+  "quota_retry_policy": {
+    "max_retries": 3,
+    "initial_delay_seconds": 2.0,
+    "backoff_multiplier": 2.0,
+    "max_delay_seconds": 30.0,
+    "exit_code_on_exhausted": 2
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "_comment": "Pipeline configuration and operational thresholds for securityincident.net",
+  "workflow": {
+    "name": "Automated Incident Telemetry Ingestion",
+    "cadence": "Every 6 hours",
+    "cache_dir": ".cache",
+    "ai_cache_file": ".cache/ai-cache.json",
+    "max_new_incidents_per_run": 50,
+    "max_ai_calls_per_run": 25,
+    "request_delay_seconds": 1.2,
+    "request_timeout_seconds": 15
+  },
+  "configurations": {
+    "summarization": {
+      "prompt_path": ".github/ai-prompts/summarize-incident.md",
+      "max_input_length_chars": 8000,
+      "max_output_tokens": 250,
+      "temperature": 0.2
+    },
+    "categorization": {
+      "prompt_path": ".github/ai-prompts/categorize-incident.md",
+      "max_output_tokens": 150,
+      "temperature": 0.1
+    },
+    "impact_extraction": {
+      "prompt_path": ".github/ai-prompts/extract-impact.md",
+      "max_output_tokens": 200,
+      "temperature": 0.1
+    }
+  },
+  "regulatory_invariance": {
+    "_comment": "Mandatory invariant: Regulatory filings must be parsed deterministically and never altered by AI generation.",
+    "protected_fields": [
+      "regulatory_filings",
+      "status",
+      "accession_number",
+      "filing_url"
+    ],
+    "require_primary_source_attribution": true
+  },
+  "export": {
+    "json_filename": "security-incidents-telemetry.json",
+    "csv_filename": "security-incidents-telemetry.csv",
+    "default_page_size": 50
+  },
+  "git_automation": {
+    "_comment": "Branching, PR labeling, and commit configuration for automated ingestion pipelines",
+    "branch_name": "telemetry/ingest-pending",
+    "target_branch": "main",
+    "pr_label": "telemetry",
+    "commit_author_name": "github-actions[bot]",
+    "commit_author_email": "41898282+github-actions[bot]@users.noreply.github.com",
+    "status_check_context": "validate-and-test",
+    "status_check_description": "Schema compliance and build verified in ingestion workflow"
+  }
+}

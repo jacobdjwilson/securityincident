@@ -41,8 +41,16 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Install Dependencies
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Node Dependencies
         run: npm ci
+
+      - name: Verify Agent Standards & Code Integrity Gate
+        run: python .github/scripts/verify_code_integrity.py
 
       - name: Restore Telemetry Feed Cache
         uses: actions/cache@v4
@@ -56,40 +64,19 @@ jobs:
         id: branch_sync
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.auto_merge }}" = "true" ]; then
-            echo "Direct publishing mode active (schedule or auto_merge)."
-            echo "mode=direct" >> "$GITHUB_OUTPUT"
-            echo "target_branch=main" >> "$GITHUB_OUTPUT"
-            git checkout main
-          else
-            echo "Pull request review mode active."
-            echo "mode=pr" >> "$GITHUB_OUTPUT"
-            BRANCH_NAME="telemetry/ingest-pending"
-            
-            # Check for existing open telemetry PR
-            EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number -q '.[0].number' || true)
-            if [ -n "$EXISTING_PR" ]; then
-              echo "Found existing open PR #$EXISTING_PR on branch $BRANCH_NAME"
-              echo "has_open_pr=true" >> "$GITHUB_OUTPUT"
-              echo "pr_number=$EXISTING_PR" >> "$GITHUB_OUTPUT"
-              git fetch origin "$BRANCH_NAME"
-              git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"
-              git merge origin/main --no-edit || true
-            else
-              echo "No open telemetry PR found. Working off clean main."
-              echo "has_open_pr=false" >> "$GITHUB_OUTPUT"
-              git checkout -B "$BRANCH_NAME"
-            fi
-            echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
-          fi
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+        run: python .github/scripts/git_ingest_publisher.py --sync ${{ inputs.auto_merge && '--auto-merge' || '' }}
 
       - name: Ingest Direct Raw Feeds & Regulatory Disclosures
         if: ${{ !inputs.reconcile_only }}
         run: npm run ingest
+
+      - name: AI Incident Telemetry Processing & Caching
+        if: ${{ !inputs.reconcile_only }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
+        run: python .github/scripts/ai_incident_processor.py
 
       - name: Downstream Reconciliation & Forensic Audit
         if: ${{ inputs.reconcile_only }}
@@ -106,88 +93,16 @@ jobs:
 
       - name: Check for Discovered Incidents or Updates
         id: git_status
-        run: |
-          if [ -n "$(git status --porcelain incidents/ sources/)" ]; then
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            echo "New or updated incidents or telemetry detected."
-          else
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "No new incident telemetry discovered in this cycle."
-          fi
+        run: python .github/scripts/git_ingest_publisher.py --check-changes
 
       - name: Publish or Propose Ingestion via Pull Request
         if: steps.git_status.outputs.has_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          CURRENT_DATE=$(date -u +"%Y-%m-%d")
-          MODE="${{ steps.branch_sync.outputs.mode }}"
-          
-          if [ "$MODE" = "direct" ]; then
-            echo "Directly publishing updates to main branch..."
-            git add incidents/ sources/
-            git commit -m "telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]"
-            git push origin main
-            echo "Successfully pushed ingestion updates to main. GitHub Pages deployment will trigger automatically."
-          else
-            BRANCH_NAME="${{ steps.branch_sync.outputs.branch_name }}"
-            HAS_OPEN_PR="${{ steps.branch_sync.outputs.has_open_pr }}"
-            PR_NUMBER="${{ steps.branch_sync.outputs.pr_number }}"
-            
-            # Capture list of modified or created dossiers before staging
-            CHANGED_SUMMARY=$(git status --porcelain incidents/ | sed 's/^.../* `/; s/$/`/')
-            
-            git add incidents/ sources/
-            git commit -m "telemetry(ingest): update security incident index [$CURRENT_DATE]"
-            
-            COMMIT_SHA=$(git rev-parse HEAD)
-            
-            # Immediately register status check so PR satisfies branch protection for 1-tap merge
-            gh api "repos/${{ github.repository }}/statuses/${COMMIT_SHA}" \
-              -f state="success" \
-              -f context="validate-and-test" \
-              -f description="Schema compliance and build verified in ingestion workflow" || true
-              
-            git push -u origin "$BRANCH_NAME" --force-with-lease || git push -u origin "$BRANCH_NAME"
-            
-            if [ "$HAS_OPEN_PR" = "true" ]; then
-              echo "Successfully updated existing telemetry PR #$PR_NUMBER"
-              gh pr edit "$PR_NUMBER" --title "telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]" || true
-            else
-              PR_TITLE="telemetry(ingest): automated incident intelligence update [$CURRENT_DATE]"
-              PR_BODY="### Automated Incident Telemetry Ingestion (Direct Raw Telemetry & Forensic Reconciliation)
-              
-This automated pull request was generated by the continuous threat feed, regulatory disclosure, and forensic reconciliation pipeline.
-
-#### Direct Raw Sources Audited:
-* 🏛️ **SEC EDGAR:** Form 8-K Item 1.05 Material Cybersecurity Incident Disclosures
-* ⚖️ **Multi-State AG Portals:** California DOJ (SB-24), Washington State AG (RCW 19.255), Oregon DOJ Consumer Breach Portal
-* 🏥 **HHS OCR:** Federal Healthcare Cybersecurity Breach Disclosures & HIPAA Telemetry
-* 🌐 **Dark Web Extortion Telemetry:** Ransomware group extortion disclosures & exfiltration claims
-* 📡 **Threat Intelligence:** Syndicated investigative technical telemetry & outage monitoring
-* 🔄 **Forensic Reconciliation:** Downstream cross-checking, affected records quantification & data classification
-
-#### Modified / Created Incident Dossiers:
-${CHANGED_SUMMARY}
-
-#### Verification & Quality Gates:
-* **Schema Validation:** Passed (\`npm test\` across all dossiers)
-* **Build Compilation:** Passed (\`npm run build\`)
-* **Open Weights Engine:** Computed deterministic confidence scores for all records
-* **Machine-Readable Syndication:** RSS 2.0 (\`dist/feed.xml\`) updated
-* **Status Check:** \`validate-and-test\` verified on commit
-
-*Ready for 1-tap review and merge via GitHub Mobile or Web.*"
-
-              gh pr create \
-                --title "$PR_TITLE" \
-                --body "$PR_BODY" \
-                --base main \
-                --head "$BRANCH_NAME" \
-                --label "telemetry" || {
-                  echo "::warning::PR creation via gh pr create failed. Changes remain available on branch $BRANCH_NAME"
-                }
-            fi
-          fi
-
-
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: >
+          python .github/scripts/git_ingest_publisher.py --publish
+          --mode "${{ steps.branch_sync.outputs.mode }}"
+          --branch-name "${{ steps.branch_sync.outputs.branch_name }}"
+          --has-open-pr "${{ steps.branch_sync.outputs.has_open_pr }}"
+          --pr-number "${{ steps.branch_sync.outputs.pr_number }}"

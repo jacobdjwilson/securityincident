@@ -44,6 +44,14 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify Agent Standards & Code Integrity Gate
+        run: python .github/scripts/verify_code_integrity.py
+
       - name: Validate Schema & Milestones
         run: npm test
 

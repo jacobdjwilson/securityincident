@@ -1,0 +1,69 @@
+{
+  "_comment": "Standardized cybersecurity taxonomy for sectors, attack vectors, data classes, and regulators",
+  "sectors": [
+    "Healthcare & Medical",
+    "Financial Services & Banking",
+    "Technology & Cloud Infrastructure",
+    "Legal & Professional Services",
+    "Government & Defense",
+    "Critical Infrastructure & Energy",
+    "Retail & Consumer Goods",
+    "Telecommunications & Media",
+    "Education & Research",
+    "Manufacturing & Industrial",
+    "Transportation & Logistics"
+  ],
+  "incident_types": [
+    "Ransomware Extortion",
+    "Zero-Day Exploitation & Remote Code Execution",
+    "Unauthorized Cloud Access & Storage Exfiltration",
+    "Supply Chain & Third-Party Vendor Compromise",
+    "Credential Stuffing & Identity Takeover",
+    "Network Intrusion & Data Exfiltration",
+    "Distributed Denial of Service (DDoS)",
+    "Business Email Compromise (BEC)"
+  ],
+  "compromised_data_classes": [
+    "Social Security Numbers (SSNs)",
+    "Protected Health Information (PHI)",
+    "Financial & Banking Account Details",
+    "Payment Card Information (PCI)",
+    "Driver's License & State ID Numbers",
+    "Authentication Credentials & Password Hashes",
+    "Customer Account & Contact Records",
+    "Proprietary Source Code & Intellectual Property",
+    "Internal Corporate Communications & Emails"
+  ],
+  "regulators": [
+    {
+      "name": "SEC",
+      "full_name": "U.S. Securities and Exchange Commission",
+      "filing_type": "Form 8-K (Item 1.05 Material Cybersecurity Incidents)"
+    },
+    {
+      "name": "CA DOJ",
+      "full_name": "California Department of Justice (SB-24)",
+      "filing_type": "State Breach Notification"
+    },
+    {
+      "name": "WA AG",
+      "full_name": "Washington State Attorney General (RCW 19.255)",
+      "filing_type": "State Breach Notification"
+    },
+    {
+      "name": "OR DOJ",
+      "full_name": "Oregon Department of Justice (ORS 646A.604)",
+      "filing_type": "State Breach Notification"
+    },
+    {
+      "name": "HHS OCR",
+      "full_name": "U.S. Department of Health and Human Services (Office for Civil Rights)",
+      "filing_type": "HIPAA Breach Portal Disclosure"
+    },
+    {
+      "name": "CISA",
+      "full_name": "Cybersecurity and Infrastructure Security Agency",
+      "filing_type": "Known Exploited Vulnerabilities (KEV) Directive"
+    }
+  ]
+}

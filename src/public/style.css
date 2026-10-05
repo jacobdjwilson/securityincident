@@ -2499,6 +2499,101 @@ a:hover {
   box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
 }
 
+.forensic-filter-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface-elevated);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.forensic-filter-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.forensic-filter-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Telemetry Export Bar */
+.telemetry-export-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(14, 18, 27, 0.75);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+[data-theme="light"] .telemetry-export-bar {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.export-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.export-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.export-count-badge {
+  font-size: 0.76rem;
+  color: var(--cyan-accent);
+  background: rgba(2, 132, 199, 0.12);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.export-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.btn-export {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-export:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--cyan-accent);
+  color: var(--cyan-accent);
+  transform: translateY(-1px);
+}
+
 /* Detail Page: Forensic Meta Sections */
 .forensic-meta-section {
   margin-top: 1.25rem;
