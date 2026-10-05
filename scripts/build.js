@@ -282,8 +282,7 @@ function renderHeader(isSubpage = false, activePage = 'feed') {
         <div class="brand-title">securityincident<span>.net</span></div>
       </a>
       <nav class="nav-links">
-        <a href="${prefix}" class="nav-link ${activePage === 'feed' ? 'active' : ''}"><i class="fa-solid fa-bolt-lightning"></i> Live Stream</a>
-        <a href="${prefix}telemetry.html" class="nav-link ${activePage === 'telemetry' ? 'active' : ''}"><i class="fa-solid fa-chart-line"></i> Telemetry &amp; Analytics</a>
+        <a href="${prefix}" class="nav-link ${activePage === 'incidents' ? 'active' : ''}"><i class="fa-solid fa-shield-halved"></i> Incidents</a>
         <a href="${prefix}status.html" class="nav-link nav-status ${activePage === 'status' ? 'active' : ''}" title="Automated Ingestion Pipeline &amp; Feed Health">
           <span class="status-pulse-dot"></span> Pipeline Status
         </a>
@@ -323,7 +322,6 @@ function renderFooter(isSubpage = false) {
       </div>
       <div class="footer-links">
         <a href="${prefix}status.html"><i class="fa-solid fa-circle-nodes" style="color: var(--status-confirmed);"></i> Ingestion Pipeline Status</a>
-        <a href="${prefix}telemetry.html"><i class="fa-solid fa-chart-line" style="color: var(--cyan-accent);"></i> Telemetry Deck</a>
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml"><i class="fa-solid fa-rss" style="color: var(--status-developing);"></i> RSS Feed</a>
         <a href="${prefix}about.html"><i class="fa-solid fa-shield-halved"></i> Verification Standards</a>
         <a href="${GITHUB_REPO_URL}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Audit on GitHub</a>
@@ -656,8 +654,8 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>securityincident.net | Real-Time Security Incident &amp; Threat Intelligence Stream</title>
-  <meta name="description" content="A neutral, high-signal stream tracking real-time status, breaking regulatory disclosures, and verified milestones for cybersecurity incidents across the open web.">
+  <title>securityincident.net | Verified Security Incident &amp; Threat Intelligence Index</title>
+  <meta name="description" content="A neutral, high-signal tracker of security incident statuses, verifiable milestone timelines, and primary regulatory disclosures.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
   <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
@@ -674,17 +672,17 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
     })();
   </script>
 </head>
-<body class="page-stream">
-  ${renderHeader(false, 'feed')}
+<body class="page-incidents">
+  ${renderHeader(false, 'incidents')}
 
   <main class="container feed-container">
-    <!-- Stream Hero Section -->
+    <!-- Incidents Hero Section -->
     <section class="feed-hero-section">
       <div class="feed-hero-content">
         <div class="feed-hero-badge">
-          <span class="live-dot-pulse"></span> LIVE CYBERSECURITY TELEMETRY STREAM
+          <span class="live-dot-pulse"></span> VERIFIED CYBERSECURITY INCIDENTS
         </div>
-        <h1 class="feed-hero-title">Real-Time Threat Intelligence &amp; Incident Stream</h1>
+        <h1 class="feed-hero-title">Security Incidents &amp; Threat Telemetry</h1>
         <p class="feed-hero-subtitle">
           Curated observable incident statuses, formal regulatory disclosures, and emerging threat actor claims indexed in real time across the open web.
         </p>
@@ -709,7 +707,7 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
       </div>
     </section>
 
-    <!-- Stream Controls & Search Bar -->
+    <!-- Controls & Search Bar -->
     <div class="feed-controls-panel">
       <!-- Search Input with Keyboard Shortcut -->
       <div class="search-wrapper">
@@ -729,11 +727,11 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
         <button class="qt-chip" data-topic="high-impact">#HighImpact (&gt;100K)</button>
       </div>
 
-      <!-- Stream Selector Tabs & Drawer Toggle Row -->
+      <!-- Incident Selector Tabs & Drawer Toggle Row -->
       <div class="feed-tabs-row">
         <div class="stream-tabs">
           <button class="stream-tab active" data-stream="trending">
-            <i class="fa-solid fa-fire text-amber"></i> Trending Now
+            <i class="fa-solid fa-fire text-amber"></i> Trending Incidents
           </button>
           <button class="stream-tab" data-stream="emerging">
             <i class="fa-solid fa-bolt text-rose"></i> Emerging Claims <span class="stream-tab-count">${stats.status_distribution.EMERGING}</span>
@@ -742,34 +740,28 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
             <i class="fa-solid fa-circle-check text-emerald"></i> Confirmed Disclosures <span class="stream-tab-count">${stats.status_distribution.CONFIRMED}</span>
           </button>
           <button class="stream-tab" data-stream="all">
-            <i class="fa-solid fa-clock-rotate-left"></i> All Live Feed <span class="stream-tab-count">${stats.total_incidents}</span>
+            <i class="fa-solid fa-shield-halved"></i> All Incidents <span class="stream-tab-count">${stats.total_incidents}</span>
           </button>
         </div>
 
         <div class="feed-actions-group">
           <!-- Toggle Drawer Button -->
-          <button id="btn-toggle-drawer" class="btn-toggle-drawer" aria-expanded="false" title="Expand granular filters and quick stats">
+          <button id="btn-toggle-drawer" class="btn-toggle-drawer" aria-expanded="false" title="Expand granular filters and export data">
             <i class="fa-solid fa-sliders"></i>
-            <span>Filters &amp; Quick Stats</span>
+            <span>Filters &amp; Export</span>
             <span id="drawer-active-count" class="badge-active-count" style="display: none;">0</span>
             <i class="fa-solid fa-chevron-down drawer-chevron"></i>
           </button>
-
-          <!-- Direct Link to Dedicated Telemetry Page -->
-          <a href="telemetry.html" class="btn-telemetry-link" title="Full Telemetry &amp; Analytics Deck">
-            <i class="fa-solid fa-chart-line"></i>
-            <span>Telemetry Deck</span>
-          </a>
         </div>
       </div>
 
-      <!-- Expandable Filters & Quick Telemetry Drawer -->
+      <!-- Expandable Filters & Data Export Drawer -->
       <div id="telemetry-drawer" class="telemetry-drawer" style="display: none;">
         <div class="drawer-inner">
           <div class="drawer-header">
             <div class="dh-title-group">
-              <span class="drawer-title"><i class="fa-solid fa-sliders"></i> Granular Filters &amp; Triage</span>
-              <span class="drawer-sub">Filter feed by observable ground-truth status, sector, compromised data class, or impact.</span>
+              <span class="drawer-title"><i class="fa-solid fa-sliders"></i> Intelligent Filters &amp; Data Export</span>
+              <span class="drawer-sub">Filter incidents by observable ground-truth status, sector, attack classification, compromised data class, or scope.</span>
             </div>
             <button id="btn-close-drawer" class="btn-close-drawer" title="Close drawer"><i class="fa-solid fa-xmark"></i></button>
           </div>
@@ -792,33 +784,72 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
             <div class="drawer-section drawer-controls-grid">
               <div class="drawer-field">
                 <label for="sector-select" class="drawer-label"><i class="fa-solid fa-industry"></i> Industry Sector:</label>
-                <select id="sector-select" class="forensic-select">
+                <select id="sector-select" class="forensic-select" aria-label="Filter by industry sector">
                   <option value="ALL">All Sectors</option>
                   <option value="Healthcare">Healthcare &amp; Medical</option>
                   <option value="Financial">Financial Services &amp; Banking</option>
                   <option value="Legal">Legal &amp; Law Firms</option>
                   <option value="Technology">Technology &amp; Cloud</option>
-                  <option value="Retail">Retail &amp; Consumer</option>
+                  <option value="Government">Government &amp; Defense</option>
+                  <option value="Critical Infrastructure">Critical Infrastructure &amp; Energy</option>
+                  <option value="Retail">Retail &amp; Consumer Goods</option>
                   <option value="Telecommunications">Telecommunications</option>
-                  <option value="Food & Agriculture">Food &amp; Agriculture</option>
+                  <option value="Education">Education &amp; Research</option>
+                  <option value="Manufacturing">Manufacturing &amp; Industrial</option>
+                </select>
+              </div>
+
+              <div class="drawer-field">
+                <label for="type-select" class="drawer-label"><i class="fa-solid fa-crosshairs"></i> Incident Type:</label>
+                <select id="type-select" class="forensic-select" aria-label="Filter by incident classification">
+                  <option value="ALL">All Types</option>
+                  <option value="Ransomware Extortion">Ransomware Extortion</option>
+                  <option value="Zero-Day Exploitation">Zero-Day Exploitation</option>
+                  <option value="Unauthorized Cloud Access">Unauthorized Cloud Access</option>
+                  <option value="Supply Chain">Supply Chain &amp; Vendor</option>
+                  <option value="Credential Stuffing">Credential Stuffing</option>
+                  <option value="Network Intrusion">Network Intrusion &amp; Exfiltration</option>
                 </select>
               </div>
 
               <div class="drawer-field">
                 <label for="data-type-select" class="drawer-label"><i class="fa-solid fa-file-shield"></i> Compromised Data Class:</label>
-                <select id="data-type-select" class="forensic-select">
+                <select id="data-type-select" class="forensic-select" aria-label="Filter by compromised data class">
                   <option value="ALL">All Data Classes</option>
                   <option value="SSN">Social Security (SSN)</option>
                   <option value="PHI">Protected Health (PHI)</option>
                   <option value="Financial">Financial &amp; Banking</option>
                   <option value="Credentials">Credentials &amp; Passwords</option>
                   <option value="PII">Personal Identity (PII)</option>
+                  <option value="Intellectual Property">Intellectual Property</option>
+                </select>
+              </div>
+
+              <div class="drawer-field">
+                <label for="filing-select" class="drawer-label"><i class="fa-solid fa-landmark"></i> Statutory Regulatory Filing:</label>
+                <select id="filing-select" class="forensic-select" aria-label="Filter by regulatory filing">
+                  <option value="ALL">All Filings</option>
+                  <option value="SEC">SEC Form 8-K (Item 1.05)</option>
+                  <option value="State AG">State AGs (CA, WA, OR)</option>
+                  <option value="HHS">HHS OCR (HIPAA)</option>
+                  <option value="CISA">CISA Directives &amp; KEV</option>
+                </select>
+              </div>
+
+              <div class="drawer-field">
+                <label for="scope-select" class="drawer-label"><i class="fa-solid fa-users"></i> Scope Filter:</label>
+                <select id="scope-select" class="forensic-select" aria-label="Filter by affected records scope">
+                  <option value="ALL">All Scopes</option>
+                  <option value="DISCLOSED">Disclosed Records Only</option>
+                  <option value="10K">&gt; 10K Records</option>
+                  <option value="100K">&gt; 100K Records</option>
+                  <option value="1M">&gt; 1M Records</option>
                 </select>
               </div>
 
               <div class="drawer-field">
                 <label for="sort-select" class="drawer-label"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort Order:</label>
-                <select id="sort-select" class="sort-select">
+                <select id="sort-select" class="sort-select" aria-label="Sort order">
                   <option value="recent">Latest Milestone Update</option>
                   <option value="affected">Highest Impact (Records)</option>
                   <option value="confidence">Highest Confidence</option>
@@ -828,7 +859,7 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
               </div>
 
               <div class="drawer-field">
-                <label class="drawer-label"><i class="fa-solid fa-users-viewfinder"></i> Scope Filter:</label>
+                <label class="drawer-label"><i class="fa-solid fa-triangle-exclamation"></i> Quick Scope:</label>
                 <button id="btn-high-impact" class="filter-chip-btn" title="Filter to incidents with > 100,000 compromised records">
                   <i class="fa-solid fa-triangle-exclamation"></i> &gt; 100K Records Disclosed
                 </button>
@@ -836,12 +867,20 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
             </div>
           </div>
 
-          <div class="drawer-footer-callout">
-            <div class="dfc-text">
-              <i class="fa-solid fa-chart-pie text-cyan"></i>
-              <span>Looking for deep interactive histograms, multi-source distributions, and full-screen spreadsheet triage?</span>
+          <!-- Data Export Toolbar in Drawer -->
+          <div class="telemetry-export-bar drawer-export-bar">
+            <div class="export-bar-left">
+              <span class="export-label"><i class="fa-solid fa-cloud-arrow-down text-cyan"></i> Export Incidents:</span>
+              <span id="export-count-badge" class="export-count-badge font-mono">${stats.total_incidents} records matching</span>
             </div>
-            <a href="telemetry.html" class="drawer-telemetry-btn">Open Telemetry Analytics Deck <i class="fa-solid fa-arrow-right"></i></a>
+            <div class="export-bar-actions">
+              <button id="btn-export-json" class="btn-export" title="Export currently filtered incidents to JSON">
+                <i class="fa-solid fa-file-code"></i> Export JSON
+              </button>
+              <button id="btn-export-csv" class="btn-export" title="Export currently filtered incidents to CSV">
+                <i class="fa-solid fa-file-csv"></i> Export CSV
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -888,560 +927,6 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
     <i class="fa-solid fa-circle-check text-confirmed"></i>
     <span id="toast-message">Link copied to clipboard!</span>
   </div>
-
-  <script src="app.js"></script>
-</body>
-</html>`;
-}
-
-function generateTelemetryHtml(incidents, stats) {
-  const counts = {
-    ALL: incidents.length,
-    CONFIRMED: incidents.filter(i => i.status === 'CONFIRMED').length,
-    ACKNOWLEDGED: incidents.filter(i => i.status === 'ACKNOWLEDGED').length,
-    DEVELOPING: incidents.filter(i => i.status === 'DEVELOPING').length,
-    EMERGING: incidents.filter(i => i.status === 'EMERGING').length,
-    REFUTED: incidents.filter(i => i.status === 'REFUTED').length
-  };
-
-  const cardsHtml = incidents.map(inc => {
-    const latestMilestone = inc.milestones && inc.milestones.length > 0 ? inc.milestones[0] : null;
-    const actorHtml = inc.threat_actor && inc.threat_actor !== 'Unknown' && inc.threat_actor !== 'Unattributed'
-      ? `<span class="footer-actor"><i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}</span>`
-      : '';
-    const conf = inc.confidence || { confidencePercent: 20, badgeClass: 'emerging', uniqueSourcesCount: 1, topTier: 'UNVERIFIED CLAIM' };
-    const month = (inc.first_seen || inc.last_updated || '').slice(0, 7);
-    const affectedFormatted = formatAffectedCount(inc.affected_records);
-
-    return `
-      <a href="incidents/${inc.id}.html" class="incident-card" 
-         data-id="${inc.id}"
-         data-status="${inc.status}" 
-         data-target="${inc.target}" 
-         data-domain="${inc.domain}" 
-         data-industry="${inc.industry || ''}"
-         data-type="${inc.incident_type || ''}"
-         data-affected="${inc.affected_records || 0}"
-         data-compromised="${(inc.compromised_data || []).join(' ')}"
-         data-filings="${(inc.regulatory_filings || []).map(f => f.regulator).join(' ')}"
-         data-summary="${escapeXml(inc.summary)}" 
-         data-actor="${inc.threat_actor || ''}" 
-         data-tags="${(inc.tags || []).join(' ')}"
-         data-confidence="${conf.confidencePercent}"
-         data-updated="${inc.last_updated || ''}"
-         data-first-seen="${inc.first_seen || ''}"
-         data-month="${month}"
-         data-milestones="${inc.milestones.length}">
-        <div class="card-top">
-          <div class="card-title-group">
-            <h2 class="card-target-name">${inc.target}</h2>
-            <span class="card-domain">${inc.domain}</span>
-          </div>
-          <div class="card-status-cluster">
-            ${getStatusBadgeHtml(inc.status)}
-          </div>
-        </div>
-
-        <div class="card-forensic-tags">
-          ${inc.industry ? `<span class="card-tag card-tag-industry"><i class="fa-solid fa-industry"></i> ${inc.industry}</span>` : ''}
-          ${inc.incident_type ? `<span class="card-tag card-tag-type"><i class="fa-solid fa-crosshairs"></i> ${inc.incident_type}</span>` : ''}
-          ${inc.affected_records ? `<span class="card-tag card-tag-affected font-mono" title="${Number(inc.affected_records).toLocaleString()} records affected"><i class="fa-solid fa-users"></i> ${affectedFormatted} records</span>` : ''}
-          ${inc.compromised_data && inc.compromised_data.length > 0 ? `<span class="card-tag card-tag-compromised" title="Compromised data classes"><i class="fa-solid fa-file-shield"></i> ${inc.compromised_data[0]}${inc.compromised_data.length > 1 ? ` +${inc.compromised_data.length - 1}` : ''}</span>` : ''}
-          ${inc.regulatory_filings && inc.regulatory_filings.length > 0 ? `<span class="card-tag card-tag-filing" title="Statutory filing on record"><i class="fa-solid fa-landmark"></i> ${inc.regulatory_filings[0].regulator}</span>` : ''}
-        </div>
-
-        <div class="card-confidence-bar-wrap" title="Open Weights Confidence Score: ${conf.confidencePercent}% (${conf.topTier})">
-          <div class="card-confidence-meter">
-            <div class="confidence-fill ${conf.badgeClass}" style="width: ${conf.confidencePercent}%;"></div>
-          </div>
-          <div class="card-confidence-meta">
-            <span class="confidence-badge ${conf.badgeClass}">
-              <i class="fa-solid fa-shield-halved"></i> ${conf.confidencePercent}% Confidence
-            </span>
-            <span class="sources-count-badge" title="${conf.uniqueSourcesCount} independent domain(s) corroborated">
-              <i class="fa-solid fa-network-wired"></i> ${conf.uniqueSourcesCount} source${conf.uniqueSourcesCount === 1 ? '' : 's'}
-            </span>
-          </div>
-        </div>
-
-        <p class="card-summary">${inc.summary}</p>
-
-        ${latestMilestone ? `
-        <div class="card-milestone-preview">
-          <div class="label"><i class="fa-solid fa-clock-rotate-left"></i> Latest Milestone &bull; ${latestMilestone.time}</div>
-          <div class="text">${latestMilestone.event}</div>
-        </div>
-        ` : ''}
-
-        <div class="card-footer">
-          <div class="footer-left">
-            <span><i class="fa-solid fa-timeline"></i> ${inc.milestones.length} milestone${inc.milestones.length === 1 ? '' : 's'}</span>
-            <span><i class="fa-regular fa-clock"></i> ${inc.last_updated}</span>
-            ${actorHtml}
-          </div>
-          <span class="view-link">Dossier <i class="fa-solid fa-arrow-right"></i></span>
-        </div>
-      </a>
-    `;
-  }).join('\n');
-
-  const tableRowsHtml = incidents.map(inc => {
-    const conf = inc.confidence || { confidencePercent: 20, badgeClass: 'emerging', uniqueSourcesCount: 1 };
-    const month = (inc.first_seen || inc.last_updated || '').slice(0, 7);
-    const affectedFormatted = formatAffectedCount(inc.affected_records);
-
-    return `
-      <tr class="telemetry-row" 
-          data-id="${inc.id}"
-          data-status="${inc.status}" 
-          data-target="${inc.target}" 
-          data-domain="${inc.domain}" 
-          data-industry="${inc.industry || ''}"
-          data-type="${inc.incident_type || ''}"
-          data-affected="${inc.affected_records || 0}"
-          data-compromised="${(inc.compromised_data || []).join(' ')}"
-          data-filings="${(inc.regulatory_filings || []).map(f => f.regulator).join(' ')}"
-          data-summary="${escapeXml(inc.summary)}" 
-          data-actor="${inc.threat_actor || ''}" 
-          data-tags="${(inc.tags || []).join(' ')}"
-          data-confidence="${conf.confidencePercent}"
-          data-updated="${inc.last_updated || ''}"
-          data-first-seen="${inc.first_seen || ''}"
-          data-month="${month}"
-          data-milestones="${inc.milestones.length}">
-        <td class="col-target">
-          <a href="incidents/${inc.id}.html" class="table-target-name">${inc.target}</a>
-          <span class="table-target-domain">${inc.domain}</span>
-        </td>
-        <td class="col-status">${getStatusBadgeHtml(inc.status)}</td>
-        <td class="col-industry"><span class="table-industry-tag">${inc.industry || 'Enterprise'}</span></td>
-        <td class="col-type"><span class="table-type-tag">${inc.incident_type || 'Unauthorized Access'}</span></td>
-        <td class="col-affected font-mono">${inc.affected_records ? `<span class="table-affected-tag font-mono" title="${Number(inc.affected_records).toLocaleString()} records affected">${affectedFormatted}</span>` : '<span class="text-muted font-mono">—</span>'}</td>
-        <td class="col-confidence">
-          <div class="table-conf-cell">
-            <span class="confidence-badge ${conf.badgeClass}"><i class="fa-solid fa-shield-halved"></i> ${conf.confidencePercent}%</span>
-            <span class="table-source-count">${conf.uniqueSourcesCount} src</span>
-          </div>
-        </td>
-        <td class="col-actor font-mono">${inc.threat_actor && inc.threat_actor !== 'Unknown' && inc.threat_actor !== 'Unattributed' ? `<i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}` : '<span class="text-muted">—</span>'}</td>
-        <td class="col-date font-mono">${inc.last_updated}</td>
-        <td class="col-action">
-          <a href="incidents/${inc.id}.html" class="btn-table-dossier">Dossier <i class="fa-solid fa-arrow-right"></i></a>
-        </td>
-      </tr>
-    `;
-  }).join('\n');
-
-  // Maximums for relative chart bar widths
-  const maxStatusCount = Math.max(...Object.values(stats.status_distribution));
-  const maxVelocityCount = Math.max(...stats.velocity_timeline.map(v => v.count));
-  const maxSourceCount = Math.max(...stats.source_categories.map(s => s.count));
-  const maxSectorCount = Math.max(...stats.top_sectors.map(s => s.count));
-
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telemetry Analytics Deck &amp; Data Index | securityincident.net</title>
-  <meta name="description" content="Comprehensive cybersecurity telemetry analytics, status breakdowns, velocity distributions, and dense triage tables across all indexed security incidents.">
-  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-  <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
-  <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script src="fontawesome.js"></script>
-  <script>
-    (function() {
-      const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = saved || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
-</head>
-<body class="page-telemetry">
-  ${renderHeader(false, 'telemetry')}
-
-  <main class="container">
-    <div class="page-title-banner">
-      <div class="ptb-text">
-        <h1 class="page-main-title"><i class="fa-solid fa-chart-line text-cyan"></i> Telemetry Analytics Deck</h1>
-        <p class="page-main-subtitle">Interactive distributions across observable status, regulatory filings, ingestion velocity, and targeted sectors.</p>
-      </div>
-      <a href="./" class="btn-back-stream"><i class="fa-solid fa-bolt-lightning"></i> Return to Live Stream</a>
-    </div>
-
-    <!-- Top Telemetry Strip -->
-    <section class="telemetry-bar">
-      <div class="telemetry-metric">
-        <span class="tm-label">Indexed Incidents</span>
-        <span class="tm-val">${stats.total_incidents}</span>
-        <span class="tm-sub font-mono"><i class="fa-solid fa-arrow-trend-up text-cyan"></i> +${stats.active_90d_count} active (90d)</span>
-      </div>
-      <div class="telemetry-divider"></div>
-      <div class="telemetry-metric">
-        <span class="tm-label">Confirmed Assurance</span>
-        <span class="tm-val text-confirmed">${stats.confirmed_percent}%</span>
-        <span class="tm-sub">${stats.status_distribution.CONFIRMED} Statutory Disclosures</span>
-      </div>
-      <div class="telemetry-divider"></div>
-      <div class="telemetry-metric">
-        <span class="tm-label">Disclosed Impact</span>
-        <span class="tm-val text-developing">${formatAffectedCount(stats.total_affected_records)}+</span>
-        <span class="tm-sub font-mono">${stats.incidents_with_affected} Disclosed Scopes</span>
-      </div>
-      <div class="telemetry-divider"></div>
-      <div class="telemetry-metric">
-        <span class="tm-label">Cross-Domain Corroboration</span>
-        <span class="tm-val text-cyan">${stats.corroborated_percent}%</span>
-        <span class="tm-sub">${stats.corroborated_count} Multi-Source Events</span>
-      </div>
-      <div class="telemetry-divider"></div>
-      <div class="telemetry-metric">
-        <span class="tm-label">Mean Confidence Score</span>
-        <span class="tm-val text-developing">${stats.avg_confidence}%</span>
-        <span class="tm-sub">Deterministic Open Weights</span>
-      </div>
-    </section>
-
-    <!-- Interactive Data-Driven Telemetry Charts Deck -->
-    <section class="charts-section">
-      <div class="charts-section-header">
-        <div class="csh-title-group">
-          <h2 class="csh-title"><i class="fa-solid fa-chart-pie"></i> Visual Threat Distribution Deck</h2>
-          <span class="csh-desc">Click any chart bar to immediately filter the dataset below.</span>
-        </div>
-      </div>
-
-      <div class="charts-grid">
-        <!-- Chart 1: Status & Assurance Breakdown -->
-        <div class="chart-card">
-          <div class="chart-header">
-            <span class="chart-title"><i class="fa-solid fa-chart-pie"></i> Observable Status Breakdown</span>
-            <span class="chart-action-hint">Click status to filter</span>
-          </div>
-          <div class="chart-hbars">
-            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="CONFIRMED" title="Filter by CONFIRMED">
-              <span class="hbar-label"><span class="dot dot-confirmed"></span> Confirmed</span>
-              <div class="hbar-track">
-                <div class="hbar-fill bar-confirmed" style="width: ${(stats.status_distribution.CONFIRMED / maxStatusCount * 100).toFixed(1)}%;"></div>
-              </div>
-              <span class="hbar-value font-mono">${stats.status_distribution.CONFIRMED} <small>(${(stats.status_distribution.CONFIRMED / stats.total_incidents * 100).toFixed(0)}%)</small></span>
-            </div>
-            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="DEVELOPING" title="Filter by DEVELOPING">
-              <span class="hbar-label"><span class="dot dot-developing"></span> Developing</span>
-              <div class="hbar-track">
-                <div class="hbar-fill bar-developing" style="width: ${(stats.status_distribution.DEVELOPING / maxStatusCount * 100).toFixed(1)}%;"></div>
-              </div>
-              <span class="hbar-value font-mono">${stats.status_distribution.DEVELOPING} <small>(${(stats.status_distribution.DEVELOPING / stats.total_incidents * 100).toFixed(0)}%)</small></span>
-            </div>
-            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="EMERGING" title="Filter by EMERGING">
-              <span class="hbar-label"><span class="dot dot-emerging"></span> Emerging</span>
-              <div class="hbar-track">
-                <div class="hbar-fill bar-emerging" style="width: ${(stats.status_distribution.EMERGING / maxStatusCount * 100).toFixed(1)}%;"></div>
-              </div>
-              <span class="hbar-value font-mono">${stats.status_distribution.EMERGING} <small>(${(stats.status_distribution.EMERGING / stats.total_incidents * 100).toFixed(0)}%)</small></span>
-            </div>
-            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="ACKNOWLEDGED" title="Filter by ACKNOWLEDGED">
-              <span class="hbar-label"><span class="dot dot-acknowledged"></span> Acknowledged</span>
-              <div class="hbar-track">
-                <div class="hbar-fill bar-acknowledged" style="width: Math.max(4, ${(stats.status_distribution.ACKNOWLEDGED / maxStatusCount * 100).toFixed(1)})%;"></div>
-              </div>
-              <span class="hbar-value font-mono">${stats.status_distribution.ACKNOWLEDGED} <small>(${(stats.status_distribution.ACKNOWLEDGED / stats.total_incidents * 100).toFixed(0)}%)</small></span>
-            </div>
-            <div class="chart-hbar-row chart-click-filter" data-chart-type="status" data-chart-val="REFUTED" title="Filter by REFUTED">
-              <span class="hbar-label"><span class="dot dot-refuted"></span> Refuted</span>
-              <div class="hbar-track">
-                <div class="hbar-fill bar-refuted" style="width: Math.max(4, ${(stats.status_distribution.REFUTED / maxStatusCount * 100).toFixed(1)})%;"></div>
-              </div>
-              <span class="hbar-value font-mono">${stats.status_distribution.REFUTED} <small>(${(stats.status_distribution.REFUTED / stats.total_incidents * 100).toFixed(0)}%)</small></span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Chart 2: Ingestion & Incident Velocity Timeline -->
-        <div class="chart-card">
-          <div class="chart-header">
-            <span class="chart-title"><i class="fa-solid fa-chart-column"></i> Ingestion Velocity Timeline</span>
-            <span class="chart-action-hint">Click month to filter</span>
-          </div>
-          <div class="chart-vbars">
-            ${stats.velocity_timeline.map(v => {
-              const heightPct = Math.round((v.count / maxVelocityCount) * 100);
-              return `
-              <div class="vbar-col chart-click-filter" data-chart-type="month" data-chart-val="${v.month}" title="Filter by ${v.label}">
-                <span class="vbar-count font-mono">${v.count}</span>
-                <div class="vbar-track">
-                  <div class="vbar-fill" style="height: ${heightPct}%;"></div>
-                </div>
-                <span class="vbar-label">${v.label}</span>
-              </div>`;
-            }).join('\n')}
-          </div>
-        </div>
-
-        <!-- Chart 3: Primary Regulatory & Intelligence Sources -->
-        <div class="chart-card">
-          <div class="chart-header">
-            <span class="chart-title"><i class="fa-solid fa-landmark"></i> Primary Regulatory &amp; Telemetry Sources</span>
-            <span class="chart-action-hint">Click source to filter</span>
-          </div>
-          <div class="chart-hbars">
-            ${stats.source_categories.map(s => {
-              const widthPct = Math.round((s.count / maxSourceCount) * 100);
-              let chipVal = 'state-ag';
-              let barClass = 'bar-cyan';
-              if (s.label.includes('8-K')) { chipVal = 'sec-8k'; barClass = 'bar-confirmed'; }
-              else if (s.label.includes('HHS OCR')) { chipVal = 'hhs-ocr'; barClass = 'bar-cyan'; }
-              else if (s.label.includes('Dark Web') || s.label.includes('Extortion')) { chipVal = 'extortion'; barClass = 'bar-emerging'; }
-              else if (s.label.includes('Investigative')) { chipVal = 'investigative'; barClass = 'bar-cyan'; }
-              else if (s.label.includes('Technical')) { chipVal = 'outage'; barClass = 'bar-developing'; }
-              return `
-              <div class="chart-hbar-row chart-click-filter" data-chart-type="source" data-chart-val="${chipVal}" title="Filter by ${s.label}">
-                <span class="hbar-label">${s.label}</span>
-                <div class="hbar-track">
-                  <div class="hbar-fill ${barClass}" style="width: ${widthPct}%;"></div>
-                </div>
-                <span class="hbar-value font-mono">${s.count}</span>
-              </div>`;
-            }).join('\n')}
-          </div>
-        </div>
-
-        <!-- Chart 4: Targeted Industry Sectors -->
-        <div class="chart-card">
-          <div class="chart-header">
-            <span class="chart-title"><i class="fa-solid fa-industry"></i> Targeted Industry Sectors</span>
-            <span class="chart-action-hint">Click sector to filter</span>
-          </div>
-          <div class="chart-hbars">
-            ${stats.top_sectors.slice(0, 5).map(s => {
-              const widthPct = Math.round((s.count / maxSectorCount) * 100);
-              return `
-              <div class="chart-hbar-row chart-click-filter" data-chart-type="sector" data-chart-val="${s.key}" title="Filter by ${s.label}">
-                <span class="hbar-label">${s.label}</span>
-                <div class="hbar-track">
-                  <div class="hbar-fill bar-orange" style="width: ${widthPct}%;"></div>
-                </div>
-                <span class="hbar-value font-mono">${s.count}</span>
-              </div>`;
-            }).join('\n')}
-          </div>
-        </div>
-      </div>
-
-      <!-- Active Filter Banner (Visible when any filter is engaged) -->
-      <div id="active-filter-bar" class="active-filter-bar" style="display: none;">
-        <div class="af-left">
-          <span class="af-icon"><i class="fa-solid fa-filter"></i></span>
-          <span class="af-text">Active Filter:</span>
-          <span id="active-filter-pill" class="active-filter-pill">None</span>
-        </div>
-        <button id="btn-clear-filter" class="btn-clear-filter" title="Reset all filters">
-          <i class="fa-solid fa-xmark"></i> Clear Filter
-        </button>
-      </div>
-    </section>
-
-    <!-- Anchors & Controls Bar -->
-    <div id="incidents-anchor"></div>
-    <div class="controls-bar">
-      <div class="search-wrapper">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="search-input" class="search-input" placeholder="Search by organization, domain, threat actor, or keyword..." autocomplete="off">
-        <span class="search-kbd">/</span>
-      </div>
-
-      <div class="controls-action-row">
-        <div class="filter-pills">
-          <button class="filter-btn active" data-filter="ALL">
-            All <span class="filter-count">${counts.ALL}</span>
-          </button>
-          <button class="filter-btn" data-filter="CONFIRMED">
-            <span class="status-dot-indicator confirmed"></span> Confirmed <span class="filter-count">${counts.CONFIRMED}</span>
-          </button>
-          <button class="filter-btn" data-filter="ACKNOWLEDGED">
-            <span class="status-dot-indicator acknowledged"></span> Acknowledged <span class="filter-count">${counts.ACKNOWLEDGED}</span>
-          </button>
-          <button class="filter-btn" data-filter="DEVELOPING">
-            <span class="status-dot-indicator developing"></span> Developing <span class="filter-count">${counts.DEVELOPING}</span>
-          </button>
-          <button class="filter-btn" data-filter="EMERGING">
-            <span class="status-dot-indicator emerging"></span> Emerging <span class="filter-count">${counts.EMERGING}</span>
-          </button>
-          <button class="filter-btn" data-filter="REFUTED">
-            <span class="status-dot-indicator refuted"></span> Refuted <span class="filter-count">${counts.REFUTED}</span>
-          </button>
-        </div>
-
-        <div class="controls-right-group">
-          <!-- View Toggle: Cards vs Table -->
-          <div class="view-toggle-wrap">
-            <button id="btn-view-cards" class="view-btn" title="Card Grid View">
-              <i class="fa-solid fa-table-cells-large"></i> Cards
-            </button>
-            <button id="btn-view-table" class="view-btn active" title="Dense Telemetry Table View">
-              <i class="fa-solid fa-table-list"></i> Table
-            </button>
-          </div>
-
-          <!-- Sort Select -->
-          <div class="sort-wrapper">
-            <label for="sort-select" class="sort-label"><i class="fa-solid fa-arrow-down-short-wide"></i></label>
-            <select id="sort-select" class="sort-select" aria-label="Sort security incidents">
-              <option value="recent">Latest Update</option>
-              <option value="affected">Highest Impact (Records)</option>
-              <option value="confidence">Highest Confidence</option>
-              <option value="first_seen">First Seen</option>
-              <option value="milestones">Most Milestones</option>
-            </select>
-          </div>
-
-          <!-- Page Size Select -->
-          <div class="page-size-wrap">
-            <label for="page-size-select" class="sort-label"><i class="fa-solid fa-list-ol"></i></label>
-            <select id="page-size-select" class="sort-select" aria-label="Items per page">
-              <option value="20">20 / page</option>
-              <option value="50" selected>50 / page</option>
-              <option value="100">100 / page</option>
-              <option value="all">All</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Forensic & Sector Filtering Strip -->
-      <div class="forensic-filter-row">
-        <div class="forensic-filter-group">
-          <label for="sector-select" class="forensic-filter-label"><i class="fa-solid fa-industry"></i> Sector:</label>
-          <select id="sector-select" class="forensic-select" aria-label="Filter by industry sector">
-            <option value="ALL">All Sectors</option>
-            <option value="Healthcare">Healthcare &amp; Medical</option>
-            <option value="Financial">Financial Services &amp; Banking</option>
-            <option value="Legal">Legal &amp; Law Firms</option>
-            <option value="Technology">Technology &amp; Cloud</option>
-            <option value="Government">Government &amp; Defense</option>
-            <option value="Critical Infrastructure">Critical Infrastructure &amp; Energy</option>
-            <option value="Retail">Retail &amp; Consumer Goods</option>
-            <option value="Telecommunications">Telecommunications</option>
-            <option value="Education">Education &amp; Research</option>
-            <option value="Manufacturing">Manufacturing &amp; Industrial</option>
-          </select>
-        </div>
-
-        <div class="forensic-filter-group">
-          <label for="type-select" class="forensic-filter-label"><i class="fa-solid fa-crosshairs"></i> Type:</label>
-          <select id="type-select" class="forensic-select" aria-label="Filter by incident classification">
-            <option value="ALL">All Types</option>
-            <option value="Ransomware Extortion">Ransomware Extortion</option>
-            <option value="Zero-Day Exploitation">Zero-Day Exploitation</option>
-            <option value="Unauthorized Cloud Access">Unauthorized Cloud Access</option>
-            <option value="Supply Chain">Supply Chain &amp; Vendor</option>
-            <option value="Credential Stuffing">Credential Stuffing</option>
-            <option value="Network Intrusion">Network Intrusion &amp; Exfiltration</option>
-          </select>
-        </div>
-
-        <div class="forensic-filter-group">
-          <label for="data-type-select" class="forensic-filter-label"><i class="fa-solid fa-file-shield"></i> Data Type:</label>
-          <select id="data-type-select" class="forensic-select" aria-label="Filter by compromised data class">
-            <option value="ALL">All Data Classes</option>
-            <option value="SSN">Social Security (SSN)</option>
-            <option value="PHI">Protected Health (PHI)</option>
-            <option value="Financial">Financial &amp; Banking</option>
-            <option value="Credentials">Credentials &amp; Passwords</option>
-            <option value="PII">Personal Identity (PII)</option>
-            <option value="Intellectual Property">Intellectual Property</option>
-          </select>
-        </div>
-
-        <div class="forensic-filter-group">
-          <label for="filing-select" class="forensic-filter-label"><i class="fa-solid fa-building-columns"></i> Statutory Filing:</label>
-          <select id="filing-select" class="forensic-select" aria-label="Filter by regulatory filing">
-            <option value="ALL">All Filings</option>
-            <option value="SEC">SEC Form 8-K (Item 1.05)</option>
-            <option value="State AG">State AGs (CA, WA, OR)</option>
-            <option value="HHS">HHS OCR (HIPAA)</option>
-            <option value="CISA">CISA Directives &amp; KEV</option>
-          </select>
-        </div>
-
-        <div class="forensic-filter-group">
-          <label for="scope-select" class="forensic-filter-label"><i class="fa-solid fa-users"></i> Scope:</label>
-          <select id="scope-select" class="forensic-select" aria-label="Filter by affected records">
-            <option value="ALL">All Scopes</option>
-            <option value="DISCLOSED">Disclosed Records Only</option>
-            <option value="10K">&gt; 10K Records</option>
-            <option value="100K">&gt; 100K Records</option>
-            <option value="1M">&gt; 1M Records</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Export Toolbar Strip -->
-      <div class="telemetry-export-bar">
-        <div class="export-bar-left">
-          <span class="export-label"><i class="fa-solid fa-cloud-arrow-down text-cyan"></i> Data Export:</span>
-          <span id="export-count-badge" class="export-count-badge font-mono">${stats.total_incidents} records matching</span>
-        </div>
-        <div class="export-bar-actions">
-          <button id="btn-export-json" class="btn-export" title="Export currently filtered telemetry records to JSON">
-            <i class="fa-solid fa-file-code"></i> Export JSON
-          </button>
-          <button id="btn-export-csv" class="btn-export" title="Export currently filtered telemetry records to CSV">
-            <i class="fa-solid fa-file-csv"></i> Export CSV
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Presentation View 1: Incident Cards Grid -->
-    <div class="incidents-grid" id="incidents-grid" style="display: none;">
-      ${cardsHtml}
-    </div>
-
-    <!-- Presentation View 2: Dense Telemetry Table View -->
-    <div class="telemetry-table-wrap" id="incidents-table-wrap" style="display: block;">
-      <table class="telemetry-table">
-        <thead>
-          <tr>
-            <th class="col-target">Organization &amp; Domain</th>
-            <th class="col-status">Status</th>
-            <th class="col-industry">Industry</th>
-            <th class="col-type">Incident Type</th>
-            <th class="col-affected">Affected Records</th>
-            <th class="col-confidence">Confidence</th>
-            <th class="col-actor">Threat Actor</th>
-            <th class="col-date">Last Updated</th>
-            <th class="col-action">Action</th>
-          </tr>
-        </thead>
-        <tbody id="telemetry-tbody">
-          ${tableRowsHtml}
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Empty State -->
-    <div id="empty-state" style="display: none; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
-      <p style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);"><i class="fa-solid fa-filter-circle-xmark"></i> No matching security incidents found</p>
-      <p style="font-size: 0.9rem;">Try modifying your search query or clicking "Clear Filter".</p>
-    </div>
-
-    <!-- Pagination Controls -->
-    <div class="pagination-bar" id="pagination-bar">
-      <div class="pagination-info" id="pagination-info">
-        Showing 1–50 of ${stats.total_incidents} incidents
-      </div>
-      <div class="pagination-nav" id="pagination-nav">
-        <!-- Rendered by app.js -->
-      </div>
-    </div>
-  </main>
-
-  ${renderFooter(false)}
 
   <script src="app.js"></script>
 </body>
@@ -2258,9 +1743,10 @@ async function build() {
   const indexHtml = generateIndexHtml(incidents, stats, pipelineStatus);
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexHtml, 'utf-8');
 
-  // Generate telemetry.html (Full Telemetry Analytics Deck & Dense Table)
-  const telemetryHtml = generateTelemetryHtml(incidents, stats);
-  fs.writeFileSync(path.join(DIST_DIR, 'telemetry.html'), telemetryHtml, 'utf-8');
+  // Remove legacy telemetry.html if present
+  if (fs.existsSync(path.join(DIST_DIR, 'telemetry.html'))) {
+    fs.unlinkSync(path.join(DIST_DIR, 'telemetry.html'));
+  }
 
   // Generate status.html (Pipeline Health & Monitored Feeds Status)
   const statusHtml = generateStatusHtml(stats, pipelineStatus);
@@ -2289,7 +1775,7 @@ async function build() {
     fs.copyFileSync(path.join(ROOT_DIR, 'CNAME'), path.join(DIST_DIR, 'CNAME'));
   }
 
-  console.log(`✅ Successfully built ${incidents.length} incident dossiers, live stream homepage, telemetry deck, status page, RSS 2.0 feed & JSON Feed v1.1 to dist/`);
+  console.log(`✅ Successfully built ${incidents.length} incident dossiers, homepage, status page, RSS 2.0 feed & JSON Feed v1.1 to dist/`);
 }
 
 build().catch(err => {

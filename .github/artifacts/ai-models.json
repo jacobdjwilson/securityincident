@@ -1,35 +1,90 @@
 {
-  "_comment": "AI model hierarchy, task routing, and quota retry policies for securityincident.net",
-  "task_models": {
-    "summarization": {
-      "_comment": "Generates neutral, high-signal 1-2 sentence incident summaries from raw threat reports",
-      "primary": "gemini-2.5-flash",
-      "secondary": "gemini-1.5-flash",
-      "tertiary": "gemini-1.5-flash-8b"
-    },
-    "categorization": {
-      "_comment": "Classifies industry sector, attack vector classification, and forensic tags",
-      "primary": "gemini-2.5-flash",
-      "secondary": "gemini-1.5-flash",
-      "tertiary": "gemini-1.5-flash-8b"
-    },
-    "impact_extraction": {
-      "_comment": "Extracts quantified affected record counts and compromised data categories from unstructured text",
-      "primary": "gemini-2.5-flash",
-      "secondary": "gemini-1.5-flash",
-      "tertiary": "gemini-1.5-flash-8b"
-    }
+  "_comment": "AI model hierarchy, task routing, and quota retry policies for securityincident.net aligned with latest Gemini 3.8 Flash generation.",
+  "models": {
+    "primary": "gemini-3.8-flash",
+    "secondary": "gemini-3.7-flash",
+    "tertiary": "gemini-3.5-flash-lite",
+    "embedding": "text-embedding-2",
+    "comment": "Default model tiering: latest Flash 3.8 primary with 3.7 and 3.5-flash-lite fallbacks"
   },
   "model_hierarchy": [
-    "gemini-2.5-flash",
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-8b"
+    "gemini-3.1-flash-lite-preview",
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite",
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
   ],
+  "_model_hierarchy_comment": "Ascending order of model capability and generation tier. Used for task routing, fallback ladders, and enforcing model upgrade invariance.",
+  "task_models": {
+    "summarization": {
+      "primary": "gemini-3.8-flash",
+      "secondary": "gemini-3.7-flash",
+      "tertiary": "gemini-3.5-flash-lite",
+      "comment": "Latest Flash 3.8 model for rigorous executive synthesis, neutral active-verb briefing extraction, and validation constraints"
+    },
+    "categorization": {
+      "primary": "gemini-3.5-flash-lite",
+      "secondary": "gemini-3.7-flash",
+      "tertiary": "gemini-3.8-flash",
+      "comment": "Fast, high-throughput, low-cost classification into category taxonomy with Flash 3.8 fallback"
+    },
+    "impact_extraction": {
+      "primary": "gemini-3.8-flash",
+      "secondary": "gemini-3.7-flash",
+      "tertiary": "gemini-3.5-flash-lite",
+      "comment": "High-precision extraction for numerical affected record counts and sensitive data classes using Flash 3.8"
+    }
+  },
+  "configurations": {
+    "default": {
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "top_k": 40,
+      "max_output_tokens": 4096,
+      "thinking_budget": 0
+    },
+    "summarization": {
+      "temperature": 0.2,
+      "top_p": 0.9,
+      "top_k": 40,
+      "max_output_tokens": 250,
+      "thinking_budget": 0,
+      "comment": "Low temperature for focused, data-driven summaries; thinking_budget 0 prevents internal reasoning tokens from exhausting output allocation"
+    },
+    "categorization": {
+      "temperature": 0.1,
+      "top_p": 0.85,
+      "top_k": 20,
+      "max_output_tokens": 200,
+      "thinking_budget": 0,
+      "comment": "Very low temperature for consistent classification; thinking_budget 0 ensures deterministic taxonomy mapping"
+    },
+    "impact_extraction": {
+      "temperature": 0.1,
+      "top_p": 0.9,
+      "top_k": 30,
+      "max_output_tokens": 250,
+      "thinking_budget": 0,
+      "comment": "Low temperature and zero thinking budget for exact integer record counts and sensitive data categories"
+    }
+  },
+  "retry_policy": {
+    "max_attempts": 3,
+    "initial_delay_seconds": 2,
+    "backoff_multiplier": 2,
+    "max_delay_seconds": 30,
+    "comment": "For validation failures and general transient errors"
+  },
   "quota_retry_policy": {
-    "max_retries": 3,
-    "initial_delay_seconds": 2.0,
-    "backoff_multiplier": 2.0,
-    "max_delay_seconds": 30.0,
-    "exit_code_on_exhausted": 2
+    "max_attempts": 3,
+    "initial_delay_seconds": 60,
+    "backoff_multiplier": 2,
+    "max_delay_seconds": 180,
+    "exit_code_on_exhausted": 2,
+    "comment": "For HTTP 429 RESOURCE_EXHAUSTED errors"
+  },
+  "rate_limits": {
+    "requests_per_minute": 60,
+    "tokens_per_minute": 100000
   }
 }

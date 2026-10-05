@@ -1,10 +1,10 @@
 /**
  * securityincident.net - Interactive Client Script
  * Powers:
- * - Real-Time Breaking Threat Newsfeed / Stream (index.html)
- * - Stream Tabs (Trending, Emerging, Confirmed, All)
+ * - Security Incidents & Threat Telemetry Feed (index.html)
+ * - Incident Stream Tabs (Trending, Emerging, Confirmed, All)
  * - Expandable Telemetry & Granular Filters Drawer
- * - Deep Telemetry Analytics Deck & Dense Table View (telemetry.html)
+ * - 1-Click Client-Side JSON & CSV Telemetry Export
  * - Pipeline Health Status Monitoring (status.html)
  * - 1-Click Link Sharing with Toast Notifications
  */

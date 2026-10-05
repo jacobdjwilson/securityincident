@@ -105,19 +105,31 @@ class GeminiClient:
     def call_task(self, task_name: str, system_prompt: str, context: str) -> Tuple[Optional[str], Optional[int]]:
         """
         Executes an AI task routing across primary -> secondary -> tertiary models with backoff.
+        Applies task-specific configurations (temperature, top_p, top_k, thinking_budget) from ai-models.json.
         Returns: (response_text, exit_code)
         """
         task_routing = self.models_config.get("task_models", {}).get(task_name, {})
         ladder = [
-            task_routing.get("primary", "gemini-2.5-flash"),
-            task_routing.get("secondary", "gemini-1.5-flash"),
-            task_routing.get("tertiary", "gemini-1.5-flash-8b")
+            task_routing.get("primary", "gemini-3.8-flash"),
+            task_routing.get("secondary", "gemini-3.7-flash"),
+            task_routing.get("tertiary", "gemini-3.5-flash-lite")
         ]
 
+        task_config = self.models_config.get("configurations", {}).get(task_name, self.models_config.get("configurations", {}).get("default", {}))
+        generation_config = {
+            "temperature": task_config.get("temperature", 0.2),
+            "maxOutputTokens": task_config.get("max_output_tokens", 300),
+            "topP": task_config.get("top_p", 0.95),
+            "topK": task_config.get("top_k", 40)
+        }
+        if "thinking_budget" in task_config:
+            generation_config["thinkingConfig"] = {"thinkingBudget": task_config["thinking_budget"]}
+
         full_prompt = f"{system_prompt}\n\n# Document Context Below\n{context}"
-        max_retries = self.quota_policy.get("max_retries", 3)
-        initial_delay = self.quota_policy.get("initial_delay_seconds", 2.0)
+        max_retries = self.quota_policy.get("max_attempts", 3)
+        initial_delay = self.quota_policy.get("initial_delay_seconds", 60.0)
         multiplier = self.quota_policy.get("backoff_multiplier", 2.0)
+        max_delay = self.quota_policy.get("max_delay_seconds", 180.0)
 
         for model in ladder:
             delay = initial_delay
@@ -125,7 +137,7 @@ class GeminiClient:
                 url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={self.api_key}"
                 payload = {
                     "contents": [{"parts": [{"text": full_prompt}]}],
-                    "generationConfig": {"temperature": 0.2, "maxOutputTokens": 300}
+                    "generationConfig": generation_config
                 }
                 data_bytes = json.dumps(payload).encode("utf-8")
                 req = urllib.request.Request(
@@ -136,7 +148,7 @@ class GeminiClient:
                 )
 
                 try:
-                    with urllib.request.urlopen(req, timeout=20) as response:
+                    with urllib.request.urlopen(req, timeout=25) as response:
                         res_json = json.loads(response.read().decode("utf-8"))
                         candidates = res_json.get("candidates", [])
                         if candidates and "content" in candidates[0]:
@@ -147,18 +159,18 @@ class GeminiClient:
                     if err.code == 429:
                         print(f"⚠️ [HTTP 429 Rate Limit] Model {model} attempt {attempt + 1}/{max_retries}. Backoff {delay}s...")
                         time.sleep(delay)
-                        delay *= multiplier
+                        delay = min(delay * multiplier, max_delay)
                         continue
                     elif err.code in (500, 503):
                         print(f"⚠️ [HTTP {err.code}] Transient failure on {model}. Retrying...")
-                        time.sleep(delay)
+                        time.sleep(2.0)
                         continue
                     else:
                         print(f"❌ [HTTP {err.code}] Gemini API error on {model}: {err.read().decode('utf-8', errors='ignore')}")
                         break
                 except Exception as ex:
                     print(f"⚠️ Exception invoking {model}: {ex}")
-                    time.sleep(delay)
+                    time.sleep(2.0)
                     continue
 
         return None, EXIT_QUOTA_EXHAUSTED
