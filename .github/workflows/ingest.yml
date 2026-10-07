@@ -53,7 +53,7 @@ jobs:
         run: python .github/scripts/verify_code_integrity.py
 
       - name: Restore Telemetry Feed Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .cache
           key: feed-cache-${{ runner.os }}-${{ github.run_id }}
