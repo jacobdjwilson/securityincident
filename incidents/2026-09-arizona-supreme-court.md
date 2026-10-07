@@ -4,7 +4,7 @@ target: Arizona Supreme Court
 domain: azcourts.gov
 status: DEVELOPING
 first_seen: '2026-09-29'
-last_updated: '2026-09-29'
+last_updated: '2026-10-07'
 threat_actor: Unknown / Unattributed
 summary: >-
   A spokesperson for the court system told Recorded Future News that the
@@ -13,6 +13,7 @@ summary: >-
 tags:
   - investigative
   - developing
+  - threat-intel
 industry: Legal
 incident_type: Ransomware Extortion
 affected_records: null
@@ -44,3 +45,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Arizona Supreme Court says hackers stole residents’ personal data
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/arizona-supreme-court-says-hackers-stole-data)
+
+### 2026-10-07 01:32 UTC
+- **Event:** Personal Information for Over 1 Million People Stolen in a Cyberattack on Arizona’s Court System
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/personal-information-for-over-1-million-people-stolen-in-a-cyberattack-on-arizonas-court-system/)

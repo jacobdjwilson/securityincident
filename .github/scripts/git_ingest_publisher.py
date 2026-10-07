@@ -66,7 +66,11 @@ def set_github_output(key: str, value: str) -> None:
 
 def run_git_cmd(args: List[str], check: bool = True) -> subprocess.CompletedProcess:
     """Executes a git command and returns the completed process."""
-    return subprocess.run(["git"] + args, cwd=ROOT_DIR, check=check, text=True, capture_output=True)
+    res = subprocess.run(["git"] + args, cwd=ROOT_DIR, text=True, capture_output=True)
+    if check and res.returncode != 0:
+        print(f"Git command failed: git {' '.join(args)}\nStderr: {res.stderr}\nStdout: {res.stdout}", file=sys.stderr)
+        raise subprocess.CalledProcessError(res.returncode, res.args, output=res.stdout, stderr=res.stderr)
+    return res
 
 
 def run_gh_cmd(args: List[str], check: bool = True) -> subprocess.CompletedProcess:
@@ -81,12 +85,13 @@ def sync_branch(event_name: str, auto_merge: bool, config: Dict[str, Any]) -> in
     author_email = git_cfg.get("commit_author_email", "41898282+github-actions[bot]@users.noreply.github.com")
     branch_name = git_cfg.get("branch_name", "telemetry/ingest-pending")
     target_branch = git_cfg.get("target_branch", "main")
+    configured_mode = git_cfg.get("publish_mode", "pr")
 
     run_git_cmd(["config", "user.name", author_name])
     run_git_cmd(["config", "user.email", author_email])
 
-    if event_name == "schedule" or auto_merge:
-        print("Direct publishing mode active (scheduled run or auto-merge requested).")
+    if auto_merge and configured_mode == "direct":
+        print("Direct publishing mode active (auto-merge requested and direct mode configured).")
         set_github_output("mode", "direct")
         set_github_output("target_branch", target_branch)
         run_git_cmd(["checkout", target_branch])
@@ -146,9 +151,13 @@ def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: s
         print(f"Directly publishing updates to {target_branch} branch...")
         run_git_cmd(["add", "incidents/", "sources/"])
         run_git_cmd(["commit", "-m", f"telemetry(ingest): automated incident intelligence update [{today}]"])
-        run_git_cmd(["push", "origin", target_branch])
-        print(f"Successfully pushed ingestion updates to {target_branch}.")
-        return EXIT_SUCCESS
+        push_res = run_git_cmd(["push", "origin", target_branch], check=False)
+        if push_res.returncode == 0:
+            print(f"Successfully pushed ingestion updates to {target_branch}.")
+            return EXIT_SUCCESS
+        print(f"Warning: Direct push to {target_branch} failed:\n{push_res.stderr}\nFalling back to Pull Request mode...")
+        mode = "pr"
+        run_git_cmd(["checkout", "-B", branch_name])
 
     # PR Mode
     print(f"Publishing updates via Pull Request on branch {branch_name}...")
@@ -156,9 +165,10 @@ def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: s
     changed_lines = [line.strip()[3:] for line in status_res.stdout.splitlines() if line.strip()]
     summary_md = "\n".join(f"* `{f}`" for f in changed_lines) if changed_lines else "* No dossier files modified"
 
-    run_git_cmd(["add", "incidents/", "sources/"])
-    commit_msg = f"telemetry(ingest): update security incident index [{today}]"
-    run_git_cmd(["commit", "-m", commit_msg])
+    if status_res.stdout.strip():
+        run_git_cmd(["add", "incidents/", "sources/"])
+        commit_msg = f"telemetry(ingest): update security incident index [{today}]"
+        run_git_cmd(["commit", "-m", commit_msg])
 
     sha_res = run_git_cmd(["rev-parse", "HEAD"])
     commit_sha = sha_res.stdout.strip()

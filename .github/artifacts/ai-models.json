@@ -76,10 +76,10 @@
     "comment": "For validation failures and general transient errors"
   },
   "quota_retry_policy": {
-    "max_attempts": 3,
-    "initial_delay_seconds": 60,
+    "max_attempts": 2,
+    "initial_delay_seconds": 5,
     "backoff_multiplier": 2,
-    "max_delay_seconds": 180,
+    "max_delay_seconds": 15,
     "exit_code_on_exhausted": 2,
     "comment": "For HTTP 429 RESOURCE_EXHAUSTED errors"
   },

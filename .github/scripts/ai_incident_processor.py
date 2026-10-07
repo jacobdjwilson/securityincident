@@ -122,8 +122,9 @@ class GeminiClient:
             "topP": task_config.get("top_p", 0.95),
             "topK": task_config.get("top_k", 40)
         }
-        if "thinking_budget" in task_config:
-            generation_config["thinkingConfig"] = {"thinkingBudget": task_config["thinking_budget"]}
+        thinking_budget = task_config.get("thinking_budget")
+        if thinking_budget is not None and thinking_budget > 0:
+            generation_config["thinkingConfig"] = {"thinkingBudget": thinking_budget}
 
         full_prompt = f"{system_prompt}\n\n# Document Context Below\n{context}"
         max_retries = self.quota_policy.get("max_attempts", 3)
@@ -258,7 +259,7 @@ def process_unsummarized_incidents() -> int:
             calls_made += 1
             if status == EXIT_QUOTA_EXHAUSTED:
                 print("🛑 Quota limit hit during summarization task. Gracefully pausing processing.")
-                return EXIT_QUOTA_EXHAUSTED
+                return EXIT_SUCCESS
 
             if summary_text:
                 clean_summary = summary_text.replace("\n", " ").replace('"', "'").strip()
@@ -275,6 +276,9 @@ def process_unsummarized_incidents() -> int:
         if needs_records:
             impact_text, status = gemini_client.call_task("impact_extraction", impact_prompt, context_text)
             calls_made += 1
+            if status == EXIT_QUOTA_EXHAUSTED:
+                print("🛑 Quota limit hit during impact extraction task. Gracefully pausing processing.")
+                return EXIT_SUCCESS
             if impact_text:
                 try:
                     # Clean potential markdown fences

@@ -45,6 +45,7 @@
   },
   "git_automation": {
     "_comment": "Branching, PR labeling, and commit configuration for automated ingestion pipelines",
+    "publish_mode": "pr",
     "branch_name": "telemetry/ingest-pending",
     "target_branch": "main",
     "pr_label": "telemetry",
