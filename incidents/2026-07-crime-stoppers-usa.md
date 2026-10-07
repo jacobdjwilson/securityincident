@@ -16,7 +16,7 @@ tags:
   - developing
 industry: Legal
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 1000000
 compromised_data:
   - Privileged Client Legal Files
   - Confidential Corporate Communications
