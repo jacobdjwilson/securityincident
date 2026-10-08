@@ -6,16 +6,13 @@ status: CONFIRMED
 first_seen: '2026-09-28'
 last_updated: '2026-09-28'
 threat_actor: Unknown / Unattributed
-summary: >-
-  Japanese car-sharing service Times Car has confirmed that approximately 6.6
-  million user accounts were compromised in a cyberattack disclosed late last
-  week. [...]
+summary: "Disclosed a confirmed network intrusion at Times Car resulting in the unauthorized exfiltration of sensitive personal identifiable information and corporate contact records affecting 6.6 million user accounts. Official breach notifications have been registered with regulatory authorities while containment and forensic remediation procedures remain ongoing."
 tags:
   - threat-intel
   - confirmed
 industry: Transportation & Logistics
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 6600000
 compromised_data:
   - Personal Identifiable Information (PII)
   - Corporate Contact Records

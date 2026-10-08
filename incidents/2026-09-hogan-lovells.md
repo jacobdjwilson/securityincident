@@ -6,11 +6,7 @@ status: DEVELOPING
 first_seen: '2026-09-28'
 last_updated: '2026-09-28'
 threat_actor: Silent Ransom Group
-summary: >-
-  Numerous major law firms have fallen prey to the Silent Ransom Group this
-  year. Now DataBreaches provides exclusive details on SRG's recent attacks on
-  Hogan Lovells Cadwalader. Yes, that's "attacks," plural. When New York City's
-  oldest law firm, C...
+summary: "*Threat actor:* Silent Ransom Group."
 tags:
   - investigative
   - developing
