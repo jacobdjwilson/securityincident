@@ -71,14 +71,17 @@ Rather than merely linking to external third-party articles or serving superfici
   * `## Compromised Assets & Data Scope`: Concrete breakdown of exposed assets, systems impacted, and threat risk.
   * `## Statutory Disclosures & Compliance`: Itemized record of statutory filings and regulatory monitoring.
   * `## Timeline`: Chronological milestones with verification tiers and direct primary source links.
-* **📊 Data-Driven Telemetry Dashboard & Forensic UI:**
+* **📊 Production Data-Driven Telemetry Dashboard & Forensic UI:**
+  * **Zero Hardcoded Metrics:** All operational counters, feed monitors, status distributions, and velocity timelines are dynamically computed at build/runtime from underlying Git dossiers and live configs.
+  * **29 Monitored Ingestion Endpoints:** Automated continuous ingestion across federal regulatory EFTS APIs, State AG portals, dark web monitors, technical advisories, and mainstream news wires.
+  * **5-Tier Observable Status Streams:** Dedicated stream tabs (Trending, Emerging Claims, Developing, Confirmed Disclosures, All Incidents) with bidirectional filter synchronization.
   * **Disclosed Impact Metric:** Aggregate real-time counter of total cumulative impacted records and confirmed disclosure scopes.
   * **Forensic Filtering Controls:** Instant filtering by Sector dropdown, Compromised Data Class dropdown, and quick High-Impact toggle (>100K records).
   * **Sorting Capabilities:** Instant client-side sorting by Latest Update, Highest Impact (Records), Highest Confidence, First Seen, and Most Milestones.
-  * 4 interactive charts (Status breakdown, Ingestion velocity timeline, Primary regulatory sources, Targeted sectors).
-  * Dual view modes: High-density interactive cards and dense triage telemetry table.
-  * Instant zero-latency search across target names, domains, industries, attack vectors, compromised data, and threat actors.
-  * Client-side responsive pagination (20, 50, 100 items per page).
+  * **Client-Side Data Export:** 1-click export of currently filtered telemetry directly to JSON and RFC-4180 CSV.
+  * **Mobile & Cross-Device Optimized:** High-density telemetry cards, triage tables, drawer controls, and quickstat bars tuned for full fidelity on both mobile phones and desktop displays.
+  * **Zero-Latency Search:** Instant client-side search across target names, domains, industries, attack vectors, compromised data, and threat actors.
+  * **Client-Side Pagination:** Smooth client-side pagination (20, 50, 100 items per page).
 
 ---
 

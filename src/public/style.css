@@ -25,8 +25,6 @@
   --card-preview-bg: rgba(0, 0, 0, 0.28);
   --actor-badge-bg: rgba(255, 255, 255, 0.06);
 
-  /* Status Colors (Ground Truth Telemetry) */
-  --status-confirmed: #ff4757;
   /* Status Colors (5-Tier Telemetry Progression: Red -> Orange -> Yellow -> Green) */
   --status-confirmed: #10b981;
   --status-confirmed-bg: rgba(16, 185, 129, 0.12);
@@ -1843,7 +1841,14 @@ a:hover {
 }
 
 .text-confirmed { color: var(--status-confirmed); }
+.text-acknowledged { color: var(--status-acknowledged); }
 .text-developing { color: var(--status-developing); }
+.text-emerging { color: var(--status-emerging); }
+.text-refuted { color: var(--status-refuted); }
+.text-emerald { color: var(--status-confirmed); }
+.text-amber { color: var(--status-acknowledged); }
+.text-orange { color: var(--status-developing); }
+.text-rose { color: var(--status-emerging); }
 .text-cyan { color: var(--cyan-accent); }
 
 /* ===================================================================

@@ -114,6 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentStream === 'emerging') {
           currentFilter = 'EMERGING';
           currentSort = 'recent';
+        } else if (currentStream === 'developing') {
+          currentFilter = 'DEVELOPING';
+          currentSort = 'recent';
         } else if (currentStream === 'confirmed') {
           currentFilter = 'CONFIRMED';
           currentSort = 'recent';
@@ -307,6 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentFilter === 'EMERGING') {
           const emergingTab = document.querySelector('.stream-tab[data-stream="emerging"]');
           if (emergingTab) emergingTab.classList.add('active');
+        } else if (currentFilter === 'DEVELOPING') {
+          const developingTab = document.querySelector('.stream-tab[data-stream="developing"]');
+          if (developingTab) developingTab.classList.add('active');
         } else if (currentFilter === 'CONFIRMED') {
           const confirmedTab = document.querySelector('.stream-tab[data-stream="confirmed"]');
           if (confirmedTab) confirmedTab.classList.add('active');

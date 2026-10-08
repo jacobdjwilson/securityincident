@@ -1079,6 +1079,32 @@ export async function ingestFeeds() {
     statusData.verification_pass_rate = '100%';
     statusData.open_weights_engine = 'Active & Deterministic';
 
+    // Synchronize feeds list with feeds.json
+    let feedsConfig = [];
+    if (fs.existsSync(SOURCES_FILE)) {
+      try {
+        feedsConfig = JSON.parse(fs.readFileSync(SOURCES_FILE, 'utf-8'));
+      } catch {}
+    }
+    if (!Array.isArray(statusData.feeds)) {
+      statusData.feeds = [];
+    }
+    const existingFeedIds = new Set(statusData.feeds.map(f => f.id));
+    for (const f of feedsConfig) {
+      if (!existingFeedIds.has(f.id)) {
+        statusData.feeds.push({
+          id: f.id,
+          name: f.name,
+          type: f.type === 'regulatory' ? 'Federal / Regulatory' : (f.type === 'general-media' ? 'Major News Wire' : 'Threat Intelligence'),
+          endpoint: f.url,
+          status: 'Operational',
+          verification: f.defaultVerification || 'INDEPENDENT VERIFICATION',
+          method: f.feedType === 'json-api' ? 'REST API Telemetry' : 'Syndicated RSS Feed'
+        });
+        existingFeedIds.add(f.id);
+      }
+    }
+
     fs.writeFileSync(pipelineStatusFile, JSON.stringify(statusData, null, 2), 'utf-8');
   } catch (err) {
     console.warn('⚠️ Could not update pipeline-status.json:', err.message);

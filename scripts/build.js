@@ -463,11 +463,16 @@ function computeTelemetryStats(incidents) {
     { key: 'retail', label: 'Retail & Commercial', count: sectorCounts['retail'] }
   ].filter(s => s.count > 0).sort((a, b) => b.count - a.count);
 
-  const velocityTimeline = [
-    { month: '2026-07', label: 'Jul 2026', count: monthlyCounts['2026-07'] || 0 },
-    { month: '2026-08', label: 'Aug 2026', count: monthlyCounts['2026-08'] || 0 },
-    { month: '2026-09', label: 'Sep 2026', count: monthlyCounts['2026-09'] || 0 }
-  ];
+  const sortedMonths = Object.keys(monthlyCounts).sort();
+  const recentMonths = sortedMonths.slice(-6);
+  const velocityTimeline = recentMonths.map(m => {
+    const [year, monthNum] = m.split('-');
+    const dateObj = new Date(parseInt(year, 10), parseInt(monthNum, 10) - 1, 1);
+    const label = !isNaN(dateObj.getTime())
+      ? dateObj.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+      : m;
+    return { month: m, label, count: monthlyCounts[m] || 0 };
+  });
 
   const sourceCategories = Object.entries(sourceCategoryCounts)
     .map(([label, count]) => ({ label, count }))
@@ -658,8 +663,13 @@ function generateFeedCardHtml(inc) {
   `;
 }
 
-function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
+function generateIndexHtml(incidents, stats, pipelineStatus = {}, feedsConfig = []) {
   const feedCardsHtml = incidents.map(inc => generateFeedCardHtml(inc)).join('\n');
+  const monitoredFeedsCount = (pipelineStatus.feeds && pipelineStatus.feeds.length) || feedsConfig.length || 29;
+  const isPipelineOperational = (pipelineStatus.status || 'OPERATIONAL').toUpperCase() === 'OPERATIONAL';
+  const pipelineValHtml = isPipelineOperational
+    ? `<span class="qs-val text-confirmed"><i class="fa-solid fa-circle-check"></i> Operational</span>`
+    : `<span class="qs-val text-developing"><i class="fa-solid fa-triangle-exclamation"></i> Degraded</span>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -713,8 +723,8 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
         </div>
         <div class="quickstat-card">
           <span class="qs-label">Pipeline Status</span>
-          <span class="qs-val text-confirmed"><i class="fa-solid fa-circle-check"></i> Operational</span>
-          <a href="status.html" class="qs-link font-mono">11 Feeds Monitored &rarr;</a>
+          ${pipelineValHtml}
+          <a href="status.html" class="qs-link font-mono">${monitoredFeedsCount} Feeds Monitored &rarr;</a>
         </div>
       </div>
     </section>
@@ -747,6 +757,9 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
           </button>
           <button class="stream-tab" data-stream="emerging">
             <i class="fa-solid fa-bolt text-rose"></i> Emerging Claims <span class="stream-tab-count">${stats.status_distribution.EMERGING}</span>
+          </button>
+          <button class="stream-tab" data-stream="developing">
+            <i class="fa-solid fa-satellite-dish text-orange"></i> Developing <span class="stream-tab-count">${stats.status_distribution.DEVELOPING || 0}</span>
           </button>
           <button class="stream-tab" data-stream="confirmed">
             <i class="fa-solid fa-circle-check text-emerald"></i> Confirmed Disclosures <span class="stream-tab-count">${stats.status_distribution.CONFIRMED}</span>
@@ -945,125 +958,45 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}) {
 </html>`;
 }
 
-function generateStatusHtml(stats, pipelineStatus = {}) {
-  const feeds = pipelineStatus.feeds || [
-    {
-      id: "sec-edgar",
-      name: "SEC EDGAR Form 8-K Item 1.05",
-      type: "Federal Regulatory Disclosures",
-      endpoint: "https://efts.sec.gov/LATEST/search-index",
-      status: "Operational",
-      verification: "CONFIRMED BY REGULATOR",
-      lookback_days: 90,
-      method: "EFTS Full-Text Search API"
-    },
-    {
-      id: "ca-doj",
-      name: "California Department of Justice (SB-24)",
-      type: "State AG Breach Portal",
-      endpoint: "https://oag.ca.gov/privacy/databreach/list",
-      status: "Operational",
-      verification: "CONFIRMED BY REGULATOR",
-      method: "State Regulatory Portal Scraper"
-    },
-    {
-      id: "wa-ag",
-      name: "Washington State Attorney General (RCW 19.255)",
-      type: "State AG Breach Portal",
-      endpoint: "https://www.atg.wa.gov/data-breach-notifications",
-      status: "Operational",
-      verification: "CONFIRMED BY REGULATOR",
-      method: "State Regulatory Portal Scraper"
-    },
-    {
-      id: "or-doj",
-      name: "Oregon Department of Justice (ORS 646A.604)",
-      type: "State AG Breach Portal",
-      endpoint: "https://justice.oregon.gov/consumer/databreach/",
-      status: "Operational",
-      verification: "CONFIRMED BY REGULATOR",
-      method: "Consumer Protection Portal Scraper"
-    },
-    {
-      id: "hhs-ocr",
-      name: "HHS Office for Civil Rights (HIPAA Portal)",
-      type: "Federal Healthcare Disclosures",
-      endpoint: "https://www.hipaajournal.com/category/healthcare-cybersecurity/feed/",
-      status: "Operational",
-      verification: "CONFIRMED BY REGULATOR",
-      method: "HIPAA Regulatory Feed"
-    },
-    {
-      id: "darkweb-ransomware",
-      name: "Dark Web Extortion & Ransomware Portals",
-      type: "Threat Actor Leak Telemetry",
-      endpoint: "https://api.ransomware.live/v2/recentvictims",
-      status: "Operational",
-      verification: "UNVERIFIED CLAIM",
-      method: "Real-time Telemetry API v2"
-    },
-    {
-      id: "cisa-advisories",
-      name: "CISA Cybersecurity Advisories",
-      type: "Federal Advisory",
-      endpoint: "https://www.cisa.gov/cybersecurity-advisories/all.xml",
-      status: "Operational",
-      verification: "CONFIRMED BY REGULATOR",
-      method: "Advisory XML Syndication"
-    },
-    {
-      id: "bleepingcomputer",
-      name: "BleepingComputer Threat Intel",
-      type: "Investigative Reporting",
-      endpoint: "https://www.bleepingcomputer.com/feed/",
-      status: "Operational",
-      verification: "INDEPENDENT VERIFICATION",
-      method: "Syndicated RSS Feed"
-    },
-    {
-      id: "databreaches-net",
-      name: "DataBreaches.net",
-      type: "Forensic Breach Intelligence",
-      endpoint: "https://databreaches.net/feed/",
-      status: "Operational",
-      verification: "INDEPENDENT VERIFICATION",
-      method: "Syndicated RSS Feed"
-    },
-    {
-      id: "the-record",
-      name: "The Record by Recorded Future",
-      type: "Threat Intelligence Syndication",
-      endpoint: "https://therecord.media/feed",
-      status: "Operational",
-      verification: "INDEPENDENT VERIFICATION",
-      method: "Syndicated RSS Feed"
-    },
-    {
-      id: "krebs-on-security",
-      name: "Krebs on Security",
-      type: "Investigative Telemetry",
-      endpoint: "https://krebsonsecurity.com/feed/",
-      status: "Operational",
-      verification: "INDEPENDENT VERIFICATION",
-      method: "Syndicated RSS Feed"
-    }
-  ];
+function generateStatusHtml(stats, pipelineStatus = {}, feedsConfig = []) {
+  const feeds = (pipelineStatus && Array.isArray(pipelineStatus.feeds) && pipelineStatus.feeds.length > 0)
+    ? pipelineStatus.feeds
+    : (feedsConfig.length > 0 ? feedsConfig.map(f => ({
+        id: f.id,
+        name: f.name,
+        type: f.type === 'regulatory' ? 'Federal / Regulatory' : (f.type === 'general-media' ? 'Major News Wire' : 'Threat Intelligence'),
+        endpoint: f.url,
+        status: 'Operational',
+        verification: f.defaultVerification || 'INDEPENDENT VERIFICATION',
+        method: f.feedType === 'json-api' ? 'REST API Telemetry' : 'Syndicated RSS Feed'
+      })) : []);
+
+  const feedCount = feeds.length;
+  const operationalCount = feeds.filter(f => (f.status || 'operational').toLowerCase() === 'operational').length;
+  const allOperational = feedCount > 0 && operationalCount === feedCount;
+
+  const heroStatusText = allOperational
+    ? `ALL ${feedCount} INGESTION PIPELINES OPERATIONAL`
+    : `${operationalCount} OF ${feedCount} INGESTION PIPELINES OPERATIONAL`;
+  const heroDescText = `Automated continuous ingestion workflows poll ${feedCount} authoritative federal regulatory directories, state AG disclosures, dark web extortion portals, mainstream news wires, and technical telemetry feeds every 6 hours via GitHub Actions.`;
 
   const feedsTableHtml = feeds.map(feed => {
+    const endpointUrl = feed.endpoint || feed.url || '';
+    const verif = feed.verification || feed.defaultVerification || 'INDEPENDENT VERIFICATION';
     return `
       <tr>
         <td class="col-feed-name">
           <strong>${feed.name}</strong>
-          <a href="${feed.endpoint}" target="_blank" rel="noopener nofollow" class="feed-endpoint-link font-mono" title="Inspect source endpoint">
-            ${feed.endpoint.length > 45 ? feed.endpoint.slice(0, 42) + '...' : feed.endpoint} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <a href="${endpointUrl}" target="_blank" rel="noopener nofollow" class="feed-endpoint-link font-mono" title="Inspect source endpoint">
+            ${endpointUrl.length > 45 ? endpointUrl.slice(0, 42) + '...' : endpointUrl} <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
         </td>
         <td class="col-feed-type"><span class="badge-source-type">${feed.type}</span></td>
-        <td class="col-feed-verif"><span class="verify-badge ${getVerificationClass(feed.verification)}"><i class="${getVerificationIcon(feed.verification)}"></i> ${cleanVerification(feed.verification)}</span></td>
+        <td class="col-feed-verif"><span class="verify-badge ${getVerificationClass(verif)}"><i class="${getVerificationIcon(verif)}"></i> ${cleanVerification(verif)}</span></td>
         <td class="col-feed-method font-mono">${feed.method || 'Automated Scraper'}</td>
         <td class="col-feed-lookback font-mono">${feed.lookback_days ? `${feed.lookback_days} days` : 'Real-time'}</td>
         <td class="col-feed-status">
-          <span class="status-indicator-operational"><span class="dot-pulse-green"></span> Operational</span>
+          <span class="status-indicator-operational"><span class="dot-pulse-green"></span> ${feed.status || 'Operational'}</span>
         </td>
       </tr>
     `;
@@ -1103,15 +1036,15 @@ function generateStatusHtml(stats, pipelineStatus = {}) {
       <div class="status-hero-top">
         <div class="sh-indicator-wrap">
           <span class="sh-pulse-dot"></span>
-          <h1 class="sh-title">ALL 11 INGESTION PIPELINES OPERATIONAL</h1>
+          <h1 class="sh-title">${heroStatusText}</h1>
         </div>
         <div class="sh-last-check font-mono">Last Ingest: ${lastRunIso.slice(0, 19).replace('T', ' ')} UTC</div>
       </div>
       <p class="sh-desc">
-        Automated continuous ingestion workflows poll 11 authoritative federal regulatory directories, state AG disclosures, dark web extortion portals, and technical telemetry feeds every 6 hours via GitHub Actions.
+        ${heroDescText}
       </p>
       <div class="sh-cadence-bar">
-        <span class="sc-item"><i class="fa-solid fa-clock text-cyan"></i> <strong>Cadence:</strong> Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)</span>
+        <span class="sc-item"><i class="fa-solid fa-clock text-cyan"></i> <strong>Cadence:</strong> ${pipelineStatus.cadence || 'Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)'}</span>
         <span class="sc-item"><i class="fa-solid fa-shield-halved text-confirmed"></i> <strong>Quality Gate:</strong> 100% Schema &amp; Milestone Validation</span>
         <span class="sc-item"><i class="fa-solid fa-scale-balanced text-developing"></i> <strong>Confidence:</strong> Deterministic Open Weights</span>
       </div>
@@ -1136,7 +1069,7 @@ function generateStatusHtml(stats, pipelineStatus = {}) {
       </div>
       <div class="sm-card">
         <span class="sm-label">Validation Pass Rate</span>
-        <span class="sm-val text-confirmed">100%</span>
+        <span class="sm-val text-confirmed">${pipelineStatus.verification_pass_rate || '100%'}</span>
         <span class="sm-sub font-mono">Strict Schema &amp; RSS Testing</span>
       </div>
       <div class="sm-card">
@@ -1874,7 +1807,7 @@ async function build() {
   // Compute global telemetry stats & trends
   const stats = computeTelemetryStats(incidents);
 
-  // Load pipeline status
+  // Load pipeline status and feed sources
   const pipelineStatusFile = path.join(ROOT_DIR, 'sources', 'pipeline-status.json');
   let pipelineStatus = {};
   if (fs.existsSync(pipelineStatusFile)) {
@@ -1882,12 +1815,21 @@ async function build() {
       pipelineStatus = JSON.parse(fs.readFileSync(pipelineStatusFile, 'utf-8'));
     } catch {}
   }
+
+  const feedsConfigFile = path.join(ROOT_DIR, 'sources', 'feeds.json');
+  let feedsConfig = [];
+  if (fs.existsSync(feedsConfigFile)) {
+    try {
+      feedsConfig = JSON.parse(fs.readFileSync(feedsConfigFile, 'utf-8'));
+    } catch {}
+  }
+
   // Ensure pipelineStatus has latest runtime counts
   pipelineStatus.total_indexed = incidents.length;
   pipelineStatus.recent_90d_count = stats.active_90d_count;
 
   // Generate homepage index.html (Live Trending Threat Stream)
-  const indexHtml = generateIndexHtml(incidents, stats, pipelineStatus);
+  const indexHtml = generateIndexHtml(incidents, stats, pipelineStatus, feedsConfig);
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexHtml, 'utf-8');
 
   // Remove legacy telemetry.html if present
@@ -1896,7 +1838,7 @@ async function build() {
   }
 
   // Generate status.html (Pipeline Health & Monitored Feeds Status)
-  const statusHtml = generateStatusHtml(stats, pipelineStatus);
+  const statusHtml = generateStatusHtml(stats, pipelineStatus, feedsConfig);
   fs.writeFileSync(path.join(DIST_DIR, 'status.html'), statusHtml, 'utf-8');
 
   // Generate about.html

@@ -223,6 +223,12 @@ To ensure operational resilience, CI/CD predictability, and security across auto
 ### V. Regulatory Invariance Standard
 * **Regulatory Truth Invariance:** Material statutory filings (SEC Form 8-K Item 1.05, State AG breach portal disclosures, HHS OCR disclosures) are legal ground truths. They must be parsed deterministically and **NEVER** modified, overridden, or synthesized by AI models.
 
+### VI. Production Dynamic Telemetry & Zero Hardcoded UI Values
+* **Zero Hardcoded Metrics:** No static counts, operational metrics, dates, or feed totals in templates, HTML strings, or client scripts. Every metric on the website (e.g. total indexed incidents, active 90-day count, confirmed disclosures, active monitored feeds count, pipeline status, and rolling velocity timeline) must be computed dynamically at build/runtime from authoritative configuration artifacts (`sources/feeds.json`, `sources/pipeline-status.json`) and flat files in `incidents/`.
+* **Automated Ingestion Feed Reconciliation:** When new feeds or regulatory endpoints are registered in `sources/feeds.json`, continuous ingestion workflows and static site generation must auto-reconcile and dynamically register them into `sources/pipeline-status.json` and the website telemetry tables without requiring code modifications or manual duplication.
+* **Rolling Dynamic Timelines:** Historical velocity and trend timelines must never use hardcoded date arrays. They must be generated dynamically from active dataset timestamps across rolling multi-month windows.
+* **5-Tier Bidirectional Telemetry Support:** The entire 5-tier status progression (`CONFIRMED`, `ACKNOWLEDGED`, `DEVELOPING`, `EMERGING`, `REFUTED`) must have end-to-end support across HTML templates, Stream Tabs, Granular Filter Pills, Drawer Selectors, and semantic CSS tokens.
+
 ---
 
 ## 7. Agent Working Guidelines & Invariants
@@ -247,3 +253,10 @@ When contributing to or modifying this codebase, all autonomous agents and human
 
 5. **Security & Privacy First**:
    * In private development mode, ensure no private API tokens, keys, or sensitive unreleased data are exposed in public workflows or links.
+
+6. **Zero Hardcoded Telemetry & Dynamic State Invariance**:
+   * Treat the website as a live, production-grade telemetry dashboard—never leave test fixtures, hardcoded counts, or stubs in code.
+   * Verify that all pipeline hero titles, feed counts, status badges, and quickstats reflect the actual runtime counts and feeds dynamically.
+
+7. **Mobile & Cross-Device Telemetry Responsiveness**:
+   * Ensure dense telemetry grids, tables, stream tabs, and filter drawers gracefully wrap and adapt across mobile phone and desktop viewports without horizontal clipping or broken elements.
