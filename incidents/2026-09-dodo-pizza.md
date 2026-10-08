@@ -6,17 +6,13 @@ status: CONFIRMED
 first_seen: '2026-09-29'
 last_updated: '2026-09-29'
 threat_actor: Unknown / Unattributed
-summary: >-
-  Andrey Mihayloff reports: Dodo Pizza has confirmed a cyberattack on its IT
-  systems, admitting that attackers may have accessed personal data of a portion
-  of its customer base. The company reported the breach to Roskomnadzor and
-  stated that access...
+summary: "Disclosed a confirmed network intrusion and data ex"
 tags:
   - investigative
   - developing
 industry: Retail & Consumer Goods
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 68000000
 compromised_data:
   - Payment Card Details
   - Billing & Shipping Addresses

@@ -3,18 +3,18 @@ id: 2026-09-thomson-reuters
 target: Thomson Reuters
 domain: thomsonreuters.com
 status: DEVELOPING
-first_seen: '2026-09-03'
-last_updated: '2026-09-03'
+first_seen: 2026-09-03
+last_updated: 2026-09-03
 threat_actor: Independent Researcher Disclosure
-summary: >-
-  A vulnerability in Thomson Reuters court management software exposed sensitive
-  sealed court filings and Social Security numbers across multiple
+summary: A vulnerability in Thomson Reuters court management software exposed
+  sensitive sealed court filings and Social Security numbers across multiple
   jurisdictions.
 tags:
   - threat-intel
   - legal
   - court-systems
   - developing
+  - media-pickup
 industry: Legal Technology
 incident_type: Zero-Day Vulnerability Exposure
 affected_records: 350000
@@ -26,8 +26,9 @@ compromised_data:
 regulatory_filings:
   - regulator: Judicial Council of California
     form: Court Technology Incident Advisory
-    url: 'https://www.courts.ca.gov'
+    url: https://www.courts.ca.gov
 ---
+
 ## Incident Overview
 
 The **Thomson Reuters** cybersecurity event represents a confirmed **Zero-Day Vulnerability Exposure** within the **Legal Technology** sector, attributed to the **Independent Researcher Disclosure** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **350,000 individuals and records**.
@@ -51,3 +52,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Security researchers discover unauthorized exposure of sealed court records and PII in court software systems.
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Telemetry Report](https://thehackernews.com/2026/09/thomson-reuters-court-software-breach.html)
+
+### 2026-09-03 12:00 UTC
+- **Event:** Press Coverage: US and Canadian Court Records Breached Following Thomson Reuters Incident
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/us-canada-court-breach-thomson/)

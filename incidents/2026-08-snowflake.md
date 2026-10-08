@@ -3,19 +3,19 @@ id: 2026-08-snowflake
 target: Snowflake
 domain: snowflake.com
 status: CONFIRMED
-first_seen: '2026-08-06'
-last_updated: '2026-10-06'
+first_seen: 2026-08-06
+last_updated: 2026-10-06
 threat_actor: UNC5537
-summary: >-
-  A 26-year-old Canadian man once described as one of the most consequential
-  cybercrime threat actors of 2024 has pleaded guilty to computer fraud and
-  conspiracy to hack and extort more than 165 organizations that used the cloud
-  data storage provide...
+summary: A 26-year-old Canadian man once described as one of the most
+  consequential cybercrime threat actors of 2024 has pleaded guilty to computer
+  fraud and conspiracy to hack and extort more than 165 organizations that used
+  the cloud data storage provide...
 tags:
   - investigative
   - developing
   - threat-intel
   - confirmed
+  - media-pickup
 industry: Technology
 incident_type: Credential Stuffing / Cloud Account Takeover
 affected_records: 165000000
@@ -28,14 +28,13 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K (Item 8.01 Other Events - Customer Cybersecurity Disclosures)
     accession_number: 0001640147-24-000042
-    filing_date: '2024-06-03'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/1640147/000164014724000042/0001640147-24-000042-index.htm
-    description: >-
-      Form 8-K filing regarding customer account security disclosures detailing
-      threat actor credential stuffing against customer demo environments
-      lacking multi-factor authentication.
+    filing_date: 2024-06-03
+    url: https://www.sec.gov/Archives/edgar/data/1640147/000164014724000042/0001640147-24-000042-index.htm
+    description: Form 8-K filing regarding customer account security disclosures
+      detailing threat actor credential stuffing against customer demo
+      environments lacking multi-factor authentication.
 ---
+
 ## Incident Overview
 
 The **Snowflake** cybersecurity event represents a confirmed **Credential Stuffing / Cloud Account Takeover** within the **Technology** sector, attributed to the **UNC5537** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **165,000,000 individuals and records**.
@@ -64,3 +63,13 @@ Forensic telemetry and statutory disclosure filings confirm exposure of the foll
 - **Event:** ASOS confirms data breach after “HACKED” in-app notifications
 - **Verification:** CONFIRMED BY TARGET
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/asos-confirms-data-breach-after-hacked-in-app-notifications/)
+
+### 2026-10-06 11:41 UTC
+- **Event:** Press Coverage: ASOS Customers Receive Bizarre “Hacked” Message Amid Suspected Snowflake Compromise
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/asos-customers-message-suspected/)
+
+### 2026-08-06 10:15 UTC
+- **Event:** Press Coverage: Canadian Hacker Pleads Guilty Over Snowflake Extortion Campaign
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/canadian-hacker-guilty-snowflake/)

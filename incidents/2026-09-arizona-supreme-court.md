@@ -16,7 +16,7 @@ tags:
   - threat-intel
 industry: Legal
 incident_type: Ransomware Extortion
-affected_records: null
+affected_records: 1000000
 compromised_data:
   - Privileged Client Legal Files
   - Confidential Corporate Communications

@@ -3,17 +3,19 @@ id: 2026-08-nutex-health
 target: Nutex Health
 domain: nutexhealth.com
 status: CONFIRMED
-first_seen: '2026-08-31'
-last_updated: '2026-09-11'
+first_seen: 2026-08-31
+last_updated: 2026-09-11
 threat_actor: Unknown / Unattributed
-summary: >-
-  Nutex Health disclosed an unauthorized cybersecurity incident involving
+summary: Nutex Health disclosed an unauthorized cybersecurity incident involving
   corporate data environments, triggering formal Item 1.05 notification.
 tags:
   - regulatory
   - sec-8k
   - healthcare
   - confirmed
+  - threat-intel
+  - developing
+  - media-pickup
 industry: Healthcare
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: null
@@ -25,14 +27,13 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001628280-26-059602
-    filing_date: '2026-08-14'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/1479681/000162828026059602/0001628280-26-059602-index.htm
-    description: >-
-      Item 1.05 Material Cybersecurity Incident disclosure filed by Nutex Health
-      Inc. regarding hospital micro-facility network outage and electronic
-      medical record protection response.
+    filing_date: 2026-08-14
+    url: https://www.sec.gov/Archives/edgar/data/1479681/000162828026059602/0001628280-26-059602-index.htm
+    description: Item 1.05 Material Cybersecurity Incident disclosure filed by Nutex
+      Health Inc. regarding hospital micro-facility network outage and
+      electronic medical record protection response.
 ---
+
 ## Incident Overview
 
 The **Nutex Health** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Healthcare** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
@@ -61,3 +62,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** SEC Form 8-K Item 8.01 Supplemental: Nutex Health provides containment verification and reports clinical operations remain fully operational.
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Item 8.01 (Adsh 0001628280-26-061432)](https://www.sec.gov/Archives/edgar/data/1479681/000162828026061432/0001628280-26-061432-index.htm)
+
+### 2026-09-02 10:45 UTC
+- **Event:** Press Coverage: Nutex Health Says Patient Data Stolen, Hackers Threaten Leak
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/nutex-patient-data-stolen/)

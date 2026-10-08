@@ -3,18 +3,20 @@ id: 2026-09-boston-scientific
 target: Boston Scientific
 domain: bostonscientific.com
 status: CONFIRMED
-first_seen: '2026-09-08'
-last_updated: '2026-09-08'
+first_seen: 2026-08-27
+last_updated: 2026-09-08
 threat_actor: Unknown / Unattributed
-summary: >-
-  Medical manufacturer Boston Scientific Corporation filed Form 8-K Item 1.05
-  formalizing disclosure of an unauthorized intrusion into corporate IT
+summary: Medical manufacturer Boston Scientific Corporation filed Form 8-K Item
+  1.05 formalizing disclosure of an unauthorized intrusion into corporate IT
   environments.
 tags:
   - regulatory
   - sec-8k
   - healthcare
   - confirmed
+  - threat-intel
+  - developing
+  - media-pickup
 industry: Healthcare
 incident_type: Unauthorized Network Intrusion
 affected_records: 48000
@@ -26,14 +28,13 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0000885725-26-000059
-    filing_date: '2026-09-18'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/885725/000088572526000059/0000885725-26-000059-index.htm
-    description: >-
-      Item 1.05 Material Cybersecurity Incident disclosure filed by Boston
-      Scientific Corporation regarding unauthorized access to commercial IT
-      networks and implementation of isolation protocols.
+    filing_date: 2026-09-18
+    url: https://www.sec.gov/Archives/edgar/data/885725/000088572526000059/0000885725-26-000059-index.htm
+    description: Item 1.05 Material Cybersecurity Incident disclosure filed by
+      Boston Scientific Corporation regarding unauthorized access to commercial
+      IT networks and implementation of isolation protocols.
 ---
+
 ## Incident Overview
 
 The **Boston Scientific** cybersecurity event represents a confirmed **Unauthorized Network Intrusion** within the **Healthcare** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **48,000 individuals and records**.
@@ -57,3 +58,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** SEC Form 8-K Item 1.05 Filing: Boston Scientific formalizes disclosure of unauthorized access detected in August 2026.
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Item 1.05 (Adsh 0000885725-26-000059)](https://www.sec.gov/Archives/edgar/data/885725/000088572526000059/0000885725-26-000059-index.htm)
+
+### 2026-08-27 10:00 UTC
+- **Event:** Press Coverage: Boston Scientific Reveals Global Disruption After Cyber Incident
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/boston-scientific-global/)

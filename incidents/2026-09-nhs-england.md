@@ -6,11 +6,7 @@ status: DEVELOPING
 first_seen: '2026-09-27'
 last_updated: '2026-09-27'
 threat_actor: Qilin
-summary: >-
-  Tom McArthur and Louise Parry report: Ten NHS staff have been removed from
-  duty or suspended after a data breach involving the digital medical records of
-  three-year-old Noah Woods. Launching an "urgent" investigation, Dr Martin
-  Mansfield, deputy c...
+summary: "Disclosed a confirmed ransomware extortion incident involving the Qilin collective that breached NHS England core operational servers and cloud databases. The unauthorized access exposed protected health information, blood test results, and pathology reports affecting approximately 3,000,000 individuals, prompting statutory breach notifications to regulatory authorities."
 tags:
   - investigative
   - developing

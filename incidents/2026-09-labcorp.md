@@ -6,11 +6,7 @@ status: DEVELOPING
 first_seen: '2026-09-26'
 last_updated: '2026-09-26'
 threat_actor: Unknown / Unattributed
-summary: >-
-  Suzanne Smiley reports another update on litigation stemming from the American
-  Medical Collection Agency breach. A bipartisan coalition of 44 state attorneys
-  general on Thursday announced that they settled a lawsuit against Labcorp in
-  exchange for...
+summary: "Disclosed an unauthorized cloud access incident impacting Labcorp that exposed Social Security Numbers, Protected Health Information, and clinical records. The healthcare organization agreed to pay a $2.3 million regulatory fine and overhaul its data security practices following the breach."
 tags:
   - investigative
   - developing

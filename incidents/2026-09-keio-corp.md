@@ -3,16 +3,17 @@ id: 2026-09-keio-corp
 target: Keio Corporation
 domain: keio.co.jp
 status: CONFIRMED
-first_seen: '2026-09-28'
-last_updated: '2026-09-28'
+first_seen: 2026-09-28
+last_updated: 2026-09-29
 threat_actor: Unknown / Unattributed
-summary: >-
-  Keio Corporation (Keio), a major private railway operator in Japan, said its
-  network was hit by a ransomware attack over the weekend, disrupting some of
-  its business systems. [...]
+summary: Keio Corporation (Keio), a major private railway operator in Japan,
+  said its network was hit by a ransomware attack over the weekend, disrupting
+  some of its business systems. [...]
 tags:
   - threat-intel
   - confirmed
+  - developing
+  - media-pickup
 industry: Transportation & Logistics
 incident_type: Ransomware Extortion
 affected_records: null
@@ -21,6 +22,7 @@ compromised_data:
   - Corporate Contact Records
 regulatory_filings: []
 ---
+
 ## Incident Overview
 
 The **Keio Corporation** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Transportation & Logistics** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
@@ -44,3 +46,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Japan's Keio confirms ransomware attack disrupted business systems
 - **Verification:** CONFIRMED BY TARGET
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/japans-keio-confirms-ransomware-attack-disrupted-business-systems/)
+
+### 2026-09-29 09:45 UTC
+- **Event:** Press Coverage: Japanese Railway Operators Hit with Weekend Cyber Attacks
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/japanese-railway-operators-cyber/)

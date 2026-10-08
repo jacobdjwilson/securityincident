@@ -6,11 +6,7 @@ status: DEVELOPING
 first_seen: '2026-09-28'
 last_updated: '2026-09-29'
 threat_actor: ShinyHunters
-summary: >-
-  Authorities in the Netherlands have arrested a 23-year-old convicted
-  cybercriminal on suspicion of aiding in data thefts and extortions by the
-  prolific hacker group ShinyHunters. In the days immediately following the
-  suspect's arrest, remaining Sh...
+summary: "Identified a network intrusion and"
 tags:
   - investigative
   - developing
