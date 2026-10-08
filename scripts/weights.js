@@ -55,10 +55,16 @@ export function loadWeightsConfig() {
   return weightsConfig;
 }
 
-export function extractDomainFromUrl(urlStr) {
+export function extractDomainFromUrl(urlStr, sourceTitle = '') {
   try {
     const parsed = new URL(urlStr);
-    return parsed.hostname.replace(/^www\./, '').toLowerCase();
+    const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
+    if (host === 'news.google.com') {
+      const lower = (sourceTitle || '').toLowerCase();
+      if (lower.includes('ap news') || lower.includes('associated press')) return 'apnews.com';
+      if (lower.includes('reuters')) return 'reuters.com';
+    }
+    return host;
   } catch {
     return 'unknown';
   }
@@ -119,7 +125,7 @@ export function calculateConfidenceScore(incident) {
     if (rawTier.includes('CLAIM') || rawTier.includes('UNVERIFIED')) hasClaim = true;
 
     if (m.sourceUrl) {
-      const domain = extractDomainFromUrl(m.sourceUrl);
+      const domain = extractDomainFromUrl(m.sourceUrl, m.sourceTitle);
       if (domain && domain !== 'unknown') {
         uniqueDomains.add(domain);
       }

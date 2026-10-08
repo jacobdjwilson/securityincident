@@ -58,14 +58,17 @@ function parseFeedXml(xml) {
       const linkMatch = block.match(/<link>(.*?)<\/link>/s);
       const dateMatch = block.match(/<(?:pubDate|dc:date)>(.*?)<\/(?:pubDate|dc:date)>/s);
       const descMatch = block.match(/<(?:description|content:encoded)>(.*?)<\/(?:description|content:encoded)>/s);
+      const sourceMatch = block.match(/<source(?:\s+url=["'](.*?)["'])?.*?>(.*?)<\/source>/s);
 
       const title = cleanHtml(titleMatch ? titleMatch[1] : '');
       const link = cleanHtml(linkMatch ? linkMatch[1] : '');
       const pubDate = cleanHtml(dateMatch ? dateMatch[1] : '');
       const description = cleanHtml(descMatch ? descMatch[1] : '');
+      const publisherUrl = sourceMatch ? cleanHtml(sourceMatch[1] || '') : '';
+      const publisherName = sourceMatch ? cleanHtml(sourceMatch[2] || '') : '';
 
       if (title && link) {
-        items.push({ title, link, pubDate, description });
+        items.push({ title, link, pubDate, description, publisherUrl, publisherName });
       }
     }
   }
@@ -98,14 +101,18 @@ const INCIDENT_KEYWORDS = [
   'compromis', 'data leak', 'stolen records', 'hacked', 'cyberattack',
   'exploited', 'zero-day', 'vulnerability exploited', 'outage', 'intrusion',
   'data theft', 'patient data', 'customer data', 'sec 8-k', 'item 1.05',
-  'dark web', 'leak site', 'victim', 'crypto heist', 'law firm hacked'
+  'dark web', 'leak site', 'victim', 'crypto heist', 'law firm hacked',
+  'cyber incident', 'cyber attack', 'cyber disruption', 'data extortion',
+  'stolen credentials', 'exfiltrated', 'confirms hack'
 ];
 
 const EXCLUSION_KEYWORDS = [
   'how to', 'best practices', 'webinar', 'podcast', 'top 10', 'top 5',
   'roundup', 'newsletter', 'patch tuesday review', 'opinion:', 'sponsor',
   'career', 'hiring', 'salary', 'market report', 'tips for', 'cheat sheet',
-  'interview with', 'cyber security month', 'overview of', 'guide to'
+  'interview with', 'cyber security month', 'overview of', 'guide to',
+  'review:', 'hands-on:', 'deal:', 'discount', 'movie review', 'game review',
+  'sports roundup', 'box office'
 ];
 
 // Blocklist for non-organization phrases extracted from headlines
@@ -266,8 +273,34 @@ function isValidTargetCandidate(candidate) {
   return true;
 }
 
-function extractTargetEntity(title, link = '', description = '') {
+function loadTargetIndex() {
+  const targetMap = { ...KNOWN_TARGETS };
+  if (!fs.existsSync(INCIDENTS_DIR)) return targetMap;
+  const files = fs.readdirSync(INCIDENTS_DIR).filter(f => f.endsWith('.md'));
+  for (const file of files) {
+    try {
+      const raw = fs.readFileSync(path.join(INCIDENTS_DIR, file), 'utf-8');
+      const parsed = matter(raw);
+      if (parsed.data && parsed.data.target) {
+        const targetName = parsed.data.target.trim();
+        const lowerName = targetName.toLowerCase();
+        const slug = parsed.data.id ? parsed.data.id.replace(/^\d{4}-\d{2}-/, '') : slugify(targetName);
+        const domain = parsed.data.domain || `${slug.replace(/-/g, '')}.com`;
+        if (lowerName.length >= 4 && !INVALID_TARGETS.has(lowerName) && !targetMap[lowerName]) {
+          targetMap[lowerName] = { name: targetName, domain, slug };
+        }
+      }
+    } catch {}
+  }
+  return targetMap;
+}
+
+function extractTargetEntity(title, link = '', description = '', customTargets = null) {
+  const targets = customTargets || KNOWN_TARGETS;
+
   let cleaned = title
+    .replace(/\s*[-–—|]\s*(?:AP News|Associated Press|Reuters|BBC News|BBC|The Guardian|Guardian|CNBC|NPR|Wired|The Register|Ars Technica|CyberScoop|Infosecurity Magazine|Help Net Security|Security Affairs|BleepingComputer|The Record|Krebs on Security)$/i, '')
+    .replace(/^(?:Reuters|BBC News|BBC|AP|CNBC|NPR):\s*/i, '')
     .replace(/^CISA Adds.*to Catalog:?\s*/i, '')
     .replace(/^Alert:\s*/i, '')
     .replace(/^Breaking:\s*/i, '')
@@ -281,7 +314,7 @@ function extractTargetEntity(title, link = '', description = '') {
 
   const lowerTitle = cleaned.toLowerCase();
 
-  for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
+  for (const [key, info] of Object.entries(targets)) {
     if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${key}\\b`, 'i').test(lowerTitle)) {
       continue;
     }
@@ -292,7 +325,7 @@ function extractTargetEntity(title, link = '', description = '') {
 
   // Fallback: check article summary/description for known target entities if headline was generic
   const lowerDesc = (description || '').toLowerCase();
-  for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
+  for (const [key, info] of Object.entries(targets)) {
     if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${key}\\b`, 'i').test(lowerDesc)) {
       continue;
     }
@@ -329,7 +362,7 @@ function extractTargetEntity(title, link = '', description = '') {
   }
 
   const urlLower = link.toLowerCase();
-  for (const [key, info] of Object.entries(KNOWN_TARGETS)) {
+  for (const [key, info] of Object.entries(targets)) {
     const slugPattern = new RegExp(`(?:[-_/])${key.replace(/\\s+/g, '-')}(?:[-_/]|\\.html|$)`, 'i');
     if (slugPattern.test(urlLower)) {
       return { target: info.name, domain: info.domain, slug: info.slug };
@@ -829,6 +862,8 @@ export async function ingestFeeds() {
   // =========================================================================
   console.log('\n--- 5. Threat Intelligence & Investigative RSS Feeds ---');
   const sources = JSON.parse(fs.readFileSync(SOURCES_FILE, 'utf-8')).filter(s => s.enabled && s.id !== 'sec-edgar-8k');
+  const targetIndex = loadTargetIndex();
+  console.log(`🎯 Indexed ${Object.keys(targetIndex).length} recognized target entities across repository dossiers.`);
 
   if (!fs.existsSync(CACHE_DIR)) {
     fs.mkdirSync(CACHE_DIR, { recursive: true });
@@ -909,7 +944,7 @@ export async function ingestFeeds() {
           continue;
         }
 
-        const entityInfo = extractTargetEntity(item.title, item.link, item.description);
+        const entityInfo = extractTargetEntity(item.title, item.link, item.description, targetIndex);
         if (!entityInfo) {
           continue;
         }
@@ -950,19 +985,42 @@ export async function ingestFeeds() {
           summary = summary.slice(0, 247).trim() + '...';
         }
 
+        let eventText = cleanHtml(item.title)
+          .replace(/\s*[-–—|]\s*(?:AP News|Associated Press|Reuters|BBC News|BBC|The Guardian|Guardian|CNBC|NPR|Wired|The Register|Ars Technica|CyberScoop|Infosecurity Magazine|Help Net Security|Security Affairs|BleepingComputer|The Record|Krebs on Security)$/i, '')
+          .replace(/^(?:Reuters|BBC News|BBC|AP|CNBC|NPR):\s*/i, '')
+          .trim();
+
+        const milestoneTags = [source.type, status.toLowerCase()];
+
+        if (existingPath) {
+          if (source.type === 'general-media') {
+            eventText = `Mainstream Media Pickup: ${eventText}`;
+            milestoneTags.push('media-pickup');
+          } else if (source.type === 'investigative' || source.type === 'threat-intel') {
+            if (!eventText.toLowerCase().startsWith('press coverage') && !eventText.toLowerCase().startsWith('mainstream media')) {
+              eventText = `Press Coverage: ${eventText}`;
+            }
+            milestoneTags.push('media-pickup');
+          }
+        }
+
+        const sourceTitle = item.publisherName
+          ? `${item.publisherName} Report`
+          : `${source.name} Report`;
+
         const res = upsertIncidentMilestone({
           incidentId,
           target,
           domain,
           status,
           verification,
-          event: cleanHtml(item.title),
-          sourceTitle: `${source.name} Report`,
+          event: eventText,
+          sourceTitle,
           sourceUrl: item.link,
           timeUtc: dateUtc,
           dateIso,
           summary,
-          tags: [source.type, status.toLowerCase()],
+          tags: milestoneTags,
           threatActor
         });
 

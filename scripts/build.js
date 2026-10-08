@@ -526,7 +526,10 @@ function getRelativeTimeString(dateStr) {
 }
 
 function generateFeedCardHtml(inc) {
-  const latestMilestone = inc.milestones && inc.milestones.length > 0 ? inc.milestones[0] : null;
+  const sortedMilestones = inc.milestones && inc.milestones.length > 0
+    ? [...inc.milestones].sort((a, b) => (b.time || '').localeCompare(a.time || ''))
+    : [];
+  const latestMilestone = sortedMilestones.length > 0 ? sortedMilestones[0] : null;
   const actorHtml = inc.threat_actor && inc.threat_actor !== 'Unknown' && inc.threat_actor !== 'Unattributed'
     ? `<span class="footer-actor-pill"><i class="fa-solid fa-user-secret"></i> ${inc.threat_actor}</span>`
     : '';
@@ -611,10 +614,19 @@ function generateFeedCardHtml(inc) {
       ${latestMilestone ? `
       <div class="feed-milestone-embed">
         <div class="milestone-embed-header">
-          <span class="me-label"><i class="fa-solid fa-clock-rotate-left"></i> Latest Verified Milestone &bull; <span class="font-mono">${latestMilestone.time}</span></span>
-          <span class="verify-badge ${getVerificationClass(latestMilestone.verification)}">
-            <i class="${getVerificationIcon(latestMilestone.verification)}"></i> ${cleanVerification(latestMilestone.verification)}
+          <span class="me-label">
+            ${(/media pickup|press coverage/i.test(latestMilestone.event) || /\b(?:ap news|reuters|bbc|the guardian|wired|ars technica)\b/i.test(latestMilestone.sourceTitle || ''))
+              ? '<i class="fa-solid fa-newspaper text-cyan"></i> Latest Media Pickup'
+              : '<i class="fa-solid fa-clock-rotate-left"></i> Latest Verified Milestone'} &bull; <span class="font-mono">${latestMilestone.time}</span>
           </span>
+          <div style="display: inline-flex; align-items: center; gap: 0.4rem;">
+            ${(/media pickup|press coverage/i.test(latestMilestone.event) || /\b(?:ap news|reuters|bbc|the guardian|wired|ars technica)\b/i.test(latestMilestone.sourceTitle || ''))
+              ? '<span class="media-pickup-badge"><i class="fa-solid fa-newspaper"></i> Media Pickup</span>'
+              : ''}
+            <span class="verify-badge ${getVerificationClass(latestMilestone.verification)}">
+              <i class="${getVerificationIcon(latestMilestone.verification)}"></i> ${cleanVerification(latestMilestone.verification)}
+            </span>
+          </div>
         </div>
         <p class="me-event">${latestMilestone.event}</p>
         ${latestMilestone.sourceUrl ? `
@@ -1395,7 +1407,7 @@ function generateIncidentDetailHtml(inc) {
 
   const uniqueDomains = [...new Set(
     (inc.milestones || [])
-      .map(m => m.sourceUrl ? extractDomainFromUrl(m.sourceUrl) : null)
+      .map(m => m.sourceUrl ? extractDomainFromUrl(m.sourceUrl, m.sourceTitle) : null)
       .filter(d => d && d !== 'unknown')
   )];
 
@@ -1403,6 +1415,8 @@ function generateIncidentDetailHtml(inc) {
     const verifClass = getVerificationClass(m.verification);
     const verifIcon = getVerificationIcon(m.verification);
     const verifClean = cleanVerification(m.verification);
+    const isMediaPickup = /media pickup|press coverage|news coverage/i.test(m.event) ||
+      /\b(?:ap news|associated press|reuters|bbc news|bbc|the guardian|cnbc|npr|wired|ars technica|the register|cyberscoop)\b/i.test(m.sourceTitle || '');
 
     const sourceHtml = m.sourceUrl ? `
       <div class="milestone-source">
@@ -1421,7 +1435,10 @@ function generateIncidentDetailHtml(inc) {
         <div class="milestone-card">
           <div class="milestone-header">
             <span class="milestone-time"><i class="fa-regular fa-clock" style="margin-right: 0.4rem;"></i>${m.time}</span>
-            <span class="verify-badge ${verifClass}"><i class="${verifIcon}"></i> ${verifClean}</span>
+            <div style="display: inline-flex; align-items: center; gap: 0.4rem;">
+              ${isMediaPickup ? '<span class="media-pickup-badge"><i class="fa-solid fa-newspaper"></i> Media Pickup</span>' : ''}
+              <span class="verify-badge ${verifClass}"><i class="${verifIcon}"></i> ${verifClean}</span>
+            </div>
           </div>
           <p class="milestone-event">${m.event}</p>
           ${sourceHtml}

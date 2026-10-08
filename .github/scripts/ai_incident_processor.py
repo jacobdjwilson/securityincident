@@ -253,6 +253,8 @@ def process_unsummarized_incidents() -> int:
 
         print(f"🔍 Enriching incident {file_path.name} via AI model pipeline...")
 
+        file_modified = False
+
         # 1. Summarization if needed
         if needs_summary:
             summary_text, status = gemini_client.call_task("summarization", summarize_prompt, context_text)
@@ -262,14 +264,16 @@ def process_unsummarized_incidents() -> int:
                 return EXIT_SUCCESS
 
             if summary_text:
-                clean_summary = summary_text.replace("\n", " ").replace('"', "'").strip()
+                clean_summary = " ".join(summary_text.split()).replace('"', "'").strip()
                 # Update frontmatter safely without modifying regulatory filings
                 frontmatter_raw = re.sub(
-                    r"summary:\s*(?:>-|\"[^\"]*\"|'[^']*'|[^\n]+(?:\n\s+[^\n]+)*)",
-                    f'summary: "{clean_summary}"',
+                    r"^summary:[^\n]*(?:\n[ \t]+[^\n]*)*",
+                    lambda _: f'summary: "{clean_summary}"',
                     frontmatter_raw,
-                    count=1
+                    count=1,
+                    flags=re.MULTILINE
                 )
+                file_modified = True
                 updated_files += 1
 
         # 2. Impact extraction if records are null
@@ -287,18 +291,21 @@ def process_unsummarized_incidents() -> int:
                     recs = extracted.get("affected_records")
                     if recs and isinstance(recs, int) and recs > 0:
                         frontmatter_raw = re.sub(
-                            r"affected_records:\s*null",
-                            f"affected_records: {recs}",
+                            r"^affected_records:\s*null",
+                            lambda _: f"affected_records: {recs}",
                             frontmatter_raw,
-                            count=1
+                            count=1,
+                            flags=re.MULTILINE
                         )
+                        file_modified = True
                         updated_files += 1
                 except Exception:
                     pass
 
         # Save updated file
-        new_content = f"---{frontmatter_raw}---{body}"
-        file_path.write_text(new_content, encoding="utf-8")
+        if file_modified:
+            new_content = f"---{frontmatter_raw}---{body}"
+            file_path.write_text(new_content, encoding="utf-8")
         cache.set(content_hash, {"timestamp": time.time(), "status": "processed"})
 
     print(f"✅ AI Incident Processor cycle complete: {calls_made} API calls made, {updated_files} incident files updated.")

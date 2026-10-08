@@ -108,6 +108,168 @@
       "status": "Operational",
       "verification": "INDEPENDENT VERIFICATION",
       "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "securityweek",
+      "name": "SecurityWeek",
+      "type": "Threat Intelligence",
+      "endpoint": "https://www.securityweek.com/feed/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "the-hackers-news",
+      "name": "The Hacker News",
+      "type": "Cyber Threat Telemetry",
+      "endpoint": "https://feeds.feedburner.com/TheHackersNews",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "dark-reading",
+      "name": "Dark Reading",
+      "type": "Threat Intelligence",
+      "endpoint": "https://www.darkreading.com/rss.xml",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "ncsc-uk",
+      "name": "NCSC UK Cyber Alerts",
+      "type": "Government Cyber Advisory",
+      "endpoint": "https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "Advisory XML Syndication"
+    },
+    {
+      "id": "hipaa-journal",
+      "name": "HIPAA Journal Healthcare Breaches",
+      "type": "Healthcare Breach Disclosures",
+      "endpoint": "https://www.hipaajournal.com/category/healthcare-cybersecurity/feed/",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "Healthcare Regulatory Feed"
+    },
+    {
+      "id": "ap-news",
+      "name": "Associated Press (AP News)",
+      "type": "Mainstream Wire News",
+      "endpoint": "https://apnews.com/hub/technology",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Verified News Syndication"
+    },
+    {
+      "id": "reuters",
+      "name": "Reuters",
+      "type": "Mainstream Wire News",
+      "endpoint": "https://www.reuters.com/technology/cybersecurity/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Verified News Syndication"
+    },
+    {
+      "id": "bbc-tech",
+      "name": "BBC News Technology",
+      "type": "General Media Coverage",
+      "endpoint": "https://feeds.bbci.co.uk/news/technology/rss.xml",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "the-guardian",
+      "name": "The Guardian Technology",
+      "type": "General Media Coverage",
+      "endpoint": "https://www.theguardian.com/technology/rss",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "cnbc-tech",
+      "name": "CNBC Technology",
+      "type": "General Media Coverage",
+      "endpoint": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "npr-tech",
+      "name": "NPR Technology",
+      "type": "General Media Coverage",
+      "endpoint": "https://feeds.npr.org/1019/rss.xml",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "ars-technica",
+      "name": "Ars Technica Security",
+      "type": "Investigative Tech Journalism",
+      "endpoint": "https://arstechnica.com/tag/security/feed/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "wired-security",
+      "name": "Wired Security",
+      "type": "Investigative Journalism",
+      "endpoint": "https://www.wired.com/feed/category/security/latest/rss",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "the-register",
+      "name": "The Register Security",
+      "type": "Threat Intelligence & Forensics",
+      "endpoint": "https://www.theregister.com/security/headlines.atom",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated Atom Feed"
+    },
+    {
+      "id": "cyberscoop",
+      "name": "CyberScoop",
+      "type": "Cybersecurity Policy & Breaches",
+      "endpoint": "https://cyberscoop.com/feed/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "infosecurity-magazine",
+      "name": "Infosecurity Magazine",
+      "type": "Industry Cybersecurity Reporting",
+      "endpoint": "https://www.infosecurity-magazine.com/rss/news/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "help-net-security",
+      "name": "Help Net Security",
+      "type": "Technical Breach Telemetry",
+      "endpoint": "https://www.helpnetsecurity.com/feed/",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
+    },
+    {
+      "id": "security-affairs",
+      "name": "Security Affairs",
+      "type": "Threat Intel & Malware Analysis",
+      "endpoint": "https://securityaffairs.com/feed",
+      "status": "Operational",
+      "verification": "INDEPENDENT VERIFICATION",
+      "method": "Syndicated RSS Feed"
     }
   ]
 }

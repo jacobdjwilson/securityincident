@@ -86,5 +86,109 @@
     "type": "regulatory",
     "defaultVerification": "CONFIRMED BY REGULATOR",
     "enabled": true
+  },
+  {
+    "id": "ap-news",
+    "name": "Associated Press (AP News)",
+    "url": "https://news.google.com/rss/search?q=when:7d+(%22cyberattack%22+OR+%22data+breach%22+OR+%22ransomware%22)+site:apnews.com&hl=en-US&gl=US&ceid=US:en",
+    "type": "general-media",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "reuters",
+    "name": "Reuters",
+    "url": "https://news.google.com/rss/search?q=when:7d+(%22cyberattack%22+OR+%22data+breach%22+OR+%22ransomware%22)+site:reuters.com&hl=en-US&gl=US&ceid=US:en",
+    "type": "general-media",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "bbc-tech",
+    "name": "BBC News Technology",
+    "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
+    "type": "general-media",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "the-guardian",
+    "name": "The Guardian Technology",
+    "url": "https://www.theguardian.com/technology/rss",
+    "type": "general-media",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "cnbc-tech",
+    "name": "CNBC Technology",
+    "url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+    "type": "general-media",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "npr-tech",
+    "name": "NPR Technology",
+    "url": "https://feeds.npr.org/1019/rss.xml",
+    "type": "general-media",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "ars-technica",
+    "name": "Ars Technica Security",
+    "url": "https://arstechnica.com/tag/security/feed/",
+    "type": "investigative",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "wired-security",
+    "name": "Wired Security",
+    "url": "https://www.wired.com/feed/category/security/latest/rss",
+    "type": "investigative",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "the-register",
+    "name": "The Register Security",
+    "url": "https://www.theregister.com/security/headlines.atom",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "cyberscoop",
+    "name": "CyberScoop",
+    "url": "https://cyberscoop.com/feed/",
+    "type": "investigative",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "infosecurity-magazine",
+    "name": "Infosecurity Magazine",
+    "url": "https://www.infosecurity-magazine.com/rss/news/",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "help-net-security",
+    "name": "Help Net Security",
+    "url": "https://www.helpnetsecurity.com/feed/",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
+  },
+  {
+    "id": "security-affairs",
+    "name": "Security Affairs",
+    "url": "https://securityaffairs.com/feed",
+    "type": "threat-intel",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
+    "enabled": true
   }
 ]
