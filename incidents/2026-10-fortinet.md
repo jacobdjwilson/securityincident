@@ -4,7 +4,7 @@ target: Fortinet
 domain: fortinet.com
 status: CONFIRMED
 first_seen: 2026-08-12
-last_updated: 2026-10-07
+last_updated: 2026-10-08
 threat_actor: null
 summary: Fortinet is warning customers of a critical FortiMail vulnerability,
   tracked as CVE-2026-104286, that is being actively exploited in zero-day
@@ -42,3 +42,13 @@ tags:
 - **Event:** Press Coverage: FortiBleed is still active, with attackers locking admins out of Fortinet firewalls
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/07/fortinet-fortibleed-campaign-fbi-advisory/)
+
+### 2026-10-08 07:52 UTC
+- **Event:** Press Coverage: FortiBleed Attackers Locking Victims Out of Fortinet Devices
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/fortibleed-attackers-locking-victims-out-of-fortinet-devices/)
+
+### 2026-10-02 10:53 UTC
+- **Event:** Press Coverage: Fortinet sounds the alarm over actively exploited FortiMail zero-day
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/10/02/fortinet-sounds-the-alarm-over-actively-exploited-fortimail-zero-day/5300803)

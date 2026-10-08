@@ -4,7 +4,7 @@ target: Atlassian
 domain: atlassian.com
 status: DEVELOPING
 first_seen: 2026-08-10
-last_updated: 2026-10-07
+last_updated: 2026-10-08
 threat_actor: null
 summary: Atlassian is warning customers of a critical vulnerability, tracked as
   CVE-2026-21589, that can be exploited for arbitrary file-access in multiple
@@ -32,3 +32,8 @@ tags:
 - **Event:** Press Coverage: Researchers Uncover RovoBlast Vulnerability in Atlassian AI Assistant
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/rovoblast-atlassian-rovo-url/)
+
+### 2026-10-08 10:05 UTC
+- **Event:** Press Coverage: Critical Flaw in Multiple Atlassian Products Exploited in the Wild
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/critical-vulnerability-atlassian/)
