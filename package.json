@@ -24,7 +24,7 @@
   "author": "securityincident.net",
   "license": "MIT",
   "dependencies": {
-    "gray-matter": "^4.0.3",
-    "marked": "^15.0.7"
+    "marked": "^15.0.7",
+    "yaml": "^2.9.1"
   }
 }

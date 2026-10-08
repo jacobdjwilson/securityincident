@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+import matter from './matter.js';
 
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');

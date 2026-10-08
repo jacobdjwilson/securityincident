@@ -125,7 +125,7 @@ securityincident/
 │       └── fontawesome.js             # FontAwesome icon bundle
 ├── ARCHITECTURE.md                    # Detailed technical specification
 ├── AGENTS.md                          # Development philosophy & agent working guidelines
-├── package.json                       # Minimal dependencies (gray-matter, marked)
+├── package.json                       # Minimal dependencies (yaml, marked)
 └── README.md                          # Project overview & quickstart
 ```
 
@@ -236,7 +236,7 @@ When contributing to or modifying this codebase, all autonomous agents and human
 2. **Zero Dependency Bloat**:
    * Do not introduce heavy frontend frameworks (React, Vue, Tailwind, Angular, etc.) into the static client.
    * Keep runtime zero-dependency; use standard Vanilla CSS and Vanilla JS for frontend behavior.
-   * Limit build dependencies to minimal, well-maintained tools (`gray-matter`, `marked`).
+   * Limit build dependencies to minimal, well-maintained tools (`yaml`, `marked`).
 
 3. **Validate Builds & Schema Compliance Before Proposing**:
    * Always execute `npm test` and `npm run build` after modifying scripts, styles, workflows, or incident files to verify zero schema violations, clean RSS feed generation, and valid output generation in `dist/`.

@@ -177,7 +177,7 @@ securityincident/
 │       ├── app.js                     # Client-side filtering, instant search, sorting, charts & pagination
 │       └── fontawesome.js             # FontAwesome icon bundle
 ├── images/                            # Brand assets (logos, favicons, COLOR.md, BRANDING.md)
-├── package.json                       # Build scripts and minimal dependencies (gray-matter, marked)
+├── package.json                       # Build scripts and minimal dependencies (yaml, marked)
 └── README.md
 ```
 

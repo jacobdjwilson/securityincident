@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+import matter from './matter.js';
 import { validateIncidentFile } from './validate.js';
 import { fetchSecItem105Filings } from './regulatory/sec-edgar.js';
 import { fetchAllStateAgNotices } from './regulatory/state-ag.js';

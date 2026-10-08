@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+import matter from './matter.js';
 import { marked } from 'marked';
 import { calculateConfidenceScore, extractDomainFromUrl } from './weights.js';
 

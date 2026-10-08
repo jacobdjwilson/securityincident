@@ -7,7 +7,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+import matter from './matter.js';
 import { validateIncidentFile } from './validate.js';
 
 const ROOT_DIR = process.cwd();

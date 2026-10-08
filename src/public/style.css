@@ -168,6 +168,17 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+img, svg, video, canvas, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
 body {
   background-color: var(--bg-base);
   color: var(--text-primary);
@@ -4262,11 +4273,515 @@ a:hover {
 .rf-url-preview {
   font-size: 0.74rem;
   color: var(--text-muted);
-  max-width: 480px;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-all;
 }
+
+/* ===================================================================
+   Comprehensive Unified Mobile & Responsive Architecture
+   Breakpoints: 960px (Tablet), 768px (Small Tablet), 640px (Mobile), 480px (Compact Mobile)
+   =================================================================== */
+
+@media (max-width: 960px) {
+  .telemetry-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .site-header {
+    padding: 0.65rem 0;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .brand {
+    align-self: flex-start;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
+    font-size: 0.82rem;
+    width: 100%;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .nav-link {
+    padding: 0.2rem 0;
+  }
+
+  .github-badge {
+    margin-left: auto;
+  }
+
+  .feed-hero-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+    padding: 1.5rem 0 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .feed-hero-title {
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+
+  .feed-hero-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .feed-hero-quickstats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .quickstat-card {
+    min-width: 0;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .search-kbd {
+    display: none;
+  }
+
+  .feed-tabs-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .stream-tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    width: 100%;
+  }
+
+  .stream-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stream-tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.7rem;
+  }
+
+  .feed-actions-group {
+    width: 100%;
+  }
+
+  .btn-toggle-drawer {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .telemetry-drawer {
+    padding: 1.15rem;
+  }
+
+  .drawer-controls-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .drawer-export-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .export-bar-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .btn-export {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .detail-page {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .detail-header {
+    padding: 1.35rem 1.15rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .detail-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .detail-title {
+    font-size: 1.75rem;
+    line-height: 1.25;
+    word-break: break-word;
+  }
+
+  .detail-summary {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    word-break: break-word;
+  }
+
+  .detail-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    padding: 0.85rem;
+  }
+
+  .meta-val {
+    word-break: break-word;
+  }
+
+  .filings-pills-row,
+  .compromised-pills-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filing-pill {
+    display: flex;
+    flex-wrap: wrap;
+    word-break: break-word;
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .compromised-pill {
+    display: inline-flex;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .open-weights-card {
+    padding: 1.35rem 1.15rem;
+  }
+
+  .open-weights-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .ow-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .regulatory-dossier-card {
+    padding: 1.35rem 1.15rem;
+  }
+
+  .regulatory-dossier-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .status-hero-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .status-title {
+    font-size: 1.65rem;
+  }
+
+  .status-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --timeline-rail-width: 24px;
+    --marker-size: 14px;
+    --marker-dot-size: 6px;
+  }
+
+  .feed-card {
+    padding: 1.15rem 1rem;
+    overflow: hidden;
+  }
+
+  .feed-card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .feed-status-badge-wrap {
+    align-self: flex-start;
+  }
+
+  .feed-entity-info {
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .feed-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 0.88rem;
+    flex-shrink: 0;
+  }
+
+  .feed-title-meta {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .feed-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .feed-target-name {
+    font-size: 1.05rem;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  .feed-target-domain {
+    word-break: break-all;
+    font-size: 0.78rem;
+  }
+
+  .feed-summary {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .feed-tags-row {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .feed-tag {
+    font-size: 0.7rem;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .feed-confidence-row {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .feed-confidence-pill,
+  .feed-source-pill {
+    font-size: 0.72rem;
+  }
+
+  .feed-milestone-embed {
+    padding: 0.65rem 0.8rem;
+  }
+
+  .milestone-embed-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .me-event {
+    word-break: break-word;
+    font-size: 0.82rem;
+  }
+
+  .me-source-link {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 0.75rem;
+  }
+
+  .feed-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .footer-meta-left {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .footer-actions-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .btn-action-share,
+  .btn-action-dossier {
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 0.45rem 0.65rem;
+  }
+
+  .milestone-node {
+    grid-template-columns: 24px 1fr;
+    column-gap: 0.65rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .milestone-card {
+    padding: 0.9rem 1rem;
+    min-width: 0;
+  }
+
+  .milestone-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .milestone-time {
+    font-size: 0.75rem;
+  }
+
+  .milestone-event {
+    font-size: 0.86rem;
+    word-break: break-word;
+    line-height: 1.5;
+  }
+
+  .milestone-source {
+    font-size: 0.75rem;
+    word-break: break-word;
+  }
+
+  .milestone-source a {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .rf-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .rf-action-group {
+    width: 100%;
+  }
+
+  .btn-direct-filing {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rf-url-preview {
+    max-width: 100%;
+    word-break: break-all;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+  }
+
+  .feed-hero-quickstats {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .detail-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .ow-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .status-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .quickstat-card,
+  .sm-card {
+    padding: 0.75rem;
+  }
+
+  .quick-topics-row {
+    font-size: 0.75rem;
+  }
+
+  .qt-chip {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.45rem;
+  }
+}
+
 
 
 
