@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-06
+last_updated: 2026-10-09
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -106,3 +106,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Window to Tackle Surge in AI-Enabled Cyber Attacks Narrowing, Tech Giants Warn
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/window-ai-attacks-narrowing-tech/)
+
+### 2026-10-09 06:32 UTC
+- **Event:** Press Coverage: October 2026 Patch Tuesday forecast: Time for an Office cleanup
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/09/october-2026-patch-tuesday-forecast/)

@@ -3,14 +3,20 @@ id: 2026-10-daiwa-securities
 target: Daiwa Securities
 domain: daiwasecurities.com
 status: DEVELOPING
-first_seen: '2026-10-05'
-last_updated: '2026-10-05'
+first_seen: 2026-10-05
+last_updated: 2026-10-05
 threat_actor: null
-summary: "Disclosed a vendor-related security incident potentially compromising personal information belonging to 110,000 Daiwa Securities clients. The breach was publicly reported following an independent verification of the data exposure."
+summary: Disclosed a vendor-related security incident potentially compromising
+  personal information belonging to 110,000 Daiwa Securities clients. The breach
+  was publicly reported following an independent verification of the data
+  exposure.
 tags:
   - investigative
   - developing
+compromised_data:
+  - Customer / Employee PII
 ---
+
 ## Timeline
 
 ### 2026-10-05 12:30 UTC
