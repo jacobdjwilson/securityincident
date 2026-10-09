@@ -26,12 +26,21 @@
       "prompt_path": ".github/ai-prompts/extract-impact.md",
       "max_output_tokens": 200,
       "temperature": 0.1
+    },
+    "deep_extraction": {
+      "prompt_path": ".github/ai-prompts/extract-deep-dossier.md",
+      "max_input_length_chars": 10000,
+      "max_output_tokens": 1200,
+      "temperature": 0.1
     }
   },
   "regulatory_invariance": {
-    "_comment": "Mandatory invariant: Regulatory filings must be parsed deterministically and never altered by AI generation.",
+    "_comment": "Mandatory invariant: Regulatory filings and authoritative disclosures must be parsed deterministically and never altered by AI generation.",
     "protected_fields": [
       "regulatory_filings",
+      "agency_advisories",
+      "consortium_bulletins",
+      "vendor_advisories",
       "status",
       "accession_number",
       "filing_url"
@@ -44,8 +53,8 @@
     "default_page_size": 50
   },
   "git_automation": {
-    "_comment": "Branching, PR labeling, and commit configuration for automated ingestion pipelines",
-    "publish_mode": "pr",
+    "_comment": "Direct publishing to main for steady-state automated continuous ingestion without PR bottlenecks",
+    "publish_mode": "direct",
     "branch_name": "telemetry/ingest-pending",
     "target_branch": "main",
     "pr_label": "telemetry",
@@ -53,5 +62,11 @@
     "commit_author_email": "41898282+github-actions[bot]@users.noreply.github.com",
     "status_check_context": "validate-and-test",
     "status_check_description": "Schema compliance and build verified in ingestion workflow"
+  },
+  "telemetry_reporting": {
+    "_comment": "Operational traceability and actionable error reporting in CI step summaries",
+    "step_summary_enabled": true,
+    "error_report_on_failure": true,
+    "url_integrity_check_enabled": true
   }
 }

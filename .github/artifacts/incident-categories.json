@@ -42,7 +42,7 @@
     },
     {
       "name": "CA DOJ",
-      "full_name": "California Department of Justice (SB-24)",
+      "full_name": "California Department of Justice (SB-24 / Cal. Civ. Code § 1798.82)",
       "filing_type": "State Breach Notification"
     },
     {
@@ -61,9 +61,90 @@
       "filing_type": "HIPAA Breach Portal Disclosure"
     },
     {
+      "name": "FTC",
+      "full_name": "Federal Trade Commission",
+      "filing_type": "Health Breach Notification Rule (16 CFR Part 318)"
+    },
+    {
+      "name": "FCC",
+      "full_name": "Federal Communications Commission",
+      "filing_type": "CPNI Data Breach Notification (47 CFR § 64.2011)"
+    },
+    {
+      "name": "UK ICO",
+      "full_name": "UK Information Commissioner's Office",
+      "filing_type": "UK GDPR Article 33 Statutory Breach Notification"
+    },
+    {
+      "name": "Dutch AP",
+      "full_name": "Dutch Data Protection Authority (Autoriteit Persoonsgegevens)",
+      "filing_type": "EU GDPR Statutory Breach Disclosure"
+    }
+  ],
+  "government_agencies": [
+    {
       "name": "CISA",
       "full_name": "Cybersecurity and Infrastructure Security Agency",
-      "filing_type": "Known Exploited Vulnerabilities (KEV) Directive"
+      "advisory_type": "Binding Operational Directive (BOD) & Known Exploited Vulnerabilities (KEV) Catalog"
+    },
+    {
+      "name": "NCSC UK",
+      "full_name": "UK National Cyber Security Centre",
+      "advisory_type": "Emergency Cyber Incident Advisory"
+    },
+    {
+      "name": "FBI",
+      "full_name": "Federal Bureau of Investigation (Cyber Division)",
+      "advisory_type": "FBI Flash / PIN Advisory"
+    },
+    {
+      "name": "CCCS",
+      "full_name": "Canadian Centre for Cyber Security",
+      "advisory_type": "Cyber Threat Alert"
+    },
+    {
+      "name": "BSI",
+      "full_name": "German Federal Office for Information Security",
+      "advisory_type": "IT-Sicherheitswarnung"
+    }
+  ],
+  "industry_consortiums": [
+    {
+      "name": "Health-ISAC",
+      "full_name": "Health Information Sharing and Analysis Center",
+      "bulletin_type": "Sector Threat Alert"
+    },
+    {
+      "name": "FS-ISAC",
+      "full_name": "Financial Services Information Sharing and Analysis Center",
+      "bulletin_type": "Financial Threat Intelligence Bulletin"
+    },
+    {
+      "name": "FIRST",
+      "full_name": "Forum of Incident Response and Security Teams",
+      "bulletin_type": "Global Incident Coordination Notice"
+    },
+    {
+      "name": "Shadowserver",
+      "full_name": "The Shadowserver Foundation",
+      "bulletin_type": "Public Internet Exposure Report"
+    }
+  ],
+  "vendor_authorities": [
+    {
+      "name": "Cloud Software Group / Citrix",
+      "portal": "Citrix Support & Security Bulletins",
+      "bulletin_type": "Official Security Bulletin (CTX)"
+    },
+    {
+      "name": "Microsoft",
+      "portal": "Microsoft Security Response Center (MSRC)",
+      "bulletin_type": "Security Advisory & Patch Update"
+    },
+    {
+      "name": "Cisco",
+      "portal": "Cisco Product Security Incident Response Team (PSIRT)",
+      "bulletin_type": "Security Advisory"
     }
   ]
 }

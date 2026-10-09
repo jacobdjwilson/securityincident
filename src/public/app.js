@@ -641,7 +641,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let matchSearch = true;
     if (searchQuery) {
-      const haystack = `${target} ${domain} ${industry} ${type} ${summary} ${actor} ${tags} ${compromised} ${filings} ${confidence}% ${status}`.toLowerCase();
+      const agencies = el.getAttribute('data-agencies') || '';
+      const vendorAdvisories = el.getAttribute('data-vendor-advisories') || '';
+      const haystack = `${target} ${domain} ${industry} ${type} ${summary} ${actor} ${tags} ${compromised} ${filings} ${agencies} ${vendorAdvisories} ${confidence}% ${status}`.toLowerCase();
       matchSearch = haystack.includes(searchQuery);
     }
 
@@ -848,6 +850,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const affected_records = (affected_raw && affected_raw !== '0') ? parseInt(affected_raw, 10) : null;
       const compromised_data = (el.getAttribute('data-compromised') || '').split(/\s+/).filter(Boolean);
       const regulatory_filings = (el.getAttribute('data-filings') || '').split(/\s+/).filter(Boolean);
+      const agency_advisories = (el.getAttribute('data-agencies') || '').split(/\s+/).filter(Boolean);
+      const vendor_advisories = (el.getAttribute('data-vendor-advisories') || '').split(/\s+/).filter(Boolean);
       const confidence = parseInt(el.getAttribute('data-confidence') || '0', 10);
       const actor_raw = el.getAttribute('data-actor');
       const threat_actor = (actor_raw && actor_raw !== 'Unknown' && actor_raw !== 'Unattributed') ? actor_raw : null;
@@ -867,6 +871,8 @@ document.addEventListener('DOMContentLoaded', () => {
         affected_records,
         compromised_data,
         regulatory_filings,
+        agency_advisories,
+        vendor_advisories,
         confidence_score_percent: confidence,
         threat_actor,
         first_seen,
@@ -950,6 +956,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'Affected Records',
         'Compromised Data',
         'Regulatory Filings',
+        'Agency Advisories',
+        'Vendor Advisories',
         'Confidence Score (%)',
         'Threat Actor',
         'First Seen',
@@ -971,6 +979,8 @@ document.addEventListener('DOMContentLoaded', () => {
           escapeCsvCell(r.affected_records !== null ? r.affected_records : ''),
           escapeCsvCell(r.compromised_data.join('; ')),
           escapeCsvCell(r.regulatory_filings.join('; ')),
+          escapeCsvCell(r.agency_advisories.join('; ')),
+          escapeCsvCell(r.vendor_advisories.join('; ')),
           escapeCsvCell(r.confidence_score_percent),
           escapeCsvCell(r.threat_actor || ''),
           escapeCsvCell(r.first_seen),

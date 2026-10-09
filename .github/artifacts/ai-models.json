@@ -33,6 +33,12 @@
       "secondary": "gemini-3.7-flash",
       "tertiary": "gemini-3.5-flash-lite",
       "comment": "High-precision extraction for numerical affected record counts and sensitive data classes using Flash 3.8"
+    },
+    "deep_extraction": {
+      "primary": "gemini-3.8-flash",
+      "secondary": "gemini-3.7-flash",
+      "tertiary": "gemini-3.5-flash-lite",
+      "comment": "Deep technical intelligence extraction for CVEs, vendor bulletins, government directives, affected versions, workarounds, and multi-section dossier briefings"
     }
   },
   "configurations": {
@@ -66,6 +72,14 @@
       "max_output_tokens": 250,
       "thinking_budget": 0,
       "comment": "Low temperature and zero thinking budget for exact integer record counts and sensitive data categories"
+    },
+    "deep_extraction": {
+      "temperature": 0.1,
+      "top_p": 0.9,
+      "top_k": 30,
+      "max_output_tokens": 1200,
+      "thinking_budget": 0,
+      "comment": "Low temperature and high output token budget for detailed CVE extraction, vendor bulletin details, and multi-section technical dossier construction"
     }
   },
   "retry_policy": {

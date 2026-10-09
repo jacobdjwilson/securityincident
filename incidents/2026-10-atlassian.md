@@ -3,18 +3,56 @@ id: 2026-10-atlassian
 target: Atlassian
 domain: atlassian.com
 status: DEVELOPING
-first_seen: '2026-10-06'
-last_updated: '2026-10-06'
+first_seen: 2026-10-06
+last_updated: 2026-10-06
 threat_actor: null
-summary: >-
-  Atlassian is warning customers of a critical vulnerability, tracked as
+summary: Atlassian is warning customers of a critical vulnerability, tracked as
   CVE-2026-21589, that can be exploited for arbitrary file-access in multiple
   self-hosted Data Center products, including Confluence, Jira, and Bitbucket.
   [...]
 tags:
   - threat-intel
   - developing
+  - cve-2026-21589
+cve_ids:
+  - CVE-2026-21589
+vendor_advisories:
+  - publisher: Atlassian
+    advisory_id: Atlassian Data Center Security Advisory
+    title: Atlassian Data Center Arbitrary File Access Security Advisory
+    severity: Critical (CVSS 9.8)
+    release_date: 2026-10-06
+    cve_ids:
+      - CVE-2026-21589
+    affected_products:
+      - Jira Software Data Center
+      - Confluence Data Center
+      - Bitbucket Data Center
+    fixed_versions:
+      - Refer to Atlassian advisory patch matrix for fixed platform builds
+    workarounds: Enforce network perimeter access restrictions and isolate
+      management listeners.
+    url: https://confluence.atlassian.com/security
+    description: Official vendor advisory disclosing critical file-access
+      vulnerability affecting multiple self-hosted Data Center products.
 ---
+
+## Incident Overview
+
+Atlassian, within its operating sector, has been subject to a cybersecurity incident initially observed on 2026-10-06. Ground-truth telemetry indicates the threat activity is currently unconfirmed or under forensic attribution. Active vulnerability telemetry tracks associated Common Vulnerabilities and Exposures: CVE-2026-21589.
+
+Atlassian is warning customers of a critical vulnerability, tracked as CVE-2026-21589, that can be exploited for arbitrary file-access in multiple self-hosted Data Center products, including Confluence, Jira, and Bitbucket. [...]
+
+## Compromised Assets & Data Scope
+
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `atlassian.com`.
+
+Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
+
+## Authoritative Directives & Vendor Disclosures
+
+- **Atlassian Security Bulletin:** Atlassian Data Center Security Advisory - [Vendor Bulletin Link](https://confluence.atlassian.com/security)
+
 ## Timeline
 
 ### 2026-10-06 17:34 UTC

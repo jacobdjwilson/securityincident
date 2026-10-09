@@ -3,12 +3,11 @@ id: 2026-09-procamps
 target: ProCamps
 domain: procamps.com
 status: CONFIRMED
-first_seen: '2026-09-30'
-last_updated: '2026-09-30'
+first_seen: 2026-09-30
+last_updated: 2026-09-30
 threat_actor: null
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by ProCamps.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by ProCamps.
 tags:
   - regulatory
   - state-ag
@@ -17,9 +16,26 @@ tags:
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
-    url: 'https://oag.ca.gov/ecrime/databreach/reports/sb24-630604'
-    filing_date: '2026-09-30'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630604
+    filing_date: 2026-09-30
 ---
+
+## Incident Overview
+
+ProCamps, within its operating sector, has been subject to a cybersecurity incident initially observed on 2026-09-30. Ground-truth telemetry indicates the threat activity is currently unconfirmed or under forensic attribution.
+
+State of California Department of Justice data breach disclosure notice filed by ProCamps.
+
+## Compromised Assets & Data Scope
+
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `procamps.com`.
+
+Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
+
+## Statutory Disclosures & Compliance
+
+- **California Department of Justice Filing:** SB-24 Data Breach Notice (2026-09-30) - [Filing Link](https://oag.ca.gov/ecrime/databreach/reports/sb24-630604)
+
 ## Timeline
 
 ### 2026-09-30 17:00 UTC

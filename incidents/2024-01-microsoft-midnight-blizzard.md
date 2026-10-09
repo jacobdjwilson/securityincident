@@ -25,6 +25,18 @@ regulatory_filings:
       Corporation regarding Russian state-sponsored threat actor Midnight
       Blizzard accessing senior leadership email accounts and internal
       cybersecurity communications.
+vendor_advisories:
+  - publisher: Microsoft Security Response Center (MSRC)
+    advisory_id: MSRC Incident Advisory
+    title: Microsoft Actions Following Attack by Nation-State Actor Midnight Blizzard
+    severity: Critical
+    release_date: '2024-01-19'
+    url: https://msrc.microsoft.com/blog/2024/01/microsoft-actions-following-attack-by-nation-state-actor-midnight-blizzard/
+    description: >-
+      Official Microsoft Security Response Center disclosure detailing password
+      spray operations by Nobelium / Midnight Blizzard against non-production legacy
+      test tenants, privilege granting to malicious OAuth applications, and access
+      to corporate email accounts.
 summary: >-
   Microsoft disclosed an intrusion by Russian foreign intelligence threat group
   Midnight Blizzard (APT29), accessing senior leadership corporate emails and

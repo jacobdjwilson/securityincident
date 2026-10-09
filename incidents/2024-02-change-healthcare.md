@@ -32,6 +32,17 @@ regulatory_filings:
     form: HIPAA Breach Portal Report
     accession_number: HHS-OCR-2024-001
     url: 'https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf'
+agency_advisories:
+  - agency: CISA & FBI (Joint Advisory)
+    advisory_id: AA24-060A (#StopRansomware ALPHV BlackCat)
+    advisory_type: Joint Cybersecurity Advisory (CSA)
+    release_date: '2024-02-28'
+    url: https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060a
+    description: >-
+      Joint CISA and FBI Cybersecurity Advisory providing technical indicators of
+      compromise (IOCs), tactics, techniques, and procedures (TTPs) associated with
+      the ALPHV BlackCat ransomware deployment targeting Change Healthcare and the
+      Healthcare and Public Health (HPH) Sector.
 summary: >-
   Change Healthcare (UnitedHealth Group) suffered a devastating ALPHV / BlackCat
   ransomware extortion attack halting healthcare clearinghouse networks
@@ -71,8 +82,8 @@ Change Healthcare (UnitedHealth Group) suffered a devastating ALPHV / BlackCat r
 - **Source:** [SEC EDGAR 8-K Item 1.05 (Adsh 0000731766-24-000010)](https://www.sec.gov/Archives/edgar/data/731766/000073176624000010/uhg-20240221.htm)
 
 ### 2024-02-28 19:00 UTC
-- **Event:** ALPHV / BlackCat ransomware extortion gang claims responsibility, stating 6 TB of sensitive patient and financial records were exfiltrated.
-- **Verification:** INDEPENDENT VERIFICATION
+- **Event:** CISA and the FBI issue joint emergency cybersecurity advisory detailing ALPHV / BlackCat indicators and tactics used against healthcare networks.
+- **Verification:** GOVERNMENT ADVISORY
 - **Source:** [CISA & FBI Joint Cybersecurity Advisory (AA24-060A)](https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060a)
 
 ### 2024-10-24 18:00 UTC

@@ -9,6 +9,7 @@
     "serve": "node scripts/serve.js",
     "test": "node scripts/validate.js",
     "validate": "node scripts/validate.js",
+    "test:urls": "node scripts/test-urls.js",
     "ingest": "node scripts/ingest.js",
     "ingest:history": "node scripts/ingest-history.js",
     "reconcile": "node scripts/reconcile-enrichment.js",

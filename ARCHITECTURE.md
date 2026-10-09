@@ -61,14 +61,15 @@ $$C = \min\left(1.00, \max\left(0.02, W_{\text{base}} + B_{\text{evidence}} + B_
 
 Where:
 * **$W_{\text{base}}$** is the baseline authority floor corresponding to the highest verification tier achieved:
-  * `CONFIRMED BY REGULATOR`: $0.65$ ($65\%$) — SEC Form 8-K Item 1.05, State AG portals, HHS OCR, CISA KEV directives.
-  * `CONFIRMED BY TARGET`: $0.50$ ($50\%$) — Target corporate press releases, security advisories, status bulletins.
-  * `INDEPENDENT VERIFICATION`: $0.32$ ($32\%$) — Threat intelligence telemetry, researcher sample audits.
+  * `CONFIRMED BY REGULATOR`: $0.65$ ($65\%$) — SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR, FTC/FCC disclosures.
+  * `GOVERNMENT ADVISORY`: $0.62$ ($62\%$) — CISA KEV Catalog & Emergency Directives (BOD), UK NCSC, FBI PIN/Flash alerts, CCCS, BSI.
+  * `CONFIRMED BY TARGET`: $0.50$ ($50\%$) — Target corporate press releases, security advisories, vendor bulletins (Citrix, Microsoft MSRC).
+  * `INDEPENDENT VERIFICATION`: $0.32$ ($32\%$) — Threat intelligence telemetry, researcher sample audits, industry ISAC alerts.
   * `ACKNOWLEDGED`: $0.18$ ($18\%$) — Target publicly acknowledges IT disruption or active investigation.
   * `UNVERIFIED CLAIM`: $0.06$ ($6\%$) — Unilateral threat actor claim, dark web leak site listing, forum dump.
   * `REFUTED`: $0.00$ ($0\%$) — Disproven claim or recycled historical breach.
 * **$B_{\text{evidence}}$** represents concrete data quality & specificity bonuses ($0.00 \le B_{\text{evidence}} \le 0.23$):
-  * Statutory regulatory filing on record: $+0.12$
+  * Statutory regulatory filing on record: $+0.12$ (or Sovereign Agency / Vendor Advisory: $+0.08$)
   * Verified primary domain resolution: $+0.03$
   * Disclosed compromised data categories: $+0.04$
   * Disclosed affected record count: $+0.04$
@@ -77,7 +78,7 @@ Where:
   * $N_{\text{domains}} = 3$: $+0.12$
   * $N_{\text{domains}} = 4$: $+0.16$
   * $N_{\text{domains}} \ge 5$: $+0.20$
-  * Cross-tier correlation boost (threat actor claim corroborated by target or regulatory disclosure): $+0.05$
+  * Cross-tier correlation boost (threat actor claim corroborated by target, agency, or regulatory disclosure): $+0.05$
 * **$T_{\text{temporal}}$** incorporates milestone progression and uncorroborated staleness decay ($-0.10 \le T_{\text{temporal}} \le +0.05$):
   * Milestone depth: $\ge 3$ milestones ($+0.03$), $\ge 5$ milestones ($+0.05$)
   * Dormant uncorroborated claim decay: $-0.03$ after 14 days, $-0.05$ after 30 days without independent corroboration.
@@ -113,6 +114,9 @@ regulatory_filings:
     form: "Form 8-K (Item 1.05)"
     accession_number: "0001193125-26-295704"
     url: "https://www.sec.gov/Archives/edgar/data/1641601/000119312526295704/0001193125-26-295704-index.htm"
+agency_advisories: [] # Sovereign Agency Directives (CISA, NCSC, FBI)
+vendor_advisories: [] # Vendor Security Bulletins (MSRC, Cisco PSIRT, Citrix CTX)
+consortium_bulletins: [] # Industry Working Group Alerts (Health-ISAC, FS-ISAC)
 summary: "River Financial Corporation disclosed an unauthorized network intrusion into its banking network involving corporate data exfiltration."
 tags:
   - "regulatory"
@@ -278,6 +282,13 @@ Each flat file in `incidents/` includes structured technical narrative sections:
 - [x] **Multi-Source News Timeline Pickup:** Broadened ingestion sources to include mainstream news wires (AP, Reuters, BBC, The Guardian, CNBC, NPR, etc.) with automated "Media Pickup" timeline badges.
 - [x] **5-Tier Bidirectional UI Stream Synchronization:** Dedicated "Developing" stream tab and status filter buttons with complete bidirectional state updates and semantic color palette.
 - [x] **Mobile Cross-Device Responsiveness:** Hardened typography, responsive flex-wrap controls, drawer grid layouts, and telemetry tables for full fidelity on mobile devices.
+
+### Phase 6: Deep Information Extraction & Steady-State Autonomous Publishing (COMPLETED)
+- [x] **Deep Technical Extraction by Default:** Ingestion and downstream reconciliation workflows extract CVE identifiers (`cve_ids`), target vendor security bulletins (`vendor_advisories`), sovereign government directives (`agency_advisories`), and construct structured 3-part narrative briefings (`## Incident Overview`, `## Compromised Assets & Data Scope`, `## Authoritative Directives & Vendor Disclosures`) by default for all dossiers.
+- [x] **Authoritative Disentanglement:** Cleanly separated statutory regulatory filings (SEC Form 8-K, State AGs, HHS OCR) from government agency directives (CISA KEV, BODs, NCSC) and vendor security bulletins (Citrix CTX, Microsoft MSRC, Cisco PSIRT).
+- [x] **Steady-State Autonomous Publishing:** Automated continuous ingestion publishes verified changes directly to `main` without PR approval bottlenecks, instantly triggering GitHub Pages deployment via `deploy.yml`.
+- [x] **Actionable Traceability & Step Summaries:** Workflows automatically write full markdown telemetry run summaries, audit metrics, and modified dossier tables directly to `$GITHUB_STEP_SUMMARY`.
+- [x] **Link Reachability & Automated Error Diagnostics:** Added automated URL integrity verification (`npm run test:urls -- --changed`) and diagnostic failure reporting with remediation guidance.
 
 ---
 

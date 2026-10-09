@@ -1183,6 +1183,12 @@ a:hover {
   border: 1px solid rgba(16, 185, 129, 0.35);
 }
 
+.verify-badge.government {
+  background: rgba(168, 85, 247, 0.12);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
 .verify-badge.target {
   background: var(--verify-target-bg);
   color: var(--verify-target);
@@ -4182,6 +4188,216 @@ a:hover {
   background: rgba(168, 85, 247, 0.12);
   color: #a855f7;
   border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.reg-pill-vendor {
+  background: rgba(6, 182, 212, 0.12);
+  color: #06b6d4;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.reg-pill-isac {
+  background: rgba(234, 179, 8, 0.12);
+  color: #eab308;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+/* Specific Dossier Card Theme Accents */
+.agency-dossier-card {
+  border-left: 3px solid #c084fc;
+}
+
+.ad-badge {
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.ad-invariance-notice {
+  background: rgba(168, 85, 247, 0.06);
+  border-color: rgba(168, 85, 247, 0.22);
+}
+
+.ad-invariance-notice .rd-notice-icon {
+  color: #c084fc;
+}
+
+.vendor-dossier-card {
+  border-left: 3px solid #06b6d4;
+}
+
+.vd-badge {
+  color: #06b6d4;
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.vd-invariance-notice {
+  background: rgba(6, 182, 212, 0.06);
+  border-color: rgba(6, 182, 212, 0.22);
+}
+
+.vd-invariance-notice .rd-notice-icon {
+  color: #06b6d4;
+}
+
+.consortium-dossier-card {
+  border-left: 3px solid #eab308;
+}
+
+.cd-badge {
+  color: #eab308;
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+.cd-invariance-notice {
+  background: rgba(234, 179, 8, 0.06);
+  border-color: rgba(234, 179, 8, 0.22);
+}
+
+.cd-invariance-notice .rd-notice-icon {
+  color: #eab308;
+}
+
+/* Callout Boxes inside Advisories */
+.advisory-mandate-box {
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+}
+
+.amb-header, .awb-header, .aeb-header, .aab-header {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.amb-header { color: #c084fc; }
+.amb-text { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
+
+.advisory-workaround-box {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+}
+
+.awb-header { color: #f59e0b; }
+.awb-text { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
+
+.advisory-exploit-box {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+}
+
+.aeb-header { color: #f87171; }
+.aeb-text { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
+
+.advisory-audit-box {
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+}
+
+.aab-header { color: #06b6d4; }
+.aab-text { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+
+.scope-spec-block {
+  margin: 0.75rem 0;
+}
+
+.scope-spec-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+
+.scope-spec-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.scope-spec-pill {
+  font-size: 0.74rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.scope-spec-pill.fixed {
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #10b981;
+}
+
+.scope-spec-pill.affected {
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.btn-direct-vendor {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.35);
+  color: #06b6d4;
+}
+
+.btn-direct-vendor:hover {
+  background: #06b6d4;
+  color: #000;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+}
+
+/* Header Meta Pills for Detail Page */
+.filing-pill.ad-pill {
+  border-color: rgba(168, 85, 247, 0.35);
+  color: #c084fc;
+}
+
+.filing-pill.vd-pill {
+  border-color: rgba(6, 182, 212, 0.35);
+  color: #06b6d4;
+}
+
+.filing-pill.cd-pill {
+  border-color: rgba(234, 179, 8, 0.35);
+  color: #eab308;
+}
+
+/* Feed Tag Agency & Vendor */
+.feed-tag-agency {
+  color: #c084fc;
+  border-color: rgba(168, 85, 247, 0.25);
+  background: rgba(168, 85, 247, 0.08);
+  font-weight: 600;
+}
+
+.feed-tag-vendor {
+  color: #06b6d4;
+  border-color: rgba(6, 182, 212, 0.25);
+  background: rgba(6, 182, 212, 0.08);
+  font-weight: 600;
 }
 
 .rf-meta-grid {

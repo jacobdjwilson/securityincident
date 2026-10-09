@@ -207,6 +207,7 @@ def process_unsummarized_incidents() -> int:
     summarize_prompt = load_prompt(config_loader.workflow_config["configurations"]["summarization"]["prompt_path"])
     categorize_prompt = load_prompt(config_loader.workflow_config["configurations"]["categorization"]["prompt_path"])
     impact_prompt = load_prompt(config_loader.workflow_config["configurations"]["impact_extraction"]["prompt_path"])
+    deep_prompt = load_prompt(config_loader.workflow_config["configurations"]["deep_extraction"]["prompt_path"])
 
     max_calls = workflow_cfg.get("max_ai_calls_per_run", 25)
     calls_made = 0
@@ -235,15 +236,16 @@ def process_unsummarized_incidents() -> int:
         frontmatter_raw = parts[1]
         body = parts[2]
 
-        # Check if incident needs summarization or impact extraction
-        needs_summary = "summary: ''" in frontmatter_raw or 'summary: ""' in frontmatter_raw or "summary: >-" in frontmatter_raw and "..." in frontmatter_raw
+        # Check if incident needs deep extraction, summarization, or impact scope
+        needs_summary = "summary: ''" in frontmatter_raw or 'summary: ""' in frontmatter_raw or ("summary: >-" in frontmatter_raw and "..." in frontmatter_raw)
         needs_records = "affected_records: null" in frontmatter_raw
+        needs_deep = ("## Incident Overview" not in body) or ("CVE-" in f"{frontmatter_raw} {body}" and "cve_ids:" not in frontmatter_raw)
 
-        if not (needs_summary or needs_records):
+        if not (needs_summary or needs_records or needs_deep):
             continue
 
         # Compute hash of context
-        context_text = f"{file_path.stem}\n{body[:2500]}"
+        context_text = f"{file_path.stem}\n{body[:3500]}"
         content_hash = compute_hash(context_text)
 
         # Check local cache first (judicial caching policy)
@@ -251,61 +253,102 @@ def process_unsummarized_incidents() -> int:
         if cached_res:
             continue
 
-        print(f"🔍 Enriching incident {file_path.name} via AI model pipeline...")
+        print(f"🔍 Deeply enriching incident {file_path.name} via AI model pipeline...")
 
         file_modified = False
 
-        # 1. Summarization if needed
-        if needs_summary:
-            summary_text, status = gemini_client.call_task("summarization", summarize_prompt, context_text)
-            calls_made += 1
-            if status == EXIT_QUOTA_EXHAUSTED:
-                print("🛑 Quota limit hit during summarization task. Gracefully pausing processing.")
-                return EXIT_SUCCESS
+        # Execute deep extraction task
+        deep_res, status = gemini_client.call_task("deep_extraction", deep_prompt, context_text)
+        calls_made += 1
+        if status == EXIT_QUOTA_EXHAUSTED:
+            print("🛑 Quota limit hit during deep extraction task. Gracefully pausing processing.")
+            return EXIT_SUCCESS
 
-            if summary_text:
-                clean_summary = " ".join(summary_text.split()).replace('"', "'").strip()
-                # Update frontmatter safely without modifying regulatory filings
-                frontmatter_raw = re.sub(
-                    r"^summary:[^\n]*(?:\n[ \t]+[^\n]*)*",
-                    lambda _: f'summary: "{clean_summary}"',
-                    frontmatter_raw,
-                    count=1,
-                    flags=re.MULTILINE
-                )
-                file_modified = True
-                updated_files += 1
+        if deep_res:
+            try:
+                clean_json = re.sub(r"^```(?:json)?|```$", "", deep_res.strip(), flags=re.MULTILINE).strip()
+                extracted = json.loads(clean_json)
 
-        # 2. Impact extraction if records are null
-        if needs_records:
-            impact_text, status = gemini_client.call_task("impact_extraction", impact_prompt, context_text)
-            calls_made += 1
-            if status == EXIT_QUOTA_EXHAUSTED:
-                print("🛑 Quota limit hit during impact extraction task. Gracefully pausing processing.")
-                return EXIT_SUCCESS
-            if impact_text:
-                try:
-                    # Clean potential markdown fences
-                    clean_json_str = re.sub(r"^```(?:json)?|```$", "", impact_text.strip(), flags=re.MULTILINE).strip()
-                    extracted = json.loads(clean_json_str)
-                    recs = extracted.get("affected_records")
-                    if recs and isinstance(recs, int) and recs > 0:
-                        frontmatter_raw = re.sub(
-                            r"^affected_records:\s*null",
-                            lambda _: f"affected_records: {recs}",
-                            frontmatter_raw,
-                            count=1,
-                            flags=re.MULTILINE
-                        )
-                        file_modified = True
-                        updated_files += 1
-                except Exception:
-                    pass
+                # 1. CVE extraction
+                cves = extracted.get("cve_ids", [])
+                if isinstance(cves, list) and cves and "cve_ids:" not in frontmatter_raw:
+                    cve_yaml = "cve_ids:\n" + "\n".join(f'  - "{c}"' for c in cves)
+                    frontmatter_raw = f"{frontmatter_raw.rstrip()}\n{cve_yaml}\n"
+                    file_modified = True
+
+                # 2. Affected records
+                recs = extracted.get("affected_records")
+                if needs_records and isinstance(recs, int) and recs > 0:
+                    frontmatter_raw = re.sub(
+                        r"^affected_records:\s*null",
+                        lambda _: f"affected_records: {recs}",
+                        frontmatter_raw,
+                        count=1,
+                        flags=re.MULTILINE
+                    )
+                    file_modified = True
+
+                # 3. Compromised data classes
+                comp_data = extracted.get("compromised_data", [])
+                if isinstance(comp_data, list) and comp_data and "compromised_data:" not in frontmatter_raw:
+                    data_yaml = "compromised_data:\n" + "\n".join(f'  - "{d}"' for d in comp_data)
+                    frontmatter_raw = f"{frontmatter_raw.rstrip()}\n{data_yaml}\n"
+                    file_modified = True
+
+                # 4. Vendor advisories
+                v_adv = extracted.get("vendor_advisories", [])
+                if isinstance(v_adv, list) and v_adv and "vendor_advisories:" not in frontmatter_raw:
+                    adv_lines = ["vendor_advisories:"]
+                    for v in v_adv:
+                        adv_lines.append(f"  - publisher: \"{v.get('publisher', 'Target Vendor')}\"")
+                        adv_lines.append(f"    advisory_id: \"{v.get('advisory_id', 'Security Bulletin')}\"")
+                        adv_lines.append(f"    title: \"{v.get('title', 'Security Advisory')}\"")
+                        adv_lines.append(f"    severity: \"{v.get('severity', 'Critical')}\"")
+                        if v.get("release_date"):
+                            adv_lines.append(f"    release_date: \"{v.get('release_date')}\"")
+                        adv_lines.append(f"    url: \"{v.get('url', '#')}\"")
+                        if v.get("description"):
+                            clean_desc = str(v.get("description")).replace('"', "'")
+                            adv_lines.append(f'    description: "{clean_desc}"')
+                    frontmatter_raw = f"{frontmatter_raw.rstrip()}\n" + "\n".join(adv_lines) + "\n"
+                    file_modified = True
+
+                # 5. Narrative sections synthesis
+                overview = extracted.get("narrative_overview") or extracted.get("overview")
+                assets_scope = extracted.get("compromised_assets_detail") or extracted.get("assets_scope")
+                directives = extracted.get("directives_summary") or "Official advisories and disclosures remain under continuous monitoring."
+
+                if overview and needs_summary:
+                    clean_summary = " ".join(overview.split()[:35]).replace('"', "'").strip() + "..."
+                    frontmatter_raw = re.sub(
+                        r"^summary:[^\n]*(?:\n[ \t]+[^\n]*)*",
+                        lambda _: f'summary: "{clean_summary}"',
+                        frontmatter_raw,
+                        count=1,
+                        flags=re.MULTILINE
+                    )
+                    file_modified = True
+
+                if overview and "## Incident Overview" not in body:
+                    timeline_idx = body.find("## Timeline")
+                    timeline_part = body[timeline_idx:] if timeline_idx != -1 else f"## Timeline\n\n{body.strip()}"
+                    body = (
+                        f"\n\n## Incident Overview\n\n{overview.strip()}\n\n"
+                        f"## Compromised Assets & Data Scope\n\n{assets_scope.strip() if assets_scope else 'Scope under active forensic review.'}\n\n"
+                        f"## Authoritative Directives & Vendor Disclosures\n\n- {directives.strip()}\n\n"
+                        f"{timeline_part.strip()}\n"
+                    )
+                    file_modified = True
+
+            except Exception as parse_err:
+                print(f"⚠️ Error parsing deep extraction response for {file_path.name}: {parse_err}")
 
         # Save updated file
         if file_modified:
             new_content = f"---{frontmatter_raw}---{body}"
             file_path.write_text(new_content, encoding="utf-8")
+            updated_files += 1
+
         cache.set(content_hash, {"timestamp": time.time(), "status": "processed"})
 
     print(f"✅ AI Incident Processor cycle complete: {calls_made} API calls made, {updated_files} incident files updated.")

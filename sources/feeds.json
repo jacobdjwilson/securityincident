@@ -11,8 +11,8 @@
     "id": "cisa-advisories",
     "name": "CISA Cybersecurity Advisories",
     "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
-    "type": "regulatory",
-    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "type": "agency-advisory",
+    "defaultVerification": "GOVERNMENT ADVISORY",
     "enabled": true
   },
   {
@@ -75,16 +75,16 @@
     "id": "ncsc-uk",
     "name": "NCSC UK Cyber Alerts",
     "url": "https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml",
-    "type": "regulatory",
-    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "type": "agency-advisory",
+    "defaultVerification": "GOVERNMENT ADVISORY",
     "enabled": true
   },
   {
     "id": "hipaa-journal",
     "name": "HIPAA Journal Healthcare Breaches",
     "url": "https://www.hipaajournal.com/category/healthcare-cybersecurity/feed/",
-    "type": "regulatory",
-    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "type": "investigative",
+    "defaultVerification": "INDEPENDENT VERIFICATION",
     "enabled": true
   },
   {

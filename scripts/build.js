@@ -23,6 +23,7 @@ function cleanVerification(verifText) {
 function getVerificationIcon(verifText) {
   const text = (verifText || '').toUpperCase();
   if (text.includes('REGULATOR') || text.includes('8-K')) return 'fa-solid fa-building-shield';
+  if (text.includes('GOVERNMENT') || text.includes('AGENCY')) return 'fa-solid fa-shield-halved';
   if (text.includes('TARGET')) return 'fa-solid fa-bullhorn';
   if (text.includes('INDEPENDENT')) return 'fa-solid fa-microscope';
   if (text.includes('REFUTED')) return 'fa-solid fa-ban';
@@ -32,6 +33,7 @@ function getVerificationIcon(verifText) {
 function getVerificationClass(verifText) {
   const text = (verifText || '').toUpperCase();
   if (text.includes('REGULATOR') || text.includes('8-K')) return 'regulator';
+  if (text.includes('GOVERNMENT') || text.includes('AGENCY')) return 'government';
   if (text.includes('TARGET')) return 'target';
   if (text.includes('INDEPENDENT')) return 'independent';
   if (text.includes('REFUTED')) return 'refuted';
@@ -556,6 +558,8 @@ function generateFeedCardHtml(inc) {
        data-affected="${inc.affected_records || 0}"
        data-compromised="${(inc.compromised_data || []).join(' ')}"
        data-filings="${(inc.regulatory_filings || []).map(f => f.regulator).join(' ')}"
+       data-agencies="${(inc.agency_advisories || []).map(a => a.agency).join(' ')}"
+       data-vendor-advisories="${(inc.vendor_advisories || []).map(v => v.advisory_id || v.publisher).join(' ')}"
        data-summary="${escapeXml(inc.summary)}" 
        data-actor="${inc.threat_actor || ''}" 
        data-tags="${(inc.tags || []).join(' ')}"
@@ -600,6 +604,8 @@ function generateFeedCardHtml(inc) {
         ${inc.affected_records ? `<span class="feed-tag feed-tag-affected font-mono" title="${Number(inc.affected_records).toLocaleString()} records affected"><i class="fa-solid fa-users"></i> ${affectedFormatted} records</span>` : ''}
         ${inc.compromised_data && inc.compromised_data.length > 0 ? `<span class="feed-tag feed-tag-compromised" title="Compromised data classes"><i class="fa-solid fa-file-shield"></i> ${inc.compromised_data[0]}${inc.compromised_data.length > 1 ? ` +${inc.compromised_data.length - 1}` : ''}</span>` : ''}
         ${inc.regulatory_filings && inc.regulatory_filings.length > 0 ? `<span class="feed-tag feed-tag-filing" title="Statutory filing on record"><i class="fa-solid fa-landmark"></i> ${inc.regulatory_filings[0].regulator}</span>` : ''}
+        ${inc.agency_advisories && inc.agency_advisories.length > 0 ? `<span class="feed-tag feed-tag-agency" title="Government agency directive on record"><i class="fa-solid fa-shield-halved"></i> ${inc.agency_advisories[0].agency.split('(')[0].trim()}</span>` : ''}
+        ${inc.vendor_advisories && inc.vendor_advisories.length > 0 ? `<span class="feed-tag feed-tag-vendor" title="Vendor security bulletin on record"><i class="fa-solid fa-file-code"></i> ${inc.vendor_advisories[0].advisory_id || 'Vendor Bulletin'}</span>` : ''}
       </div>
 
       <!-- Open Weights Confidence Gauge -->
@@ -1289,7 +1295,323 @@ function renderRegulatoryFilingsDossier(inc) {
       <div class="rd-invariance-notice">
         <div class="rd-notice-icon"><i class="fa-solid fa-shield-halved"></i></div>
         <div class="rd-notice-text">
-          <strong>Regulatory Ground Truth Standard:</strong> The disclosures below represent formal statutory filings and enforcement records submitted to government regulatory authorities (SEC, State Attorneys General, HHS OCR, CISA). In accordance with repository principles, this data is captured exactly as filed by the reporting entity and is <em>never modified, overridden, or synthesized by AI models</em>.
+          <strong>Regulatory Ground Truth Standard:</strong> The disclosures below represent formal statutory filings and enforcement records submitted to government regulatory authorities (SEC, State Attorneys General, HHS OCR, FTC, FCC, EU/UK DPAs). In accordance with repository principles, this data is captured exactly as filed by the reporting entity and is <em>never modified, overridden, or synthesized by AI models</em>.
+        </div>
+      </div>
+
+      <div class="regulatory-filings-list">
+        ${itemsHtml}
+      </div>
+    </section>
+  `;
+}
+
+function renderAgencyAdvisoriesDossier(inc) {
+  if (!inc.agency_advisories || inc.agency_advisories.length === 0) return '';
+
+  const itemsHtml = inc.agency_advisories.map((a, idx) => {
+    const issueDate = a.release_date || a.date || inc.first_seen || 'Disclosed';
+    const advisoryId = a.advisory_id || 'Emergency Directive / Alert';
+    const advisoryType = a.advisory_type || 'Government Cybersecurity Advisory';
+    const mandateText = a.mandate || a.statutory_authority || '';
+    const descriptionText = a.description || `Official government cybersecurity advisory issued by ${a.agency} detailing technical threat telemetry, indicators of compromise, and mandatory remediations.`;
+    const docUrl = a.url || '#';
+    const cves = Array.isArray(a.cve_ids) ? a.cve_ids : [];
+
+    return `
+      <article class="agency-advisory-item" id="agency-advisory-${idx + 1}">
+        <div class="rf-top-bar">
+          <div class="rf-title-group">
+            <span class="reg-pill reg-pill-gov"><i class="fa-solid fa-shield-halved"></i> ${escapeXml(a.agency)}</span>
+            <h3 class="rf-form-title">${escapeXml(advisoryId)}</h3>
+          </div>
+          <span class="verify-badge government"><i class="fa-solid fa-shield-halved"></i> GOVERNMENT ADVISORY</span>
+        </div>
+
+        <div class="rf-meta-grid">
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-bullhorn"></i> Advisory Classification</span>
+            <span class="rf-cell-val font-mono text-cyan">${escapeXml(advisoryType)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-regular fa-calendar-check"></i> Publication Date</span>
+            <span class="rf-cell-val font-mono">${escapeXml(issueDate)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-scale-balanced"></i> Primary Authority</span>
+            <span class="rf-cell-val font-mono text-cyan">${escapeXml(a.agency.split('(')[0].trim())}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-shield-halved"></i> Assurance Tier</span>
+            <span class="rf-cell-val text-cyan"><i class="fa-solid fa-lock"></i> Sovereign Agency Ground Truth</span>
+          </div>
+        </div>
+
+        ${cves.length > 0 ? `
+        <div class="forensic-meta-section" style="margin: 0.75rem 0;">
+          <span class="forensic-section-label"><i class="fa-solid fa-bug"></i> Targeted Vulnerabilities &amp; CVEs:</span>
+          <div class="compromised-pills-row">
+            ${cves.map(c => `<span class="compromised-pill font-mono" style="border-color: rgba(0, 210, 211, 0.4); color: var(--cyan-accent);"><i class="fa-solid fa-code"></i> ${escapeXml(c)}</span>`).join('')}
+          </div>
+        </div>
+        ` : ''}
+
+        ${mandateText ? `
+        <div class="advisory-mandate-box">
+          <div class="amb-header"><i class="fa-solid fa-gavel"></i> Statutory Mandate / Compliance Order:</div>
+          <div class="amb-text font-mono">${escapeXml(mandateText)}</div>
+        </div>
+        ` : ''}
+
+        <div class="rf-description">
+          <span class="rf-desc-label"><i class="fa-solid fa-file-waveform"></i> Technical Findings &amp; Forensic Guidance:</span>
+          <p class="rf-desc-text">${escapeXml(descriptionText)}</p>
+        </div>
+
+        <div class="rf-actions">
+          <a href="${docUrl}" target="_blank" rel="noopener nofollow" class="btn-direct-filing">
+            <i class="fa-solid fa-shield-halved"></i> View Official Government Advisory Document <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <span class="rf-url-preview font-mono" title="${docUrl}"><i class="fa-solid fa-link"></i> ${escapeXml(docUrl)}</span>
+        </div>
+      </article>
+    `;
+  }).join('\n');
+
+  return `
+    <section class="regulatory-dossier-card agency-dossier-card" id="agency-advisories">
+      <div class="regulatory-dossier-header">
+        <div class="rd-title-group">
+          <div class="rd-badge ad-badge"><i class="fa-solid fa-shield-halved"></i> GOVERNMENT CYBERSECURITY AGENCY DIRECTIVES</div>
+          <h2 class="rd-headline">Sovereign Directives, KEV Catalog &amp; Technical Alerts</h2>
+        </div>
+        <div class="rd-count-badge font-mono">
+          <i class="fa-solid fa-shield-halved text-cyan"></i> ${inc.agency_advisories.length} Government Directive${inc.agency_advisories.length === 1 ? '' : 's'}
+        </div>
+      </div>
+
+      <div class="rd-invariance-notice ad-invariance-notice">
+        <div class="rd-notice-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="rd-notice-text">
+          <strong>Government &amp; Agency Invariance Standard:</strong> The directives below represent formal alerts, binding operational directives (BOD), and Known Exploited Vulnerabilities (KEV) determinations issued by sovereign cybersecurity authorities (CISA, UK NCSC, FBI, BSI, CCCS). They provide statutory mandates and ground-truth technical confirmation of active in-the-wild exploitation.
+        </div>
+      </div>
+
+      <div class="regulatory-filings-list">
+        ${itemsHtml}
+      </div>
+    </section>
+  `;
+}
+
+function renderVendorAdvisoriesDossier(inc) {
+  if (!inc.vendor_advisories || inc.vendor_advisories.length === 0) return '';
+
+  const itemsHtml = inc.vendor_advisories.map((v, idx) => {
+    const publisherName = v.publisher || v.vendor || inc.target;
+    const advisoryId = v.advisory_id || 'Security Bulletin';
+    const formTitle = v.title || `${publisherName} Security Bulletin ${advisoryId}`;
+    const pubDate = v.release_date || v.date || inc.first_seen || 'Disclosed';
+    const severityRating = v.severity || 'Critical';
+    const exploitationStatus = v.exploitation_status || '';
+    const workaroundsText = v.workarounds || '';
+    const verificationGuidance = v.verification_guidance || '';
+    const descriptionText = v.description || `Official vendor security bulletin published by ${publisherName} providing technical vulnerability analysis, affected product matrices, and remediation packages.`;
+    const docUrl = v.url || '#';
+    const cves = Array.isArray(v.cve_ids) ? v.cve_ids : [];
+    const affectedProducts = Array.isArray(v.affected_products) ? v.affected_products : [];
+    const fixedVersions = Array.isArray(v.fixed_versions) ? v.fixed_versions : [];
+
+    return `
+      <article class="vendor-advisory-item" id="vendor-advisory-${idx + 1}">
+        <div class="rf-top-bar">
+          <div class="rf-title-group">
+            <span class="reg-pill reg-pill-vendor"><i class="fa-solid fa-file-code"></i> ${escapeXml(publisherName)}</span>
+            <h3 class="rf-form-title">${escapeXml(formTitle)}</h3>
+          </div>
+          <span class="verify-badge target"><i class="fa-solid fa-bullhorn"></i> CONFIRMED BY TARGET / VENDOR</span>
+        </div>
+
+        <div class="rf-meta-grid">
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-fingerprint"></i> Bulletin Identifier</span>
+            <span class="rf-cell-val font-mono text-cyan">${escapeXml(advisoryId)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-regular fa-calendar-check"></i> Release / Patch Date</span>
+            <span class="rf-cell-val font-mono">${escapeXml(pubDate)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-triangle-exclamation"></i> Vendor Severity Rating</span>
+            <span class="rf-cell-val font-mono text-rose"><i class="fa-solid fa-fire"></i> ${escapeXml(severityRating)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-shield-halved"></i> Primary Evidence Tier</span>
+            <span class="rf-cell-val text-confirmed"><i class="fa-solid fa-lock"></i> Target Technical Ground Truth</span>
+          </div>
+        </div>
+
+        ${cves.length > 0 ? `
+        <div class="forensic-meta-section" style="margin: 0.75rem 0;">
+          <span class="forensic-section-label"><i class="fa-solid fa-bug"></i> Disclosed CVE Identifiers:</span>
+          <div class="compromised-pills-row">
+            ${cves.map(c => `<span class="compromised-pill font-mono" style="border-color: rgba(245, 158, 11, 0.4); color: #f59e0b;"><i class="fa-solid fa-code"></i> ${escapeXml(c)}</span>`).join('')}
+          </div>
+        </div>
+        ` : ''}
+
+        ${affectedProducts.length > 0 ? `
+        <div class="scope-spec-block">
+          <span class="scope-spec-label"><i class="fa-solid fa-layer-group"></i> Affected Software Builds &amp; Platforms:</span>
+          <ul class="scope-spec-list">
+            ${affectedProducts.map(p => `<li><i class="fa-solid fa-circle-xmark text-rose"></i> <code>${escapeXml(p)}</code></li>`).join('')}
+          </ul>
+        </div>
+        ` : ''}
+
+        ${fixedVersions.length > 0 ? `
+        <div class="scope-spec-block fixed-block">
+          <span class="scope-spec-label"><i class="fa-solid fa-circle-check text-confirmed"></i> Remediated &amp; Patched Builds:</span>
+          <ul class="scope-spec-list">
+            ${fixedVersions.map(v => `<li><i class="fa-solid fa-circle-check text-confirmed"></i> <code>${escapeXml(v)}</code></li>`).join('')}
+          </ul>
+        </div>
+        ` : ''}
+
+        ${workaroundsText ? `
+        <div class="advisory-workaround-box">
+          <div class="awb-header"><i class="fa-solid fa-wrench"></i> Vendor Mitigation &amp; Workaround Guidance:</div>
+          <div class="awb-text">${escapeXml(workaroundsText)}</div>
+        </div>
+        ` : ''}
+
+        ${exploitationStatus ? `
+        <div class="advisory-exploit-box">
+          <div class="aeb-header"><i class="fa-solid fa-skull-crossbones"></i> In-The-Wild Exploitation Telemetry:</div>
+          <div class="aeb-text">${escapeXml(exploitationStatus)}</div>
+        </div>
+        ` : ''}
+
+        ${verificationGuidance ? `
+        <div class="advisory-audit-box">
+          <div class="aab-header"><i class="fa-solid fa-magnifying-glass"></i> Forensic Verification &amp; Appliance Audit Guidance:</div>
+          <div class="aab-text font-mono">${escapeXml(verificationGuidance)}</div>
+        </div>
+        ` : ''}
+
+        <div class="rf-description">
+          <span class="rf-desc-label"><i class="fa-solid fa-file-waveform"></i> Technical Vulnerability Overview:</span>
+          <p class="rf-desc-text">${escapeXml(descriptionText)}</p>
+        </div>
+
+        <div class="rf-actions">
+          <a href="${docUrl}" target="_blank" rel="noopener nofollow" class="btn-direct-filing btn-direct-vendor">
+            <i class="fa-solid fa-file-code"></i> View Official Vendor Security Bulletin <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <span class="rf-url-preview font-mono" title="${docUrl}"><i class="fa-solid fa-link"></i> ${escapeXml(docUrl)}</span>
+        </div>
+      </article>
+    `;
+  }).join('\n');
+
+  return `
+    <section class="regulatory-dossier-card vendor-dossier-card" id="vendor-advisories">
+      <div class="regulatory-dossier-header">
+        <div class="rd-title-group">
+          <div class="rd-badge vd-badge"><i class="fa-solid fa-file-code"></i> OFFICIAL VENDOR SECURITY BULLETINS</div>
+          <h2 class="rd-headline">Target Vendor Technical Disclosures &amp; Patch Bulletins</h2>
+        </div>
+        <div class="rd-count-badge font-mono">
+          <i class="fa-solid fa-file-code text-cyan"></i> ${inc.vendor_advisories.length} Vendor Bulletin${inc.vendor_advisories.length === 1 ? '' : 's'}
+        </div>
+      </div>
+
+      <div class="rd-invariance-notice vd-invariance-notice">
+        <div class="rd-notice-icon"><i class="fa-solid fa-file-code"></i></div>
+        <div class="rd-notice-text">
+          <strong>Vendor Technical Ground Truth:</strong> The disclosures below represent official security bulletins and CVE advisories published directly by the affected vendor or target organization. They define authoritative vulnerability scopes, CVSS severity metrics, affected software builds, fixed packages, and mitigation workarounds.
+        </div>
+      </div>
+
+      <div class="regulatory-filings-list">
+        ${itemsHtml}
+      </div>
+    </section>
+  `;
+}
+
+function renderConsortiumBulletinsDossier(inc) {
+  if (!inc.consortium_bulletins || inc.consortium_bulletins.length === 0) return '';
+
+  const itemsHtml = inc.consortium_bulletins.map((c, idx) => {
+    const orgName = c.organization || 'Industry Working Group';
+    const bulletinId = c.bulletin_id || 'Threat Intelligence Bulletin';
+    const issueDate = c.release_date || c.date || inc.first_seen || 'Disclosed';
+    const tlp = c.tlp || 'TLP:CLEAR';
+    const sector = c.sector || inc.industry || 'Multi-Sector';
+    const descriptionText = c.description || `Special threat intelligence alert published by ${orgName} regarding active exploitation indicators and sector-wide coordination.`;
+    const docUrl = c.url || '#';
+
+    return `
+      <article class="consortium-bulletin-item" id="consortium-bulletin-${idx + 1}">
+        <div class="rf-top-bar">
+          <div class="rf-title-group">
+            <span class="reg-pill reg-pill-isac"><i class="fa-solid fa-people-group"></i> ${escapeXml(orgName)}</span>
+            <h3 class="rf-form-title">${escapeXml(bulletinId)}</h3>
+          </div>
+          <span class="verify-badge independent"><i class="fa-solid fa-microscope"></i> INDUSTRY CONSORTIUM INTELLIGENCE</span>
+        </div>
+
+        <div class="rf-meta-grid">
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-tag"></i> Information Protocol</span>
+            <span class="rf-cell-val font-mono text-cyan">${escapeXml(tlp)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-regular fa-calendar-check"></i> Publication Date</span>
+            <span class="rf-cell-val font-mono">${escapeXml(issueDate)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-industry"></i> Impacted Sector</span>
+            <span class="rf-cell-val font-mono">${escapeXml(sector)}</span>
+          </div>
+          <div class="rf-meta-cell">
+            <span class="rf-cell-label"><i class="fa-solid fa-shield-halved"></i> Collaboration Tier</span>
+            <span class="rf-cell-val text-cyan"><i class="fa-solid fa-users"></i> Sector Peer Corroboration</span>
+          </div>
+        </div>
+
+        <div class="rf-description">
+          <span class="rf-desc-label"><i class="fa-solid fa-file-waveform"></i> Intelligence Briefing &amp; Coordination:</span>
+          <p class="rf-desc-text">${escapeXml(descriptionText)}</p>
+        </div>
+
+        <div class="rf-actions">
+          <a href="${docUrl}" target="_blank" rel="noopener nofollow" class="btn-direct-filing">
+            <i class="fa-solid fa-people-group"></i> View Consortium Intelligence Alert <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <span class="rf-url-preview font-mono" title="${docUrl}"><i class="fa-solid fa-link"></i> ${escapeXml(docUrl)}</span>
+        </div>
+      </article>
+    `;
+  }).join('\n');
+
+  return `
+    <section class="regulatory-dossier-card consortium-dossier-card" id="consortium-bulletins">
+      <div class="regulatory-dossier-header">
+        <div class="rd-title-group">
+          <div class="rd-badge cd-badge"><i class="fa-solid fa-people-group"></i> INDUSTRY WORKING GROUP &amp; ISAC INTELLIGENCE</div>
+          <h2 class="rd-headline">Collaborative Threat Intelligence &amp; Sector Bulletins</h2>
+        </div>
+        <div class="rd-count-badge font-mono">
+          <i class="fa-solid fa-people-group text-cyan"></i> ${inc.consortium_bulletins.length} Consortium Alert${inc.consortium_bulletins.length === 1 ? '' : 's'}
+        </div>
+      </div>
+
+      <div class="rd-invariance-notice cd-invariance-notice">
+        <div class="rd-notice-icon"><i class="fa-solid fa-people-group"></i></div>
+        <div class="rd-notice-text">
+          <strong>Sector Intelligence Standard:</strong> Disclosures below represent collaborative threat analysis, indicators of compromise, and coordination notices published by Information Sharing and Analysis Centers (ISACs) and industry research working groups.
         </div>
       </div>
 
@@ -1303,7 +1625,9 @@ function renderRegulatoryFilingsDossier(inc) {
 function generateFallbackBriefingHtml(inc) {
   const filingsText = inc.regulatory_filings && inc.regulatory_filings.length > 0
     ? `Formal statutory disclosures on record include ${inc.regulatory_filings.map(f => `<strong>${f.regulator}</strong> (${f.form || f.notice_id || 'Disclosure Notice'}${f.accession_number ? ` - Accession: <code>${f.accession_number}</code>` : ''})`).join(', ')}.`
-    : `No formal federal or state regulatory filings have been confirmed at this time.`;
+    : (inc.agency_advisories && inc.agency_advisories.length > 0
+        ? `Authoritative government cybersecurity directives on record include ${inc.agency_advisories.map(a => `<strong>${a.agency}</strong> (${a.advisory_id || 'Advisory'})`).join(', ')}.`
+        : `No formal federal or state regulatory filings have been confirmed at this time.`);
 
   const dataScopeText = inc.compromised_data && inc.compromised_data.length > 0
     ? `Forensic telemetry identifies exposure across: <strong>${inc.compromised_data.join(', ')}</strong>.`
@@ -1478,6 +1802,51 @@ function generateIncidentDetailHtml(inc) {
         </div>
       </div>
       ` : ''}
+
+      ${inc.agency_advisories && inc.agency_advisories.length > 0 ? `
+      <div class="forensic-meta-section">
+        <span class="forensic-section-label"><i class="fa-solid fa-shield-halved"></i> Sovereign Agency Directives:</span>
+        <div class="filings-pills-row">
+          ${inc.agency_advisories.map(a => `
+            <a href="${a.url || '#'}" target="_blank" rel="noopener nofollow" class="filing-pill ad-pill">
+              <i class="fa-solid fa-shield-halved"></i>
+              <strong>${a.agency}</strong>: ${a.advisory_id || 'Directives / Alerts'}
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+      ` : ''}
+
+      ${inc.vendor_advisories && inc.vendor_advisories.length > 0 ? `
+      <div class="forensic-meta-section">
+        <span class="forensic-section-label"><i class="fa-solid fa-file-code"></i> Target Vendor Security Bulletins:</span>
+        <div class="filings-pills-row">
+          ${inc.vendor_advisories.map(v => `
+            <a href="${v.url || '#'}" target="_blank" rel="noopener nofollow" class="filing-pill vd-pill">
+              <i class="fa-solid fa-file-code"></i>
+              <strong>${v.publisher || inc.target}</strong>: ${v.advisory_id || 'Security Bulletin'}
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+      ` : ''}
+
+      ${inc.consortium_bulletins && inc.consortium_bulletins.length > 0 ? `
+      <div class="forensic-meta-section">
+        <span class="forensic-section-label"><i class="fa-solid fa-people-group"></i> Consortium &amp; ISAC Bulletins:</span>
+        <div class="filings-pills-row">
+          ${inc.consortium_bulletins.map(c => `
+            <a href="${c.url || '#'}" target="_blank" rel="noopener nofollow" class="filing-pill cd-pill">
+              <i class="fa-solid fa-people-group"></i>
+              <strong>${c.organization || 'Consortium'}</strong>: ${c.bulletin_id || 'Threat Bulletin'}
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+      ` : ''}
     </div>
 
     <!-- Phase 1: Open Weights Telemetry & Confidence Breakdown Card -->
@@ -1506,7 +1875,7 @@ function generateIncidentDetailHtml(inc) {
         <div class="ow-metric-box">
           <span class="ow-metric-label">2. Evidence Specificity</span>
           <span class="ow-metric-val font-mono">+${((conf.evidenceBonus || 0) * 100).toFixed(0)}%</span>
-          <span class="ow-metric-sub">${inc.regulatory_filings && inc.regulatory_filings.length > 0 ? 'Statutory Filing Verified' : 'Domain & Scope Telemetry'}</span>
+          <span class="ow-metric-sub">${inc.regulatory_filings && inc.regulatory_filings.length > 0 ? 'Statutory Filing Verified' : (inc.agency_advisories && inc.agency_advisories.length > 0 ? 'Agency Directive Verified' : (inc.vendor_advisories && inc.vendor_advisories.length > 0 ? 'Vendor Advisory Verified' : 'Domain & Scope Telemetry'))}</span>
         </div>
         <div class="ow-metric-box">
           <span class="ow-metric-label">3. Corroboration Curve</span>
@@ -1532,6 +1901,15 @@ function generateIncidentDetailHtml(inc) {
 
     <!-- Statutory Regulatory Disclosures & Verified Legal Filings Dossier -->
     ${renderRegulatoryFilingsDossier(inc)}
+
+    <!-- Sovereign Government Cybersecurity Directives Dossier -->
+    ${renderAgencyAdvisoriesDossier(inc)}
+
+    <!-- Official Target Vendor Security Bulletins Dossier -->
+    ${renderVendorAdvisoriesDossier(inc)}
+
+    <!-- Industry Working Group & ISAC Intelligence Dossier -->
+    ${renderConsortiumBulletinsDossier(inc)}
 
     <!-- Technical Forensic Narrative Dossier -->
     <div class="narrative-card">
@@ -1634,7 +2012,12 @@ function generateAboutHtml() {
             <tr>
               <td><span class="verify-badge regulator"><i class="fa-solid fa-building-shield"></i> CONFIRMED BY REGULATOR</span></td>
               <td class="font-mono"><strong>0.65 (65%)</strong></td>
-              <td>SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR, CISA KEV advisory.</td>
+              <td>SEC Form 8-K Item 1.05, State AG breach portals (CA, WA, OR), HHS OCR healthcare disclosures, FTC/FCC breach notices, EU/UK DPAs.</td>
+            </tr>
+            <tr>
+              <td><span class="verify-badge government"><i class="fa-solid fa-shield-halved"></i> GOVERNMENT ADVISORY</span></td>
+              <td class="font-mono"><strong>0.62 (62%)</strong></td>
+              <td>CISA KEV Catalog &amp; Emergency Directives (BOD), UK NCSC advisories, FBI PIN / Flash alerts, CCCS, BSI cyber directives.</td>
             </tr>
             <tr>
               <td><span class="verify-badge target"><i class="fa-solid fa-bullhorn"></i> CONFIRMED BY TARGET</span></td>
@@ -1668,8 +2051,8 @@ function generateAboutHtml() {
       <div class="ow-dimensions-doc" style="margin-top: 1.25rem;">
         <p><strong>Multi-Dimensional Scoring Dimensions:</strong></p>
         <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.7;">
-          <li><strong>1. Primary Authority Base:</strong> 6% baseline for raw unverified claims up to 65% for statutory regulatory disclosures.</li>
-          <li><strong>2. Evidence Specificity &amp; Data Quality (+0% to +23%):</strong> Statutory regulatory filings (+12%), verified primary domain (+3%), disclosed compromised data classes (+4%), and quantified affected records (+4%).</li>
+          <li><strong>1. Primary Authority Base:</strong> 6% baseline for raw unverified claims up to 65% for statutory regulatory disclosures (62% for sovereign government directives).</li>
+          <li><strong>2. Evidence Specificity &amp; Data Quality (+0% to +23%):</strong> Statutory regulatory filings (+12%) or Sovereign Agency / Vendor Advisories (+8%), verified primary domain (+3%), disclosed compromised data classes (+4%), and quantified affected records (+4%).</li>
           <li><strong>3. Corroboration &amp; Multi-Source Curve (+0% to +25%):</strong> Logarithmic curve for independent source domains (2 domains: +7%, 3 domains: +12%, 4 domains: +16%, 5+ domains: +20%), plus a +5% cross-tier correlation boost when threat telemetry is corroborated by target or regulatory disclosure.</li>
           <li><strong>4. Temporal Dynamics &amp; Unverified Staleness Decay (-10% to +5%):</strong> Milestone timeline depth (+3% for &ge;3 milestones, +5% for &ge;5 milestones). Dormant uncorroborated darkweb claims decay over time (-3% at 14 days, -5% at 30 days) to prevent adversary bluffs from retaining confidence.</li>
         </ul>
@@ -1783,6 +2166,9 @@ async function build() {
       affected_records: data.affected_records !== undefined ? data.affected_records : null,
       compromised_data: data.compromised_data || [],
       regulatory_filings: normalizeRegulatoryFilings(data.regulatory_filings || [], milestones),
+      agency_advisories: data.agency_advisories || [],
+      vendor_advisories: data.vendor_advisories || [],
+      consortium_bulletins: data.consortium_bulletins || [],
       first_seen: data.first_seen || '',
       last_updated: data.last_updated || '',
       summary: data.summary || '',

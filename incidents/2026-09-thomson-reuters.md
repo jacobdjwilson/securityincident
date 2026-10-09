@@ -23,10 +23,17 @@ compromised_data:
   - Confidential Grand Jury Testimonies
   - Minor Protective Orders
   - Witness Identity Documents
-regulatory_filings:
-  - regulator: Judicial Council of California
-    form: Court Technology Incident Advisory
-    url: 'https://www.courts.ca.gov'
+regulatory_filings: []
+agency_advisories:
+  - agency: Judicial Council of California
+    advisory_id: Court Technology Incident Advisory
+    advisory_type: Judicial Branch Technology Security Advisory
+    release_date: '2026-09-03'
+    url: https://www.courts.ca.gov
+    description: >-
+      Judicial Council of California technical advisory regarding exposure of
+      sealed court filings and sensitive judicial records across municipal and
+      superior court systems.
 ---
 ## Incident Overview
 
