@@ -6,10 +6,7 @@ status: EMERGING
 first_seen: '2026-10-02'
 last_updated: '2026-10-02'
 threat_actor: Krybit
-summary: >-
-  www.kres.cz was listed on the Krybit ransomware extortion leak portal. KRES
-  spol. s r.o. is a Czech company headquartered in Krnov, Moravskoslezský
-  Region, Czech Republic, specializing in wh...
+summary: "Identified an unverified ransomware extortion portal listing targeting www.kres.cz by the Krybit threat group, with ongoing monitoring to determine potential operational or data impacts."
 tags:
   - extortion
   - ransomware-claim

@@ -6,11 +6,7 @@ status: DEVELOPING
 first_seen: '2026-09-26'
 last_updated: '2026-10-01'
 threat_actor: Unattributed
-summary: >-
-  Sean Lyngaas and Davis Winkie report: A data breach at the Pentagon’s vast HR
-  system has exposed Social Security numbers and other personal information of
-  current and former military personnel, raising counterintelligence concerns
-  among national s...
+summary: "Disclosed a network intrusion"
 tags:
   - investigative
   - developing

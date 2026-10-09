@@ -6,11 +6,7 @@ status: EMERGING
 first_seen: '2026-10-06'
 last_updated: '2026-10-06'
 threat_actor: Vexy Ransomware
-summary: >-
-  KOOKABARRA JUICE was listed on the Vexy Ransomware ransomware extortion leak
-  portal. French manufacturer specializing in fresh-pressed fruit juices, detox
-  juices, smoothies, nectars and other fresh fruit products, serving both
-  professionals and co...
+summary: "Reported the listing of Kookabarra Juice on the Vexy ransomware extortion portal by an unverified threat actor group. The incident currently lacks confirmed details regarding specific attack vectors, operational disruptions, or compromised data volumes."
 tags:
   - extortion
   - ransomware-claim

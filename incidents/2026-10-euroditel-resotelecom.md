@@ -6,10 +6,7 @@ status: EMERGING
 first_seen: '2026-10-01'
 last_updated: '2026-10-01'
 threat_actor: Krybit
-summary: >-
-  EURODITEL/RESOTELECOM was listed on the Krybit ransomware extortion leak
-  portal. Euroditel is a French managed services provider (MSP) specializing in
-  telephony and unified communications. Based in th...
+summary: "Listed Euroditel and Resotelecom as victims on the Krybit ransomware extortion portal, marking an unverified claim of a cyberattack and data compromise by the threat actor group."
 tags:
   - extortion
   - ransomware-claim

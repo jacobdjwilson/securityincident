@@ -6,11 +6,7 @@ status: EMERGING
 first_seen: '2026-10-01'
 last_updated: '2026-10-01'
 threat_actor: Incransom
-summary: >-
-  Northern Counties Health Care was listed on the Incransom ransomware extortion
-  leak portal. With five community Health Centers, two dental centers, and a
-  certified Home Health Care & Hospice division, NCHC provides health care
-  services to patients...
+summary: "Identified an unverified extortion"
 tags:
   - extortion
   - ransomware-claim

@@ -6,10 +6,7 @@ status: DEVELOPING
 first_seen: '2026-10-05'
 last_updated: '2026-10-05'
 threat_actor: null
-summary: >-
-  Denmark's Central Population Register (CPR) is warning of a data breach that
-  exposed the personal information of approximately 8.8 million registered
-  individuals. [...]
+summary: "Disclosed a critical data breach affecting the Denmark population registry that compromised the personal records of 8.8 million individuals."
 tags:
   - threat-intel
   - developing
