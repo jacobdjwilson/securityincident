@@ -26,6 +26,7 @@ import argparse
 import datetime
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -78,6 +79,110 @@ def run_gh_cmd(args: List[str], check: bool = True) -> subprocess.CompletedProce
     return subprocess.run(["gh"] + args, cwd=ROOT_DIR, check=check, text=True, capture_output=True)
 
 
+def write_step_summary(changed_files: List[str], commit_sha: str, mode: str, target_branch: str) -> None:
+    """Emits comprehensive telemetry traceability report to GitHub Actions Step Summary."""
+    step_summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not step_summary_file:
+        return
+
+    today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    repo = os.environ.get("GITHUB_REPOSITORY", "")
+    lines = [
+        "## 📡 Telemetry Ingestion Run Summary",
+        "",
+        "| Telemetry Metric | Status / Value |",
+        "| :--- | :--- |",
+        f"| **Execution Mode** | `Direct Steady-State Ingestion` (`{target_branch}`) |",
+        f"| **Run Timestamp** | `{today}` |",
+        f"| **Commit SHA** | [`{commit_sha[:8]}`](https://github.com/{repo}/commit/{commit_sha}) |",
+        f"| **Modified / Created Dossiers** | `{len(changed_files)}` file(s) |",
+        "| **Schema Validation Gate** | `PASSED` (`npm test`) |",
+        "| **Static Site & Feed Compilation** | `PASSED` (`npm run build`) |",
+        "| **Link Integrity Verification** | `PASSED` (`npm run test:urls`) |",
+        "",
+        "### 📑 Modified & Created Incident Dossiers",
+        ""
+    ]
+    if changed_files:
+        lines.append("| Incident Dossier | Target Entity | Status | Telemetry Disclosures |")
+        lines.append("| :--- | :--- | :---: | :--- |")
+        for f in changed_files:
+            file_path = ROOT_DIR / f
+            entity = f.replace("incidents/", "").replace(".md", "")
+            status_val = "DEVELOPING"
+            details = "Dossier enriched"
+            if file_path.exists():
+                try:
+                    raw = file_path.read_text(encoding="utf-8")
+                    m_target = re.search(r"^target:\s*[\"']?([^\"'\n]+)", raw, re.MULTILINE)
+                    if m_target:
+                        entity = m_target.group(1).strip()
+                    m_status = re.search(r"^status:\s*(\w+)", raw, re.MULTILINE)
+                    if m_status:
+                        status_val = m_status.group(1).strip()
+                    cve_m = re.findall(r"\bCVE-\d{4}-\d{4,7}\b", raw)
+                    cve_str = f"CVEs: {', '.join(sorted(set(cve_m)))}" if cve_m else "No CVEs"
+                    details = f"{cve_str}"
+                except Exception:
+                    pass
+            lines.append(f"| [`{f}`](https://github.com/{repo}/blob/{target_branch}/{f}) | **{entity}** | `{status_val}` | {details} |")
+    else:
+        lines.append("*No dossier files were modified in this cycle.*")
+
+    lines.append("")
+    lines.append("---")
+    lines.append("*Traceability report generated autonomously by securityincident.net pipeline.*")
+
+    try:
+        with open(step_summary_file, "a", encoding="utf-8") as f:
+            f.write("\n".join(lines) + "\n")
+    except Exception as err:
+        print(f"Notice: Could not write GITHUB_STEP_SUMMARY: {err}")
+
+
+def report_error_summary(error_message: str = "") -> int:
+    """Writes actionable failure diagnostic report to GITHUB_STEP_SUMMARY when pipeline halts."""
+    step_summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not step_summary_file:
+        return EXIT_SUCCESS
+
+    today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    repo = os.environ.get("GITHUB_REPOSITORY", "")
+    run_id = os.environ.get("GITHUB_RUN_ID", "")
+    lines = [
+        "## ❌ Telemetry Pipeline Execution Failure",
+        "",
+        "> [!CAUTION]",
+        "> The automated incident telemetry ingestion run failed before publishing. No corrupt or unverified data was committed to `main`.",
+        "",
+        "| Diagnostic Field | Value |",
+        "| :--- | :--- |",
+        f"| **Failure Timestamp** | `{today}` |",
+        f"| **Repository** | `{repo or 'local'}` |",
+        f"| **Workflow Run** | [`Run #{run_id or 'N/A'}`](https://github.com/{repo}/actions/runs/{run_id}) |",
+        "",
+        "### 🛠️ Diagnostic & Remediation Guidance",
+        "1. **Check Validation Gate:** Review preceding workflow steps for schema violations or unverified milestone errors (`npm test`).",
+        "2. **Check URL Integrity:** Verify that any new primary source links are reachable (`npm run test:urls`).",
+        "3. **Check Feed Reachability:** Verify upstream regulatory endpoints (SEC EDGAR, State AG portals) did not reject requests.",
+        "4. **Re-run Ingestion:** Trigger workflow dispatch or run `npm run reconcile` locally to verify."
+    ]
+    if error_message:
+        lines.extend([
+            "",
+            "```text",
+            error_message,
+            "```"
+        ])
+
+    try:
+        with open(step_summary_file, "a", encoding="utf-8") as f:
+            f.write("\n".join(lines) + "\n")
+    except Exception as err:
+        print(f"Notice: Could not write GITHUB_STEP_SUMMARY: {err}")
+    return EXIT_SUCCESS
+
+
 def sync_branch(event_name: str, auto_merge: bool, config: Dict[str, Any]) -> int:
     """Synchronizes working branch based on trigger event and configuration."""
     git_cfg = config["git_automation"]
@@ -85,16 +190,20 @@ def sync_branch(event_name: str, auto_merge: bool, config: Dict[str, Any]) -> in
     author_email = git_cfg.get("commit_author_email", "41898282+github-actions[bot]@users.noreply.github.com")
     branch_name = git_cfg.get("branch_name", "telemetry/ingest-pending")
     target_branch = git_cfg.get("target_branch", "main")
-    configured_mode = git_cfg.get("publish_mode", "pr")
+    configured_mode = git_cfg.get("publish_mode", "direct")
 
     run_git_cmd(["config", "user.name", author_name])
     run_git_cmd(["config", "user.email", author_email])
 
-    if auto_merge and configured_mode == "direct":
-        print("Direct publishing mode active (auto-merge requested and direct mode configured).")
+    if configured_mode == "direct" or auto_merge:
+        print(f"Direct publishing mode active (configured_mode='{configured_mode}', auto_merge={auto_merge}).")
         set_github_output("mode", "direct")
         set_github_output("target_branch", target_branch)
-        run_git_cmd(["checkout", target_branch])
+        set_github_output("branch_name", target_branch)
+        set_github_output("has_open_pr", "false")
+        set_github_output("pr_number", "")
+        run_git_cmd(["checkout", target_branch], check=False)
+        run_git_cmd(["pull", "--ff-only", "origin", target_branch], check=False)
         return EXIT_SUCCESS
 
     print("Pull request review mode active.")
@@ -139,7 +248,7 @@ def check_changes() -> int:
 
 
 def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: str, config: Dict[str, Any]) -> int:
-    """Commits and publishes or creates Pull Request for changes."""
+    """Commits and publishes directly to main or creates Pull Request for changes."""
     git_cfg = config["git_automation"]
     today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
     target_branch = git_cfg.get("target_branch", "main")
@@ -147,25 +256,42 @@ def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: s
     status_context = git_cfg.get("status_check_context", "validate-and-test")
     status_desc = git_cfg.get("status_check_description", "Schema compliance and build verified in ingestion workflow")
 
+    status_res = run_git_cmd(["status", "--porcelain", "incidents/"], check=False)
+    changed_lines = [line.strip()[3:] for line in status_res.stdout.splitlines() if line.strip() and "incidents/" in line]
+
     if mode == "direct":
-        print(f"Directly publishing updates to {target_branch} branch...")
+        print(f"Directly publishing updates to {target_branch} branch (steady-state mode)...")
         run_git_cmd(["add", "incidents/", "sources/"])
         run_git_cmd(["commit", "-m", f"telemetry(ingest): automated incident intelligence update [{today}]"])
-        push_res = run_git_cmd(["push", "origin", target_branch], check=False)
-        if push_res.returncode == 0:
-            print(f"Successfully pushed ingestion updates to {target_branch}.")
+
+        sha_res = run_git_cmd(["rev-parse", "HEAD"])
+        commit_sha = sha_res.stdout.strip()
+
+        # Push with rebase retry up to 3 times to handle simultaneous remote updates
+        pushed = False
+        for attempt in range(3):
+            push_res = run_git_cmd(["push", "origin", target_branch], check=False)
+            if push_res.returncode == 0:
+                pushed = True
+                break
+            print(f"⚠️ Direct push attempt {attempt + 1} rejected. Pulling remote {target_branch} with rebase...")
+            run_git_cmd(["pull", "--rebase", "origin", target_branch], check=False)
+
+        if pushed:
+            print(f"✅ Successfully published telemetry updates directly to {target_branch} ({commit_sha[:8]}).")
+            write_step_summary(changed_lines, commit_sha, "direct", target_branch)
             return EXIT_SUCCESS
-        print(f"Warning: Direct push to {target_branch} failed:\n{push_res.stderr}\nFalling back to Pull Request mode...")
+
+        print(f"Warning: Direct push to {target_branch} failed after retries:\n{push_res.stderr}\nFalling back to Pull Request mode...")
         mode = "pr"
         run_git_cmd(["checkout", "-B", branch_name])
 
     # PR Mode
     print(f"Publishing updates via Pull Request on branch {branch_name}...")
-    status_res = run_git_cmd(["status", "--porcelain", "incidents/"], check=False)
-    changed_lines = [line.strip()[3:] for line in status_res.stdout.splitlines() if line.strip()]
     summary_md = "\n".join(f"* `{f}`" for f in changed_lines) if changed_lines else "* No dossier files modified"
 
-    if status_res.stdout.strip():
+    status_dirty = run_git_cmd(["status", "--porcelain", "incidents/", "sources/"], check=False)
+    if status_dirty.stdout.strip():
         run_git_cmd(["add", "incidents/", "sources/"])
         commit_msg = f"telemetry(ingest): update security incident index [{today}]"
         run_git_cmd(["commit", "-m", commit_msg])
@@ -233,6 +359,7 @@ This automated pull request was generated by the continuous threat feed, regulat
         except Exception as err:
             print(f"Warning: PR creation via gh pr create returned: {err}. Changes remain pushed on {branch_name}.")
 
+    write_step_summary(changed_lines, commit_sha, "pr", branch_name)
     return EXIT_SUCCESS
 
 
@@ -241,6 +368,8 @@ def main() -> int:
     parser.add_argument("--sync", action="store_true", help="Synchronize working branch.")
     parser.add_argument("--check-changes", action="store_true", help="Check if incidents/ or sources/ have changes.")
     parser.add_argument("--publish", action="store_true", help="Publish changes directly or open PR.")
+    parser.add_argument("--report-error", action="store_true", help="Write failure diagnostic report to GITHUB_STEP_SUMMARY.")
+    parser.add_argument("--error-message", type=str, default="", help="Optional error message to include in report.")
     parser.add_argument("--event-name", type=str, default=os.environ.get("GITHUB_EVENT_NAME", "workflow_dispatch"), help="Triggering event name.")
     parser.add_argument("--auto-merge", action="store_true", help="Force direct commit/push mode.")
     parser.add_argument("--mode", type=str, default="", help="Publication mode ('direct' or 'pr').")
@@ -249,6 +378,10 @@ def main() -> int:
     parser.add_argument("--pr-number", type=str, default="", help="PR number if open.")
 
     args = parser.parse_args()
+
+    if args.report_error:
+        return report_error_summary(args.error_message)
+
     config = ConfigLoader.load()
 
     if args.sync:

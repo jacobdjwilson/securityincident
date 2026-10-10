@@ -14,7 +14,6 @@ permissions:
 
 jobs:
   validate-and-test:
-    if: "!startsWith(github.head_ref, 'telemetry/')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository

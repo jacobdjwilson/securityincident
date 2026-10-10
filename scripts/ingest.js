@@ -28,7 +28,6 @@ function cleanHtml(raw) {
   return raw
     .replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
@@ -36,12 +35,13 @@ function cleanHtml(raw) {
     .replace(/&#8216;/g, "'")
     .replace(/&#8220;/g, '"')
     .replace(/&#8221;/g, '"')
-    .replace(/&#038;/g, '&')
     .replace(/&#8211;/g, '-')
     .replace(/&#8212;/g, '--')
     .replace(/&#39;/g, "'")
     .replace(/&#x27;/g, "'")
     .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&#038;/g, '&')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -447,6 +447,85 @@ function findExistingIncidentFilePath(targetSlug, targetName) {
 }
 
 /**
+ * Synthesizes a structured 3-part technical briefing for new and updated dossiers.
+ * Guarantees every incident has:
+ *   ## Incident Overview
+ *   ## Compromised Assets & Data Scope
+ *   ## Statutory Disclosures & Compliance (or ## Authoritative Directives & Vendor Disclosures)
+ *   ## Timeline
+ */
+function buildStructuredDossierBody({
+  target,
+  domain,
+  industry,
+  incidentType,
+  threatActor,
+  summary,
+  cveIds = [],
+  affectedRecords = null,
+  compromisedData = [],
+  regulatoryFilings = [],
+  agencyAdvisories = [],
+  vendorAdvisories = [],
+  timelineBody = ''
+}) {
+  const targetName = target || 'The target organization';
+  const sectorStr = industry ? `operating within the ${industry} sector` : 'within its operating sector';
+  const actorStr = threatActor ? `attributed to threat actor ${threatActor}` : 'currently unconfirmed or under forensic attribution';
+  const cveStr = Array.isArray(cveIds) && cveIds.length > 0
+    ? ` Active vulnerability telemetry tracks associated Common Vulnerabilities and Exposures: ${cveIds.join(', ')}.`
+    : '';
+  const incidentTypeStr = incidentType ? ` classified as ${incidentType}` : '';
+
+  const overviewParagraph1 = `${targetName}, ${sectorStr}, has been subject to a cybersecurity incident${incidentTypeStr}. Ground-truth telemetry indicates the threat activity is ${actorStr}.${cveStr}`;
+  const summaryContext = summary && summary.trim().length > 20
+    ? `\n\n${summary.trim()}`
+    : '';
+
+  const recordsStr = typeof affectedRecords === 'number'
+    ? `Current disclosures quantify the affected population at approximately ${affectedRecords.toLocaleString()} records/individuals.`
+    : 'The specific volume of affected customer or organizational records remains under active forensic investigation.';
+
+  let dataClassesStr = '';
+  if (Array.isArray(compromisedData) && compromisedData.length > 0) {
+    dataClassesStr = `\n\nIdentified categories of compromised data and impacted assets include:\n${compromisedData.map(d => `- ${d}`).join('\n')}`;
+  } else {
+    dataClassesStr = '\n\nSpecific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.';
+  }
+
+  const domainStr = domain ? ` Primary affected online infrastructure and perimeter domains include \`${domain}\`.` : '';
+
+  let disclosuresTitle = '';
+  let disclosuresContent = '';
+
+  const hasStatutory = Array.isArray(regulatoryFilings) && regulatoryFilings.length > 0;
+  const hasAgencies = Array.isArray(agencyAdvisories) && agencyAdvisories.length > 0;
+  const hasVendors = Array.isArray(vendorAdvisories) && vendorAdvisories.length > 0;
+
+  if (hasStatutory) {
+    disclosuresTitle = '## Statutory Disclosures & Compliance';
+    disclosuresContent = regulatoryFilings.map(f =>
+      `- **${f.regulator} Filing:** ${f.form || 'Statutory Disclosure'} (${f.accession_number || f.filing_date || 'Document'}) - [Filing Link](${f.url})`
+    ).join('\n');
+  } else if (hasAgencies || hasVendors) {
+    disclosuresTitle = '## Authoritative Directives & Vendor Disclosures';
+    const parts = [];
+    if (hasAgencies) {
+      parts.push(...agencyAdvisories.map(a => `- **${a.agency} Advisory:** ${a.advisory_id || 'Alert'} - [Agency Direct Link](${a.url})`));
+    }
+    if (hasVendors) {
+      parts.push(...vendorAdvisories.map(v => `- **${v.publisher || targetName} Security Bulletin:** ${v.advisory_id || 'Security Bulletin'} - [Vendor Bulletin Link](${v.url})`));
+    }
+    disclosuresContent = parts.join('\n');
+  } else {
+    disclosuresTitle = '## Authoritative Directives & Vendor Disclosures';
+    disclosuresContent = `- **Continuous Telemetry Monitoring:** Formal statutory regulatory filings (SEC Form 8-K, State AG portals) and sovereign agency advisories (CISA, NCSC) are continuously monitored via automated ingestion pipeline.`;
+  }
+
+  return `## Incident Overview\n\n${overviewParagraph1}${summaryContext}\n\n## Compromised Assets & Data Scope\n\n${recordsStr}${domainStr}${dataClassesStr}\n\n${disclosuresTitle}\n\n${disclosuresContent}\n\n${timelineBody.trim()}\n`;
+}
+
+/**
  * Robust milestone upsert function ensuring canonical file matching, validation, and rollback on error
  */
 function upsertIncidentMilestone({
@@ -467,12 +546,19 @@ function upsertIncidentMilestone({
   incidentType = null,
   affectedRecords = null,
   compromisedData = [],
-  regulatoryFilings = []
+  regulatoryFilings = [],
+  agencyAdvisories = [],
+  vendorAdvisories = [],
+  consortiumBulletins = [],
+  cveIds = []
 }) {
   const targetSlug = slugify(target);
   const existingPath = findExistingIncidentFilePath(targetSlug, target);
   const incidentFilePath = existingPath || path.join(INCIDENTS_DIR, `${incidentId}.md`);
   const incidentFileName = path.basename(incidentFilePath);
+
+  const NON_REGULATOR_RE = /\b(?:cisa|ncsc|fbi|vendor|bulletin|advisory|cloud software group|citrix|isac|shadowserver|first\.org)\b/i;
+  const safeFilings = regulatoryFilings.filter(f => !NON_REGULATOR_RE.test(f.regulator || ''));
 
   if (fs.existsSync(incidentFilePath)) {
     try {
@@ -485,7 +571,7 @@ function upsertIncidentMilestone({
 
       console.log(`   ➕ Corroborating milestone to: ${incidentFileName} [${verification}]`);
       const newMilestone = `\n### ${timeUtc}\n- **Event:** ${event}\n- **Verification:** ${verification}\n- **Source:** [${sourceTitle}](${sourceUrl})\n`;
-      const updatedContent = parsed.content.trim() + '\n' + newMilestone;
+      let updatedContent = parsed.content.trim() + '\n' + newMilestone;
 
       const dates = [parsed.data.first_seen, parsed.data.last_updated, dateIso].filter(Boolean).sort();
       parsed.data.first_seen = dates[0];
@@ -500,6 +586,15 @@ function upsertIncidentMilestone({
       for (const t of tags) {
         if (!parsed.data.tags.includes(t)) {
           parsed.data.tags.push(t);
+        }
+      }
+
+      if (Array.isArray(cveIds) && cveIds.length > 0) {
+        if (!Array.isArray(parsed.data.cve_ids)) parsed.data.cve_ids = [];
+        for (const cve of cveIds) {
+          if (!parsed.data.cve_ids.includes(cve)) parsed.data.cve_ids.push(cve);
+          const tag = cve.toLowerCase();
+          if (!parsed.data.tags.includes(tag)) parsed.data.tags.push(tag);
         }
       }
 
@@ -530,9 +625,9 @@ function upsertIncidentMilestone({
         }
       }
 
-      if (Array.isArray(regulatoryFilings) && regulatoryFilings.length > 0) {
+      if (Array.isArray(safeFilings) && safeFilings.length > 0) {
         if (!Array.isArray(parsed.data.regulatory_filings)) parsed.data.regulatory_filings = [];
-        for (const filing of regulatoryFilings) {
+        for (const filing of safeFilings) {
           const exists = parsed.data.regulatory_filings.some(f => f.url === filing.url || (f.regulator === filing.regulator && f.form === filing.form));
           if (!exists) {
             parsed.data.regulatory_filings.push(filing);
@@ -540,7 +635,57 @@ function upsertIncidentMilestone({
         }
       }
 
-      fs.writeFileSync(incidentFilePath, matter.stringify(updatedContent, parsed.data), 'utf-8');
+      if (Array.isArray(agencyAdvisories) && agencyAdvisories.length > 0) {
+        if (!Array.isArray(parsed.data.agency_advisories)) parsed.data.agency_advisories = [];
+        for (const adv of agencyAdvisories) {
+          const exists = parsed.data.agency_advisories.some(a => a.url === adv.url || (a.agency === adv.agency && a.advisory_id === adv.advisory_id));
+          if (!exists) {
+            parsed.data.agency_advisories.push(adv);
+          }
+        }
+      }
+
+      if (Array.isArray(vendorAdvisories) && vendorAdvisories.length > 0) {
+        if (!Array.isArray(parsed.data.vendor_advisories)) parsed.data.vendor_advisories = [];
+        for (const v of vendorAdvisories) {
+          const exists = parsed.data.vendor_advisories.some(x => x.url === v.url || x.advisory_id === v.advisory_id);
+          if (!exists) {
+            parsed.data.vendor_advisories.push(v);
+          }
+        }
+      }
+
+      if (Array.isArray(consortiumBulletins) && consortiumBulletins.length > 0) {
+        if (!Array.isArray(parsed.data.consortium_bulletins)) parsed.data.consortium_bulletins = [];
+        for (const c of consortiumBulletins) {
+          const exists = parsed.data.consortium_bulletins.some(x => x.url === c.url);
+          if (!exists) {
+            parsed.data.consortium_bulletins.push(c);
+          }
+        }
+      }
+
+      // If existing body is thin or lacks ## Incident Overview, synthesize full dossier
+      let finalContent = updatedContent;
+      if (!parsed.content.includes('## Incident Overview')) {
+        finalContent = buildStructuredDossierBody({
+          target: parsed.data.target,
+          domain: parsed.data.domain,
+          industry: parsed.data.industry,
+          incidentType: parsed.data.incident_type,
+          threatActor: parsed.data.threat_actor,
+          summary: parsed.data.summary,
+          cveIds: parsed.data.cve_ids || [],
+          affectedRecords: parsed.data.affected_records,
+          compromisedData: parsed.data.compromised_data || [],
+          regulatoryFilings: parsed.data.regulatory_filings || [],
+          agencyAdvisories: parsed.data.agency_advisories || [],
+          vendorAdvisories: parsed.data.vendor_advisories || [],
+          timelineBody: updatedContent
+        });
+      }
+
+      fs.writeFileSync(incidentFilePath, matter.stringify(finalContent, parsed.data), 'utf-8');
       const errors = validateIncidentFile(incidentFileName);
       if (errors.length === 0) {
         return { action: 'updated', id: parsed.data.id || incidentFileName.replace('.md', '') };
@@ -560,6 +705,14 @@ function upsertIncidentMilestone({
     }
 
     console.log(`   ✨ New Incident Discovered: [${status}] ${target} (${incidentId})`);
+    const initialTags = [...tags];
+    if (Array.isArray(cveIds) && cveIds.length > 0) {
+      for (const c of cveIds) {
+        const tag = c.toLowerCase();
+        if (!initialTags.includes(tag)) initialTags.push(tag);
+      }
+    }
+
     const frontmatter = {
       id: incidentId,
       target,
@@ -569,17 +722,37 @@ function upsertIncidentMilestone({
       last_updated: dateIso,
       threat_actor: threatActor,
       summary: summary || `${event}. Verified cybersecurity telemetry and event monitoring.`,
-      tags
+      tags: initialTags
     };
 
+    if (Array.isArray(cveIds) && cveIds.length > 0) frontmatter.cve_ids = cveIds;
     if (industry) frontmatter.industry = industry;
     if (incidentType) frontmatter.incident_type = incidentType;
     if (typeof affectedRecords === 'number' && affectedRecords > 0) frontmatter.affected_records = affectedRecords;
     if (Array.isArray(compromisedData) && compromisedData.length > 0) frontmatter.compromised_data = compromisedData;
-    if (Array.isArray(regulatoryFilings) && regulatoryFilings.length > 0) frontmatter.regulatory_filings = regulatoryFilings;
+    if (Array.isArray(safeFilings) && safeFilings.length > 0) frontmatter.regulatory_filings = safeFilings;
+    if (Array.isArray(agencyAdvisories) && agencyAdvisories.length > 0) frontmatter.agency_advisories = agencyAdvisories;
+    if (Array.isArray(vendorAdvisories) && vendorAdvisories.length > 0) frontmatter.vendor_advisories = vendorAdvisories;
+    if (Array.isArray(consortiumBulletins) && consortiumBulletins.length > 0) frontmatter.consortium_bulletins = consortiumBulletins;
 
-    const milestoneBody = `## Timeline\n\n### ${timeUtc}\n- **Event:** ${event}\n- **Verification:** ${verification}\n- **Source:** [${sourceTitle}](${sourceUrl})\n`;
-    fs.writeFileSync(incidentFilePath, matter.stringify(milestoneBody, frontmatter), 'utf-8');
+    const timelineText = `## Timeline\n\n### ${timeUtc}\n- **Event:** ${event}\n- **Verification:** ${verification}\n- **Source:** [${sourceTitle}](${sourceUrl})\n`;
+    const fullBody = buildStructuredDossierBody({
+      target,
+      domain: frontmatter.domain,
+      industry,
+      incidentType,
+      threatActor,
+      summary: frontmatter.summary,
+      cveIds,
+      affectedRecords,
+      compromisedData,
+      regulatoryFilings: safeFilings,
+      agencyAdvisories,
+      vendorAdvisories,
+      timelineBody: timelineText
+    });
+
+    fs.writeFileSync(incidentFilePath, matter.stringify(fullBody, frontmatter), 'utf-8');
 
     const errors = validateIncidentFile(incidentFileName);
     if (errors.length === 0) {
@@ -1008,6 +1181,36 @@ export async function ingestFeeds() {
           ? `${item.publisherName} Report`
           : `${source.name} Report`;
 
+        const cveMatches = `${item.title} ${item.description || ''}`.match(/\bCVE-\d{4}-\d{4,7}\b/gi) || [];
+        const cveIds = [...new Set(cveMatches.map(c => c.toUpperCase()))];
+
+        const agencyAdvisories = [];
+        if (source.type === 'agency-advisory' || source.id === 'cisa-advisories' || source.id === 'ncsc-uk') {
+          agencyAdvisories.push({
+            agency: source.name,
+            advisory_id: item.title.slice(0, 60),
+            advisory_type: 'Government Cyber Advisory',
+            url: item.link,
+            release_date: dateIso,
+            cve_ids: cveIds,
+            description: cleanHtml(item.description || item.title)
+          });
+        }
+
+        const vendorAdvisories = [];
+        if (isVendorPatchAdvisory(item.title, item.description) || (cveIds.length > 0 && (source.type === 'vendor-bulletin' || source.id.includes('vendor')))) {
+          vendorAdvisories.push({
+            publisher: target,
+            advisory_id: item.title.slice(0, 60),
+            title: item.title,
+            severity: 'Critical',
+            release_date: dateIso,
+            cve_ids: cveIds,
+            url: item.link,
+            description: cleanHtml(item.description || item.title)
+          });
+        }
+
         const res = upsertIncidentMilestone({
           incidentId,
           target,
@@ -1021,7 +1224,10 @@ export async function ingestFeeds() {
           dateIso,
           summary,
           tags: milestoneTags,
-          threatActor
+          threatActor,
+          agencyAdvisories,
+          vendorAdvisories,
+          cveIds
         });
 
         if (res.action === 'created') {

@@ -65,7 +65,10 @@ Rather than merely linking to external third-party articles or serving superfici
   * **Attributed Threat Actor:** Threat group attribution when corroborated (e.g. `ShinyHunters`, `RansomHub`, `Akira`, `LockBit 3.0`) or neutral unattributed labeling.
   * **Quantified Scope:** Disclosed affected records/individual count.
   * **Compromised Data Categories:** Granular asset tags (`Social Security Numbers (SSNs)`, `Protected Health Information (PHI)`, `Banking Details`, `Customer Call Records`, etc.).
-  * **Statutory Regulatory Filings:** Direct references to formal SEC Form 8-K Item 1.05 accession numbers, State Attorney General breach notices, and HHS OCR records with direct links.
+  * **Statutory Regulatory Filings (`regulatory_filings`):** Direct references to formal statutory filings submitted to government regulatory authorities (SEC Form 8-K Item 1.05 accession numbers, State AG breach portal records, HHS OCR disclosures, FTC/FCC notices).
+  * **Sovereign Government Directives (`agency_advisories`):** Authoritative alerts and binding operational directives issued by sovereign cybersecurity agencies (CISA KEV Catalog & BODs, UK NCSC, FBI PIN/Flash).
+  * **Official Target Vendor Bulletins (`vendor_advisories`):** Primary vendor security advisories and CVE patch disclosures (e.g. Citrix Support Bulletins, Microsoft MSRC, Cisco PSIRT).
+  * **Industry Consortium Intelligence (`consortium_bulletins`):** Collaborative alerts and sector indicators from ISACs and working groups (Health-ISAC, FS-ISAC, FIRST).
 * **📑 Structured Technical Dossiers:**
   * `## Incident Overview`: Narrative forensic briefing of the event, vector, and operational disruption.
   * `## Compromised Assets & Data Scope`: Concrete breakdown of exposed assets, systems impacted, and threat risk.
@@ -93,9 +96,9 @@ securityincident/
 │   └── workflows/
 │       ├── deploy.yml                 # Deploys dist/ to GitHub Pages on push to main
 │       ├── validate-pr.yml            # Validates incident schemas, feeds & build on PRs
-│       └── ingest.yml                 # Automated 6-stage raw ingestion & PR proposing
+│       └── ingest.yml                 # Continuous raw ingestion, deep technical extraction & steady-state direct publish
 ├── incidents/                         # Dynamic flat-file database (YYYY-MM-<target-slug>.md)
-│   └── [Dynamically synchronized incident dossiers via automated ingestion & PRs]
+│   └── [Dynamically synchronized incident dossiers via automated steady-state ingestion & PRs]
 ├── sources/
 │   ├── feeds.json                     # Active regulatory & investigative feed sources
 │   └── weights.json                   # Open Weights confidence model configuration

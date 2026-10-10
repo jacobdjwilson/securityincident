@@ -3,13 +3,12 @@ id: 2026-10-far-west-contractors
 target: Far West Contractors
 domain: farwestcontractors.com
 status: EMERGING
-first_seen: '2026-10-02'
-last_updated: '2026-10-02'
+first_seen: 2026-10-02
+last_updated: 2026-10-02
 threat_actor: Deadlock
-summary: >-
-  Far West Contractors was listed on the Deadlock ransomware extortion leak
-  portal. Unverified extortion claim alleging unauthorized network access and
-  data compromise.
+summary: Far West Contractors was listed on the Deadlock ransomware extortion
+  leak portal. Unverified extortion claim alleging unauthorized network access
+  and data compromise.
 tags:
   - extortion
   - ransomware-claim
@@ -17,6 +16,23 @@ tags:
   - emerging
 industry: Manufacturing
 ---
+
+## Incident Overview
+
+Far West Contractors, operating within the Manufacturing sector, has been subject to a cybersecurity incident initially observed on 2026-10-02. Ground-truth telemetry indicates the threat activity is attributed to threat actor Deadlock.
+
+Far West Contractors was listed on the Deadlock ransomware extortion leak portal. Unverified extortion claim alleging unauthorized network access and data compromise.
+
+## Compromised Assets & Data Scope
+
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `farwestcontractors.com`.
+
+Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
+
+## Authoritative Directives & Vendor Disclosures
+
+- **Continuous Telemetry Monitoring:** Formal statutory regulatory filings (SEC Form 8-K, State AG portals) and sovereign agency advisories (CISA, NCSC) are continuously monitored via automated ingestion pipeline.
+
 ## Timeline
 
 ### 2026-10-02 07:50 UTC

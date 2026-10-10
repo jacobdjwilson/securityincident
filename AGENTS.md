@@ -63,17 +63,18 @@ To deliver maximum clarity, we establish clear levels of confidence and correlat
 
 Confidence scores are computed deterministically across four orthogonal dimensions (Primary Authority Base, Evidence Specificity, Corroboration Curve, and Temporal Dynamics):
 
-* `CONFIRMED BY REGULATOR` (🟢 Green, Base 0.65): SEC Form 8-K Item 1.05, State Attorney General portal (CA DOJ, WA AG, OR DOJ), HHS OCR breach report, CISA KEV advisory.
-* `CONFIRMED BY TARGET` (🟢 Green / Teal, Base 0.50): Target press release, official blog post, status page bulletin.
-* `INDEPENDENT VERIFICATION` (🟠 Orange, Base 0.32): Cybersecurity researcher analysis, HaveIBeenPwned audit, reputable investigative reporting.
-* `ACKNOWLEDGED` (🟡 Yellow, Base 0.18): Target public confirmation of IT disruption or active investigation.
+* `CONFIRMED BY REGULATOR` (🟢 Green, Base 0.65): Statutory disclosures submitted to government regulatory authorities: SEC Form 8-K Item 1.05, State Attorney General portals (CA DOJ, WA AG, OR DOJ), HHS OCR breach reports, FTC/FCC notices, EU/UK DPAs.
+* `GOVERNMENT ADVISORY` (🟣 Purple, Base 0.62): Authoritative sovereign cybersecurity directives and alerts: CISA KEV Catalog & Binding Operational Directives (BOD), UK NCSC advisories, FBI PIN / Flash alerts, CCCS, BSI directives.
+* `CONFIRMED BY TARGET` (🟢 Green / Teal, Base 0.50): Target press releases, company security blog disclosures, official vendor security bulletins (e.g., Citrix Support Bulletins, Microsoft MSRC, Cisco PSIRT).
+* `INDEPENDENT VERIFICATION` (🟠 Orange, Base 0.32): Cybersecurity researcher forensic analysis, HaveIBeenPwned audit, reputable investigative reporting, industry consortium / ISAC alerts.
+* `ACKNOWLEDGED` (🟡 Yellow, Base 0.18): Target public confirmation of IT disruption or active investigation without confirming data compromise.
 * `UNVERIFIED CLAIM` (🔴 Red, Base 0.06): Threat actor forum post, leak site listing, unverified community chatter (low baseline floor).
 * `REFUTED` (🔘 Gray, Base 0.00): Explicitly disproven with evidence.
 
 #### Multi-Dimensional Scoring Dimensions
-1. **Primary Authority Base Floor:** 0.06 to 0.65 base weight depending on top verification tier.
-2. **Evidence Specificity Bonus (+0% to +23%):** Statutory regulatory filing on record (+12%), verified primary domain (+3%), disclosed compromised data classes (+4%), and quantified affected records count (+4%).
-3. **Corroboration & Multi-Source Curve (+0% to +25%):** Logarithmic scale for independent domains (2 domains: +7%, 3 domains: +12%, 4 domains: +16%, 5+ domains: +20%), plus a +5% cross-tier boost when threat telemetry is corroborated by target or regulator.
+1. **Primary Authority Base Floor:** 0.06 to 0.65 base weight depending on top verification tier (0.65 for regulators, 0.62 for sovereign government agencies).
+2. **Evidence Specificity Bonus (+0% to +23%):** Statutory regulatory filing on record (+12%) or Sovereign Agency / Vendor Advisory (+8%), verified primary domain (+3%), disclosed compromised data classes (+4%), and quantified affected records count (+4%).
+3. **Corroboration & Multi-Source Curve (+0% to +25%):** Logarithmic scale for independent domains (2 domains: +7%, 3 domains: +12%, 4 domains: +16%, 5+ domains: +20%), plus a +5% cross-tier boost when threat telemetry is corroborated by target, agency, or regulator.
 4. **Temporal Dynamics & Milestone Depth (-10% to +5%):** Milestone depth (&ge;3: +3%, &ge;5: +5%). Dormant uncorroborated claims decay (-3% at 14d, -5% at 30d).
 
 ---
@@ -228,6 +229,16 @@ To ensure operational resilience, CI/CD predictability, and security across auto
 * **Automated Ingestion Feed Reconciliation:** When new feeds or regulatory endpoints are registered in `sources/feeds.json`, continuous ingestion workflows and static site generation must auto-reconcile and dynamically register them into `sources/pipeline-status.json` and the website telemetry tables without requiring code modifications or manual duplication.
 * **Rolling Dynamic Timelines:** Historical velocity and trend timelines must never use hardcoded date arrays. They must be generated dynamically from active dataset timestamps across rolling multi-month windows.
 * **5-Tier Bidirectional Telemetry Support:** The entire 5-tier status progression (`CONFIRMED`, `ACKNOWLEDGED`, `DEVELOPING`, `EMERGING`, `REFUTED`) must have end-to-end support across HTML templates, Stream Tabs, Granular Filter Pills, Drawer Selectors, and semantic CSS tokens.
+
+### VII. Deep Information Extraction by Default
+* **Comprehensive Telemetry Extraction:** By default, automated ingestion workflows must extract deep forensic information across all qualifying incidents, including CVE identifiers (`cve_ids`), target vendor security bulletins (`vendor_advisories`), sovereign government directives (`agency_advisories`), quantified affected records, and structured data classes.
+* **Structured 3-Part Technical Narrative Dossiers:** Every incident dossier must synthesize structured narrative briefing sections (`## Incident Overview`, `## Compromised Assets & Data Scope`, `## Authoritative Directives & Vendor Disclosures` or `## Statutory Disclosures & Compliance`) prior to the `## Timeline`. Thin or single-paragraph dossiers are prohibited.
+* **Authoritative Disentanglement:** Non-statutory agencies and vendor advisories must never be conflated with statutory regulatory filings. Statutory `regulatory_filings` are strictly reserved for legal filings submitted to regulatory bodies (SEC, State AGs, HHS OCR).
+
+### VIII. Steady-State Autonomous Publishing & Traceability
+* **Direct Continuous Publishing:** In steady-state operation, automated ingestion workflows commit and push verified updates directly to `main` without PR approval bottlenecks (`git_automation.publish_mode: "direct"`), triggering immediate production deployment via `deploy.yml`.
+* **Actionable Step Summaries:** Workflows must write rich markdown execution summaries, audit statistics, and modified dossier tables to `$GITHUB_STEP_SUMMARY`.
+* **Fail-Safe Error Reporting:** In the event of validation, build, or link reachability failures, the pipeline halts without corrupting `main`, emitting actionable diagnostic remediation guidance directly to `$GITHUB_STEP_SUMMARY`.
 
 ---
 

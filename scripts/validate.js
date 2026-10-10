@@ -8,6 +8,7 @@ const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
 const VALID_STATUSES = ['EMERGING', 'DEVELOPING', 'ACKNOWLEDGED', 'CONFIRMED', 'REFUTED'];
 const VALID_VERIFICATIONS = [
   'CONFIRMED BY REGULATOR',
+  'GOVERNMENT ADVISORY',
   'CONFIRMED BY TARGET',
   'INDEPENDENT VERIFICATION',
   'UNVERIFIED CLAIM',
@@ -121,8 +122,99 @@ export function validateIncidentFile(filename) {
   if (data.compromised_data !== undefined && !Array.isArray(data.compromised_data)) {
     errors.push("'compromised_data' must be an array of strings if specified.");
   }
-  if (data.regulatory_filings !== undefined && !Array.isArray(data.regulatory_filings)) {
-    errors.push("'regulatory_filings' must be an array of objects if specified.");
+  // 7. Authoritative Sources & Filings Validation
+  const NON_REGULATOR_TERMS = [
+    /\bcisa\b/i,
+    /\bncsc\b/i,
+    /\bfbi\b/i,
+    /\bvendor\b/i,
+    /\bbulletin\b/i,
+    /\badvisory\b/i,
+    /\bcloud software group\b/i,
+    /\bcitrix\b/i,
+    /\bisac\b/i,
+    /\bshadowserver\b/i,
+    /\bfirst\.org\b/i
+  ];
+
+  if (data.regulatory_filings !== undefined) {
+    if (!Array.isArray(data.regulatory_filings)) {
+      errors.push("'regulatory_filings' must be an array of objects if specified.");
+    } else {
+      data.regulatory_filings.forEach((f, idx) => {
+        if (!f || typeof f !== 'object') {
+          errors.push(`'regulatory_filings[${idx}]' must be an object.`);
+        } else {
+          if (!f.regulator || typeof f.regulator !== 'string') {
+            errors.push(`'regulatory_filings[${idx}]' is missing required 'regulator' name.`);
+          } else if (NON_REGULATOR_TERMS.some(re => re.test(f.regulator))) {
+            errors.push(
+              `Invalid regulator '${f.regulator}' in 'regulatory_filings'. Statutory regulatory filings only accept true regulators (SEC, State AGs, HHS OCR, FTC, FCC, DPAs). Government agencies belong in 'agency_advisories', working groups in 'consortium_bulletins', and vendor bulletins in 'vendor_advisories'.`
+            );
+          }
+          if (f.url && !URL_REGEX.test(f.url)) {
+            errors.push(`'regulatory_filings[${idx}]': URL '${f.url}' is not a valid absolute HTTP/HTTPS URL.`);
+          }
+        }
+      });
+    }
+  }
+
+  if (data.agency_advisories !== undefined) {
+    if (!Array.isArray(data.agency_advisories)) {
+      errors.push("'agency_advisories' must be an array of objects if specified.");
+    } else {
+      data.agency_advisories.forEach((a, idx) => {
+        if (!a || typeof a !== 'object') {
+          errors.push(`'agency_advisories[${idx}]' must be an object.`);
+        } else {
+          if (!a.agency || typeof a.agency !== 'string') {
+            errors.push(`'agency_advisories[${idx}]' is missing required 'agency' name.`);
+          }
+          if (a.url && !URL_REGEX.test(a.url)) {
+            errors.push(`'agency_advisories[${idx}]': URL '${a.url}' is not a valid absolute HTTP/HTTPS URL.`);
+          }
+        }
+      });
+    }
+  }
+
+  if (data.consortium_bulletins !== undefined) {
+    if (!Array.isArray(data.consortium_bulletins)) {
+      errors.push("'consortium_bulletins' must be an array of objects if specified.");
+    } else {
+      data.consortium_bulletins.forEach((c, idx) => {
+        if (!c || typeof c !== 'object') {
+          errors.push(`'consortium_bulletins[${idx}]' must be an object.`);
+        } else {
+          if (!c.organization || typeof c.organization !== 'string') {
+            errors.push(`'consortium_bulletins[${idx}]' is missing required 'organization' name.`);
+          }
+          if (c.url && !URL_REGEX.test(c.url)) {
+            errors.push(`'consortium_bulletins[${idx}]': URL '${c.url}' is not a valid absolute HTTP/HTTPS URL.`);
+          }
+        }
+      });
+    }
+  }
+
+  if (data.vendor_advisories !== undefined) {
+    if (!Array.isArray(data.vendor_advisories)) {
+      errors.push("'vendor_advisories' must be an array of objects if specified.");
+    } else {
+      data.vendor_advisories.forEach((v, idx) => {
+        if (!v || typeof v !== 'object') {
+          errors.push(`'vendor_advisories[${idx}]' must be an object.`);
+        } else {
+          if (!v.publisher && !v.vendor) {
+            errors.push(`'vendor_advisories[${idx}]' is missing required 'publisher' or 'vendor' name.`);
+          }
+          if (v.url && !URL_REGEX.test(v.url)) {
+            errors.push(`'vendor_advisories[${idx}]': URL '${v.url}' is not a valid absolute HTTP/HTTPS URL.`);
+          }
+        }
+      });
+    }
   }
 
   // 8. Tags validation (optional array)

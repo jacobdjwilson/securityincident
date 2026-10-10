@@ -7,13 +7,19 @@
       "baseWeight": 0.65,
       "color": "var(--status-confirmed)",
       "badge": "CONFIRMED",
-      "description": "Official government regulatory filings (e.g. SEC Form 8-K Item 1.05, State AG breach notifications, HHS OCR, CISA advisory)."
+      "description": "Official government regulatory filings (e.g. SEC Form 8-K Item 1.05, State AG breach notifications, HHS OCR)."
+    },
+    "GOVERNMENT ADVISORY": {
+      "baseWeight": 0.62,
+      "color": "var(--cyan-accent)",
+      "badge": "CONFIRMED",
+      "description": "Statutory government & national cybersecurity agency directives and alerts (e.g. CISA BOD directives & KEV catalog, UK NCSC emergency alerts, FBI cyber advisories)."
     },
     "CONFIRMED BY TARGET": {
       "baseWeight": 0.50,
       "color": "var(--status-confirmed)",
       "badge": "CONFIRMED",
-      "description": "Direct public confirmation from the target organization (official blog, press release, status bulletin)."
+      "description": "Direct public confirmation from the target organization or software vendor (official security bulletin, press release, status bulletin)."
     },
     "INDEPENDENT VERIFICATION": {
       "baseWeight": 0.32,
@@ -42,6 +48,7 @@
   },
   "evidence": {
     "statutoryFilingBonus": 0.12,
+    "agencyOrVendorAdvisoryBonus": 0.08,
     "verifiedDomainBonus": 0.03,
     "compromisedDataBonus": 0.04,
     "affectedRecordsBonus": 0.04

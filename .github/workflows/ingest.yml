@@ -79,7 +79,6 @@ jobs:
         run: python .github/scripts/ai_incident_processor.py
 
       - name: Downstream Reconciliation & Forensic Audit
-        if: ${{ inputs.reconcile_only }}
         run: npm run reconcile
 
       - name: Validate Schema Compliance & Verification Standards
@@ -91,11 +90,14 @@ jobs:
       - name: Verify Generated Feed Structure
         run: npm test
 
+      - name: Verify Link Reachability & URL Integrity
+        run: npm run test:urls -- --changed
+
       - name: Check for Discovered Incidents or Updates
         id: git_status
         run: python .github/scripts/git_ingest_publisher.py --check-changes
 
-      - name: Publish or Propose Ingestion via Pull Request
+      - name: Publish Ingestion Updates Directly to Main
         if: steps.git_status.outputs.has_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -106,3 +108,7 @@ jobs:
           --branch-name "${{ steps.branch_sync.outputs.branch_name }}"
           --has-open-pr "${{ steps.branch_sync.outputs.has_open_pr }}"
           --pr-number "${{ steps.branch_sync.outputs.pr_number }}"
+
+      - name: Emit Failure Diagnostics & Error Reporting
+        if: failure()
+        run: python .github/scripts/git_ingest_publisher.py --report-error

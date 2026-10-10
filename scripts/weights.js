@@ -120,6 +120,7 @@ export function calculateConfidenceScore(incident) {
     }
 
     if (rawTier.includes('REGULATOR') || rawTier.includes('8-K')) hasRegulator = true;
+    if (rawTier.includes('GOVERNMENT') || rawTier.includes('AGENCY')) hasRegulator = true;
     if (rawTier.includes('TARGET')) hasTarget = true;
     if (rawTier.includes('INDEPENDENT')) hasResearcher = true;
     if (rawTier.includes('CLAIM') || rawTier.includes('UNVERIFIED')) hasClaim = true;
@@ -135,7 +136,15 @@ export function calculateConfidenceScore(incident) {
   // 1. Evidence Specificity & Data Quality Bonus
   let evidenceBonus = 0.0;
   const filings = data.regulatory_filings || [];
-  if (filings.length > 0) evidenceBonus += config.evidence?.statutoryFilingBonus || 0.12;
+  const agencyAdv = data.agency_advisories || [];
+  const vendorAdv = data.vendor_advisories || [];
+
+  if (filings.length > 0) {
+    evidenceBonus += config.evidence?.statutoryFilingBonus || 0.12;
+  } else if (agencyAdv.length > 0 || vendorAdv.length > 0) {
+    evidenceBonus += config.evidence?.agencyOrVendorAdvisoryBonus || 0.08;
+  }
+
   if (data.domain && data.domain !== 'unknown' && data.domain.includes('.')) evidenceBonus += config.evidence?.verifiedDomainBonus || 0.03;
   if (data.compromised_data && data.compromised_data.length > 0) evidenceBonus += config.evidence?.compromisedDataBonus || 0.04;
   if (data.affected_records && Number(data.affected_records) > 0) evidenceBonus += config.evidence?.affectedRecordsBonus || 0.04;
@@ -148,7 +157,7 @@ export function calculateConfidenceScore(incident) {
   else if (numDomains === 4) corroborationBonus = config.corroboration?.fourDomains || 0.16;
   else if (numDomains >= 5) corroborationBonus = config.corroboration?.fiveOrMoreDomains || 0.20;
 
-  // Cross-tier validation boost (adversary claim corroborated by target or regulator)
+  // Cross-tier validation boost (adversary claim corroborated by target or regulator/agency)
   if ((hasClaim || hasResearcher) && (hasTarget || hasRegulator)) {
     corroborationBonus += config.corroboration?.crossTierBonus || 0.05;
   }
