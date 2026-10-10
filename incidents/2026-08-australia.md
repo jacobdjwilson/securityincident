@@ -14,6 +14,7 @@ tags:
   - developing
   - media-pickup
   - general-media
+  - investigative
 ---
 
 ## Timeline
@@ -37,3 +38,8 @@ tags:
 - **Event:** Mainstream Media Pickup: OpenAI’s Jason Kwon gave even-toned, reassuring answers to the Australian government. Did … ChatGPT write this?
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/oct/06/openai-delivers-a-mea-culpa-to-the-australian-government-in-person-but-answers-still-elude)
+
+### 2026-08-27 11:04 UTC
+- **Event:** Press Coverage: Two Alleged 'TeamPCP' Hackers Arrested in Australia
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Krebs on Security Report](https://krebsonsecurity.com/2026/08/two-alleged-teampcp-hackers-arrested-in-australia/)
