@@ -22,10 +22,10 @@ function slugify(text) {
 function cleanCompanyName(raw) {
   if (!raw) return '';
   return raw
-    .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
     .replace(/\s*\([^)]*\)/g, '')
     .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO|CORPORATION|INCORPORATED|HOLDINGS|LLP|PC|SYSTEM|SYSTEMS|HEALTH|HEALTHCARE)\b\.?/gi, '')
     .replace(/^[,\s.-]+|[,\s.-]+$/g, '')
