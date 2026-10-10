@@ -14,6 +14,7 @@ tags:
   - developing
   - media-pickup
   - general-media
+  - investigative
 ---
 
 ## Timeline
@@ -32,3 +33,13 @@ tags:
 - **Event:** Mainstream Media Pickup: OpenAI, Anthropic tell Australia they would welcome data breach rules
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixgFBVV95cUxPakluaktNLUFlZk8zejE5LUV6VWYtdkphTjB0UVpiYjJ2WVYwd2lXUC0xMTdPcFJXYUNMajk5MlMtcmNlSUxiUGY3T0plNzYxMG02X09jbkNlcDBldEdueENYdXhHVnd6TkVmVExyZGtzN0hqdUF5X2VsaEVMX3hWT21ob3VvWWE5UlNqbnZLb24yTXJlYWJiZGl1cjRWNnNad1ljTlF4WTVJREEza2Y0SmlmX0E0QzJfeVZjU1hFOXdYeDU2bEE?oc=5)
+
+### 2026-10-06 11:12 UTC
+- **Event:** Mainstream Media Pickup: OpenAI’s Jason Kwon gave even-toned, reassuring answers to the Australian government. Did … ChatGPT write this?
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/oct/06/openai-delivers-a-mea-culpa-to-the-australian-government-in-person-but-answers-still-elude)
+
+### 2026-08-27 11:04 UTC
+- **Event:** Press Coverage: Two Alleged 'TeamPCP' Hackers Arrested in Australia
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Krebs on Security Report](https://krebsonsecurity.com/2026/08/two-alleged-teampcp-hackers-arrested-in-australia/)

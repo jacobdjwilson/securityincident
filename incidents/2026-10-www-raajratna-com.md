@@ -6,10 +6,7 @@ status: EMERGING
 first_seen: '2026-10-02'
 last_updated: '2026-10-02'
 threat_actor: Krybit
-summary: >-
-  www.raajratna.com was listed on the Krybit ransomware extortion leak portal.
-  Raajratna Metal Industries Limited (RMIL) is a leading Indian public limited
-  company incorporated on May 9, 1988, headqu...
+summary: "Disclosed an unverified extortion portal listing of www.raajratna.com by the Krybit ransomware group, indicating a potential compromise of the organization's network assets."
 tags:
   - extortion
   - ransomware-claim

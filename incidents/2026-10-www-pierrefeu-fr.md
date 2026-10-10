@@ -6,10 +6,7 @@ status: EMERGING
 first_seen: '2026-10-02'
 last_updated: '2026-10-02'
 threat_actor: Krybit
-summary: >-
-  www.pierrefeu.fr was listed on the Krybit ransomware extortion leak portal.
-  Pierrefeu Immobilier is an independent French real estate agency founded in
-  1963, headquartered in Tarare, in the Nord-O...
+summary: "Disclosed an unverified ransomware extortion claim listing www.pierrefeu.fr on the Krybit leak portal, with no official confirmation of a security breach, affected data volumes, or operational impact currently available."
 tags:
   - extortion
   - ransomware-claim
