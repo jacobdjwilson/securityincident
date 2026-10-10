@@ -1,6 +1,6 @@
 {
   "status": "OPERATIONAL",
-  "last_run": "2026-10-10T11:31:19.490Z",
+  "last_run": "2026-10-10T16:31:18.882Z",
   "cadence": "Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)",
   "total_indexed": 320,
   "recent_90d_count": 308,
