@@ -23,25 +23,30 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const HTML_ENTITIES = {
+  '&amp;': '&',
+  '&#038;': '&',
+  '&#38;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#8217;': "'",
+  '&#8216;': "'",
+  '&#8220;': '"',
+  '&#8221;': '"',
+  '&#8211;': '-',
+  '&#8212;': '--',
+  '&#39;': "'",
+  '&#x27;': "'",
+  '&nbsp;': ' '
+};
+
 function cleanHtml(raw) {
   if (!raw) return '';
   return raw
     .replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#8217;/g, "'")
-    .replace(/&#8216;/g, "'")
-    .replace(/&#8220;/g, '"')
-    .replace(/&#8221;/g, '"')
-    .replace(/&#8211;/g, '-')
-    .replace(/&#8212;/g, '--')
-    .replace(/&#39;/g, "'")
-    .replace(/&#x27;/g, "'")
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&#038;/g, '&')
+    .replace(/&(?:[a-z\d]+|#\d+|#x[a-f\d]+);/gi, entity => HTML_ENTITIES[entity.toLowerCase()] || entity)
     .replace(/\s+/g, ' ')
     .trim();
 }

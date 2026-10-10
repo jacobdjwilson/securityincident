@@ -17,9 +17,10 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
+const ROOT = path.resolve(DIST_DIR) + path.sep;
+
 const server = http.createServer((req, res) => {
-  const realDist = fs.existsSync(DIST_DIR) ? fs.realpathSync(DIST_DIR) : null;
-  if (!realDist) {
+  if (!fs.existsSync(DIST_DIR)) {
     res.writeHead(503, { 'Content-Type': 'text/html' });
     res.end('<h1>503 Service Unavailable: dist directory not found. Run npm run build first.</h1>');
     return;
@@ -28,35 +29,41 @@ const server = http.createServer((req, res) => {
   let reqPath = decodeURI(req.url.split('?')[0]);
   if (reqPath === '/' || !reqPath) reqPath = '/index.html';
 
-  // Prevent directory traversal by normalizing and verifying path bounds
-  const safeRelPath = path.normalize(reqPath).replace(/^(\.\.[\/\\])+/, '').replace(/^[/\\]+/, '');
-  let candidatePath = path.resolve(realDist, safeRelPath);
-
-  if (candidatePath !== realDist && !candidatePath.startsWith(realDist + path.sep)) {
+  // Strict path validation: reject any traversal attempts or unusual characters
+  if (reqPath.includes('..') || !/^\/[a-zA-Z0-9_\-\/.]*$/.test(reqPath)) {
     res.writeHead(403, { 'Content-Type': 'text/html' });
     res.end('<h1>403 Forbidden</h1>');
     return;
   }
 
-  // If path doesn't have an extension, try appending .html if safe
-  if (!path.extname(candidatePath)) {
-    const htmlCandidate = candidatePath + '.html';
-    if (htmlCandidate.startsWith(realDist + path.sep) && fs.existsSync(htmlCandidate)) {
-      candidatePath = htmlCandidate;
-    }
+  let filePath = path.resolve(ROOT, '.' + reqPath);
+  if (!filePath.startsWith(ROOT)) {
+    res.writeHead(403, { 'Content-Type': 'text/html' });
+    res.end('<h1>403 Forbidden</h1>');
+    return;
   }
 
-  let filePath;
-  try {
-    filePath = fs.realpathSync(candidatePath);
-    if (filePath !== realDist && !filePath.startsWith(realDist + path.sep)) {
+  // If path doesn't have an extension, try appending .html
+  if (!path.extname(filePath)) {
+    filePath = filePath + '.html';
+    if (!filePath.startsWith(ROOT)) {
       res.writeHead(403, { 'Content-Type': 'text/html' });
       res.end('<h1>403 Forbidden</h1>');
       return;
     }
+  }
+
+  try {
+    filePath = fs.realpathSync(filePath);
   } catch (err) {
     res.writeHead(404, { 'Content-Type': 'text/html' });
     res.end('<h1>404 Not Found</h1>');
+    return;
+  }
+
+  if (!filePath.startsWith(ROOT)) {
+    res.writeHead(403, { 'Content-Type': 'text/html' });
+    res.end('<h1>403 Forbidden</h1>');
     return;
   }
 
