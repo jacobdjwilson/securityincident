@@ -15,6 +15,8 @@ tags:
   - deadlock
   - emerging
 industry: Other
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

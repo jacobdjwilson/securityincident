@@ -15,6 +15,8 @@ tags:
   - emerging
 industry: Transportation
 affected_records: 118
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

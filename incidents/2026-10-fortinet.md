@@ -35,6 +35,8 @@ vendor_advisories:
     url: https://www.fortiguard.com/psirt
     description: Official vendor security advisory disclosing critical remote
       command execution vulnerability affecting FortiMail appliances.
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

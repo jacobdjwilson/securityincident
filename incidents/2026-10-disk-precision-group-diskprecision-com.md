@@ -6,13 +6,17 @@ status: EMERGING
 first_seen: 2026-10-01
 last_updated: 2026-10-01
 threat_actor: Krybit
-summary: "Identified an unverified ransomware extortion portal listing targeting DISK PRECISION GROUP by the Krybit threat group, with ongoing monitoring to determine potential data or operational impacts."
+summary: Identified an unverified ransomware extortion portal listing targeting
+  DISK PRECISION GROUP by the Krybit threat group, with ongoing monitoring to
+  determine potential data or operational impacts.
 tags:
   - extortion
   - ransomware-claim
   - krybit
   - emerging
 industry: Manufacturing
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

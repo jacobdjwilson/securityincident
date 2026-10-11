@@ -15,6 +15,8 @@ tags:
   - incransom
   - emerging
 industry: Manufacturing
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

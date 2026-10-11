@@ -15,6 +15,8 @@ tags:
   - endzone
   - emerging
 industry: Education
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

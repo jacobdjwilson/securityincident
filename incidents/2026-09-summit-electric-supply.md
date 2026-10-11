@@ -15,6 +15,8 @@ tags:
   - vexy ransomware
   - emerging
 industry: Energy & Utilities
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

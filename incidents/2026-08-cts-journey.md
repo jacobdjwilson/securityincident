@@ -13,6 +13,9 @@ tags:
   - state-ag
   - washington
   - confirmed
+compromised_data:
+  - Authentication Credentials
+affected_records: 2226
 ---
 
 ## Incident Overview

@@ -15,6 +15,8 @@ tags:
   - booba project
   - emerging
 industry: Government & Defense
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

@@ -16,6 +16,8 @@ tags:
   - emerging
 industry: Healthcare
 affected_records: 6890
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

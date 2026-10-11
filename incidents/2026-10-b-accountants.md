@@ -15,6 +15,8 @@ tags:
   - everest
   - emerging
 industry: Professional Services
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

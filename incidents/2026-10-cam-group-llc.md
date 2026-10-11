@@ -14,6 +14,8 @@ tags:
   - doommageddon
   - emerging
 industry: Other
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

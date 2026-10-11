@@ -15,6 +15,8 @@ tags:
   - qilin
   - emerging
 industry: Financial Services
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

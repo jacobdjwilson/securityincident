@@ -13,6 +13,8 @@ tags:
   - ransomware-claim
   - nightspire
   - emerging
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

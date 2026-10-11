@@ -6,13 +6,18 @@ status: EMERGING
 first_seen: 2026-10-01
 last_updated: 2026-10-01
 threat_actor: Incransom
-summary: "Identified an unverified extortion portal listing targeting Northern Counties Health Care by the Incransom threat group, with ongoing monitoring for potential patient data or healthcare system impact."
+summary: Identified an unverified extortion portal listing targeting Northern
+  Counties Health Care by the Incransom threat group, with ongoing monitoring
+  for potential patient data or healthcare system impact.
 tags:
   - extortion
   - ransomware-claim
   - incransom
   - emerging
 industry: Healthcare
+compromised_data:
+  - Protected Health Information (PHI)
+  - Authentication Credentials
 ---
 
 ## Incident Overview

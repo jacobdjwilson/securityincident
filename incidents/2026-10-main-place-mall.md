@@ -15,6 +15,8 @@ tags:
   - netrunner
   - emerging
 industry: Retail & E-Commerce
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

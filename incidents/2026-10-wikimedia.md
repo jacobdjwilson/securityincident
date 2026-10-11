@@ -14,6 +14,8 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

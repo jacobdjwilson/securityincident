@@ -15,6 +15,8 @@ tags:
   - ransomware-claim
   - safepay
   - emerging
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

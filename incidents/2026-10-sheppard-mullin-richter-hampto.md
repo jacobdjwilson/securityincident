@@ -23,6 +23,8 @@ regulatory_filings:
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630779
     filing_date: 2026-10-02
 industry: Professional Services
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

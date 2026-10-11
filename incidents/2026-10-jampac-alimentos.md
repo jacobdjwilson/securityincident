@@ -15,6 +15,8 @@ tags:
   - emerging
 industry: Agriculture and Food Production
 affected_records: 500
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

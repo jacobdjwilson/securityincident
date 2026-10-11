@@ -6,13 +6,17 @@ status: EMERGING
 first_seen: 2026-10-02
 last_updated: 2026-10-02
 threat_actor: Krybit
-summary: "Disclosed an unverified extortion portal listing of www.raajratna.com by the Krybit ransomware group, indicating a potential compromise of the organization's network assets."
+summary: Disclosed an unverified extortion portal listing of www.raajratna.com
+  by the Krybit ransomware group, indicating a potential compromise of the
+  organization's network assets.
 tags:
   - extortion
   - ransomware-claim
   - krybit
   - emerging
 industry: Retail & E-Commerce
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

@@ -14,6 +14,8 @@ tags:
   - booba project
   - emerging
 industry: Healthcare
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

@@ -21,6 +21,8 @@ regulatory_filings:
     filing_date: 2026-09-29
 industry: Food & Agriculture
 incident_type: Data Breach
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

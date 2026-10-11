@@ -18,6 +18,8 @@ regulatory_filings:
     form: SB-24 Data Breach Notice
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630604
     filing_date: 2026-09-30
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

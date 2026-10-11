@@ -1,11 +1,11 @@
 {
   "status": "OPERATIONAL",
-  "last_run": "2026-10-10T16:31:18.882Z",
+  "last_run": "2026-10-11T21:11:02.856Z",
   "cadence": "Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)",
-  "total_indexed": 320,
-  "recent_90d_count": 308,
-  "last_discovered": 0,
-  "last_updated": 2,
+  "total_indexed": 322,
+  "recent_90d_count": 310,
+  "last_discovered": 2,
+  "last_updated": 191,
   "verification_pass_rate": "100%",
   "open_weights_engine": "Active & Deterministic",
   "feeds": [

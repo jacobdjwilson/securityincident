@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-09
+last_updated: 2026-10-11
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -28,17 +28,15 @@ vendor_advisories:
     advisory_id: MSRC Incident Advisory
     title: Microsoft Actions Following Attack by Nation-State Actor Midnight Blizzard
     severity: Critical
-    release_date: '2024-01-19'
+    release_date: 2024-01-19
     url: https://msrc.microsoft.com/blog/2024/01/microsoft-actions-following-attack-by-nation-state-actor-midnight-blizzard/
-    description: >-
-      Official Microsoft Security Response Center disclosure detailing password
-      spray operations by Nobelium / Midnight Blizzard against non-production legacy
-      test tenants, privilege granting to malicious OAuth applications, and access
-      to corporate email accounts.
-summary: >-
-  Microsoft disclosed an intrusion by Russian foreign intelligence threat group
-  Midnight Blizzard (APT29), accessing senior leadership corporate emails and
-  source code.
+    description: Official Microsoft Security Response Center disclosure detailing
+      password spray operations by Nobelium / Midnight Blizzard against
+      non-production legacy test tenants, privilege granting to malicious OAuth
+      applications, and access to corporate email accounts.
+summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
+  group Midnight Blizzard (APT29), accessing senior leadership corporate emails
+  and source code.
 tags:
   - regulatory
   - sec-8k
@@ -49,6 +47,7 @@ tags:
   - developing
   - investigative
   - media-pickup
+  - general-media
 ---
 
 ## Incident Overview
@@ -124,3 +123,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: October 2026 Patch Tuesday forecast: Time for an Office cleanup
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/09/october-2026-patch-tuesday-forecast/)
+
+### 2026-10-11 06:00 UTC
+- **Event:** Mainstream Media Pickup: ‘You have a meeting’: the calendar phishing scam growing exponentially
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/money/2026/oct/11/calendar-phishing-scam-meeting-renewal-google-microsoft-paypal)

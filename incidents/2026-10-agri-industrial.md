@@ -15,6 +15,8 @@ tags:
   - everest
   - emerging
 industry: Agriculture and Food Production
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

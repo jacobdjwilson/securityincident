@@ -6,13 +6,18 @@ status: EMERGING
 first_seen: 2026-10-02
 last_updated: 2026-10-02
 threat_actor: Krybit
-summary: "Disclosed an unverified ransomware extortion claim listing www.pierrefeu.fr on the Krybit leak portal, with no official confirmation of a security breach, affected data volumes, or operational impact currently available."
+summary: Disclosed an unverified ransomware extortion claim listing
+  www.pierrefeu.fr on the Krybit leak portal, with no official confirmation of a
+  security breach, affected data volumes, or operational impact currently
+  available.
 tags:
   - extortion
   - ransomware-claim
   - krybit
   - emerging
 industry: Other
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

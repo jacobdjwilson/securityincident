@@ -14,6 +14,8 @@ tags:
   - incransom
   - emerging
 industry: Healthcare
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

@@ -14,6 +14,8 @@ tags:
   - doommageddon
   - emerging
 industry: Education
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

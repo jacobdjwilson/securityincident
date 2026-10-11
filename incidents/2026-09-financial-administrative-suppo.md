@@ -13,6 +13,8 @@ tags:
   - state-ag
   - california
   - confirmed
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

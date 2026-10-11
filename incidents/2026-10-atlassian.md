@@ -36,6 +36,8 @@ vendor_advisories:
     url: https://confluence.atlassian.com/security
     description: Official vendor advisory disclosing critical file-access
       vulnerability affecting multiple self-hosted Data Center products.
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

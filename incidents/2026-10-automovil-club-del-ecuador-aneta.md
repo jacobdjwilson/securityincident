@@ -15,6 +15,8 @@ tags:
   - barracuda
   - emerging
 industry: Transportation
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

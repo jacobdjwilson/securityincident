@@ -14,6 +14,8 @@ tags:
   - akira
   - emerging
 industry: Other
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

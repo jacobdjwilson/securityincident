@@ -6,13 +6,17 @@ status: EMERGING
 first_seen: 2026-10-01
 last_updated: 2026-10-01
 threat_actor: Krybit
-summary: "Listed Euroditel and Resotelecom as victims on the Krybit ransomware extortion portal, marking an unverified claim of a cyberattack and data compromise by the threat actor group."
+summary: Listed Euroditel and Resotelecom as victims on the Krybit ransomware
+  extortion portal, marking an unverified claim of a cyberattack and data
+  compromise by the threat actor group.
 tags:
   - extortion
   - ransomware-claim
   - krybit
   - emerging
 industry: Technology
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview

@@ -16,6 +16,8 @@ tags:
   - safepay
   - emerging
 industry: Technology
+compromised_data:
+  - Authentication Credentials
 ---
 
 ## Incident Overview
