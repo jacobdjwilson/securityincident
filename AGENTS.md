@@ -239,6 +239,7 @@ To ensure operational resilience, CI/CD predictability, and security across auto
 * **Direct Continuous Publishing:** In steady-state operation, automated ingestion workflows commit and push verified updates directly to `main` without PR approval bottlenecks (`git_automation.publish_mode: "direct"`), triggering immediate production deployment via `deploy.yml`.
 * **Actionable Step Summaries:** Workflows must write rich markdown execution summaries, audit statistics, and modified dossier tables to `$GITHUB_STEP_SUMMARY`.
 * **Fail-Safe Error Reporting:** In the event of validation, build, or link reachability failures, the pipeline halts without corrupting `main`, emitting actionable diagnostic remediation guidance directly to `$GITHUB_STEP_SUMMARY`.
+* **Autonomous Pipeline Health & Run Monitoring:** Autonomous agents and developers must proactively monitor continuous ingestion and deployment workflow runs (`gh run list`). When pipeline failures or regressions are detected, agents must methodically trace the failure logs, resolve upstream or downstream errors, and restore continuous delivery health.
 
 ---
 
@@ -271,3 +272,9 @@ When contributing to or modifying this codebase, all autonomous agents and human
 
 7. **Mobile & Cross-Device Telemetry Responsiveness**:
    * Ensure dense telemetry grids, tables, stream tabs, and filter drawers gracefully wrap and adapt across mobile phone and desktop viewports without horizontal clipping or broken elements.
+
+8. **Mandatory Workflow Run Review & Proactive Failure Remediation**:
+   * **Review Runs on Every Modification:** Every time a modification, bugfix, or enhancement is made to the repository, the agent MUST review recent GitHub Actions workflow runs (`gh run list`) and inspect any failed runs (`gh run view <run-id> --log-failed`).
+   * **Diagnose & Holistically Resolve Failures:** Determine if there are failures across recent runs (such as link reachability checks, schema validations, feed ingestion errors, CodeQL alerts, or deployment jobs), identify their root causes, and methodically implement fixes.
+   * **Sustain Pipeline Health:** Holistically improve the codebase and workflow resilience to keep all CI/CD workflows green and robust, while strictly honoring all existing `AGENTS.md` architectural standards and human review requirements.
+

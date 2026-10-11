@@ -21,4 +21,4 @@ tags:
 ### 2026-10-08 10:20 UTC
 - **Event:** Some semi-samples Of Liberty X TMO cause we got yappatrons on twitter Listed on BYOD Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
-- **Source:** [BYOD Ransomware Leak Site Claim](https://www.ransomware.live/id/U29tZSBzZW1pLXNhbXBsZXMgT2YgTGliZXJ0eSBYIFRNTyBjYXVzZSB3ZSBnb3QgeWFwcGF0cm9ucyBvbiB0d2l0dGVyQEJZT0Q=)
+- **Source:** [BYOD Ransomware Leak Site Claim](https://www.ransomware.live/group/byod)

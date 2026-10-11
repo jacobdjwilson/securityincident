@@ -35,8 +35,8 @@ export async function testUrl(url) {
       redirect: 'follow'
     });
 
-    // Some sites (Cloudflare, Akamai, Citrix, etc.) return 403 or 405 to HEAD requests
-    if (res.status === 405 || res.status === 403 || res.status === 400) {
+    // Some sites (IIS/ASP.NET, Cloudflare, Akamai, State AGs) return 404, 403, 405, or 400 to HEAD requests
+    if (!res.ok) {
       const getController = new AbortController();
       const getTimeout = setTimeout(() => getController.abort(), TIMEOUT_MS);
       try {

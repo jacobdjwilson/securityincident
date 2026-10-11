@@ -80,7 +80,7 @@ export async function fetchDarkWebVictims({ limit = 50 } = {}) {
 
     for (const item of slice) {
       const target = (item.victim || '').trim();
-      if (!target || target.length < 3 || target.includes('***') || target.toLowerCase() === 'not found') {
+      if (!target || target.length < 3 || target.length > 80 || target.includes('***') || target.toLowerCase() === 'not found') {
         continue;
       }
 
@@ -101,7 +101,16 @@ export async function fetchDarkWebVictims({ limit = 50 } = {}) {
       const affectedRecords = parseAffectedCount(item.description);
 
       // Prefer public mirror / archive URL for general browser verifiability; fallback to onion or ransomware live id
-      const sourceUrl = item.url || (item.claim_url && item.claim_url.startsWith('http') ? item.claim_url : `https://www.ransomware.live/id/${Buffer.from(`${target}@${item.group}`).toString('base64')}`);
+      let sourceUrl = item.url || (item.claim_url && item.claim_url.startsWith('http') ? item.claim_url : null);
+      if (!sourceUrl) {
+        if (target.length <= 50) {
+          sourceUrl = `https://www.ransomware.live/id/${Buffer.from(`${target}@${item.group}`).toString('base64')}`;
+        } else if (item.group) {
+          sourceUrl = `https://www.ransomware.live/group/${encodeURIComponent(item.group.toLowerCase().replace(/\s+/g, ''))}`;
+        } else {
+          sourceUrl = 'https://www.ransomware.live/#victims';
+        }
+      }
       const sourceTitle = `${groupName} Ransomware Leak Site Claim`;
 
       let summaryText = `${target} was listed on the ${groupName} ransomware extortion leak portal.`;
