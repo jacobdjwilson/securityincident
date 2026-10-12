@@ -4,7 +4,7 @@ target: AI agents
 domain: aiagents.com
 status: DEVELOPING
 first_seen: 2026-10-01
-last_updated: 2026-10-09
+last_updated: 2026-10-12
 threat_actor: null
 summary: Chained Zammad flaws enabled session hijacking, code execution, and
   root escalation in seconds
@@ -43,3 +43,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Social Engineering AI Agents: The New BEC for 2026
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Dark Reading Report](https://www.darkreading.com/cybersecurity-operations/social-engineering-ai-agents-bec-2026)
+
+### 2026-10-12 09:34 UTC
+- **Event:** Press Coverage: CyberXero Used 51 AI Agents to Steal 628,000 Ukrainian Records
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/200803/cyber-crime/cyberxero-used-51-ai-agents-to-steal-628000-ukrainian-records.html)
