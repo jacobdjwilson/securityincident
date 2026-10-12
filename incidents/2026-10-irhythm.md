@@ -3,7 +3,7 @@ id: 2026-10-irhythm
 target: iRhythm
 domain: irhythm.com
 status: DEVELOPING
-first_seen: 2026-10-12
+first_seen: 2026-10-09
 last_updated: 2026-10-12
 threat_actor: null
 summary: Hackers stole patients’ personal information, including names,
@@ -13,6 +13,8 @@ summary: Hackers stole patients’ personal information, including names,
 tags:
   - threat-intel
   - developing
+  - investigative
+  - media-pickup
 compromised_data:
   - Authentication Credentials
   - Customer / Employee PII
@@ -40,3 +42,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** iRhythm Data Breach Impacts at Least 360,000 People
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/irhythm-data-breach-impacts-over-360000-people/)
+
+### 2026-10-09 16:06 UTC
+- **Event:** Press Coverage: Hundreds of thousands impacted by data breach at biosensor firm iRhythm
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/irhythm-data-breach-reports)

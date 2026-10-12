@@ -4,7 +4,7 @@ target: Australia
 domain: australia.com
 status: DEVELOPING
 first_seen: 2026-08-25
-last_updated: 2026-10-08
+last_updated: 2026-10-12
 threat_actor: null
 summary: Australian officials are urging TeamCity customers to patch an actively
   exploited critical flaw, which follows a similar warning from the US
@@ -61,3 +61,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Two Alleged 'TeamPCP' Hackers Arrested in Australia
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Krebs on Security Report](https://krebsonsecurity.com/2026/08/two-alleged-teampcp-hackers-arrested-in-australia/)
+
+### 2026-10-12 13:46 UTC
+- **Event:** Press Coverage: Australian patient data compromised in Icon Cancer Centre hack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/12/australian-patient-data-compromised-in-icon-cancer-centre-hack/)
+
+### 2026-10-12 13:52 UTC
+- **Event:** Mainstream Media Pickup: Cyber-attack similar to OpenAI Medicare breach seems likely in UK, says minister
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/oct/12/cyber-attack-like-openai-medicare-breach-seems-likely-in-uk-says-minister)
