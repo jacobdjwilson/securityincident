@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-12
+last_updated: 2026-10-13
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -34,6 +34,16 @@ vendor_advisories:
       password spray operations by Nobelium / Midnight Blizzard against
       non-production legacy test tenants, privilege granting to malicious OAuth
       applications, and access to corporate email accounts.
+  - publisher: Microsoft
+    advisory_id: Microsoft October 2026 Patch Tuesday fixes 1,411 flaws, 3 ze
+    title: Microsoft October 2026 Patch Tuesday fixes 1,411 flaws, 3 zero-days
+    severity: Critical
+    release_date: 2026-10-13
+    cve_ids: []
+    url: https://www.bleepingcomputer.com/news/microsoft/microsoft-october-2026-patch-tuesday-fixes-1-411-flaws-3-zero-days/
+    description: Today is Microsoft's October 2026 Patch Tuesday, with security
+      updates addressing a record-breaking 1,411 flaws, including one actively
+      exploited and two publicly disclosed zero-day vulnerabilities. [...]
 summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
   group Midnight Blizzard (APT29), accessing senior leadership corporate emails
   and source code.
@@ -48,6 +58,46 @@ tags:
   - investigative
   - media-pickup
   - general-media
+  - agency-advisory
+  - cve-2026-96951
+  - cve-2026-104935
+cve_ids:
+  - CVE-2026-96951
+  - CVE-2026-104935
+agency_advisories:
+  - agency: CISA Cybersecurity Advisories
+    advisory_id: CISA Adds Two Known Exploited Vulnerabilities to Catalog
+    advisory_type: Government Cyber Advisory
+    url: https://www.cisa.gov/news-events/alerts/2026/10/13/cisa-adds-two-known-exploited-vulnerabilities-catalog
+    release_date: 2026-10-13
+    cve_ids:
+      - CVE-2026-96951
+      - CVE-2026-104935
+    description: "CISA has added two new vulnerabilities to its Known Exploited
+      Vulnerabilities (KEV) Catalog , based on evidence of active exploitation.
+      CVE-2026-96951 Microsoft Windows Command Injection Vulnerability
+      CVE-2026-104935 Ivanti Connect Secure Authentication Bypass by Spoofing
+      Vulnerability These types of vulnerabilities are a frequent attack vector
+      for malicious cyber actors and pose significant risks to the federal
+      enterprise. Binding Operational Directive (BOD) 26-04: Prioritizing
+      Security Updates Based on Risk establishes vulnerability management
+      requirements for Federal Civilian Executive Branch (FCEB) agencies. BOD
+      26-04 reinforces the importance of the KEV Catalog and requires federal
+      agencies to prioritize rapid remediation of high-risk vulnerabilities,
+      specifically those identified by Common Vulnerabilities and Exposures
+      (CVEs) listed in CISA’s KEV Catalog on publicly exposed assets that grant
+      total control of the asset post-exploitation, while deferring action for
+      lower-risk vulnerabilities. BOD 26-04 further establishes basic
+      expectations for when agencies must check whether threat actors
+      compromised the system before the patch was applied. While BOD 26-04
+      applies only to FCEB agencies, CISA encourages all organizations to adopt
+      risk-based vulnerability management and prioritize remediation of KEV
+      Catalog vulnerabilities . CISA will continue to add vulnerabilities to the
+      catalog that meet the specified criteria . Aware of an exploited
+      vulnerability not currently listed in the KEV Catalog? Submit it for
+      potential addition through CISA’s KEV Nomination Form . Potential KEV
+      additions must have a CVE ID, evidence of exploitation, and clear
+      mitigation guidance."
 ---
 
 ## Incident Overview
@@ -133,3 +183,18 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Mainstream Media Pickup: AI less regulated than milk, Microsoft president says in warning over safety
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/oct/12/ai-less-regulated-than-milk-microsoft-president-calls-for-tougher-rules)
+
+### 2026-10-13 12:00 UTC
+- **Event:** CISA Adds Two Known Exploited Vulnerabilities to Catalog
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [CISA Cybersecurity Advisories Report](https://www.cisa.gov/news-events/alerts/2026/10/13/cisa-adds-two-known-exploited-vulnerabilities-catalog)
+
+### 2026-10-13 19:56 UTC
+- **Event:** Press Coverage: Microsoft October 2026 Patch Tuesday fixes 1,411 flaws, 3 zero-days
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/microsoft/microsoft-october-2026-patch-tuesday-fixes-1-411-flaws-3-zero-days/)
+
+### 2026-10-13 13:12 UTC
+- **Event:** Press Coverage: Xandr Fined a Record €8.6 Million for Relaying Grindr Data Revealing Sexual Orientation
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/xandr-fined-record-86-million-for.html)

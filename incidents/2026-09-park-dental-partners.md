@@ -3,12 +3,11 @@ id: 2026-09-park-dental-partners
 target: Park Dental Partners
 domain: parkdental.com
 status: CONFIRMED
-first_seen: '2026-09-01'
-last_updated: '2026-09-01'
+first_seen: 2026-09-01
+last_updated: 2026-10-13
 threat_actor: Akira
-summary: >-
-  Dental support organization Park Dental Partners filed Form 8-K Item 1.05
-  disclosing network disruption and forensic containment efforts.
+summary: Dental support organization Park Dental Partners filed Form 8-K Item
+  1.05 disclosing network disruption and forensic containment efforts.
 tags:
   - regulatory
   - sec-8k
@@ -25,14 +24,18 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001104659-26-104300
-    filing_date: '2026-09-22'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/2069604/000110465926104300/0001104659-26-104300-index.htm
-    description: >-
-      Item 1.05 Material Cybersecurity Incident disclosure filed by Park Dental
-      Partners reporting ransomware extortion attack resulting in clinical
-      system encryption and patient record exfiltration.
+    filing_date: 2026-09-22
+    url: https://www.sec.gov/Archives/edgar/data/2069604/000110465926104300/0001104659-26-104300-index.htm
+    description: Item 1.05 Material Cybersecurity Incident disclosure filed by Park
+      Dental Partners reporting ransomware extortion attack resulting in
+      clinical system encryption and patient record exfiltration.
+  - regulator: SEC
+    form: Form 8-K Item 1.05
+    accession_number: 0001104659-26-115541
+    url: https://www.sec.gov/Archives/edgar/data/2069604/000110465926115541/0001104659-26-115541-index.htm
+    filing_date: 2026-10-13
 ---
+
 ## Incident Overview
 
 The **Park Dental Partners** cybersecurity event represents a confirmed **Network Intrusion & Ransomware** within the **Healthcare** sector, attributed to the **Akira** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **62,000 individuals and records**.
@@ -56,3 +59,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** SEC Form 8-K Item 1.05 Filing: Park Dental Partners confirms unauthorized network activity and initiates third-party forensic containment.
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Item 1.05 (Adsh 0001104659-26-104300)](https://www.sec.gov/Archives/edgar/data/2069604/000110465926104300/0001104659-26-104300-index.htm)
+
+### 2026-10-13 16:00 UTC
+- **Event:** SEC Form 8-K Item 1.05 Material Cybersecurity Incident Filing
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [SEC EDGAR 8-K Item 1.05 Filing (0001104659-26-115541)](https://www.sec.gov/Archives/edgar/data/2069604/000110465926115541/0001104659-26-115541-index.htm)

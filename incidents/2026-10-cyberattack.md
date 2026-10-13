@@ -117,3 +117,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Hackers cranked French supermarkets' freezers up to 50 degrees, causing hundreds of stores to lose their stock
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/200863/hacking/hackers-cranked-french-supermarkets-freezers-up-to-50-degrees-causing-hundreds-of-stores-to-lose-their-stock.html)
+
+### 2026-10-13 20:49 UTC
+- **Event:** Press Coverage: Attackers claim to have stolen 80 million South African patient records in massive Ampath Laboratories data breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/13/attackers-claim-to-have-stolen-80-million-south-african-patient-records-in-massive-ampath-laboratories-data-breach/)
+
+### 2026-10-13 16:44 UTC
+- **Event:** Press Coverage: TFG London cyberattack disrupts systems at Hobbs and Whistles retailers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/tfg-london-cyberattack-disrupts-systems-at-hobbs-and-whistles-retailers/)
