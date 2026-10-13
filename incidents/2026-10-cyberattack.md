@@ -2,9 +2,9 @@
 id: 2026-10-cyberattack
 target: Cyberattack
 domain: cyberattack.com
-status: DEVELOPING
+status: ACKNOWLEDGED
 first_seen: 2026-09-30
-last_updated: 2026-10-12
+last_updated: 2026-10-13
 threat_actor: null
 summary: Attackers remotely defrosted refrigerators at multiple French
   supermarket chains overnight in a cyberattack that reportedly targeted Danfoss
@@ -15,6 +15,7 @@ tags:
   - media-pickup
   - investigative
   - general-media
+  - acknowledged
 compromised_data:
   - Authentication Credentials
 ---
@@ -66,3 +67,53 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Cyberattacks hit European grocers: French supermarket freezers hijacked, Dutch and Belgian stores disrupted
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/12/france-cyberattack-supermarket-freezers/)
+
+### 2026-10-12 13:19 UTC
+- **Event:** Press Coverage: French supermarket chains say cyberattack forced refrigerator shutdown (2)
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/12/french-supermarket-chains-say-cyberattack-forced-refrigerator-shutdown/)
+
+### 2026-10-09 11:23 UTC
+- **Event:** Press Coverage: Cyberattack at IDC Frontier disrupts services around nation
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/09/cyberattack-at-idc-frontier-disrupts-services-around-nation/)
+
+### 2026-10-13 13:00 UTC
+- **Event:** Press Coverage: South African clothing retailer Foschini Group investigating cyberattack on British fashion brands
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/foschini-group-south-africa-cyber)
+
+### 2026-10-13 12:00 UTC
+- **Event:** Press Coverage: Cyber incident hits grocery stores in US, Netherlands and Belgium
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/cyberattack-groceru-ahold-delhaize)
+
+### 2026-10-13 09:37 UTC
+- **Event:** Press Coverage: Cyberattack Prompts Grocery Giant Ahold Delhaize to Disconnect Systems
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/cyberattack-prompts-ahold-delhaize-to-disconnect-systems/)
+
+### 2026-10-13 08:28 UTC
+- **Event:** Press Coverage: Refrigeration Controller Hack Spoils Food Across European Supermarkets
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/refrigeration-controller-hack-spoils-food-across-european-supermarkets/)
+
+### 2026-10-13 06:06 UTC
+- **Event:** Mainstream Media Pickup: Cyberattack affected 80 stores of French supermarket chain Co-Operative U
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMitgFBVV95cUxQQ0tWN3lvUC1SOUZ5eHZYbmhYam9oQkl6SU9pM21odFFSWUJNQTdMaURqekVZanhGR1B5cFpkZmtvNU5FbFpaaFc3WHR6WHRCTi1Cek9oa2VNelR6UV9GSExoZlljNmRQbWx5bHNjOHQ4NHZxU2lpWnNoVEU1ZllMWGlaVEFsU2lfSU1iRERtVnhuRnpDaVp2VzJ3Tk5ReWRxZVc1djhlWWFsZy0zZWZ1LXFicVVVQQ?oc=5)
+
+### 2026-10-13 12:22 UTC
+- **Event:** Mainstream Media Pickup: French supermarket fridges get hacked, heating to 122°F and sparking fires
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/10/13/france-supermarket-hack-cyberattack-fridges-fires.html)
+
+### 2026-10-13 09:45 UTC
+- **Event:** Press Coverage: Owner of fashion brands Hobbs and Whistles joins autumn pwned collection
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/cyber-crime/2026/10/13/owner-of-fashion-brands-hobbs-and-whistles-joins-autumn-pwned-collection/5302752)
+
+### 2026-10-13 07:50 UTC
+- **Event:** Press Coverage: Hackers cranked French supermarkets' freezers up to 50 degrees, causing hundreds of stores to lose their stock
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/200863/hacking/hackers-cranked-french-supermarkets-freezers-up-to-50-degrees-causing-hundreds-of-stores-to-lose-their-stock.html)
