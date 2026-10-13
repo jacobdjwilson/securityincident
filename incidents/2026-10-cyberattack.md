@@ -3,7 +3,7 @@ id: 2026-10-cyberattack
 target: Cyberattack
 domain: cyberattack.com
 status: DEVELOPING
-first_seen: 2026-10-12
+first_seen: 2026-09-30
 last_updated: 2026-10-12
 threat_actor: null
 summary: Attackers remotely defrosted refrigerators at multiple French
@@ -12,6 +12,9 @@ summary: Attackers remotely defrosted refrigerators at multiple French
 tags:
   - threat-intel
   - developing
+  - media-pickup
+  - investigative
+  - general-media
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +41,28 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Cyberattack shuts down refrigerators at French supermarkets
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/cyberattack-shuts-down-refrigerators-at-french-supermarkets/)
+
+### 2026-10-12 13:51 UTC
+- **Event:** Press Coverage: Retail giant Ahold Delhaize takes systems offline after cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/retail-giant-ahold-delhaize-takes-systems-offline-after-cyberattack/)
+
+### 2026-10-11 23:00 UTC
+- **Event:** Press Coverage: Cyberattack disrupts refrigeration at hundreds of French supermarkets
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/cyberattack-disrupts-refridgeration-in-france)
+
+### 2026-09-30 07:00 UTC
+- **Event:** Press Coverage: South Africa Seeks Help After Cyberattack Targets Air Traffic Control
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Dark Reading Report](https://www.darkreading.com/cyberattacks-data-breaches/south-africa-help-cyberattack-air-traffic-control)
+
+### 2026-10-07 00:06 UTC
+- **Event:** Mainstream Media Pickup: Personal information for over 1 million people stolen in a cyberattack on Arizona's court system
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [AP News Report](https://news.google.com/rss/articles/CBMilwFBVV95cUxNUzhnVTcwZUU4Qm5vV0VKekpDZEVkRi1iRGJSbzZJTEVEaVNHOVNSZFE2cDZ6N3BQUF8tWTJLODR0a1hYaUswR0xTaWxNZy1iWElCMklwelpXalRlZTAwdWotb1hFa3M0UGJpTmJKbUV5U1FRc2FKdHM2Z1dTajFVYVBRZnhoNlpaLWNxeUs2eHlLOGhWcVBJ?oc=5)
+
+### 2026-10-12 16:07 UTC
+- **Event:** Press Coverage: Cyberattacks hit European grocers: French supermarket freezers hijacked, Dutch and Belgian stores disrupted
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/12/france-cyberattack-supermarket-freezers/)
