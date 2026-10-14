@@ -262,3 +262,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft fixes exploited Mark of the Web bypass vulnerability (CVE-2026-96951)
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/14/microsoft-patch-tuesday-cve-2026-96951-motw-bypass/)
+
+### 2026-10-14 14:01 UTC
+- **Event:** Press Coverage: Microsoft Patch Tuesday Sets New Record with 1,415 CVEs in October 2026 Updates
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/200953/security/microsoft-patch-tuesday-sets-new-record-with-1415-cves-in-october-2026-updates.html)

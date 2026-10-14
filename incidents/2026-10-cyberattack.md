@@ -4,7 +4,7 @@ target: Cyberattack
 domain: cyberattack.com
 status: ACKNOWLEDGED
 first_seen: 2026-09-30
-last_updated: 2026-10-13
+last_updated: 2026-10-14
 threat_actor: null
 summary: Attackers remotely defrosted refrigerators at multiple French
   supermarket chains overnight in a cyberattack that reportedly targeted Danfoss
@@ -127,3 +127,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: TFG London cyberattack disrupts systems at Hobbs and Whistles retailers
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/tfg-london-cyberattack-disrupts-systems-at-hobbs-and-whistles-retailers/)
+
+### 2026-10-14 15:09 UTC
+- **Event:** Press Coverage: Japan on Cyberattack Alert as Ransomware Wave Hits Major Brands and Exposes Millions of Records
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/14/japan-on-cyberattack-alert-as-ransomware-wave-hits-major-brands-and-exposes-millions-of-records/)
+
+### 2026-10-14 13:05 UTC
+- **Event:** Press Coverage: Russian travel booking platform suspends reservations after cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/russia-anywayanyday-travel-website-cyberattack)
+
+### 2026-10-14 10:48 UTC
+- **Event:** Press Coverage: Phase Eight, Hobbs and Whistles owner joins growing list of fashion retailers targeted by hackers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/14/tfg-london-cyberattack-phase-eight-hobbs-whistles/)
