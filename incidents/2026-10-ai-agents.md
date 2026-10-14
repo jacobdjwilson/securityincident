@@ -4,7 +4,7 @@ target: AI agents
 domain: aiagents.com
 status: DEVELOPING
 first_seen: 2026-10-01
-last_updated: 2026-10-12
+last_updated: 2026-10-14
 threat_actor: null
 summary: Chained Zammad flaws enabled session hijacking, code execution, and
   root escalation in seconds
@@ -12,6 +12,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - general-media
 compromised_data:
   - Authentication Credentials
 ---
@@ -48,3 +49,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: CyberXero Used 51 AI Agents to Steal 628,000 Ukrainian Records
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/200803/cyber-crime/cyberxero-used-51-ai-agents-to-steal-628000-ukrainian-records.html)
+
+### 2026-10-14 10:10 UTC
+- **Event:** Mainstream Media Pickup: Nvidia, worth $5.5tn, donates $250m to UK for AI safety research
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/oct/14/nvidia-donates-to-uk-ai-safety-research)

@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-13
+last_updated: 2026-10-14
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -44,6 +44,50 @@ vendor_advisories:
     description: Today is Microsoft's October 2026 Patch Tuesday, with security
       updates addressing a record-breaking 1,411 flaws, including one actively
       exploited and two publicly disclosed zero-day vulnerabilities. [...]
+  - publisher: Microsoft
+    advisory_id: Microsoft Patches Record 1,413 Vulnerabilities, Including Ex
+    title: Microsoft Patches Record 1,413 Vulnerabilities, Including Exploited
+      Windows Zero-Day
+    severity: Critical
+    release_date: 2026-10-14
+    cve_ids:
+      - CVE-2026-96951
+    url: https://www.securityweek.com/microsoft-patches-record-1413-vulnerabilities-including-exploited-windows-zero-day/
+    description: The most important is CVE-2026-96951, a security feature bypass
+      flaw in Windows that has been exploited in the wild. The post Microsoft
+      Patches Record 1,413 Vulnerabilities, Including Exploited Windows Zero-Day
+      appeared first on SecurityWeek .
+  - publisher: Microsoft
+    advisory_id: Microsoft Patches Record 1,413 Flaws, Including Exploited Wi
+    title: Microsoft Patches Record 1,413 Flaws, Including Exploited Windows Shell Bug
+    severity: Critical
+    release_date: 2026-10-14
+    cve_ids: []
+    url: https://thehackernews.com/2026/10/microsoft-patches-record-1413-flaws.html
+    description: Microsoft on Tuesday shattered its own Patch Tuesday record by
+      shipping patches for a whopping 1,413 vulnerabilities, including one that
+      it said has come under active exploitation. These include 1,102 flaws in
+      Windows, 134 in Office, 61 in Developer Tools, 36 in SharePoint Server,
+      and 22 in SQL Server. Of these, more than 670 relate to privilege
+      escalation, followed by over 300 remote code
+  - publisher: Microsoft
+    advisory_id: Microsoft fixes exploited Mark of the Web bypass vulnerabili
+    title: Microsoft fixes exploited Mark of the Web bypass vulnerability
+      (CVE-2026-96951)
+    severity: Critical
+    release_date: 2026-10-14
+    cve_ids:
+      - CVE-2026-96951
+    url: https://www.helpnetsecurity.com/2026/10/14/microsoft-patch-tuesday-cve-2026-96951-motw-bypass/
+    description: In another record-breaking Patch Tuesday, Microsoft has squashed
+      over 1,400 security bugs, including a Mark of the Web bypass vulnerability
+      (CVE-2026-96951) exploited by attackers in the wild. CVE-2026-96951 is a
+      command injection vulnerability in Windows Shell that can be triggered by
+      remote attackers via a file that is designed to exploit the vulnerability.
+      Such a file can be sent to the user via email, instant message, or
+      collaboration tools like Teams and Slack. Alternatively, users &#8230;
+      More &#8594; The post Microsoft fixes exploited Mark of the Web bypass
+      vulnerability (CVE-2026-96951) appeared first on Help Net Security .
 summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
   group Midnight Blizzard (APT29), accessing senior leadership corporate emails
   and source code.
@@ -203,3 +247,18 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Zero-Days Lurk in Microsoft's Overgrown October Patch Tuesday
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Dark Reading Report](https://www.darkreading.com/vulnerabilities-threats/zero-days-microsoft-october-patch-tuesday)
+
+### 2026-10-14 07:16 UTC
+- **Event:** Press Coverage: Microsoft Patches Record 1,413 Vulnerabilities, Including Exploited Windows Zero-Day
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/microsoft-patches-record-1413-vulnerabilities-including-exploited-windows-zero-day/)
+
+### 2026-10-14 04:34 UTC
+- **Event:** Press Coverage: Microsoft Patches Record 1,413 Flaws, Including Exploited Windows Shell Bug
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/microsoft-patches-record-1413-flaws.html)
+
+### 2026-10-14 07:53 UTC
+- **Event:** Press Coverage: Microsoft fixes exploited Mark of the Web bypass vulnerability (CVE-2026-96951)
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/14/microsoft-patch-tuesday-cve-2026-96951-motw-bypass/)
