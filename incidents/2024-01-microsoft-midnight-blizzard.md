@@ -198,3 +198,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Xandr Fined a Record €8.6 Million for Relaying Grindr Data Revealing Sexual Orientation
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/xandr-fined-record-86-million-for.html)
+
+### 2026-10-13 22:29 UTC
+- **Event:** Press Coverage: Zero-Days Lurk in Microsoft's Overgrown October Patch Tuesday
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Dark Reading Report](https://www.darkreading.com/vulnerabilities-threats/zero-days-microsoft-october-patch-tuesday)
