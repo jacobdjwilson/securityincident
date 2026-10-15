@@ -4,7 +4,7 @@ target: Cloudflare
 domain: cloudflare.com
 status: DEVELOPING
 first_seen: 2026-09-26
-last_updated: 2026-10-07
+last_updated: 2026-10-15
 threat_actor: null
 summary: The Psychedelic Stealer malware distributed via compromised Ukrainian
   websites using ClickFix-style Cloudflare verification checks is part of a
@@ -47,3 +47,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** Press Coverage: CERT-UA: Fake Cloudflare Checks Deliver LunexStealer Malware
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/200537/hacking/cert-ua-fake-cloudflare-checks-deliver-lunexstealer-malware.html)
+
+### 2026-10-15 14:11 UTC
+- **Event:** Press Coverage: Help TDS Linked to Hotejka as 20,000+ Cloudflare Pages Domains Host Tech Support Scams
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/help-tds-linked-to-hotejka-as-20000.html)

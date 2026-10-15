@@ -110,3 +110,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Palo Alto Networks Patches PAN-OS Zero-Day Exploited for Remote Code Execution
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/palo-alto-networks-patches-pan-os-zero-day-exploited-for-remote-code-execution/)
+
+### 2026-10-15 10:43 UTC
+- **Event:** Press Coverage: CISA flags exploited flaws in Palo Alto, Cisco and Ahsay products
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/15/cve-2026-0322-cve-2026-76519-cve-2026-105133-cve-2026-105134-exploted/)

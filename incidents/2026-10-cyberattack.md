@@ -4,7 +4,7 @@ target: Cyberattack
 domain: cyberattack.com
 status: ACKNOWLEDGED
 first_seen: 2026-09-30
-last_updated: 2026-10-14
+last_updated: 2026-10-15
 threat_actor: null
 summary: Attackers remotely defrosted refrigerators at multiple French
   supermarket chains overnight in a cyberattack that reportedly targeted Danfoss
@@ -142,3 +142,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Phase Eight, Hobbs and Whistles owner joins growing list of fashion retailers targeted by hackers
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/14/tfg-london-cyberattack-phase-eight-hobbs-whistles/)
+
+### 2026-10-15 12:18 UTC
+- **Event:** Press Coverage: Legal Aid Agency cyberattack: Compromised data goes back to 1978
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/15/legal-aid-agency-cyberattack-compromised-data-goes-back-to-1978/)
+
+### 2026-10-15 14:30 UTC
+- **Event:** Press Coverage: UK Legal Aid Agency hack worse than thought, with stolen records dating back to 1978
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/uk-legal-aid-cyberattack-data)
