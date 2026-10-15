@@ -272,3 +272,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft drops an actively exploited zero-day among record high of 1,413 vulnerabilities
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [CyberScoop Report](https://cyberscoop.com/microsoft-patch-tuesday-october-2026/)
+
+### 2026-10-14 21:15 UTC
+- **Event:** Press Coverage: U.S. CISA adds Microsoft Windows Shell flaw to its Known Exploited Vulnerabilities catalog
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/200965/hacking/u-s-cisa-adds-microsoft-windows-shell-flaw-to-its-known-exploited-vulnerabilities-catalog.html)
