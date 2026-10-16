@@ -4,7 +4,7 @@ target: Atlassian
 domain: atlassian.com
 status: DEVELOPING
 first_seen: 2026-08-10
-last_updated: 2026-10-15
+last_updated: 2026-10-16
 threat_actor: null
 summary: Atlassian is warning customers of a critical vulnerability, tracked as
   CVE-2026-21589, that can be exploited for arbitrary file-access in multiple
@@ -116,3 +116,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** CISA Adds One Known Exploited Vulnerability to Catalog
 - **Verification:** GOVERNMENT ADVISORY
 - **Source:** [CISA Cybersecurity Advisories Report](https://www.cisa.gov/news-events/alerts/2026/10/15/cisa-adds-one-known-exploited-vulnerability-catalog)
+
+### 2026-10-16 11:05 UTC
+- **Event:** Press Coverage: U.S. CISA adds Atlassian flaw to its Known Exploited Vulnerabilities catalog
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/201086/hacking/u-s-cisa-adds-atlassian-flaw-to-its-known-exploited-vulnerabilities-catalog.html)

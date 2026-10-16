@@ -4,7 +4,7 @@ target: Fortinet
 domain: fortinet.com
 status: CONFIRMED
 first_seen: 2026-08-12
-last_updated: 2026-10-08
+last_updated: 2026-10-16
 threat_actor: null
 summary: Fortinet is warning customers of a critical FortiMail vulnerability,
   tracked as CVE-2026-104286, that is being actively exploited in zero-day
@@ -15,8 +15,13 @@ tags:
   - regulatory
   - media-pickup
   - cve-2026-104286
+  - agency-advisory
+  - cve-2025-61624
+  - cve-2026-102764
 cve_ids:
   - CVE-2026-104286
+  - CVE-2025-61624
+  - CVE-2026-102764
 vendor_advisories:
   - publisher: Fortinet
     advisory_id: Fortinet FortiMail Advisory
@@ -37,6 +42,40 @@ vendor_advisories:
       command execution vulnerability affecting FortiMail appliances.
 compromised_data:
   - Authentication Credentials
+agency_advisories:
+  - agency: CISA Cybersecurity Advisories
+    advisory_id: CISA Adds Two Known Exploited Vulnerabilities to Catalog
+    advisory_type: Government Cyber Advisory
+    url: https://www.cisa.gov/news-events/alerts/2026/10/16/cisa-adds-two-known-exploited-vulnerabilities-catalog
+    release_date: 2026-10-16
+    cve_ids:
+      - CVE-2025-61624
+      - CVE-2026-102764
+    description: "CISA has added two new vulnerabilities to its Known Exploited
+      Vulnerabilities (KEV) Catalog , based on evidence of active exploitation.
+      CVE-2025-61624 Fortinet Multiple Products Path Traversal Vulnerability
+      CVE-2026-102764 BeyondTrust Remote Support Authentication Bypass by
+      Spoofing Vulnerability These types of vulnerabilities are a frequent
+      attack vector for malicious cyber actors and pose significant risks to the
+      federal enterprise. Binding Operational Directive (BOD) 26-04:
+      Prioritizing Security Updates Based on Risk establishes vulnerability
+      management requirements for Federal Civilian Executive Branch (FCEB)
+      agencies. BOD 26-04 reinforces the importance of the KEV Catalog and
+      requires federal agencies to prioritize rapid remediation of high-risk
+      vulnerabilities, specifically those identified by Common Vulnerabilities
+      and Exposures (CVEs) listed in CISA’s KEV Catalog on publicly exposed
+      assets that grant total control of the asset post-exploitation, while
+      deferring action for lower-risk vulnerabilities. BOD 26-04 further
+      establishes basic expectations for when agencies must check whether threat
+      actors compromised the system before the patch was applied. While BOD
+      26-04 applies only to FCEB agencies, CISA encourages all organizations to
+      adopt risk-based vulnerability management and prioritize remediation of
+      KEV Catalog vulnerabilities . CISA will continue to add vulnerabilities to
+      the catalog that meet the specified criteria . Aware of an exploited
+      vulnerability not currently listed in the KEV Catalog? Submit it for
+      potential addition through CISA’s KEV Nomination Form . Potential KEV
+      additions must have a CVE ID, evidence of exploitation, and clear
+      mitigation guidance."
 ---
 
 ## Incident Overview
@@ -92,3 +131,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Fortinet sounds the alarm over actively exploited FortiMail zero-day
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Register Security Report](https://www.theregister.com/security/2026/10/02/fortinet-sounds-the-alarm-over-actively-exploited-fortimail-zero-day/5300803)
+
+### 2026-10-16 12:00 UTC
+- **Event:** CISA Adds Two Known Exploited Vulnerabilities to Catalog
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [CISA Cybersecurity Advisories Report](https://www.cisa.gov/news-events/alerts/2026/10/16/cisa-adds-two-known-exploited-vulnerabilities-catalog)

@@ -2,9 +2,9 @@
 id: 2026-10-anne-arundel-county
 target: Anne Arundel County
 domain: annearundelcounty.com
-status: EMERGING
+status: CONFIRMED
 first_seen: 2026-10-09
-last_updated: 2026-10-09
+last_updated: 2026-10-16
 threat_actor: Rhysida
 summary: Anne Arundel County was listed on the Rhysida ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -14,6 +14,8 @@ tags:
   - ransomware-claim
   - rhysida
   - emerging
+  - investigative
+  - media-pickup
 industry: Government & Defense
 affected_records: 2026
 compromised_data:
@@ -42,3 +44,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Anne Arundel County Listed on Rhysida Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Rhysida Ransomware Leak Site Claim](https://www.ransomware.live/id/QW5uZSBBcnVuZGVsIENvdW50eUByaHlzaWRh)
+
+### 2026-10-16 13:05 UTC
+- **Event:** Press Coverage: Baltimore suburb confirms August data breach after ransomware claims
+- **Verification:** CONFIRMED BY TARGET
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/anne-arundel-county-maryland-confirms-data-breach)

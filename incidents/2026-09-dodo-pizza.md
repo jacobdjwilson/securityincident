@@ -3,13 +3,14 @@ id: 2026-09-dodo-pizza
 target: Dodo Brands (Dodo Pizza)
 domain: dodopizza.com
 status: CONFIRMED
-first_seen: '2026-09-29'
-last_updated: '2026-09-29'
+first_seen: 2026-09-29
+last_updated: 2026-10-16
 threat_actor: Unknown / Unattributed
-summary: "Disclosed a confirmed network intrusion and data ex"
+summary: Disclosed a confirmed network intrusion and data ex
 tags:
   - investigative
   - developing
+  - media-pickup
 industry: Retail & Consumer Goods
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: 68000000
@@ -18,6 +19,7 @@ compromised_data:
   - Billing & Shipping Addresses
 regulatory_filings: []
 ---
+
 ## Incident Overview
 
 The **Dodo Brands (Dodo Pizza)** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Retail & Consumer Goods** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
@@ -46,3 +48,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Russian pizza chain with 1,500 locations confirms cyberattack following hacker claims
 - **Verification:** CONFIRMED BY TARGET
 - **Source:** [The Record by Recorded Future Intelligence Notice](https://therecord.media/russian-pizza-chain-dodo-confirms-data-breach)
+
+### 2026-10-16 17:45 UTC
+- **Event:** Press Coverage: Moscow police detain suspected DataSuckers hackers linked to breaches in Ukraine and Russia
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/16/moscow-police-detain-suspected-datasuckers-hackers-linked-to-breaches-in-ukraine-and-russia/)

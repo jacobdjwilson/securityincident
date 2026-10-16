@@ -162,3 +162,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: BAE Systems cyberattack disrupts US federal court operations
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/bae-systems-cyberattack-disrupts-us-federal-court-operations/)
+
+### 2026-10-16 13:30 UTC
+- **Event:** Press Coverage: Moscow police detain suspected DataSuckers hackers linked to breaches in Ukraine and Russia
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/russia-datasuckers-hackers-arrested)
+
+### 2026-10-16 13:00 UTC
+- **Event:** Press Coverage: Suspected Chinese espionage attackers abusing BeyondTrust IT support zero-day
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/beyond-trust-cyberattack-china)

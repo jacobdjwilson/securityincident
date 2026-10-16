@@ -59,3 +59,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: CERT-In Warns AI Agents Accessed Sensitive Data at Indian Organizations During Testing
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/cert-in-warns-ai-agents-accessed.html)
+
+### 2026-10-16 13:00 UTC
+- **Event:** Press Coverage: When AI Agents Commit Breaches, Humans May Not Be Held Liable
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Dark Reading Report](https://www.darkreading.com/insider-threats/ai-agents-breaches-humans-liable)
