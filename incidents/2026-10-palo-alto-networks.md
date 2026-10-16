@@ -4,7 +4,7 @@ target: Palo Alto Networks
 domain: paloaltonetworks.com
 status: DEVELOPING
 first_seen: 2026-10-14
-last_updated: 2026-10-15
+last_updated: 2026-10-16
 threat_actor: null
 summary: Palo Alto Networks has released security updates for a high-severity
   PAN-OS RCE zero-day, tracked as CVE-2026-0322, that has been exploited in
@@ -120,3 +120,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: U.S. CISA adds Palo Alto Networks PAN-OS, Ahsay AhsayCBS, and Cisco Secure Email Gateway flaws to its Known Exploited Vulnerabilities catalog
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/201041/security/u-s-cisa-adds-palo-alto-networks-pan-os-ahsay-ahsaycbs-and-cisco-secure-email-gateway-flaws-to-its-known-exploited-vulnerabilities-catalog.html)
+
+### 2026-10-16 09:08 UTC
+- **Event:** Press Coverage: PEERSTITCH malware: How Attackers Compromised 500 Firewalls Through FortiManager
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/201077/malware/peerstitch-malware-how-attackers-compromised-500-firewalls-through-fortimanager.html)

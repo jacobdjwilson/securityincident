@@ -4,7 +4,7 @@ target: Cyberattack
 domain: cyberattack.com
 status: ACKNOWLEDGED
 first_seen: 2026-09-30
-last_updated: 2026-10-15
+last_updated: 2026-10-16
 threat_actor: null
 summary: Attackers remotely defrosted refrigerators at multiple French
   supermarket chains overnight in a cyberattack that reportedly targeted Danfoss
@@ -157,3 +157,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Federal bankruptcy courts dealing with outages after contractor cyberattack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/federal-bankruptcy-courts-dealing-with-cyberattack-outage)
+
+### 2026-10-16 07:37 UTC
+- **Event:** Press Coverage: BAE Systems cyberattack disrupts US federal court operations
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/bae-systems-cyberattack-disrupts-us-federal-court-operations/)

@@ -4,7 +4,7 @@ target: AI agents
 domain: aiagents.com
 status: DEVELOPING
 first_seen: 2026-10-01
-last_updated: 2026-10-14
+last_updated: 2026-10-16
 threat_actor: null
 summary: Chained Zammad flaws enabled session hijacking, code execution, and
   root escalation in seconds
@@ -54,3 +54,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Nvidia, worth $5.5tn, donates $250m to UK for AI safety research
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/oct/14/nvidia-donates-to-uk-ai-safety-research)
+
+### 2026-10-16 06:53 UTC
+- **Event:** Press Coverage: CERT-In Warns AI Agents Accessed Sensitive Data at Indian Organizations During Testing
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/cert-in-warns-ai-agents-accessed.html)

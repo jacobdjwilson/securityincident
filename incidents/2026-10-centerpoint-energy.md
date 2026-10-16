@@ -4,7 +4,7 @@ target: CenterPoint Energy
 domain: centerpointenergy.com
 status: DEVELOPING
 first_seen: 2026-10-15
-last_updated: 2026-10-15
+last_updated: 2026-10-16
 threat_actor: null
 summary: Personal information such as names, addresses, Social Security numbers,
   and driver’s license numbers was compromised. The post CenterPoint Energy Data
@@ -12,6 +12,7 @@ summary: Personal information such as names, addresses, Social Security numbers,
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Social Security Numbers (SSNs)
   - Authentication Credentials
@@ -40,3 +41,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** CenterPoint Energy Data Breach Impacts 1 Million Texans
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/centerpoint-energy-data-breach-impacts-1-million-texans/)
+
+### 2026-10-16 07:31 UTC
+- **Event:** Press Coverage: CenterPoint Energy Data Breach: More Than 1 Million Texans Affected
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/201054/cyber-crime/centerpoint-energy-data-breach-more-than-1-million-texans-affected.html)
