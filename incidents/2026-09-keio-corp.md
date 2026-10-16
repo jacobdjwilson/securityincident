@@ -4,7 +4,7 @@ target: Keio Corporation
 domain: keio.co.jp
 status: CONFIRMED
 first_seen: 2026-09-28
-last_updated: 2026-09-29
+last_updated: 2026-10-15
 threat_actor: Unknown / Unattributed
 summary: Keio Corporation (Keio), a major private railway operator in Japan,
   said its network was hit by a ransomware attack over the weekend, disrupting
@@ -14,6 +14,10 @@ tags:
   - confirmed
   - developing
   - media-pickup
+  - extortion
+  - ransomware-claim
+  - qilin
+  - emerging
 industry: Transportation & Logistics
 incident_type: Ransomware Extortion
 affected_records: null
@@ -51,3 +55,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: Japanese Railway Operators Hit with Weekend Cyber Attacks
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/japanese-railway-operators-cyber/)
+
+### 2026-10-15 21:04 UTC
+- **Event:** Keio Corporation Listed on Qilin Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Qilin Ransomware Leak Site Claim](https://www.ransomware.live/id/S2VpbyBDb3Jwb3JhdGlvbkBxaWxpbg==)

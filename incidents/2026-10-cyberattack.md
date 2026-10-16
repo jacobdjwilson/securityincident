@@ -152,3 +152,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: UK Legal Aid Agency hack worse than thought, with stolen records dating back to 1978
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/uk-legal-aid-cyberattack-data)
+
+### 2026-10-15 20:46 UTC
+- **Event:** Press Coverage: Federal bankruptcy courts dealing with outages after contractor cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/federal-bankruptcy-courts-dealing-with-cyberattack-outage)
