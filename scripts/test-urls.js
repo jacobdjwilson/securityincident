@@ -21,52 +21,69 @@ const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
 
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 (securityincident-verifier/1.0)';
-const TIMEOUT_MS = 10000;
+const TIMEOUT_MS = 15000;
 
-export async function testUrl(url) {
+async function fetchWithTimeout(url, method, timeoutMs) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
-
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    let res = await fetch(url, {
-      method: 'HEAD',
-      headers: { 'User-Agent': USER_AGENT, 'Accept': '*/*' },
+    const res = await fetch(url, {
+      method,
+      headers: {
+        'User-Agent': USER_AGENT,
+        'Accept': method === 'HEAD' ? '*/*' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
       signal: controller.signal,
       redirect: 'follow'
     });
+    if (res.body) {
+      res.body.cancel().catch(() => {});
+    }
+    return res;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
-    // Some sites (IIS/ASP.NET, Cloudflare, Akamai, State AGs) return 404, 403, 405, or 400 to HEAD requests
-    if (!res.ok) {
-      const getController = new AbortController();
-      const getTimeout = setTimeout(() => getController.abort(), TIMEOUT_MS);
+export async function testUrl(url) {
+  let lastError = null;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      // 1. Try HEAD first (fast header check)
+      let res = null;
       try {
-        res = await fetch(url, {
-          method: 'GET',
-          headers: { 'User-Agent': USER_AGENT, 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' },
-          signal: getController.signal,
-          redirect: 'follow'
-        });
-      } finally {
-        clearTimeout(getTimeout);
+        res = await fetchWithTimeout(url, 'HEAD', 8000);
+      } catch {
+        // HEAD failed, timed out, or connection dropped; fallback to GET
+        res = null;
+      }
+
+      // 2. If HEAD returned non-ok (404/403/405/500) or failed, fallback to GET
+      if (!res || !res.ok) {
+        res = await fetchWithTimeout(url, 'GET', TIMEOUT_MS);
+      }
+
+      return {
+        url,
+        status: res.status,
+        ok: res.status >= 200 && res.status < 400,
+        statusText: res.statusText
+      };
+    } catch (err) {
+      lastError = err;
+      if (attempt < 2) {
+        // Brief pause before retry on transient network congestion / WAF challenge
+        await new Promise(resolve => setTimeout(resolve, 1500));
       }
     }
-
-    clearTimeout(timeout);
-    return {
-      url,
-      status: res.status,
-      ok: res.status >= 200 && res.status < 400,
-      statusText: res.statusText
-    };
-  } catch (err) {
-    clearTimeout(timeout);
-    return {
-      url,
-      status: 0,
-      ok: false,
-      error: err.name === 'AbortError' ? 'Timeout' : err.message
-    };
   }
+
+  return {
+    url,
+    status: 0,
+    ok: false,
+    error: lastError?.name === 'AbortError' ? 'Timeout' : lastError?.message || 'Connection Failed'
+  };
 }
 
 export function extractIncidentUrls(filePath) {
