@@ -4,7 +4,7 @@ target: PG Group (Pure Options)
 domain: pggrouppureoptions.com
 status: EMERGING
 first_seen: 2026-10-13
-last_updated: 2026-10-13
+last_updated: 2026-10-16
 threat_actor: N0n
 summary: PG Group (Pure Options) was listed on the N0n ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -14,6 +14,7 @@ tags:
   - ransomware-claim
   - n0n
   - emerging
+  - play
 industry: Financial Services
 compromised_data:
   - Authentication Credentials
@@ -41,3 +42,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** PG Group (Pure Options) Listed on N0n Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [N0n Ransomware Leak Site Claim](https://www.ransomware.live/id/UEcgR3JvdXAgKFB1cmUgT3B0aW9ucylATjBu)
+
+### 2026-10-16 20:38 UTC
+- **Event:** Pure Options Listed on Play Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Play Ransomware Leak Site Claim](https://www.ransomware.live/id/UHVyZSBPcHRpb25zQHBsYXk=)
