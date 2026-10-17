@@ -4,7 +4,7 @@ target: Fortinet
 domain: fortinet.com
 status: CONFIRMED
 first_seen: 2026-08-12
-last_updated: 2026-10-16
+last_updated: 2026-10-17
 threat_actor: null
 summary: Fortinet is warning customers of a critical FortiMail vulnerability,
   tracked as CVE-2026-104286, that is being actively exploited in zero-day
@@ -136,3 +136,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** CISA Adds Two Known Exploited Vulnerabilities to Catalog
 - **Verification:** GOVERNMENT ADVISORY
 - **Source:** [CISA Cybersecurity Advisories Report](https://www.cisa.gov/news-events/alerts/2026/10/16/cisa-adds-two-known-exploited-vulnerabilities-catalog)
+
+### 2026-10-17 10:35 UTC
+- **Event:** Press Coverage: U.S. CISA adds Fortinet Multiple Products and BeyondTrust Remote Support flaws to its Known Exploited Vulnerabilities catalog
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/201178/security/u-s-cisa-adds-fortinet-multiple-products-and-beyondtrust-remote-support-flaws-to-its-known-exploited-vulnerabilities-catalog.html)
