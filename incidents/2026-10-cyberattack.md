@@ -4,7 +4,7 @@ target: Cyberattack
 domain: cyberattack.com
 status: ACKNOWLEDGED
 first_seen: 2026-09-30
-last_updated: 2026-10-16
+last_updated: 2026-10-22
 threat_actor: null
 summary: Attackers remotely defrosted refrigerators at multiple French
   supermarket chains overnight in a cyberattack that reportedly targeted Danfoss
@@ -172,3 +172,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Suspected Chinese espionage attackers abusing BeyondTrust IT support zero-day
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/beyond-trust-cyberattack-china)
+
+### 2026-10-22 12:14 UTC
+- **Event:** Press Coverage: South Carolina officials offer assistance after state capital hit with cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/south-carolina-officials-offer-assistance-cyber-incident)
+
+### 2026-10-22 11:58 UTC
+- **Event:** Mainstream Media Pickup: Russia-linked hackers used decentralised network in Ukraine cyberattack, ESET says
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixgFBVV95cUxNRFlSa1BjRUNIMDhxY21GWElwRXJfQ3NCdGRtMzQ2SUFyRmJwdkRfVjdWRjVLTndOZXk4SERVNzE0T3VGY0tBMUZoWUFIeEo5NjhQYjBwMzFHRnROTjlTelNydjN6d3ZTWFRqZUlIenE3YnYwcmtmZmZxdnItTDNJNTNTM3ZvTXNfNG1UTmc2Z3FpNW4wSDRwWlNsMFl3RzZqYnpSX1dITUJqeG9QTWI0bG1Wc2kwamJmaHMtZjhWbXl2NzlLZ3c?oc=5)

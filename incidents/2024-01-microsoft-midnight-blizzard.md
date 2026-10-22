@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-14
+last_updated: 2026-10-22
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -277,3 +277,13 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: U.S. CISA adds Microsoft Windows Shell flaw to its Known Exploited Vulnerabilities catalog
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/200965/hacking/u-s-cisa-adds-microsoft-windows-shell-flaw-to-its-known-exploited-vulnerabilities-catalog.html)
+
+### 2026-10-22 11:28 UTC
+- **Event:** Press Coverage: Microsoft says ConnectWise breach let Chinese spies loose on 2,250 cloud tenants
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/10/22/microsoft-says-connectwise-breach-let-chinese-spies-loose-on-2250-cloud-tenants/5304687)
+
+### 2026-10-22 11:00 UTC
+- **Event:** Press Coverage: Microsoft: Chinese State Actor Used AI to Compromise ConnectWise Tenants
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/microsoft-chinese-ai-connectwise/)
