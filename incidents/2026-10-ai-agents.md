@@ -79,3 +79,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Hackers Use Autonomous AI Agents to Breach Company Websites, Target Over 1,200 Sites
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/hackers-use-autonomous-ai-agents-to.html)
+
+### 2026-10-23 17:50 UTC
+- **Event:** Press Coverage: Exposed Infrastructure Reveals How Ransomware Affiliates Used AI Agents to Execute Intrusions
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/exposed-infrastructure-reveals-how.html)
