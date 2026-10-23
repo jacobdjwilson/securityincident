@@ -3,7 +3,7 @@ id: 2026-09-fiesta-insurance-franchise
 target: Fiesta Insurance Franchise
 domain: fiestainsurancefranchise.com
 status: CONFIRMED
-first_seen: 2026-09-02
+first_seen: 2026-07-13
 last_updated: 2026-09-02
 threat_actor: Unknown / Unattributed
 summary: State of California Department of Justice data breach disclosure notice
@@ -24,6 +24,14 @@ regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629220
+    description: Official statutory data breach notification submitted by Fiesta
+      Insurance Franchise to the California Department of Justice under
+      California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
+      personal identifiable information of California residents.
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-626421
+    filing_date: 2026-07-13
     description: Official statutory data breach notification submitted by Fiesta
       Insurance Franchise to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
@@ -53,3 +61,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Disclosure Notice
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-629220)
+
+### 2026-07-13 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-626421)

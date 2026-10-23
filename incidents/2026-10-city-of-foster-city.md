@@ -3,7 +3,7 @@ id: 2026-10-city-of-foster-city
 target: City of Foster City
 domain: cityoffostercity.com
 status: CONFIRMED
-first_seen: 2026-10-15
+first_seen: 2026-07-13
 last_updated: 2026-10-15
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
@@ -48,3 +48,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631363)
+
+### 2026-07-13 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-626411)

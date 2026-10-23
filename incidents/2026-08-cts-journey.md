@@ -13,9 +13,19 @@ tags:
   - state-ag
   - washington
   - confirmed
+  - california
 compromised_data:
   - Authentication Credentials
 affected_records: 2226
+regulatory_filings:
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-627620
+    filing_date: 2026-08-03
+    description: Official statutory data breach notification submitted by CTS
+      Journey to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 ---
 
 ## Incident Overview
@@ -40,3 +50,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42137.pdf)
+
+### 2026-08-03 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-627620)

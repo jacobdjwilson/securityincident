@@ -4,7 +4,7 @@ target: Crimson Wine Group
 domain: crimsonwinegroup.com
 status: CONFIRMED
 first_seen: 2024-07-25
-last_updated: 2024-07-25
+last_updated: 2024-12-13
 threat_actor: null
 summary: Official SEC Form 8-K Item 1.05 disclosure filed by Crimson Wine Group
   regarding a material cybersecurity incident.
@@ -12,6 +12,8 @@ tags:
   - regulatory
   - sec-8k
   - confirmed
+  - state-ag
+  - washington
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 1.05
@@ -104,9 +106,17 @@ regulatory_filings:
       Company expressly disclaims any obligation to update publicly any
       forward-looking statements, whether as result of new information, future
       events or otherwise.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31705.pdf
+    filing_date: 2024-12-13
+    description: Official statutory data breach notification submitted by Crimson
+      Wine Group to the Washington State Office of the Attorney General pursuant
+      to RCW 19.255.010, disclosing unauthorized system access impacting 3,436
+      residents.
 incident_type: Material Cybersecurity Incident
+affected_records: 3436
 ---
-
 
 ## Incident Overview
 
@@ -131,3 +141,7 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001562151-24-000032)](https://www.sec.gov/Archives/edgar/data/1562151/000156215124000032/0001562151-24-000032-index.htm)
 
+### 2024-12-13 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31705.pdf)

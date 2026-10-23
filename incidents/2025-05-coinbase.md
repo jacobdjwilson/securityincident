@@ -4,7 +4,7 @@ target: Coinbase
 domain: coinbase.com
 status: CONFIRMED
 first_seen: 2025-05-15
-last_updated: 2025-05-15
+last_updated: 2025-05-20
 threat_actor: null
 summary: Official SEC Form 8-K Item 1.05 disclosure filed by Coinbase regarding
   a material cybersecurity incident.
@@ -12,6 +12,8 @@ tags:
   - regulatory
   - sec-8k
   - confirmed
+  - state-ag
+  - washington
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 1.05
@@ -116,9 +118,17 @@ regulatory_filings:
       disclaims any obligation to update publicly any forward-looking
       statements, whether as result of new information, future events or
       otherwise.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33375.pdf
+    filing_date: 2025-05-20
+    description: Official statutory data breach notification submitted by Coinbase
+      to the Washington State Office of the Attorney General pursuant to RCW
+      19.255.010, disclosing unauthorized system access impacting 3,337
+      residents.
 incident_type: Material Cybersecurity Incident
+affected_records: 3337
 ---
-
 
 ## Incident Overview
 
@@ -143,3 +153,7 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001679788-25-000094)](https://www.sec.gov/Archives/edgar/data/1679788/000167978825000094/0001679788-25-000094-index.htm)
 
+### 2025-05-20 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33375.pdf)

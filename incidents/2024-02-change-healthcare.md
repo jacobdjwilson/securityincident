@@ -147,6 +147,14 @@ regulatory_filings:
       notifications, and Change Healthcare service restoration progress. A copy
       of the press release is attached to the Amendment as Exhibit 99.1 and
       incorporated by reference herein.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA30075.pdf
+    filing_date: 2024-08-03
+    description: Official statutory data breach notification submitted by Change
+      Healthcare to the Washington State Office of the Attorney General pursuant
+      to RCW 19.255.010, disclosing unauthorized system access impacting
+      3,121,209 residents.
 agency_advisories:
   - agency: CISA & FBI (Joint Advisory)
     advisory_id: AA24-060A (#StopRansomware ALPHV BlackCat)
@@ -167,6 +175,8 @@ tags:
   - healthcare
   - ransomware
   - confirmed
+  - state-ag
+  - washington
 ---
 
 ## Incident Overview
@@ -219,3 +229,8 @@ Change Healthcare (UnitedHealth Group) suffered a devastating ALPHV / BlackCat r
 - **Event:** SEC Form 8-K Item 1.05 Disclosure
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0000731766-24-000150)](https://www.sec.gov/Archives/edgar/data/731766/000073176624000150/0000731766-24-000150-index.htm)
+
+### 2024-08-03 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA30075.pdf)

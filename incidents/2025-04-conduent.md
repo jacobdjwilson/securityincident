@@ -4,7 +4,7 @@ target: Conduent
 domain: conduent.com
 status: CONFIRMED
 first_seen: 2025-04-14
-last_updated: 2025-04-14
+last_updated: 2026-10-19
 threat_actor: null
 summary: Official SEC Form 8-K Item 1.05 disclosure filed by Conduent regarding
   a material cybersecurity incident.
@@ -12,6 +12,9 @@ tags:
   - regulatory
   - sec-8k
   - confirmed
+  - threat-intel
+  - developing
+  - media-pickup
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 1.05
@@ -102,7 +105,6 @@ regulatory_filings:
 incident_type: Material Cybersecurity Incident
 ---
 
-
 ## Incident Overview
 
 Conduent, within its operating sector, has been subject to a cybersecurity incident disclosed to federal securities regulators. Ground-truth telemetry indicates the event prompted statutory disclosure under SEC cybersecurity reporting mandates.
@@ -126,3 +128,7 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001677703-25-000067)](https://www.sec.gov/Archives/edgar/data/1677703/000167770325000067/0001677703-25-000067-index.htm)
 
+### 2026-10-19 14:15 UTC
+- **Event:** Press Coverage: Conduent Agrees to Pay $80m to Settle Data Breach Class Action
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/conduent-settle-data-breach-action/)

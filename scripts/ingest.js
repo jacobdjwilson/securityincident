@@ -301,6 +301,10 @@ function loadTargetIndex() {
   return targetMap;
 }
 
+function escapeRegex(str) {
+  return (str || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function extractTargetEntity(title, link = '', description = '', customTargets = null) {
   const targets = customTargets || KNOWN_TARGETS;
 
@@ -321,10 +325,11 @@ function extractTargetEntity(title, link = '', description = '', customTargets =
   const lowerTitle = cleaned.toLowerCase();
 
   for (const [key, info] of Object.entries(targets)) {
-    if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${key}\\b`, 'i').test(lowerTitle)) {
+    const safeKey = escapeRegex(key);
+    if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${safeKey}\\b`, 'i').test(lowerTitle)) {
       continue;
     }
-    if (new RegExp(`\\b${key}\\b`, 'i').test(lowerTitle)) {
+    if (new RegExp(`\\b${safeKey}\\b`, 'i').test(lowerTitle)) {
       return { target: info.name, domain: info.domain, slug: info.slug };
     }
   }
@@ -332,10 +337,11 @@ function extractTargetEntity(title, link = '', description = '', customTargets =
   // Fallback: check article summary/description for known target entities if headline was generic
   const lowerDesc = (description || '').toLowerCase();
   for (const [key, info] of Object.entries(targets)) {
-    if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${key}\\b`, 'i').test(lowerDesc)) {
+    const safeKey = escapeRegex(key);
+    if (new RegExp(`\\b(?:fake|impersonating|spoofing|masquerading as)\\s+${safeKey}\\b`, 'i').test(lowerDesc)) {
       continue;
     }
-    if (new RegExp(`\\b${key}\\b`, 'i').test(lowerDesc)) {
+    if (new RegExp(`\\b${safeKey}\\b`, 'i').test(lowerDesc)) {
       return { target: info.name, domain: info.domain, slug: info.slug };
     }
   }
@@ -369,7 +375,8 @@ function extractTargetEntity(title, link = '', description = '', customTargets =
 
   const urlLower = link.toLowerCase();
   for (const [key, info] of Object.entries(targets)) {
-    const slugPattern = new RegExp(`(?:[-_/])${key.replace(/\\s+/g, '-')}(?:[-_/]|\\.html|$)`, 'i');
+    const safeKeySlug = escapeRegex(key.replace(/\s+/g, '-'));
+    const slugPattern = new RegExp(`(?:[-_/])${safeKeySlug}(?:[-_/]|\\.html|$)`, 'i');
     if (slugPattern.test(urlLower)) {
       return { target: info.name, domain: info.domain, slug: info.slug };
     }
@@ -1328,8 +1335,15 @@ export async function ingestFeeds() {
   return { success: true, newIncidents: totalNew, updatedIncidents: totalUpdated };
 }
 
+export {
+  upsertIncidentMilestone,
+  findExistingIncidentFilePath,
+  isValidTargetCandidate,
+  loadExistingSourceUrls
+};
+
 // Run directly from CLI
-if (process.argv[1] && (process.argv[1].endsWith('ingest.js') || process.argv[1].includes('ingest'))) {
+if (process.argv[1] && path.basename(process.argv[1]) === 'ingest.js') {
   ingestFeeds().catch(err => {
     console.error('Fatal ingestion error:', err);
     process.exit(1);

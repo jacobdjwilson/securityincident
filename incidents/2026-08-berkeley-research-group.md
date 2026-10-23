@@ -3,7 +3,7 @@ id: 2026-08-berkeley-research-group
 target: Berkeley Research Group
 domain: berkeleyresearchgroup.com
 status: CONFIRMED
-first_seen: 2026-08-31
+first_seen: 2025-10-30
 last_updated: 2026-08-31
 threat_actor: Unknown / Unattributed
 summary: State of California Department of Justice data breach disclosure notice
@@ -13,9 +13,10 @@ tags:
   - state-ag
   - california
   - confirmed
+  - washington
 industry: Education & Research
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 17188
 compromised_data:
   - Personal Identifiable Information (PII)
   - Corporate Contact Records
@@ -23,6 +24,22 @@ regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629096
+    description: Official statutory data breach notification submitted by Berkeley
+      Research Group to the California Department of Justice under California
+      Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35277.pdf
+    filing_date: 2025-10-30
+    description: Official statutory data breach notification submitted by Berkeley
+      Research Group to the Washington State Office of the Attorney General
+      pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 17,188 residents.
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-613595
+    filing_date: 2025-10-30
     description: Official statutory data breach notification submitted by Berkeley
       Research Group to the California Department of Justice under California
       Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
@@ -52,3 +69,13 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Disclosure Notice
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-629096)
+
+### 2025-10-30 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35277.pdf)
+
+### 2025-10-30 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-613595)

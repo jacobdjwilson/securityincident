@@ -4,7 +4,7 @@ target: First American Financial
 domain: firstam.com
 status: CONFIRMED
 first_seen: 2023-12-20
-last_updated: 2024-01-16
+last_updated: 2024-06-10
 threat_actor: Unknown / Unattributed
 industry: Financial Services
 incident_type: Network Intrusion & Disruption
@@ -190,6 +190,14 @@ regulatory_filings:
       obligation to revise or update any forward-looking statements, or to make
       any other forward-looking statements, whether as a result of new
       information, future events or otherwise.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29465.pdf
+    filing_date: 2024-06-10
+    description: Official statutory data breach notification submitted by First
+      American Financial to the Washington State Office of the Attorney General
+      pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 706 residents.
 summary: First American Financial filed the very first SEC Form 8-K Item 1.05
   disclosure under the SEC mandate following an unauthorized network intrusion
   that disabled title portals.
@@ -199,6 +207,8 @@ tags:
   - financial
   - title-insurance
   - confirmed
+  - state-ag
+  - washington
 ---
 
 ## Incident Overview
@@ -245,3 +255,8 @@ First American Financial filed the very first SEC Form 8-K Item 1.05 disclosure 
 - **Event:** SEC Form 8-K Item 1.05 Disclosure
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0000950170-24-004247)](https://www.sec.gov/Archives/edgar/data/1472787/000095017024004247/0000950170-24-004247-index.htm)
+
+### 2024-06-10 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29465.pdf)

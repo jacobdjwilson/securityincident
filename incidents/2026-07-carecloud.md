@@ -4,7 +4,7 @@ target: CareCloud
 domain: carecloud.com
 status: CONFIRMED
 first_seen: 2026-07-24
-last_updated: 2026-07-24
+last_updated: 2026-07-25
 threat_actor: Unknown / Unattributed
 summary: Washington State Attorney General formal data breach disclosure notice
   filed by CareCloud affecting 20706 residents.
@@ -14,6 +14,7 @@ tags:
   - washington
   - confirmed
   - sec-8k
+  - california
 industry: Legal
 incident_type: Unauthorized Cloud Access
 affected_records: null
@@ -125,6 +126,14 @@ regulatory_filings:
 
       determined the full impact of the incident. To the extent any information
       required by
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-627090
+    filing_date: 2026-07-25
+    description: Official statutory data breach notification submitted by CareCloud
+      to the California Department of Justice under California Civil Code §
+      1798.82 (SB-24), disclosing unauthorized access to personal identifiable
+      information of California residents.
 ---
 
 ## Incident Overview
@@ -155,3 +164,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** SEC Form 8-K Item 1.05 Disclosure
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001493152-26-013239)](https://www.sec.gov/Archives/edgar/data/1582982/000149315226013239/0001493152-26-013239-index.htm)
+
+### 2026-07-25 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-627090)

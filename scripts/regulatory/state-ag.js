@@ -50,191 +50,245 @@ const KNOWN_AG_ALIASES = {
 
 /**
  * Fetch recent California Department of Justice / Attorney General data breach disclosures
+ * @param {Object} options
+ * @param {number} [options.pages=1] number of pages to poll (51 notices per page)
+ * @param {string} [options.minDate=null] earliest filing date to ingest (YYYY-MM-DD)
  * @returns {Promise<Array>} array of regulatory breach records
  */
-export async function fetchCaliforniaOagNotices() {
-  const url = 'https://oag.ca.gov/privacy/databreach/list';
-  console.log('🏛️ Polling California Department of Justice Data Breach Portal...');
+export async function fetchCaliforniaOagNotices({ pages = 1, minDate = null } = {}) {
+  const notices = [];
+  const seenUrls = new Set();
+  console.log(`🏛️ Polling California Department of Justice Data Breach Portal (${pages} page${pages > 1 ? 's' : ''})...`);
 
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  for (let page = 0; page < pages; page++) {
+    const url = page === 0
+      ? 'https://oag.ca.gov/privacy/databreach/list'
+      : `https://oag.ca.gov/privacy/databreach/list?page=${page}`;
 
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent': USER_AGENT,
-        'Accept': 'text/html,application/xhtml+xml,application/xml'
-      },
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-    if (!res.ok) {
-      console.warn(`   ⚠️ California OAG portal returned HTTP ${res.status}`);
-      return [];
-    }
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent': USER_AGENT,
+          'Accept': 'text/html,application/xhtml+xml,application/xml'
+        },
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
 
-    const html = await res.text();
-    const regex = /<td class="views-field views-field-field-sb24-org-name"[^>]*>\s*<a href="([^"]+)">([^<]+)<\/a>[\s\S]*?<td class="views-field views-field-created[^>]*>\s*([0-9\/]+)/gi;
-
-    const notices = [];
-    let match;
-
-    while ((match = regex.exec(html)) !== null) {
-      const reportUrl = match[1].trim();
-      const rawOrgName = match[2].trim();
-      const rawNoticeDate = match[3].trim();
-
-      let target = cleanCompanyName(rawOrgName);
-      if (!target || target.length < 3) continue;
-
-      let targetSlug = slugify(target);
-
-      // Check alias overrides
-      const lower = target.toLowerCase();
-      if (KNOWN_AG_ALIASES[lower]) {
-        target = KNOWN_AG_ALIASES[lower].name;
-        targetSlug = KNOWN_AG_ALIASES[lower].slug;
+      if (!res.ok) {
+        console.warn(`   ⚠️ California OAG portal returned HTTP ${res.status} on page ${page}`);
+        break;
       }
 
-      const dateIso = parseUsDate(rawNoticeDate);
-      const ym = dateIso.slice(0, 7);
-      const timeUtc = `${dateIso} 17:00 UTC`;
+      const html = await res.text();
+      const regex = /<td class="views-field views-field-field-sb24-org-name"[^>]*>\s*<a href="([^"]+)">([^<]+)<\/a>[\s\S]*?<td class="views-field views-field-created[^>]*>\s*([0-9\/]+)/gi;
 
-      notices.push({
-        id: `${ym}-${targetSlug}`,
-        target,
-        targetSlug,
-        domain: `${targetSlug.replace(/-/g, '')}.com`,
-        status: 'CONFIRMED',
-        verification: 'CONFIRMED BY REGULATOR',
-        fileDate: dateIso,
-        timeUtc,
-        sourceTitle: `California Attorney General Data Breach Notice (SB-24)`,
-        sourceUrl: reportUrl,
-        summary: `State of California Department of Justice data breach disclosure notice filed by ${target}.`,
-        tags: ['regulatory', 'state-ag', 'california', 'confirmed'],
-        regulatoryFilings: [
-          {
-            regulator: 'California Department of Justice',
-            form: 'SB-24 Data Breach Notice',
-            url: reportUrl,
-            filing_date: dateIso,
-            description: `Official statutory data breach notification submitted by ${target} to the California Department of Justice under California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal identifiable information of California residents.`
-          }
-        ]
-      });
+      let match;
+      let pageCount = 0;
+      let olderCount = 0;
+
+      while ((match = regex.exec(html)) !== null) {
+        pageCount++;
+        const reportUrl = match[1].trim();
+        const rawOrgName = match[2].trim();
+        const rawNoticeDate = match[3].trim();
+
+        if (seenUrls.has(reportUrl)) continue;
+        seenUrls.add(reportUrl);
+
+        let target = cleanCompanyName(rawOrgName);
+        if (!target || target.length < 3) continue;
+
+        let targetSlug = slugify(target);
+
+        // Check alias overrides
+        const lower = target.toLowerCase();
+        if (KNOWN_AG_ALIASES[lower]) {
+          target = KNOWN_AG_ALIASES[lower].name;
+          targetSlug = KNOWN_AG_ALIASES[lower].slug;
+        }
+
+        const dateIso = parseUsDate(rawNoticeDate);
+        if (minDate && dateIso < minDate) {
+          olderCount++;
+          continue;
+        }
+
+        const ym = dateIso.slice(0, 7);
+        const timeUtc = `${dateIso} 17:00 UTC`;
+
+        notices.push({
+          id: `${ym}-${targetSlug}`,
+          target,
+          targetSlug,
+          domain: `${targetSlug.replace(/-/g, '')}.com`,
+          status: 'CONFIRMED',
+          verification: 'CONFIRMED BY REGULATOR',
+          fileDate: dateIso,
+          timeUtc,
+          sourceTitle: `California Attorney General Data Breach Notice (SB-24)`,
+          sourceUrl: reportUrl,
+          summary: `State of California Department of Justice data breach disclosure notice filed by ${target}.`,
+          tags: ['regulatory', 'state-ag', 'california', 'confirmed'],
+          regulatoryFilings: [
+            {
+              regulator: 'California Department of Justice',
+              form: 'SB-24 Data Breach Notice',
+              url: reportUrl,
+              filing_date: dateIso,
+              description: `Official statutory data breach notification submitted by ${target} to the California Department of Justice under California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal identifiable information of California residents.`
+            }
+          ]
+        });
+      }
+
+      if (pageCount === 0) break;
+      if (minDate && olderCount > 0 && olderCount === pageCount) break;
+
+      if (page < pages - 1) {
+        await new Promise(r => setTimeout(r, 300));
+      }
+    } catch (err) {
+      console.error(`   ❌ Failed polling California OAG portal on page ${page}:`, err.message);
+      break;
     }
-
-    console.log(`   📥 Received ${notices.length} California OAG breach notices.`);
-    return notices;
-  } catch (err) {
-    console.error(`   ❌ Failed polling California OAG portal:`, err.message);
-    return [];
   }
+
+  console.log(`   📥 Received ${notices.length} California OAG breach notices.`);
+  return notices;
 }
 
 /**
  * Fetch recent Washington State Attorney General data breach disclosures
+ * @param {Object} options
+ * @param {number} [options.pages=1] number of pages to poll (50 notices per page)
+ * @param {string} [options.minDate=null] earliest filing date to ingest (YYYY-MM-DD)
  * @returns {Promise<Array>} array of regulatory breach records
  */
-export async function fetchWashingtonAgNotices() {
-  const url = 'https://www.atg.wa.gov/data-breach-notifications';
-  console.log('🏛️ Polling Washington State Office of the Attorney General Data Breach Directory...');
+export async function fetchWashingtonAgNotices({ pages = 1, minDate = null } = {}) {
+  const notices = [];
+  const seenUrls = new Set();
+  console.log(`🏛️ Polling Washington State Office of the Attorney General Data Breach Directory (${pages} page${pages > 1 ? 's' : ''})...`);
 
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  for (let page = 0; page < pages; page++) {
+    const url = page === 0
+      ? 'https://www.atg.wa.gov/data-breach-notifications'
+      : `https://www.atg.wa.gov/data-breach-notifications?page=${page}`;
 
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent': USER_AGENT,
-        'Accept': 'text/html,application/xhtml+xml,application/xml'
-      },
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-    if (!res.ok) {
-      console.warn(`   ⚠️ Washington AG portal returned HTTP ${res.status}`);
-      return [];
-    }
-
-    const html = await res.text();
-    const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
-    const notices = [];
-    let match;
-
-    while ((match = rowRegex.exec(html)) !== null) {
-      const row = match[1];
-      const dateMatch = row.match(/headers="view-field-report-date-table-column"[^>]*><time datetime="([^"]+)"/);
-      const linkMatch = row.match(/headers="view-field-full-title-table-column"[^>]*><a href="([^"]+)">([^<]+)<\/a>/);
-      const affectedMatch = row.match(/headers="view-field-number-wa-affected-table-column"[^>]*>([\s\S]*?)<\/td>/);
-
-      if (!dateMatch || !linkMatch) continue;
-
-      const reportUrl = linkMatch[1].trim();
-      const rawOrgName = linkMatch[2].trim();
-      const reportDate = dateMatch[1].slice(0, 10);
-      const affected = affectedMatch ? affectedMatch[1].trim() : '';
-
-      let target = cleanCompanyName(rawOrgName);
-      if (!target || target.length < 3) continue;
-
-      let targetSlug = slugify(target);
-
-      const lower = target.toLowerCase();
-      if (KNOWN_AG_ALIASES[lower]) {
-        target = KNOWN_AG_ALIASES[lower].name;
-        targetSlug = KNOWN_AG_ALIASES[lower].slug;
-      }
-
-      const ym = reportDate.slice(0, 7);
-      const timeUtc = `${reportDate} 16:30 UTC`;
-
-      let affectedCount = null;
-      if (affected && affected !== 'Unknown') {
-        const parsed = parseInt(affected.replace(/,/g, ''), 10);
-        if (!isNaN(parsed) && parsed > 0) affectedCount = parsed;
-      }
-
-      let summary = `Washington State Attorney General formal data breach disclosure notice filed by ${target}.`;
-      if (affectedCount) {
-        summary = `Washington State Attorney General formal data breach disclosure notice filed by ${target} affecting ${affectedCount.toLocaleString()} residents.`;
-      }
-
-      notices.push({
-        id: `${ym}-${targetSlug}`,
-        target,
-        targetSlug,
-        domain: `${targetSlug.replace(/-/g, '')}.com`,
-        status: 'CONFIRMED',
-        verification: 'CONFIRMED BY REGULATOR',
-        fileDate: reportDate,
-        timeUtc,
-        affectedRecords: affectedCount,
-        sourceTitle: `Washington State Attorney General Breach Notice (RCW 19.255)`,
-        sourceUrl: reportUrl,
-        summary,
-        tags: ['regulatory', 'state-ag', 'washington', 'confirmed'],
-        regulatoryFilings: [
-          {
-            regulator: 'Washington Attorney General',
-            form: 'RCW 19.255 Data Breach Notice',
-            url: reportUrl,
-            filing_date: reportDate,
-            description: `Official statutory data breach notification submitted by ${target} to the Washington State Office of the Attorney General pursuant to RCW 19.255.010, disclosing unauthorized system access impacting ${affectedCount ? affectedCount.toLocaleString() + ' ' : ''}residents.`
-          }
-        ]
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent': USER_AGENT,
+          'Accept': 'text/html,application/xhtml+xml,application/xml'
+        },
+        signal: controller.signal
       });
-    }
+      clearTimeout(timeoutId);
 
-    console.log(`   📥 Received ${notices.length} Washington State AG breach notices.`);
-    return notices;
-  } catch (err) {
-    console.error(`   ❌ Failed polling Washington State AG portal:`, err.message);
-    return [];
+      if (!res.ok) {
+        console.warn(`   ⚠️ Washington AG portal returned HTTP ${res.status} on page ${page}`);
+        break;
+      }
+
+      const html = await res.text();
+      const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
+      let match;
+      let pageCount = 0;
+      let olderCount = 0;
+
+      while ((match = rowRegex.exec(html)) !== null) {
+        const row = match[1];
+        const dateMatch = row.match(/headers="view-field-report-date-table-column"[^>]*><time datetime="([^"]+)"/);
+        const linkMatch = row.match(/headers="view-field-full-title-table-column"[^>]*><a href="([^"]+)">([^<]+)<\/a>/);
+        const affectedMatch = row.match(/headers="view-field-number-wa-affected-table-column"[^>]*>([\s\S]*?)<\/td>/);
+
+        if (!dateMatch || !linkMatch) continue;
+
+        pageCount++;
+        const reportUrl = linkMatch[1].trim();
+        const rawOrgName = linkMatch[2].trim();
+        const reportDate = dateMatch[1].slice(0, 10);
+        const affected = affectedMatch ? affectedMatch[1].trim() : '';
+
+        if (seenUrls.has(reportUrl)) continue;
+        seenUrls.add(reportUrl);
+
+        let target = cleanCompanyName(rawOrgName);
+        if (!target || target.length < 3) continue;
+
+        let targetSlug = slugify(target);
+
+        const lower = target.toLowerCase();
+        if (KNOWN_AG_ALIASES[lower]) {
+          target = KNOWN_AG_ALIASES[lower].name;
+          targetSlug = KNOWN_AG_ALIASES[lower].slug;
+        }
+
+        if (minDate && reportDate < minDate) {
+          olderCount++;
+          continue;
+        }
+
+        const ym = reportDate.slice(0, 7);
+        const timeUtc = `${reportDate} 16:30 UTC`;
+
+        let affectedCount = null;
+        if (affected && affected !== 'Unknown') {
+          const parsed = parseInt(affected.replace(/,/g, ''), 10);
+          if (!isNaN(parsed) && parsed > 0) affectedCount = parsed;
+        }
+
+        let summary = `Washington State Attorney General formal data breach disclosure notice filed by ${target}.`;
+        if (affectedCount) {
+          summary = `Washington State Attorney General formal data breach disclosure notice filed by ${target} affecting ${affectedCount.toLocaleString()} residents.`;
+        }
+
+        notices.push({
+          id: `${ym}-${targetSlug}`,
+          target,
+          targetSlug,
+          domain: `${targetSlug.replace(/-/g, '')}.com`,
+          status: 'CONFIRMED',
+          verification: 'CONFIRMED BY REGULATOR',
+          fileDate: reportDate,
+          timeUtc,
+          affectedRecords: affectedCount,
+          sourceTitle: `Washington State Attorney General Breach Notice (RCW 19.255)`,
+          sourceUrl: reportUrl,
+          summary,
+          tags: ['regulatory', 'state-ag', 'washington', 'confirmed'],
+          regulatoryFilings: [
+            {
+              regulator: 'Washington Attorney General',
+              form: 'RCW 19.255 Data Breach Notice',
+              url: reportUrl,
+              filing_date: reportDate,
+              description: `Official statutory data breach notification submitted by ${target} to the Washington State Office of the Attorney General pursuant to RCW 19.255.010, disclosing unauthorized system access impacting ${affectedCount ? affectedCount.toLocaleString() + ' ' : ''}residents.`
+            }
+          ]
+        });
+      }
+
+      if (pageCount === 0) break;
+      if (minDate && olderCount > 0 && olderCount === pageCount) break;
+
+      if (page < pages - 1) {
+        await new Promise(r => setTimeout(r, 300));
+      }
+    } catch (err) {
+      console.error(`   ❌ Failed polling Washington State AG portal on page ${page}:`, err.message);
+      break;
+    }
   }
+
+  console.log(`   📥 Received ${notices.length} Washington State AG breach notices.`);
+  return notices;
 }
 
 /**
@@ -344,12 +398,15 @@ export async function fetchOregonDojNotices({ limit = 40 } = {}) {
 
 /**
  * Unified multi-state regulatory breach scraper
+ * @param {Object} options
+ * @param {number} [options.pages=1]
+ * @param {string} [options.minDate=null]
  * @returns {Promise<Array>}
  */
-export async function fetchAllStateAgNotices() {
+export async function fetchAllStateAgNotices({ pages = 1, minDate = null } = {}) {
   const [caNotices, waNotices, orNotices] = await Promise.all([
-    fetchCaliforniaOagNotices(),
-    fetchWashingtonAgNotices(),
+    fetchCaliforniaOagNotices({ pages, minDate }),
+    fetchWashingtonAgNotices({ pages, minDate }),
     fetchOregonDojNotices()
   ]);
   return [...caNotices, ...waNotices, ...orNotices];
