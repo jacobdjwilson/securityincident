@@ -3,12 +3,11 @@ id: 2026-08-turner-construction-company
 target: Turner Construction Company
 domain: turnerconstructioncompany.com
 status: CONFIRMED
-first_seen: '2026-08-18'
-last_updated: '2026-08-18'
+first_seen: 2026-08-18
+last_updated: 2026-08-18
 threat_actor: Unattributed
-summary: >-
-  Washington State Attorney General formal data breach disclosure notice filed
-  by Turner Construction Company affecting 3401 residents.
+summary: Washington State Attorney General formal data breach disclosure notice
+  filed by Turner Construction Company affecting 3401 residents.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,13 @@ compromised_data:
 regulatory_filings:
   - regulator: Washington Attorney General
     notice_id: WA-2026-03984
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
+    description: Official statutory data breach notification submitted by Turner
+      Construction Company to the Washington State Office of the Attorney
+      General pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 34,000 residents.
 ---
+
 ## Incident Overview
 
 The **Turner Construction Company** cybersecurity event represents a confirmed **Business Email Compromise (BEC)** within the **Manufacturing & Construction** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **34,000 individuals and records**.

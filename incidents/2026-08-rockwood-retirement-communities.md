@@ -3,12 +3,11 @@ id: 2026-08-rockwood-retirement-communities
 target: Rockwood Retirement Communities
 domain: rockwoodretirement.org
 status: CONFIRMED
-first_seen: '2026-08-20'
-last_updated: '2026-08-20'
+first_seen: 2026-08-20
+last_updated: 2026-08-20
 threat_actor: Unattributed
-summary: >-
-  Washington State Attorney General formal data breach disclosure notice filed
-  by Rockwood Retirement Communities affecting 7136 residents.
+summary: Washington State Attorney General formal data breach disclosure notice
+  filed by Rockwood Retirement Communities affecting 7136 residents.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,13 @@ compromised_data:
 regulatory_filings:
   - regulator: Washington Attorney General
     notice_id: WA-2026-03890
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
+    description: Official statutory data breach notification submitted by Rockwood
+      Retirement Communities to the Washington State Office of the Attorney
+      General pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 6,200 residents.
 ---
+
 ## Incident Overview
 
 The **Rockwood Retirement Communities** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Healthcare & Senior Living** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **6,200 individuals and records**.

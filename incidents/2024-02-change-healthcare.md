@@ -3,8 +3,8 @@ id: 2024-02-change-healthcare
 target: Change Healthcare
 domain: changehealthcare.com
 status: CONFIRMED
-first_seen: '2024-02-21'
-last_updated: '2024-10-24'
+first_seen: 2024-02-21
+last_updated: 2024-10-24
 threat_actor: ALPHV / BlackCat
 industry: Healthcare
 incident_type: Ransomware Extortion & Healthcare Pipeline Disruption
@@ -20,32 +20,32 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0000731766-24-000010
-    filing_date: '2024-02-21'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/731766/000073176624000010/uhg-20240221.htm
-    description: >-
-      Item 1.05 Material Cybersecurity Incident disclosure filed by UnitedHealth
-      Group reporting suspected cybercrime intrusion into Change Healthcare IT
-      environments resulting in nationwide healthcare billing and pharmacy
-      disruptions.
+    filing_date: 2024-02-21
+    url: https://www.sec.gov/Archives/edgar/data/731766/000073176624000010/uhg-20240221.htm
+    description: Item 1.05 Material Cybersecurity Incident disclosure filed by
+      UnitedHealth Group reporting suspected cybercrime intrusion into Change
+      Healthcare IT environments resulting in nationwide healthcare billing and
+      pharmacy disruptions.
   - regulator: HHS OCR
     form: HIPAA Breach Portal Report
     accession_number: HHS-OCR-2024-001
-    url: 'https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf'
+    url: https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf
+    description: Formal healthcare data breach notification submitted by Change
+      Healthcare to the U.S. Department of Health and Human Services (HHS)
+      Office for Civil Rights (OCR) under HIPAA Breach Notification Rule 45 CFR
+      §§ 164.400-414.
 agency_advisories:
   - agency: CISA & FBI (Joint Advisory)
     advisory_id: AA24-060A (#StopRansomware ALPHV BlackCat)
     advisory_type: Joint Cybersecurity Advisory (CSA)
-    release_date: '2024-02-28'
+    release_date: 2024-02-28
     url: https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-060a
-    description: >-
-      Joint CISA and FBI Cybersecurity Advisory providing technical indicators of
-      compromise (IOCs), tactics, techniques, and procedures (TTPs) associated with
-      the ALPHV BlackCat ransomware deployment targeting Change Healthcare and the
-      Healthcare and Public Health (HPH) Sector.
-summary: >-
-  Change Healthcare (UnitedHealth Group) suffered a devastating ALPHV / BlackCat
-  ransomware extortion attack halting healthcare clearinghouse networks
+    description: Joint CISA and FBI Cybersecurity Advisory providing technical
+      indicators of compromise (IOCs), tactics, techniques, and procedures
+      (TTPs) associated with the ALPHV BlackCat ransomware deployment targeting
+      Change Healthcare and the Healthcare and Public Health (HPH) Sector.
+summary: Change Healthcare (UnitedHealth Group) suffered a devastating ALPHV /
+  BlackCat ransomware extortion attack halting healthcare clearinghouse networks
   nationwide and impacting 100M individuals.
 tags:
   - regulatory
@@ -55,6 +55,7 @@ tags:
   - ransomware
   - confirmed
 ---
+
 ## Incident Overview
 
 Change Healthcare (UnitedHealth Group) suffered a devastating ALPHV / BlackCat ransomware extortion attack halting healthcare clearinghouse networks nationwide and impacting 100M individuals.

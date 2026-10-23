@@ -23,9 +23,17 @@ regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
     url: https://oag.ca.gov/privacy/databreach/list
+    description: Official statutory data breach notification submitted by Fox
+      Rothschild to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
   - regulator: Washington State Office of the Attorney General
     form: Consumer Protection Data Breach Notification
     url: https://www.atg.wa.gov/data-breach-notifications
+    description: Official statutory data breach notification submitted by Fox
+      Rothschild to the Washington State Office of the Attorney General pursuant
+      to RCW 19.255.010, disclosing unauthorized system access impacting
+      residents.
 ---
 
 ## Incident Overview

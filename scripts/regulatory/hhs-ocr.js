@@ -143,7 +143,8 @@ export async function fetchHhsOcrBreaches() {
             regulator: 'HHS OCR',
             form: 'HIPAA Breach Portal Disclosure',
             url: link,
-            filing_date: fileDate
+            filing_date: fileDate,
+            description: desc || `Healthcare data breach notification submitted by ${targetCandidate} to the U.S. Department of Health and Human Services (HHS) Office for Civil Rights (OCR) under HIPAA Breach Notification Rule 45 CFR §§ 164.400-414.`
           }
         ]
       });

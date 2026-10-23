@@ -3,10 +3,10 @@ id: 2026-09-dutch-police-politie
 target: Dutch Police (Politie)
 domain: politie.nl
 status: DEVELOPING
-first_seen: '2026-09-28'
-last_updated: '2026-09-29'
+first_seen: 2026-09-28
+last_updated: 2026-09-29
 threat_actor: ShinyHunters
-summary: "Identified a network intrusion and"
+summary: Identified a network intrusion and
 tags:
   - investigative
   - developing
@@ -20,8 +20,12 @@ compromised_data:
 regulatory_filings:
   - regulator: Dutch Data Protection Authority (AP)
     form: Landelijke Eenheid Breach Disclosure
-    url: 'https://autoriteitpersoonsgegevens.nl'
+    url: https://autoriteitpersoonsgegevens.nl
+    description: Official statutory regulatory filing submitted by Dutch Police
+      (Politie) to Dutch Data Protection Authority (AP) pursuant to applicable
+      data breach disclosure mandates.
 ---
+
 ## Incident Overview
 
 The **Dutch Police (Politie)** cybersecurity event represents a confirmed **Network Intrusion & Exfiltration** within the **Government & Law Enforcement** sector, attributed to the **ShinyHunters** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **65,000 individuals and records**.

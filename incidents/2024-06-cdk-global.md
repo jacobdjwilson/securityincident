@@ -3,8 +3,8 @@ id: 2024-06-cdk-global
 target: CDK Global
 domain: cdkglobal.com
 status: CONFIRMED
-first_seen: '2024-06-19'
-last_updated: '2024-07-02'
+first_seen: 2024-06-19
+last_updated: 2024-07-02
 threat_actor: BlackSuit
 industry: Automotive & Software Services
 incident_type: Ransomware Extortion & Software Outage
@@ -18,9 +18,10 @@ regulatory_filings:
   - regulator: State AG
     form: Breach Notification (CA DOJ)
     accession_number: CA-DOJ-2024-CDK
-    url: 'https://oag.ca.gov/privacy/databreach/list'
-summary: >-
-  Dealership software giant CDK Global suffered an operational paralysis
+    url: https://oag.ca.gov/privacy/databreach/list
+    description: Official statutory regulatory filing submitted by CDK Global to
+      State AG pursuant to applicable data breach disclosure mandates.
+summary: Dealership software giant CDK Global suffered an operational paralysis
   cyberattack by the BlackSuit ransomware group, shutting down 15,000 auto
   dealerships nationwide.
 tags:
@@ -30,6 +31,7 @@ tags:
   - ransomware
   - confirmed
 ---
+
 ## Incident Overview
 
 Dealership software giant CDK Global suffered an operational paralysis cyberattack by the BlackSuit ransomware group, shutting down 15,000 auto dealerships nationwide.

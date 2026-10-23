@@ -1234,6 +1234,10 @@ function renderRegulatoryFilingsDossier(inc) {
     const docketId = f.accession_number || f.notice_id || 'Statutory Public Notice';
     const formTitle = f.form || 'Statutory Disclosure Notice';
     const descriptionText = f.description || `Official statutory regulatory filing submitted by ${inc.target} to ${f.regulator} pursuant to applicable data breach disclosure mandates.`;
+    const descParagraphs = descriptionText.split(/\r?\n\s*\r?\n/).map(p => p.trim()).filter(Boolean);
+    const descHtml = descParagraphs.length > 1
+      ? descParagraphs.map(p => `<p class="rf-desc-p">${escapeXml(p).replace(/\r?\n/g, '<br>')}</p>`).join('\n')
+      : `<p class="rf-desc-p">${escapeXml(descriptionText).replace(/\r?\n/g, '<br>')}</p>`;
     const docUrl = f.url || '#';
 
     return `
@@ -1267,7 +1271,9 @@ function renderRegulatoryFilingsDossier(inc) {
 
         <div class="rf-description">
           <span class="rf-desc-label"><i class="fa-solid fa-quote-left"></i> Statutory Filing Details &amp; Summary (Preserved As Filed):</span>
-          <p class="rf-desc-text">${escapeXml(descriptionText)}</p>
+          <div class="rf-desc-text">
+            ${descHtml}
+          </div>
         </div>
 
         <div class="rf-actions">

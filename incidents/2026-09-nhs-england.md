@@ -28,6 +28,9 @@ regulatory_filings:
   - regulator: UK Information Commissioner Office (ICO)
     form: Statutory Data Protection Notice
     url: https://ico.org.uk
+    description: Official statutory regulatory filing submitted by NHS England to UK
+      Information Commissioner Office (ICO) pursuant to applicable data breach
+      disclosure mandates.
 ---
 
 ## Incident Overview

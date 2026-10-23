@@ -119,6 +119,23 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
         ? `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`
         : `Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by ${target}.`;
 
+      const docName = hit._id ? hit._id.split(':')[1] : null;
+      let filingDescription = null;
+      try {
+        filingDescription = await fetchSecDocText({ cik, adsh, docName });
+      } catch {}
+
+      const regFiling = {
+        regulator: 'SEC',
+        form: formName,
+        accession_number: adsh,
+        url: permanentUrl,
+        filing_date: fileDate
+      };
+      if (filingDescription) {
+        regFiling.description = filingDescription;
+      }
+
       filings.push({
         id: `${ym}-${targetSlug}`,
         target,
@@ -133,15 +150,7 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
         sourceUrl: permanentUrl,
         summary: summaryText,
         tags: ['regulatory', 'sec-8k', 'confirmed'],
-        regulatoryFilings: [
-          {
-            regulator: 'SEC',
-            form: formName,
-            accession_number: adsh,
-            url: permanentUrl,
-            filing_date: fileDate
-          }
-        ]
+        regulatoryFilings: [regFiling]
       });
     }
 
@@ -151,3 +160,89 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
     return [];
   }
 }
+
+/**
+ * Extract clean, verbatim disclosure text from an SEC Form 8-K document HTML
+ * @param {string} html
+ * @returns {string|null}
+ */
+export function extractItemDisclosureText(html) {
+  if (!html) return null;
+  const cleaned = html
+    .replace(/<br\s*[\/]?>/gi, '\n')
+    .replace(/<\/p>|<\/div>|<\/tr>/gi, '\n\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&#8220;|&#8221;|&ldquo;|&rdquo;/g, '"')
+    .replace(/&#8216;|&#8217;|&lsquo;|&rsquo;/g, "'")
+    .replace(/&#8211;|&#8212;|&ndash;|&mdash;/g, '—')
+    .replace(/&nbsp;|&#160;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n[ \t]+/g, '\n')
+    .replace(/\n\s*\n\s*\n+/g, '\n\n')
+    .replace(/&#8203;/g, '')
+    .trim();
+
+  // Match Item 1.05 or Item 8.01 content until next Item, Signatures, or end of file
+  const match = cleaned.match(/(Item\s+(?:1\.05|8\.01)[\s\S]+?)(?=(?:Item\s+\d+\.\d+|SIGNATURES?|Pursuant to the requirements|\n\s*SIGNATURE|$))/i);
+  if (match) {
+    const result = match[1].trim();
+    if (result.length > 50) return result;
+  }
+  return null;
+}
+
+/**
+ * Fetch and extract the verbatim disclosure text from SEC EDGAR for a given CIK and accession number
+ * @param {Object} params
+ * @param {string|number} params.cik
+ * @param {string} params.adsh
+ * @param {string} [params.docName]
+ * @returns {Promise<string|null>}
+ */
+export async function fetchSecDocText({ cik, adsh, docName }) {
+  const cleanCik = parseInt(cik, 10);
+  const cleanAdsh = (adsh || '').replace(/-/g, '');
+  if (!cleanCik || !cleanAdsh) return null;
+
+  try {
+    let docUrl = null;
+    if (docName) {
+      docUrl = `https://www.sec.gov/Archives/edgar/data/${cleanCik}/${cleanAdsh}/${docName}`;
+    } else {
+      const indexUrl = `https://www.sec.gov/Archives/edgar/data/${cleanCik}/${cleanAdsh}/${adsh}-index.htm`;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+      const res = await fetch(indexUrl, {
+        headers: { 'User-Agent': USER_AGENT },
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      if (!res.ok) return null;
+      const html = await res.text();
+      const match = html.match(/href="(?:\/ix\?doc=)?(\/Archives\/edgar\/data\/[^"]+\.htm)"/i);
+      if (match) {
+        docUrl = `https://www.sec.gov${match[1]}`;
+      }
+    }
+
+    if (!docUrl) return null;
+
+    const controller2 = new AbortController();
+    const timeoutId2 = setTimeout(() => controller2.abort(), REQUEST_TIMEOUT_MS);
+    const docRes = await fetch(docUrl, {
+      headers: { 'User-Agent': USER_AGENT },
+      signal: controller2.signal
+    });
+    clearTimeout(timeoutId2);
+    if (!docRes.ok) return null;
+    const docHtml = await docRes.text();
+    return extractItemDisclosureText(docHtml);
+  } catch (err) {
+    console.warn(`   ⚠️ Error fetching SEC document text for ${adsh}:`, err.message);
+    return null;
+  }
+}
+

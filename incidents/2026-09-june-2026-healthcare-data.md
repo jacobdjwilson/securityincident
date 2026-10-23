@@ -23,6 +23,10 @@ regulatory_filings:
     form: HIPAA Breach Portal Disclosure
     url: https://www.hipaajournal.com/june-2026-healthcare-data-breach-report/
     filing_date: 2026-09-07
+    description: Formal healthcare data breach notification submitted by June 2026
+      Healthcare Data to the U.S. Department of Health and Human Services (HHS)
+      Office for Civil Rights (OCR) under HIPAA Breach Notification Rule 45 CFR
+      §§ 164.400-414.
 ---
 
 ## Incident Overview

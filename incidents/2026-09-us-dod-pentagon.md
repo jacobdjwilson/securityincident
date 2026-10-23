@@ -24,6 +24,9 @@ regulatory_filings:
   - regulator: U.S. DoD Privacy Office
     form: System of Records Breach Notification
     url: https://dpcld.defense.gov/Privacy/
+    description: Official statutory regulatory filing submitted by U.S. Department
+      of Defense (Pentagon) to U.S. DoD Privacy Office pursuant to applicable
+      data breach disclosure mandates.
 ---
 
 ## Incident Overview

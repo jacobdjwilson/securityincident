@@ -119,7 +119,8 @@ export async function fetchCaliforniaOagNotices() {
             regulator: 'California Department of Justice',
             form: 'SB-24 Data Breach Notice',
             url: reportUrl,
-            filing_date: dateIso
+            filing_date: dateIso,
+            description: `Official statutory data breach notification submitted by ${target} to the California Department of Justice under California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal identifiable information of California residents.`
           }
         ]
       });
@@ -221,7 +222,8 @@ export async function fetchWashingtonAgNotices() {
             regulator: 'Washington Attorney General',
             form: 'RCW 19.255 Data Breach Notice',
             url: reportUrl,
-            filing_date: reportDate
+            filing_date: reportDate,
+            description: `Official statutory data breach notification submitted by ${target} to the Washington State Office of the Attorney General pursuant to RCW 19.255.010, disclosing unauthorized system access impacting ${affectedCount ? affectedCount.toLocaleString() + ' ' : ''}residents.`
           }
         ]
       });
@@ -323,7 +325,8 @@ export async function fetchOregonDojNotices({ limit = 40 } = {}) {
             regulator: 'Oregon Department of Justice',
             form: 'ORS 646A.604 Data Breach Notice',
             url: url,
-            filing_date: reportDate
+            filing_date: reportDate,
+            description: `Official statutory data breach disclosure notice submitted by ${target} to the Oregon Department of Justice pursuant to the Oregon Consumer Information Protection Act (ORS 646A.604)${affectedCount ? ` impacting approximately ${affectedCount.toLocaleString()} individuals.` : '.'}`
           }
         ]
       });

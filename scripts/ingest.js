@@ -634,9 +634,11 @@ function upsertIncidentMilestone({
       if (Array.isArray(safeFilings) && safeFilings.length > 0) {
         if (!Array.isArray(parsed.data.regulatory_filings)) parsed.data.regulatory_filings = [];
         for (const filing of safeFilings) {
-          const exists = parsed.data.regulatory_filings.some(f => f.url === filing.url || (f.regulator === filing.regulator && f.form === filing.form));
-          if (!exists) {
+          const existingFiling = parsed.data.regulatory_filings.find(f => f.url === filing.url || (f.regulator === filing.regulator && (f.form === filing.form || (f.accession_number && f.accession_number === filing.accession_number))));
+          if (!existingFiling) {
             parsed.data.regulatory_filings.push(filing);
+          } else if (filing.description && (!existingFiling.description || existingFiling.description.length < filing.description.length)) {
+            existingFiling.description = filing.description;
           }
         }
       }

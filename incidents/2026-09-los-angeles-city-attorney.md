@@ -24,6 +24,10 @@ regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09180
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629957
+    description: Official statutory data breach notification submitted by Office of
+      the Los Angeles City Attorney to the California Department of Justice
+      under California Civil Code § 1798.82 (SB-24), disclosing unauthorized
+      access to personal identifiable information of California residents.
 ---
 
 ## Incident Overview

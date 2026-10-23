@@ -19,6 +19,10 @@ regulatory_filings:
     form: ORS 646A.604 Data Breach Notice
     url: https://justice.oregon.gov/consumer/databreach/
     filing_date: 2026-09-29
+    description: Official statutory data breach disclosure notice submitted by Lamb
+      Weston to the Oregon Department of Justice pursuant to the Oregon Consumer
+      Information Protection Act (ORS 646A.604) impacting approximately 7,175
+      individuals.
 industry: Food & Agriculture
 incident_type: Data Breach
 compromised_data:

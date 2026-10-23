@@ -18,6 +18,10 @@ regulatory_filings:
     form: SB-24 Data Breach Notice
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630604
     filing_date: 2026-09-30
+    description: Official statutory data breach notification submitted by ProCamps
+      to the California Department of Justice under California Civil Code §
+      1798.82 (SB-24), disclosing unauthorized access to personal identifiable
+      information of California residents.
 compromised_data:
   - Authentication Credentials
 ---

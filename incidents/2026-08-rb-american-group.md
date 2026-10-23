@@ -3,12 +3,11 @@ id: 2026-08-rb-american-group
 target: RB American Group
 domain: rbamericangroup.com
 status: CONFIRMED
-first_seen: '2026-08-28'
-last_updated: '2026-08-28'
+first_seen: 2026-08-28
+last_updated: 2026-08-28
 threat_actor: RansomHub
-summary: >-
-  Washington State Attorney General formal data breach disclosure notice filed
-  by RB American Group affecting 974 residents.
+summary: Washington State Attorney General formal data breach disclosure notice
+  filed by RB American Group affecting 974 residents.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,13 @@ compromised_data:
 regulatory_filings:
   - regulator: Washington Attorney General
     notice_id: WA-2026-03912
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
+    description: Official statutory data breach notification submitted by RB
+      American Group to the Washington State Office of the Attorney General
+      pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 98,000 residents.
 ---
+
 ## Incident Overview
 
 The **RB American Group** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Retail & Food Services** sector, attributed to the **RansomHub** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **98,000 individuals and records**.

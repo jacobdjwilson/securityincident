@@ -24,9 +24,18 @@ regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09199
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629908
+    description: Official statutory data breach notification submitted by
+      Partnership HealthPlan of California to the California Department of
+      Justice under California Civil Code § 1798.82 (SB-24), disclosing
+      unauthorized access to personal identifiable information of California
+      residents.
   - regulator: HHS Office for Civil Rights
     form: HIPAA Breach Portal
     url: https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf
+    description: Formal healthcare data breach notification submitted by Partnership
+      HealthPlan of California to the U.S. Department of Health and Human
+      Services (HHS) Office for Civil Rights (OCR) under HIPAA Breach
+      Notification Rule 45 CFR §§ 164.400-414.
 ---
 
 ## Incident Overview

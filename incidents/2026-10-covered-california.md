@@ -18,6 +18,10 @@ regulatory_filings:
     form: SB-24 Data Breach Notice
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-631490
     filing_date: 2026-10-16
+    description: Official statutory data breach notification submitted by Covered
+      California to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 compromised_data:
   - Authentication Credentials
 ---
