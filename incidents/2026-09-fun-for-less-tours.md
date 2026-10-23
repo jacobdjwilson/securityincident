@@ -3,12 +3,11 @@ id: 2026-09-fun-for-less-tours
 target: Fun For Less Tours
 domain: funforlesstours.com
 status: CONFIRMED
-first_seen: '2026-09-21'
-last_updated: '2026-09-21'
+first_seen: 2026-09-21
+last_updated: 2026-09-21
 threat_actor: Unknown / Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Fun For Less Tours.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Fun For Less Tours.
 tags:
   - regulatory
   - state-ag
@@ -23,8 +22,9 @@ compromised_data:
 regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630062
 ---
+
 ## Incident Overview
 
 The **Fun For Less Tours** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Retail & Consumer Goods** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

@@ -4,7 +4,7 @@ target: Anthropic
 domain: anthropic.com
 status: DEVELOPING
 first_seen: 2026-08-06
-last_updated: 2026-10-13
+last_updated: 2026-10-19
 threat_actor: null
 summary: Anthropic's latest research adds to the growing safety concerns around
   AI from the ability for models to carry out cyberattacks to the technology
@@ -61,3 +61,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Meta Joins OpenAI and Anthropic in Reporting AI Exploit Incident
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/meta-ai-exploit-incident/)
+
+### 2026-10-19 13:30 UTC
+- **Event:** Press Coverage: OpenCode Breach Could Affect OpenAI, Anthropic and Google
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/opencode-breach-openai-anthropic/)

@@ -3,12 +3,11 @@ id: 2026-09-see-s-candies
 target: See’s Candies
 domain: seescandies.com
 status: CONFIRMED
-first_seen: '2026-09-02'
-last_updated: '2026-09-02'
+first_seen: 2026-09-02
+last_updated: 2026-09-02
 threat_actor: Magecart / E-commerce Skimmer
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by See’s Candies.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by See’s Candies.
 tags:
   - regulatory
   - state-ag
@@ -25,11 +24,12 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-08192
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629221
   - regulator: Washington Attorney General
     notice_id: WA-2026-04192
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
 ---
+
 ## Incident Overview
 
 The **See’s Candies** cybersecurity event represents a confirmed **E-commerce Skimming & Credential Theft** within the **Retail & Consumer Goods** sector, attributed to the **Magecart / E-commerce Skimmer** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **12,500 individuals and records**.

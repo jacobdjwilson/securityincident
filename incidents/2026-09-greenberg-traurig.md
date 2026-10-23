@@ -3,12 +3,12 @@ id: 2026-09-greenberg-traurig
 target: Greenberg Traurig
 domain: gtlaw.com
 status: CONFIRMED
-first_seen: '2026-09-09'
-last_updated: '2026-10-01'
+first_seen: 2026-09-09
+last_updated: 2026-10-01
 threat_actor: RansomHub
-summary: >-
-  Global law firm Greenberg Traurig was compromised by Silent Ransom Group,
-  resulting in the exfiltration and notification of over 126,000 individuals.
+summary: Global law firm Greenberg Traurig was compromised by Silent Ransom
+  Group, resulting in the exfiltration and notification of over 126,000
+  individuals.
 tags:
   - investigative
   - legal
@@ -31,12 +31,13 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09142
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629493
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
-    url: 'https://oag.ca.gov/ecrime/databreach/reports/sb24-630659'
-    filing_date: '2026-10-01'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630659
+    filing_date: 2026-10-01
 ---
+
 ## Incident Overview
 
 The **Greenberg Traurig** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Legal** sector, attributed to the **RansomHub** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **145,000 individuals and records**.

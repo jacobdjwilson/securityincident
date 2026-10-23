@@ -3,12 +3,11 @@ id: 2026-07-upbound-group
 target: Upbound Group
 domain: upbound.com
 status: CONFIRMED
-first_seen: '2026-07-22'
-last_updated: '2026-09-27'
+first_seen: 2026-07-22
+last_updated: 2026-09-27
 threat_actor: Unknown / Unattributed
-summary: >-
-  Upbound Group disclosed unauthorized acquisition of customer records and
-  internal documents subsequently leveraged in fraudulent attempts.
+summary: Upbound Group disclosed unauthorized acquisition of customer records
+  and internal documents subsequently leveraged in fraudulent attempts.
 tags:
   - regulatory
   - sec-8k
@@ -28,17 +27,16 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001193125-26-310605
-    filing_date: '2026-07-21'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/933036/000119312526310605/0001193125-26-310605-index.htm
-    description: >-
-      Item 1.05 Material Cybersecurity Incident disclosure filed by Upbound
-      Group, Inc. detailing unauthorized access to corporate network systems and
-      customer leasing accounts.
+    filing_date: 2026-07-21
+    url: https://www.sec.gov/Archives/edgar/data/933036/000119312526310605/0001193125-26-310605-index.htm
+    description: Item 1.05 Material Cybersecurity Incident disclosure filed by
+      Upbound Group, Inc. detailing unauthorized access to corporate network
+      systems and customer leasing accounts.
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630390
 ---
+
 ## Incident Overview
 
 The **Upbound Group** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Retail & Consumer Goods** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

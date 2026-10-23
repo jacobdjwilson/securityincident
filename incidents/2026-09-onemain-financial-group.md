@@ -3,12 +3,11 @@ id: 2026-09-onemain-financial-group
 target: OneMain Financial Group
 domain: onemainfinancialgroup.com
 status: CONFIRMED
-first_seen: '2026-09-25'
-last_updated: '2026-09-25'
+first_seen: 2026-09-25
+last_updated: 2026-09-25
 threat_actor: Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by OneMain Financial Group.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by OneMain Financial Group.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,9 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09312
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630345
 ---
+
 ## Incident Overview
 
 The **OneMain Financial Group** cybersecurity event represents a confirmed **Credential Stuffing & Account Takeover** within the **Financial Services** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **42,000 individuals and records**.

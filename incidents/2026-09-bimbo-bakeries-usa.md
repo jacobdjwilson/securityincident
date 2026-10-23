@@ -3,12 +3,11 @@ id: 2026-09-bimbo-bakeries-usa
 target: Bimbo Bakeries USA
 domain: bimbobakeriesusa.com
 status: CONFIRMED
-first_seen: '2026-09-04'
-last_updated: '2026-09-04'
+first_seen: 2026-09-04
+last_updated: 2026-09-04
 threat_actor: BlackSuit
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Bimbo Bakeries USA.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Bimbo Bakeries USA.
 tags:
   - regulatory
   - state-ag
@@ -25,11 +24,12 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09201
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629294
   - regulator: Washington Attorney General
     notice_id: WA-2026-04289
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
 ---
+
 ## Incident Overview
 
 The **Bimbo Bakeries USA** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Manufacturing & Consumer Goods** sector, attributed to the **BlackSuit** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **18,500 individuals and records**.

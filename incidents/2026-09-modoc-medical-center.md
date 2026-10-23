@@ -3,12 +3,11 @@ id: 2026-09-modoc-medical-center
 target: Modoc Medical Center
 domain: modocmedicalcenter.com
 status: CONFIRMED
-first_seen: '2026-09-22'
-last_updated: '2026-09-22'
+first_seen: 2026-09-22
+last_updated: 2026-09-22
 threat_actor: Akira
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Modoc Medical Center.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Modoc Medical Center.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,9 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09160
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630126
 ---
+
 ## Incident Overview
 
 The **Modoc Medical Center** cybersecurity event represents a confirmed **Ransomware & Network Intrusion** within the **Healthcare** sector, attributed to the **Akira** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **8,400 individuals and records**.

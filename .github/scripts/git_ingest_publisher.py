@@ -267,6 +267,10 @@ def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: s
         sha_res = run_git_cmd(["rev-parse", "HEAD"])
         commit_sha = sha_res.stdout.strip()
 
+        # Push commit to working branch first so the commit object exists on GitHub remote
+        pr_branch = git_cfg.get("branch_name", "telemetry/ingest-pending")
+        run_git_cmd(["push", "-u", "origin", f"HEAD:{pr_branch}", "--force-with-lease"], check=False)
+
         # Register status check before pushing so protected branch rules requiring status_check pass
         repo = os.environ.get("GITHUB_REPOSITORY", "")
         if repo:
@@ -293,6 +297,14 @@ def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: s
         if pushed:
             print(f"✅ Successfully published telemetry updates directly to {target_branch} ({commit_sha[:8]}).")
             write_step_summary(changed_lines, commit_sha, "direct", target_branch)
+            # If an open PR existed on pr_branch, close it since updates are committed directly to main
+            try:
+                open_pr_res = run_gh_cmd(["pr", "list", "--head", pr_branch, "--state", "open", "--json", "number", "-q", ".[0].number"], check=False)
+                existing_pr = open_pr_res.stdout.strip()
+                if existing_pr:
+                    run_gh_cmd(["pr", "close", existing_pr, "--comment", f"Telemetry updates were committed directly to `{target_branch}` in steady-state mode."], check=False)
+            except Exception:
+                pass
             return EXIT_SUCCESS
 
         print(f"Warning: Direct push to {target_branch} failed after retries:\n{push_res.stderr}\nFalling back to Pull Request mode...")
@@ -315,6 +327,11 @@ def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: s
     sha_res = run_git_cmd(["rev-parse", "HEAD"])
     commit_sha = sha_res.stdout.strip()
 
+    # Push branch first so commit exists remotely
+    push_res = run_git_cmd(["push", "-u", "origin", branch_name, "--force-with-lease"], check=False)
+    if push_res.returncode != 0:
+        run_git_cmd(["push", "-u", "origin", branch_name], check=False)
+
     # Register status check
     repo = os.environ.get("GITHUB_REPOSITORY", "")
     if repo:
@@ -328,10 +345,15 @@ def publish_changes(mode: str, branch_name: str, has_open_pr: bool, pr_number: s
         except Exception as err:
             print(f"Warning: Could not register commit status check: {err}")
 
-    # Push branch
-    push_res = run_git_cmd(["push", "-u", "origin", branch_name, "--force-with-lease"], check=False)
-    if push_res.returncode != 0:
-        run_git_cmd(["push", "-u", "origin", branch_name], check=False)
+    # Dynamically discover open PR if pr_number is not set
+    if not pr_number:
+        try:
+            res = run_gh_cmd(["pr", "list", "--head", branch_name, "--state", "open", "--json", "number", "-q", ".[0].number"], check=False)
+            pr_number = res.stdout.strip()
+            if pr_number:
+                has_open_pr = True
+        except Exception:
+            pass
 
     if has_open_pr and pr_number:
         print(f"Updating existing PR #{pr_number}...")

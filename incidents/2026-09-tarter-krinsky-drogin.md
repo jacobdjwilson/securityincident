@@ -3,12 +3,11 @@ id: 2026-09-tarter-krinsky-drogin
 target: Tarter Krinsky & Drogin
 domain: tarterkrinskydrogin.com
 status: CONFIRMED
-first_seen: '2026-09-15'
-last_updated: '2026-09-15'
+first_seen: 2026-09-15
+last_updated: 2026-09-15
 threat_actor: Unknown / Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Tarter Krinsky & Drogin.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Tarter Krinsky & Drogin.
 tags:
   - regulatory
   - state-ag
@@ -23,8 +22,9 @@ compromised_data:
 regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629786
 ---
+
 ## Incident Overview
 
 The **Tarter Krinsky & Drogin** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Legal** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

@@ -3,12 +3,11 @@ id: 2026-09-fairwinds-credit-union
 target: Fairwinds Credit Union
 domain: fairwindscreditunion.com
 status: CONFIRMED
-first_seen: '2026-09-23'
-last_updated: '2026-09-23'
+first_seen: 2026-09-23
+last_updated: 2026-09-23
 threat_actor: Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Fairwinds Credit Union.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Fairwinds Credit Union.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,9 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09118
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630165
 ---
+
 ## Incident Overview
 
 The **Fairwinds Credit Union** cybersecurity event represents a confirmed **Third-Party Vendor Cloud Compromise** within the **Financial Services** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **65,000 individuals and records**.

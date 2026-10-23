@@ -133,6 +133,26 @@ export function extractIncidentUrls(filePath) {
   return items;
 }
 
+const BOT_PROTECTED_DOMAINS = [
+  'oag.ca.gov',
+  'justice.oregon.gov',
+  'atg.wa.gov',
+  'darkreading.com',
+  'bleepingcomputer.com',
+  'bloomberg.com',
+  'reuters.com',
+  'sec.gov'
+];
+
+function isBotProtectedDomain(url) {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return BOT_PROTECTED_DOMAINS.some(d => hostname === d || hostname.endsWith(`.${d}`));
+  } catch {
+    return false;
+  }
+}
+
 async function runCli() {
   const args = process.argv.slice(2);
   let targetFiles = [];
@@ -166,6 +186,7 @@ async function runCli() {
 
   let totalUrls = 0;
   let totalFailed = 0;
+  const urlCache = new Map();
 
   for (const file of targetFiles) {
     if (!fs.existsSync(file)) {
@@ -178,11 +199,22 @@ async function runCli() {
     totalUrls += urls.length;
 
     for (const item of urls) {
-      const res = await testUrl(item.url);
+      let res;
+      if (urlCache.has(item.url)) {
+        res = urlCache.get(item.url);
+      } else {
+        res = await testUrl(item.url);
+        urlCache.set(item.url, res);
+        // Pacing delay to avoid triggering government WAF rate limits
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+
       if (res.ok) {
         console.log(`   ✅ [${res.status}] ${item.type}: ${item.label} -> ${item.url}`);
       } else if (res.status === 403 || res.status === 401 || res.status === 429) {
         console.log(`   🟡 [${res.status} Bot Protected] ${item.type}: ${item.label} -> ${item.url}`);
+      } else if (res.status === 0 && isBotProtectedDomain(item.url)) {
+        console.log(`   🟡 [WAF / Network Challenge] ${item.type}: ${item.label} -> ${item.url} (${res.error || 'Connection Dropped'})`);
       } else {
         console.error(`   ❌ [${res.status || 'ERR'}] ${item.type}: ${item.label} -> ${item.url} (${res.error || res.statusText || 'Failed'})`);
         totalFailed++;

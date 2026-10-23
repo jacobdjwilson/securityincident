@@ -4,8 +4,8 @@ target: AI agents
 domain: aiagents.com
 status: DEVELOPING
 first_seen: 2026-10-01
-last_updated: 2026-10-16
-threat_actor: null
+last_updated: 2026-10-23
+threat_actor: ShinyHunters
 summary: Chained Zammad flaws enabled session hijacking, code execution, and
   root escalation in seconds
 tags:
@@ -64,3 +64,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: When AI Agents Commit Breaches, Humans May Not Be Held Liable
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Dark Reading Report](https://www.darkreading.com/insider-threats/ai-agents-breaches-humans-liable)
+
+### 2026-10-23 14:23 UTC
+- **Event:** Press Coverage: In Other News: Tor Exit Relays Hijacked, Banks Spot Rogue AI Agents, Self-Rebuilding macOS Ransomware
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/in-other-news-tor-exit-relays-hijacked-banks-spot-rogue-ai-agents-self-rebuilding-macos-ransomware/)
+
+### 2026-10-22 04:21 UTC
+- **Event:** Press Coverage: China-Linked Hackers Use ARTEX AI Agents in ConnectWise Supply Chain Attack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/china-linked-hackers-use-artex-ai.html)
+
+### 2026-10-20 14:07 UTC
+- **Event:** Press Coverage: Hackers Use Autonomous AI Agents to Breach Company Websites, Target Over 1,200 Sites
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/hackers-use-autonomous-ai-agents-to.html)

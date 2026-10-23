@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-14
+last_updated: 2026-10-23
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -16,9 +16,9 @@ compromised_data:
 regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
-    accession_number: 0000789019-24-000004
+    accession_number: 0001193125-24-011295
     filing_date: 2024-01-19
-    url: https://www.sec.gov/Archives/edgar/data/789019/000078901924000004/msft-20240119.htm
+    url: https://www.sec.gov/Archives/edgar/data/789019/000119312524011295/0001193125-24-011295-index.htm
     description: Item 1.05 Material Cybersecurity Incident disclosure filed by
       Microsoft Corporation regarding Russian state-sponsored threat actor
       Midnight Blizzard accessing senior leadership email accounts and internal
@@ -154,7 +154,7 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 
 ## Statutory Disclosures & Compliance
 
-- Statutory filing submitted to SEC (Form 8-K (Item 1.05)) under accession 0000789019-24-000004.
+- Statutory filing submitted to SEC (Form 8-K (Item 1.05)) under accession 0001193125-24-011295.
 
 ## Timeline
 
@@ -166,12 +166,12 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 ### 2024-01-19 21:00 UTC
 - **Event:** Microsoft files Form 8-K Item 1.05 detailing Midnight Blizzard intrusion into senior executive email accounts and cybersecurity staff communications.
 - **Verification:** CONFIRMED BY REGULATOR
-- **Source:** [SEC EDGAR 8-K Item 1.05 (Adsh 0000789019-24-000004)](https://www.sec.gov/Archives/edgar/data/789019/000078901924000004/msft-20240119.htm)
+- **Source:** [SEC EDGAR 8-K Item 1.05 (Adsh 0001193125-24-011295)](https://www.sec.gov/Archives/edgar/data/789019/000119312524011295/0001193125-24-011295-index.htm)
 
 ### 2024-03-08 17:00 UTC
 - **Event:** Microsoft Form 8-K update discloses threat actor used exfiltrated email secrets to gain unauthorized access to internal source code repositories.
 - **Verification:** CONFIRMED BY REGULATOR
-- **Source:** [SEC EDGAR 8-K Item 1.05 Update (Adsh 0000789019-24-000008)](https://www.sec.gov/Archives/edgar/data/789019/000078901924000008/msft-20240308.htm)
+- **Source:** [SEC EDGAR 8-K Item 1.05 Update (Adsh 0001193125-24-062997)](https://www.sec.gov/Archives/edgar/data/789019/000119312524062997/0001193125-24-062997-index.htm)
 
 ### 2026-10-01 19:32 UTC
 - **Event:** Microsoft says threat actors are ahead in the early AI race
@@ -277,3 +277,38 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: U.S. CISA adds Microsoft Windows Shell flaw to its Known Exploited Vulnerabilities catalog
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/200965/hacking/u-s-cisa-adds-microsoft-windows-shell-flaw-to-its-known-exploited-vulnerabilities-catalog.html)
+
+### 2026-10-22 11:28 UTC
+- **Event:** Press Coverage: Microsoft says ConnectWise breach let Chinese spies loose on 2,250 cloud tenants
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/10/22/microsoft-says-connectwise-breach-let-chinese-spies-loose-on-2250-cloud-tenants/5304687)
+
+### 2026-10-20 16:17 UTC
+- **Event:** Press Coverage: ConnectWise customers hit by supply-chain attack linked to compromised API secret
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CyberScoop Report](https://cyberscoop.com/connectwise-cloud-backup-supply-chain-attack/)
+
+### 2026-10-23 10:30 UTC
+- **Event:** Press Coverage: Widespread Token-Spraying Attacks Target Microsoft 365 Accounts For Email Compromise
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/tokenspraying-attacks-target/)
+
+### 2026-10-22 11:00 UTC
+- **Event:** Press Coverage: Microsoft: Chinese State Actor Used AI to Compromise ConnectWise Tenants
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/microsoft-chinese-ai-connectwise/)
+
+### 2026-10-19 10:30 UTC
+- **Event:** Press Coverage: ConnectWise Shuts Off Cloud Services After ‘Unauthorized Access’ to Microsoft 365 Tenants
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/connectwise-shuts-off-cloud/)
+
+### 2026-10-23 11:45 UTC
+- **Event:** Press Coverage: Microsoft 365 accounts compromised at 79 organizations, no passwords needed
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/23/microsoft-365-accounts-stolen-sessions/)
+
+### 2026-10-22 20:47 UTC
+- **Event:** Press Coverage: Microsoft Links ConnectWise Breach to China-Linked Group Using AI Pentesting Tool ARTEX
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/201501/apt/microsoft-links-connectwise-breach-to-china-linked-group-using-ai-pentesting-tool-artex.html)

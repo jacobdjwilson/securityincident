@@ -3,12 +3,11 @@ id: 2026-09-los-angeles-city-attorney
 target: Office of the Los Angeles City Attorney
 domain: lacityattorney.org
 status: CONFIRMED
-first_seen: '2026-09-18'
-last_updated: '2026-09-18'
+first_seen: 2026-09-18
+last_updated: 2026-09-18
 threat_actor: Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by The Office of the Los Angeles City.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by The Office of the Los Angeles City.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,9 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09180
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629957
 ---
+
 ## Incident Overview
 
 The **Office of the Los Angeles City Attorney** cybersecurity event represents a confirmed **File Transfer Server Compromise** within the **Government & Legal** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **11,000 individuals and records**.

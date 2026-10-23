@@ -4,8 +4,8 @@ target: Palo Alto Networks
 domain: paloaltonetworks.com
 status: DEVELOPING
 first_seen: 2026-10-14
-last_updated: 2026-10-16
-threat_actor: null
+last_updated: 2026-10-20
+threat_actor: Qilin
 summary: Palo Alto Networks has released security updates for a high-severity
   PAN-OS RCE zero-day, tracked as CVE-2026-0322, that has been exploited in
   attacks targeting firewalls. [...]
@@ -18,11 +18,14 @@ tags:
   - cve-2026-105133
   - cve-2026-105134
   - media-pickup
+  - investigative
+  - cve-2026-0257
 cve_ids:
   - CVE-2026-0322
   - CVE-2026-76519
   - CVE-2026-105133
   - CVE-2026-105134
+  - CVE-2026-0257
 compromised_data:
   - Authentication Credentials
 agency_advisories:
@@ -125,3 +128,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: PEERSTITCH malware: How Attackers Compromised 500 Firewalls Through FortiManager
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/201077/malware/peerstitch-malware-how-attackers-compromised-500-firewalls-through-fortimanager.html)
+
+### 2026-10-20 16:08 UTC
+- **Event:** Press Coverage: Qilin and INC Ransomware Groups Exploit Palo Alto Networks Flaw to Bypass MFA
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/20/qilin-and-inc-ransomware-groups-exploit-palo-alto-networks-flaw-to-bypass-mfa/)
+
+### 2026-10-20 15:32 UTC
+- **Event:** Press Coverage: Qilin and INC Ransomware Groups Exploit Palo Alto Networks Flaw to Bypass MFA
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/qilin-and-inc-ransomware-groups-exploit.html)

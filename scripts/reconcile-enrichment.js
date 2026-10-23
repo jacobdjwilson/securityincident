@@ -55,6 +55,12 @@ const ENTITY_ENRICHMENT_CATALOG = {
     affected_records: 327082,
     compromised_data: ['Protected Health Information (PHI)', 'Prescription Drug Records']
   },
+  'quest-diagnostics': {
+    industry: 'Healthcare',
+    incident_type: 'Unauthorized System Access',
+    threat_actor: null,
+    compromised_data: ['Diagnostic Test Orders & Results (Quanum LSM)']
+  },
   'lamb-weston': {
     industry: 'Food & Agriculture',
     incident_type: 'Data Breach',
@@ -479,7 +485,7 @@ export function reconcileIncidents() {
       }
     }
 
-    // 9. Fix known broken or 404 links (e.g. legacy Citrix support URL pattern)
+    // 9. Fix known broken or 404 links (e.g. legacy Citrix support URL pattern and California base reports 404)
     if (Array.isArray(data.vendor_advisories)) {
       for (const v of data.vendor_advisories) {
         if (v.url && v.url.includes('support.citrix.com/article/CTX')) {
@@ -488,6 +494,20 @@ export function reconcileIncidents() {
             v.url = `https://support.citrix.com/support-home/kbsearch/article?articleNumber=${match[0]}`;
             modified = true;
           }
+        }
+      }
+    }
+
+    if (Array.isArray(data.regulatory_filings)) {
+      for (const f of data.regulatory_filings) {
+        if (f.url && f.url.trim().replace(/\/$/, '') === 'https://oag.ca.gov/ecrime/databreach/reports') {
+          const sbMatch = body.match(/https:\/\/oag\.ca\.gov\/ecrime\/databreach\/reports\/(sb24-\d+)/);
+          if (sbMatch) {
+            f.url = `https://oag.ca.gov/ecrime/databreach/reports/${sbMatch[1]}`;
+          } else {
+            f.url = 'https://oag.ca.gov/privacy/databreach/list';
+          }
+          modified = true;
         }
       }
     }

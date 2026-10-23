@@ -3,14 +3,16 @@ id: 2026-09-us-dod-pentagon
 target: U.S. Department of Defense (Pentagon)
 domain: defense.gov
 status: DEVELOPING
-first_seen: '2026-09-26'
-last_updated: '2026-10-01'
+first_seen: 2026-09-26
+last_updated: 2026-10-21
 threat_actor: Unattributed
-summary: "Disclosed a network intrusion"
+summary: Disclosed a network intrusion
 tags:
   - investigative
   - developing
   - threat-intel
+  - general-media
+  - media-pickup
 industry: Government & Defense
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: 240000
@@ -21,8 +23,9 @@ compromised_data:
 regulatory_filings:
   - regulator: U.S. DoD Privacy Office
     form: System of Records Breach Notification
-    url: 'https://dpcld.defense.gov/Privacy/'
+    url: https://dpcld.defense.gov/Privacy/
 ---
+
 ## Incident Overview
 
 The **U.S. Department of Defense (Pentagon)** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Government & Defense** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **240,000 individuals and records**.
@@ -56,3 +59,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Hackers stole Pentagon personnel records of over 3 million people
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/hackers-breach-pentagon-human-resources-management-system-steal-data-of-nearly-3-million-people/)
+
+### 2026-10-21 16:32 UTC
+- **Event:** Mainstream Media Pickup: Pentagon hit with class action over data breach affecting millions of military members
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixwFBVV95cUxOOGZMZ3YzV2F0WmE0eUdxQkZnS24taEt0LW1KeG9wdVB4LUFha2F2SFJ6NmZvcUdNcEdZTUxZTkRLaUxqMnYtNmJQN0NQc09IYU5DbGtkbW9SRFhCUEpIbVh0VjBRTXR2dnhvOTdOdldzYWUyX3ltTTMzdmxUenFXNXpWa1FhOW9yQ3NqZVJ2cnA5QVJkN1FrbFZwQ0p2alpUdGQtN0hrOUNCTkVFR2dscWdXd1ZTSWVSWWh5RjRRQUE5SkhhSTc0?oc=5)

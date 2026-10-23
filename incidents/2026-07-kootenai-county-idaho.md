@@ -1,14 +1,13 @@
 ---
 id: 2026-07-kootenai-county-idaho
-target: 'Kootenai County, Idaho'
+target: Kootenai County, Idaho
 domain: kootenaicountyidaho.com
 status: CONFIRMED
-first_seen: '2026-07-22'
-last_updated: '2026-07-22'
+first_seen: 2026-07-22
+last_updated: 2026-07-22
 threat_actor: Unknown / Unattributed
-summary: >-
-  Washington State Attorney General formal data breach disclosure notice filed
-  by Kootenai County, Idaho affecting 746 residents.
+summary: Washington State Attorney General formal data breach disclosure notice
+  filed by Kootenai County, Idaho affecting 746 residents.
 tags:
   - regulatory
   - state-ag
@@ -23,11 +22,12 @@ compromised_data:
 regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/privacy/databreach/list
   - regulator: Washington State Office of the Attorney General
     form: Consumer Protection Data Breach Notification
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
 ---
+
 ## Incident Overview
 
 The **Kootenai County, Idaho** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Legal** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

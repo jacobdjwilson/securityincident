@@ -3,13 +3,12 @@ id: 2026-07-adapthealth
 target: AdaptHealth
 domain: adapthealth.com
 status: CONFIRMED
-first_seen: '2026-07-02'
-last_updated: '2026-08-14'
+first_seen: 2026-07-02
+last_updated: 2026-08-14
 threat_actor: Unknown / Unattributed
-summary: >-
-  Healthcare solutions provider AdaptHealth Corp disclosed an external threat
-  actor gained unauthorized access to internal systems and exfiltrated company
-  data.
+summary: Healthcare solutions provider AdaptHealth Corp disclosed an external
+  threat actor gained unauthorized access to internal systems and exfiltrated
+  company data.
 tags:
   - regulatory
   - sec-8k
@@ -28,20 +27,19 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001104659-26-080297
-    filing_date: '2026-07-28'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/1725255/000110465926080297/0001104659-26-080297-index.htm
-    description: >-
-      Item 1.05 Material Cybersecurity Incident disclosure filed by AdaptHealth
-      Corp. confirming unauthorized access across patient billing and electronic
-      health records infrastructure.
+    filing_date: 2026-07-28
+    url: https://www.sec.gov/Archives/edgar/data/1725255/000110465926080297/0001104659-26-080297-index.htm
+    description: Item 1.05 Material Cybersecurity Incident disclosure filed by
+      AdaptHealth Corp. confirming unauthorized access across patient billing
+      and electronic health records infrastructure.
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/privacy/databreach/list
   - regulator: Washington State Office of the Attorney General
     form: Consumer Protection Data Breach Notification
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
 ---
+
 ## Incident Overview
 
 The **AdaptHealth** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Healthcare** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

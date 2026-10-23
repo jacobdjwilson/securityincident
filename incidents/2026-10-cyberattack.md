@@ -2,9 +2,9 @@
 id: 2026-10-cyberattack
 target: Cyberattack
 domain: cyberattack.com
-status: ACKNOWLEDGED
+status: CONFIRMED
 first_seen: 2026-09-30
-last_updated: 2026-10-16
+last_updated: 2026-10-23
 threat_actor: null
 summary: Attackers remotely defrosted refrigerators at multiple French
   supermarket chains overnight in a cyberattack that reportedly targeted Danfoss
@@ -172,3 +172,33 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Suspected Chinese espionage attackers abusing BeyondTrust IT support zero-day
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/beyond-trust-cyberattack-china)
+
+### 2026-10-23 04:54 UTC
+- **Event:** Mainstream Media Pickup: North Korean internet was hit by DDoS cyberattack, network monitoring firm says
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixAFBVV95cUxPdjBybXdvb01FSWlDRkY2NmViemhIVVVmN2FXZEhPU1BJLTZBaWhKSFYxclY3c0ptQ2hxLTFVQmdNSmt6NU9Fa2NtWllwVjU2OHFCalFWc09idGNaUkVtbzdsajB1bnpkWERiYTlfbnVRMjlra3drNUNYWjhFZXg0R2VrSHg1MjJoeDNURDZleHdraXhqM3VSUjk5elY0dExvNkE0RjhOSXltTVRjZmhxSTJiSFBDUFF6NHNSWXVKeVJDLTNQ?oc=5)
+
+### 2026-10-22 16:14 UTC
+- **Event:** Mainstream Media Pickup: Russia-linked hackers used decentralised network in Ukraine cyberattack, ESET says
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixgFBVV95cUxNRFlSa1BjRUNIMDhxY21GWElwRXJfQ3NCdGRtMzQ2SUFyRmJwdkRfVjdWRjVLTndOZXk4SERVNzE0T3VGY0tBMUZoWUFIeEo5NjhQYjBwMzFHRnROTjlTelNydjN6d3ZTWFRqZUlIenE3YnYwcmtmZmZxdnItTDNJNTNTM3ZvTXNfNG1UTmc2Z3FpNW4wSDRwWlNsMFl3RzZqYnpSX1dITUJqeG9QTWI0bG1Wc2kwamJmaHMtZjhWbXl2NzlLZ3c?oc=5)
+
+### 2026-10-21 10:47 UTC
+- **Event:** Mainstream Media Pickup: State Bank of India reports cyberattack involving nearly 3,900 customer records
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMitwFBVV95cUxNVDJNczB5ZFItMnlnb0RlSEc1OGtuUXFwY3djbEJWZTVpSzhUNDlnYVlQU2VuZmdrbUppVFBYZGQ2bnVLWWdsZTdqamxScG45S3BBLUhsZUtJMVl3VjZERlI5LUstbXM2bnBnaXVBWWo1LXhiUC12bEpMdmRTN1hOLTJ0bWotdDdoR05PUEVMNk9DVE1TX1FzS0FiYl9zZEFDZGNlbElwTmhBVXEzRkVUMnNXb3lzVEU?oc=5)
+
+### 2026-10-20 10:26 UTC
+- **Event:** Mainstream Media Pickup: Germany's far-right AfD investigates publication of emails stolen in cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixAFBVV95cUxQak1BT19QRzNXZGRDeDRJODJMVWxmblZ2NWY5OVVXSXhqbW9MMWVlbkVYMHVTaTNLa0NlVURxTUllb050MXZaMUVIdlpQQTFBU2dTeE9Xdl9lNk9aNkxCYkFUek5hR2RqTWctSTkyT0FneHBFbkZ4Y0g0akxMcU53RFFldTUtY2o4RDk4R1dYa1c0ZGVUTkdqQ3RCNmUzN3IzWjR5WHBHVTZPNHRvODZ3eEc3MkRTYjFnRTkwWGN1MHFsbGZK?oc=5)
+
+### 2026-10-20 12:15 UTC
+- **Event:** Press Coverage: Bullhorn sees red after cyberattack knocks recruitment platform offline
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/10/20/bullhorn-sees-red-after-cyberattack-knocks-recruitment-platform-offline/5304114)
+
+### 2026-10-19 20:26 UTC
+- **Event:** Press Coverage: Grocery giant Ahold Delhaize confirms cyberattack forced US and European systems offline
+- **Verification:** CONFIRMED BY TARGET
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/10/19/grocery-giant-ahold-delhaize-confirms-cyberattack-forced-us-and-european-systems-offline/5303970)

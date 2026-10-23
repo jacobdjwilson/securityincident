@@ -3,12 +3,11 @@ id: 2026-09-suffolk-federal-credit-union
 target: Suffolk Federal Credit Union
 domain: suffolkfederalcreditunion.com
 status: CONFIRMED
-first_seen: '2026-09-11'
-last_updated: '2026-09-11'
+first_seen: 2026-09-11
+last_updated: 2026-09-11
 threat_actor: Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Suffolk Federal Credit Union.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Suffolk Federal Credit Union.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,9 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09149
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629581
 ---
+
 ## Incident Overview
 
 The **Suffolk Federal Credit Union** cybersecurity event represents a confirmed **Third-Party Service Provider Breach** within the **Financial Services** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **28,000 individuals and records**.

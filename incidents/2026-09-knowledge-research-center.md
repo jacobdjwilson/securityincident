@@ -3,12 +3,11 @@ id: 2026-09-knowledge-research-center
 target: Knowledge Research Center
 domain: knowledgeresearchcenter.com
 status: CONFIRMED
-first_seen: '2026-09-02'
-last_updated: '2026-09-02'
+first_seen: 2026-09-02
+last_updated: 2026-09-02
 threat_actor: Unknown / Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Knowledge Research Center.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Knowledge Research Center.
 tags:
   - regulatory
   - state-ag
@@ -23,8 +22,9 @@ compromised_data:
 regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629199
 ---
+
 ## Incident Overview
 
 The **Knowledge Research Center** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Education & Research** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

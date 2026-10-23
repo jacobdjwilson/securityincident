@@ -6,13 +6,24 @@
 const USER_AGENT = 'securityincident-telemetry-bot/1.0 (+https://securityincident.net; intelligence@securityincident.net)';
 const REQUEST_TIMEOUT_MS = 12000;
 
+const KNOWN_EDGAR_TARGETS = {
+  'quest diagnostics': { name: 'Quest Diagnostics', domain: 'questdiagnostics.com', slug: 'quest-diagnostics' },
+  'astrana health': { name: 'Astrana Health', domain: 'astranahealth.com', slug: 'astrana-health' },
+  'park dental partners': { name: 'Park Dental Partners', domain: 'parkdental.com', slug: 'park-dental-partners' },
+  'boston scientific': { name: 'Boston Scientific', domain: 'bostonscientific.com', slug: 'boston-scientific' }
+};
+
 function cleanCompanyName(raw) {
   if (!raw) return '';
-  return raw
+  let cleaned = raw
     .replace(/\s*\([A-Z0-9,\s]+\)\s*\(CIK\s*\d+\)/gi, '') // strip ticker and CIK
     .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO|CORPORATION|INCORPORATED|HOLDINGS)\b\.?/gi, '')
     .replace(/^[,\s.-]+|[,\s.-]+$/g, '')
     .trim();
+  if (cleaned.length > 2 && cleaned === cleaned.toUpperCase()) {
+    cleaned = cleaned.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  }
+  return cleaned;
 }
 
 function slugify(text) {
@@ -27,7 +38,7 @@ function slugify(text) {
 }
 
 /**
- * Fetch SEC Form 8-K Item 1.05 cybersecurity filings within a given rolling window
+ * Fetch SEC Form 8-K Item 1.05 & Item 8.01 cybersecurity filings within a given rolling window
  * @param {Object} options
  * @param {number} options.days - number of days to look back (default 90)
  * @returns {Promise<Array>} array of structured regulatory incident records
@@ -39,7 +50,7 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
   const startdt = startDateObj.toISOString().slice(0, 10);
   const enddt = endDateObj.toISOString().slice(0, 10);
 
-  const url = `https://efts.sec.gov/LATEST/search-index?q=%22Item%201.05%22&forms=8-K&startdt=${startdt}&enddt=${enddt}`;
+  const url = `https://efts.sec.gov/LATEST/search-index?q=%22Item%201.05%22+OR+%22cybersecurity%20incident%22&forms=8-K&startdt=${startdt}&enddt=${enddt}`;
   console.log(`🏛️ Polling SEC EDGAR EFTS API (${startdt} to ${enddt})...`);
 
   try {
@@ -71,15 +82,25 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
       if (!s) continue;
 
       const items = Array.isArray(s.items) ? s.items : [];
-      // Only process filings where items array contains 1.05 (or cyber disclosures)
+      // Only process filings where items array contains 1.05 or 8.01 cyber disclosures (excluding earnings release boilerplate)
       const hasItem105 = items.includes('1.05');
-      if (!hasItem105) continue;
+      const hasItem801 = items.includes('8.01') && !items.includes('2.02') && !items.includes('1.01') && !items.includes('5.02');
+      if (!hasItem105 && !hasItem801) continue;
 
       const rawFiler = s.display_names?.[0] || 'Unknown Organization';
-      const target = cleanCompanyName(rawFiler);
+      let target = cleanCompanyName(rawFiler);
       if (!target || target.length < 3) continue;
 
-      const targetSlug = slugify(target);
+      let targetSlug = slugify(target);
+      let domain = `${targetSlug.replace(/-/g, '')}.com`;
+
+      const lowerTarget = target.toLowerCase();
+      if (KNOWN_EDGAR_TARGETS[lowerTarget]) {
+        target = KNOWN_EDGAR_TARGETS[lowerTarget].name;
+        targetSlug = KNOWN_EDGAR_TARGETS[lowerTarget].slug;
+        domain = KNOWN_EDGAR_TARGETS[lowerTarget].domain;
+      }
+
       const cik = Array.isArray(s.ciks) ? s.ciks[0] : s.ciks;
       const adsh = s.adsh;
       const fileDate = s.file_date; // YYYY-MM-DD
@@ -92,24 +113,30 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
 
       const ym = fileDate.slice(0, 7);
       const timeUtc = `${fileDate} 16:00 UTC`;
+      const formName = hasItem105 ? 'Form 8-K Item 1.05' : 'Form 8-K Item 8.01';
+      const sourceTitle = `SEC EDGAR 8-K ${hasItem105 ? 'Item 1.05' : 'Item 8.01'} Filing (${adsh})`;
+      const summaryText = hasItem105
+        ? `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`
+        : `Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by ${target}.`;
 
       filings.push({
         id: `${ym}-${targetSlug}`,
         target,
         targetSlug,
-        domain: `${targetSlug.replace(/-/g, '')}.com`,
+        domain,
         status: 'CONFIRMED',
         verification: 'CONFIRMED BY REGULATOR',
         fileDate,
         timeUtc,
-        sourceTitle: `SEC EDGAR 8-K Item 1.05 Filing (${adsh})`,
+        event: `SEC ${formName} Disclosure`,
+        sourceTitle,
         sourceUrl: permanentUrl,
-        summary: `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`,
+        summary: summaryText,
         tags: ['regulatory', 'sec-8k', 'confirmed'],
         regulatoryFilings: [
           {
             regulator: 'SEC',
-            form: 'Form 8-K Item 1.05',
+            form: formName,
             accession_number: adsh,
             url: permanentUrl,
             filing_date: fileDate

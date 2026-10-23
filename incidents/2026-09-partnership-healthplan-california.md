@@ -3,12 +3,11 @@ id: 2026-09-partnership-healthplan-california
 target: Partnership HealthPlan of California
 domain: partnershiphp.net
 status: CONFIRMED
-first_seen: '2026-09-17'
-last_updated: '2026-09-17'
+first_seen: 2026-09-17
+last_updated: 2026-09-17
 threat_actor: Hive / Successor Affiliate
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Partnership HealthPlan of California.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Partnership HealthPlan of California.
 tags:
   - regulatory
   - state-ag
@@ -24,11 +23,12 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09199
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629908
   - regulator: HHS Office for Civil Rights
     form: HIPAA Breach Portal
-    url: 'https://ocrportal.hhs.gov/ocr/cp/breach'
+    url: https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf
 ---
+
 ## Incident Overview
 
 The **Partnership HealthPlan of California** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Healthcare** sector, attributed to the **Hive / Successor Affiliate** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **854,000 individuals and records**.

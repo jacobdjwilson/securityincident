@@ -3,12 +3,11 @@ id: 2026-08-virta-health-and-virta-medical
 target: Virta Health  and Virta Medical
 domain: virtahealthandvirtamedical.com
 status: CONFIRMED
-first_seen: '2026-08-31'
-last_updated: '2026-09-03'
+first_seen: 2026-08-31
+last_updated: 2026-09-03
 threat_actor: Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Virta Health  and Virta Medical.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Virta Health  and Virta Medical.
 tags:
   - regulatory
   - state-ag
@@ -25,11 +24,12 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-08819
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629093
   - regulator: Washington Attorney General
     notice_id: WA-2026-03822
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
 ---
+
 ## Incident Overview
 
 The **Virta Health  and Virta Medical** cybersecurity event represents a confirmed **Third-Party Cloud Repository Compromise** within the **Healthcare** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **36,000 individuals and records**.

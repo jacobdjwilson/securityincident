@@ -3,12 +3,11 @@ id: 2026-09-kaniksu-community-health
 target: Kaniksu Community Health
 domain: kaniksucommunityhealth.com
 status: CONFIRMED
-first_seen: '2026-09-01'
-last_updated: '2026-09-01'
+first_seen: 2026-09-01
+last_updated: 2026-09-01
 threat_actor: Unattributed
-summary: >-
-  State of California Department of Justice data breach disclosure notice filed
-  by Kaniksu Community Health.
+summary: State of California Department of Justice data breach disclosure notice
+  filed by Kaniksu Community Health.
 tags:
   - regulatory
   - state-ag
@@ -24,8 +23,9 @@ compromised_data:
 regulatory_filings:
   - regulator: California Attorney General
     notice_id: SC-2026-09151
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629145
 ---
+
 ## Incident Overview
 
 The **Kaniksu Community Health** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Healthcare** sector, carried out by an unidentified cyber threat actor. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, impacting approximately **19,200 individuals and records**.

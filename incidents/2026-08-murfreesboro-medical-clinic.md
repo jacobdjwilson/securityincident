@@ -3,12 +3,11 @@ id: 2026-08-murfreesboro-medical-clinic
 target: Murfreesboro Medical Clinic
 domain: murfreesboromedicalclinic.com
 status: CONFIRMED
-first_seen: '2026-08-26'
-last_updated: '2026-08-26'
+first_seen: 2026-08-26
+last_updated: 2026-08-26
 threat_actor: Unknown / Unattributed
-summary: >-
-  Washington State Attorney General formal data breach disclosure notice filed
-  by Murfreesboro Medical Clinic affecting 845 residents.
+summary: Washington State Attorney General formal data breach disclosure notice
+  filed by Murfreesboro Medical Clinic affecting 845 residents.
 tags:
   - regulatory
   - state-ag
@@ -24,11 +23,12 @@ compromised_data:
 regulatory_filings:
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
-    url: 'https://oag.ca.gov/ecrime/databreach/reports'
+    url: https://oag.ca.gov/privacy/databreach/list
   - regulator: Washington State Office of the Attorney General
     form: Consumer Protection Data Breach Notification
-    url: 'https://www.atg.wa.gov/data-breach-notifications'
+    url: https://www.atg.wa.gov/data-breach-notifications
 ---
+
 ## Incident Overview
 
 The **Murfreesboro Medical Clinic** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Healthcare** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
