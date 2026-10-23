@@ -29,9 +29,65 @@ regulatory_filings:
     accession_number: 0001104659-26-080297
     filing_date: 2026-07-28
     url: https://www.sec.gov/Archives/edgar/data/1725255/000110465926080297/0001104659-26-080297-index.htm
-    description: Item 1.05 Material Cybersecurity Incident disclosure filed by
-      AdaptHealth Corp. confirming unauthorized access across patient billing
-      and electronic health records infrastructure.
+    description: >-
+      Item 1.05 Material Cybersecurity Incidents.
+
+
+      AdaptHealth Corp. (the "Company") is investigating a security incident
+      whereby a threat actor gained unauthorized access to Company systems and
+      exfiltrated certain data therefrom. Upon learning of the incident, the
+      Company promptly activated its incident response procedures, launched the
+      investigation with the support of external advisors and cybersecurity
+      experts to assess and contain the threat and notified law enforcement.
+      While the investigation is ongoing, the Company has been able to confirm
+      certain facts about the incident, and on June 27, 2026, the Company
+      determined that the incident is material, due to the nature and potential
+      volume of the data that is at risk.
+
+
+      Specifically, based on information obtained to date, the Company believes
+      that a threat actor gained unauthorized access to certain of the Company's
+      cloud-based business applications, including certain internal patient
+      management systems and document storage platforms. On June 15, 2026, the
+      Company received a communication from a threat actor claiming to have
+      obtained certain data from the Company's systems. The Company has
+      confirmed that certain data was exfiltrated from its systems including a
+      stored password file associated with insurance billing; the Company also
+      has confirmed that certain external electronic health record system
+      portals were accessed by the threat actor.
+
+
+      The data affected includes passwords associated with insurance billing and
+      certain personally identifiable information and protected health
+      information of patients. The Company does not collect Social Security
+      numbers in the affected systems and does not store individual financial
+      account information or payment card information in those systems.
+
+
+      The incident was the result of a successful social engineering attack that
+      compromised a user session associated with a third-party contractor.
+      Following detection, the Company promptly implemented containment
+      measures, including disabling the compromised user account, resetting
+      affected credentials, and implementing additional access controls, and the
+      incident has been contained. The Company is continuing to investigate the
+      nature and scope of the incident with external forensics teams. The full
+      scope of affected data sets has not yet been determined, and specific
+      information regarding the volume of data at issue is not yet available.
+      The Company has since taken steps intended to mitigate the risk of
+      dissemination of the exfiltrated data.
+
+
+      As of the date of this Report, the incident has not had a material impact
+      on the Company's operations and has not affected the Company's ability to
+      service its patients. At this time, the Company is unable to determine the
+      full financial impact of the incident, including remediation and response
+      costs, legal, regulatory and notification-related matters, and possible
+      effects on patients, counterparties and the Company's reputation. The
+      Company maintains cybersecurity insurance that may cover certain losses
+      associated with the incident.
+
+
+      To the extent any information required by
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
     url: https://oag.ca.gov/privacy/databreach/list

@@ -10,16 +10,21 @@ const KNOWN_EDGAR_TARGETS = {
   'quest diagnostics': { name: 'Quest Diagnostics', domain: 'questdiagnostics.com', slug: 'quest-diagnostics' },
   'astrana health': { name: 'Astrana Health', domain: 'astranahealth.com', slug: 'astrana-health' },
   'park dental partners': { name: 'Park Dental Partners', domain: 'parkdental.com', slug: 'park-dental-partners' },
-  'boston scientific': { name: 'Boston Scientific', domain: 'bostonscientific.com', slug: 'boston-scientific' }
+  'boston scientific': { name: 'Boston Scientific', domain: 'bostonscientific.com', slug: 'boston-scientific' },
+  'at&t': { name: 'AT&T', domain: 'att.com', slug: 'at-t' },
+  'v f': { name: 'VF Corporation', domain: 'vfc.com', slug: 'vf-corporation' },
+  'v f corp': { name: 'VF Corporation', domain: 'vfc.com', slug: 'vf-corporation' },
+  'globe life': { name: 'Globe Life', domain: 'globelifeinsurance.com', slug: 'globe-life' }
 };
 
 function cleanCompanyName(raw) {
   if (!raw) return '';
   let cleaned = raw
-    .replace(/\s*\([A-Z0-9,\s]+\)\s*\(CIK\s*\d+\)/gi, '') // strip ticker and CIK
-    .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO|CORPORATION|INCORPORATED|HOLDINGS)\b\.?/gi, '')
+    .replace(/\s*\([^)]*\)/g, '') // strip all parentheticals (tickers, CIK, share classes)
+    .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO|CORPORATION|INCORPORATED|HOLDINGS|COMPANY)\b\.?/gi, '')
     .replace(/^[,\s.-]+|[,\s.-]+$/g, '')
     .trim();
+  cleaned = cleaned.replace(/\bV\s+F\b/i, 'VF');
   if (cleaned.length > 2 && cleaned === cleaned.toUpperCase()) {
     cleaned = cleaned.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
   }
@@ -175,14 +180,14 @@ export function extractItemDisclosureText(html) {
     .replace(/&#8220;|&#8221;|&ldquo;|&rdquo;/g, '"')
     .replace(/&#8216;|&#8217;|&lsquo;|&rsquo;/g, "'")
     .replace(/&#8211;|&#8212;|&ndash;|&mdash;/g, '—')
-    .replace(/&nbsp;|&#160;/g, ' ')
+    .replace(/&nbsp;|&#160;|&#8200;|&#8201;|&#8202;|&#8203;|&#8204;|&#8205;|&thinsp;|&ensp;|&emsp;/g, ' ')
+    .replace(/[\u2000-\u200B\u00A0]/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/[ \t]+/g, ' ')
     .replace(/\n[ \t]+/g, '\n')
     .replace(/\n\s*\n\s*\n+/g, '\n\n')
-    .replace(/&#8203;/g, '')
     .trim();
 
   // Match Item 1.05 or Item 8.01 content until next Item, Signatures, or end of file

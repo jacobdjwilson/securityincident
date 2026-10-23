@@ -12,6 +12,7 @@
     "test:urls": "node scripts/test-urls.js",
     "ingest": "node scripts/ingest.js",
     "ingest:history": "node scripts/ingest-history.js",
+    "ingest:sec-archive": "node scripts/ingest-sec-archive.js",
     "reconcile": "node scripts/reconcile-enrichment.js",
     "dev": "node scripts/build.js && node scripts/serve.js"
   },

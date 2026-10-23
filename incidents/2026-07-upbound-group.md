@@ -29,9 +29,32 @@ regulatory_filings:
     accession_number: 0001193125-26-310605
     filing_date: 2026-07-21
     url: https://www.sec.gov/Archives/edgar/data/933036/000119312526310605/0001193125-26-310605-index.htm
-    description: Item 1.05 Material Cybersecurity Incident disclosure filed by
-      Upbound Group, Inc. detailing unauthorized access to corporate network
-      systems and customer leasing accounts.
+    description: >-
+      Item 8.01 Other Events.Upbound Group, Inc. (the "Company") recently
+      experienced cybersecurity incidents in which certain non-sensitive
+      customer information and other documents were obtained without
+      authorization. In connection with certain such incidents, the Company
+      believes the information was subsequently used to facilitate fraudulent
+      lease-to-own agreements, contributing to elevated fraudulent contract
+      losses of approximately $13 million in the Company's Acima segment during
+      the second quarter of 2026.
+
+
+      Upon identifying the data compromise, the Company promptly began
+      implementing mitigation and remediation measures. These measures,
+      implemented in coordination with external cybersecurity experts, include
+      enhanced authentication controls, additional fraud detection and
+      monitoring capabilities, and other security enhancements. The Company also
+      notified federal law enforcement of the incidents.
+
+
+      The Company's investigation of these incidents remains ongoing, and it
+      will make any legal or regulatory notifications as appropriate based on
+      its investigation findings. Based on the Company's current knowledge of
+      the quantitative and qualitative facts and circumstances related to the
+      incidents, the Company believes that the incidents are not material.
+      Should any of the relevant facts and circumstances substantively change,
+      the Company will reassess materiality considerations in accordance with
   - regulator: State of California Department of Justice
     form: Data Security Breach Disclosure Report
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630390

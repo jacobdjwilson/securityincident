@@ -3,11 +3,10 @@ id: 2026-07-navient
 target: Navient
 domain: navient.com
 status: CONFIRMED
-first_seen: '2026-07-02'
-last_updated: '2026-07-02'
+first_seen: 2026-07-02
+last_updated: 2026-07-02
 threat_actor: Unknown / Unattributed
-summary: >-
-  Student loan servicer Navient disclosed a third-party ransomware attack
+summary: Student loan servicer Navient disclosed a third-party ransomware attack
   affecting legal service provider systems containing Navient corporate data.
 tags:
   - regulatory
@@ -25,14 +24,54 @@ regulatory_filings:
   - regulator: U.S. Securities and Exchange Commission (SEC)
     form: Form 8-K Item 1.05 (Material Cybersecurity Incidents)
     accession_number: 0001140361-26-027441
-    filing_date: '2026-07-25'
-    url: >-
-      https://www.sec.gov/Archives/edgar/data/1593538/000114036126027441/0001140361-26-027441-index.htm
+    filing_date: 2026-07-25
+    url: https://www.sec.gov/Archives/edgar/data/1593538/000114036126027441/0001140361-26-027441-index.htm
     description: >-
-      Item 1.05 Material Cybersecurity Incident disclosure filed by Navient
-      Corporation regarding student loan borrower servicing data security review
-      and remediation containment.
+      Item 1.05
+
+
+      Material Cybersecurity Incidents
+
+
+      On June 8, 2026, the Company became aware of a cybersecurity incident
+      involving a third&#8209;party law firm (the "Firm") that provides services
+      to the Company. The incident
+
+      involved a ransomware attack affecting certain of the Firm's information
+      systems.
+
+
+      The Company was informed by the Firm that an unauthorized actor accessed
+      certain Company-related data maintained by the Firm as a result of the
+      Firm's provision of legal
+
+      services to the Company. Such data includes borrower information such as
+      customer names, date of birth, addresses and Social Security numbers. The
+      Company promptly initiated an investigation, with the assistance of
+      external cybersecurity experts,
+
+      and is conducting notifications to affected individuals and regulators as
+      required by applicable federal and state laws. Law enforcement has also
+      been notified.
+
+
+      The incident was limited to the Firm's environment; the Company has not
+      identified any evidence of unauthorized access to its own systems and has
+      not experienced any
+
+      disruption to its operations or customer services as a result of the
+      incident. Notwithstanding the foregoing, the Company determined the
+      incident to be material on June 29, 2026 in light of the volume and
+      sensitivity of the information involved.
+
+
+      As of the date of this report, the Company does not believe the incident
+      has had, or is reasonably likely to have, a material impact on its
+      financial condition or results
+
+      of operations.
 ---
+
 ## Incident Overview
 
 The **Navient** cybersecurity event represents a confirmed **Ransomware Extortion** within the **Legal** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

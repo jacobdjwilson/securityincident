@@ -32,6 +32,14 @@ regulatory_filings:
     description: Item 1.05 Material Cybersecurity Incident disclosure filed by Nutex
       Health Inc. regarding hospital micro-facility network outage and
       electronic medical record protection response.
+  - regulator: SEC
+    form: Form 8-K Item 8.01
+    accession_number: 0001628280-26-061432
+    url: https://www.sec.gov/Archives/edgar/data/1479681/000162828026061432/0001628280-26-061432-index.htm
+    filing_date: 2026-09-11
+    description: Item 8.01 of the Current Report on Form 8-K filed with the
+      Securities and Exchange Commission (the "SEC") on August 24, 2026 (the
+      "Initial Disclosure"), as updated in
 ---
 
 ## Incident Overview

@@ -26,28 +26,118 @@ regulatory_filings:
     accession_number: 0001104659-26-104300
     filing_date: 2026-09-22
     url: https://www.sec.gov/Archives/edgar/data/2069604/000110465926104300/0001104659-26-104300-index.htm
-    description: Item 1.05 Material Cybersecurity Incident disclosure filed by Park
-      Dental Partners reporting ransomware extortion attack resulting in
-      clinical system encryption and patient record exfiltration.
+    description: >-
+      Item 1.05 Material Cybersecurity Incidents.
+
+
+      On August 28, 2026, Park Dental Partners, Inc. ("we" or the "Company")
+      identified unauthorized access to its computer network. The Company
+      promptly initiated its incident response protocols, and engaged its
+      external cybersecurity and forensic specialists. The Company is continuing
+      to investigate the nature and scope of this incident, including the scope
+      of any compromise of personal or protected health information. As of the
+      date of this Current Report on Form 8-K, the incident has not materially
+      disrupted the Company's operations, however, due to the possible access of
+      patient data, we are treating this as a reportable event.
+
+
+      Security is a top priority for Park Dental Partners, Inc. and the Company
+      continues to focus on protecting the privacy of personal and protected
+      health information in our care and mitigating cybersecurity risk,
+      maintaining safeguards designed to protect data, continuously review and
+      enhance those protections to address evolving threats, and providing
+      recurring cybersecurity awareness training and testing for all employees.
+      The Company maintains a cybersecurity risk-management program designed to
+      assess, identify, and manage material risks arising from cybersecurity
+      threats, consistent with the standards reported by peer companies in the
+      dental and medical industries, which commonly leverage the National
+      Institute of Standards and Technology ("NIST") Cybersecurity Framework as
+      a basis for security posture measurement and risk management.
+
+
+      The Company is in the process of estimating any financial, legal,
+      operational, and reputational impact of the incident. As of the date of
+      this report, an estimate is not reasonably possible, however, the Company
+      has not identified any material impact on its financial condition, results
+      of operations, or business operations.
+
+
+      The investigation remains ongoing, and additional information may become
+      available that could affect the Company's assessment of the incident and
+      its impact.
   - regulator: SEC
     form: Form 8-K Item 1.05
     accession_number: 0001104659-26-115541
     url: https://www.sec.gov/Archives/edgar/data/2069604/000110465926115541/0001104659-26-115541-index.htm
     filing_date: 2026-10-13
-    description: |
+    description: >
       Item 1.05 Material Cybersecurity Incidents.
 
-      As previously reported, on August 28, 2026, Park Dental Partners, Inc. ("Company") identified unauthorized access to its computer network. The Company promptly initiated its incident response protocols, engaged external cybersecurity experts and forensic specialists and notified law enforcement. The investigation has determined that data was subject to unauthorized acquisition as a result of the incident. The Company has identified impacted patients whose protected health information was involved and is completing notifications pursuant to applicable state and federal law.
 
-      The Company is aware of four state court lawsuits related to the August 2026 data breach, the first of which was filed on September 3, 2026: Julienne Wyckoff, on behalf of himself and all others similarly situated v. Park Dental Partners, Inc. (62-CV-26-6341), Second Judicial District, County of Ramsey, State of Minnesota; Thomas Jahnke and Nathaniel Sonia, on behalf of themselves and all others similarly situated v. Park Dental Partners, Inc. (62-CV-26-6381), Second Judicial District, County of Ramsey, State of Minnesota; Norbu Lama, on behalf of himself and all others similarly situated v. Park Dental Partners, Inc. (62-CV-26-6384), Second Judicial District, County of Ramsey, State of Minnesota; and Becky Murphy and Debbie Palm, on behalf of themselves and all others similarly situated v. Park Dental Partners, Inc. (62-CV-26-7111), Second Judicial District, County of Ramsey, State of Minnesota.
+      As previously reported, on August 28, 2026, Park Dental Partners, Inc.
+      ("Company") identified unauthorized access to its computer network. The
+      Company promptly initiated its incident response protocols, engaged
+      external cybersecurity experts and forensic specialists and notified law
+      enforcement. The investigation has determined that data was subject to
+      unauthorized acquisition as a result of the incident. The Company has
+      identified impacted patients whose protected health information was
+      involved and is completing notifications pursuant to applicable state and
+      federal law.
 
-      Each lawsuit is a putative class action alleging the Company failed to safeguard patients' protected health information or failed to implement reasonable security measures that resulted in the August 2026 data breach and increased the risk of identity theft. The lawsuits also allege that the Company failed to timely notify affected individuals. Claims include negligence, negligence per se, invasion of privacy, breach of fiduciary duty, unjust enrichment, breach of implied contract, and breach of confidence. The Company intends to vigorously defend its positions in the litigation. On October 7, 2026, the plaintiffs filed a motion to consolidate the four actions and appoint interim lead class counsel. The Company also anticipates regulatory responses. To date, the Company is not aware of any unauthorized use of protected health information or any damages as a result of the incident.
 
-      Security is a top priority for Park Dental Partners, Inc. and the Company continues to focus on protecting the privacy of protected health information in its care and mitigating cybersecurity risk, maintaining safeguards designed to protect data, continuously reviewing and enhancing those protections to address evolving threats, and providing ongoing and regular cybersecurity awareness training and testing for all employees. The Company maintains a cybersecurity risk-management program designed to assess, identify, and manage material risks arising from cybersecurity threats, consistent with the standards reported by peer companies in the dental and medical industries, which commonly leverage the National Institute of Standards and Technology ("NIST") Cybersecurity Framework as a basis for security posture measurement and risk management.
+      The Company is aware of four state court lawsuits related to the August
+      2026 data breach, the first of which was filed on September 3, 2026:
+      Julienne Wyckoff, on behalf of himself and all others similarly situated
+      v. Park Dental Partners, Inc. (62-CV-26-6341), Second Judicial District,
+      County of Ramsey, State of Minnesota; Thomas Jahnke and Nathaniel Sonia,
+      on behalf of themselves and all others similarly situated v. Park Dental
+      Partners, Inc. (62-CV-26-6381), Second Judicial District, County of
+      Ramsey, State of Minnesota; Norbu Lama, on behalf of himself and all
+      others similarly situated v. Park Dental Partners, Inc. (62-CV-26-6384),
+      Second Judicial District, County of Ramsey, State of Minnesota; and Becky
+      Murphy and Debbie Palm, on behalf of themselves and all others similarly
+      situated v. Park Dental Partners, Inc. (62-CV-26-7111), Second Judicial
+      District, County of Ramsey, State of Minnesota.
 
-      To date, the Company has not identified any material impact on its financial condition or results of operations as a result of this incident, including the current expected legal and advisor cost to address the incident.
 
-      To the extent additional information becomes available that could affect the Company's assessment of the incident and its impact, the Company will update this disclosure in a timely manner.
+      Each lawsuit is a putative class action alleging the Company failed to
+      safeguard patients' protected health information or failed to implement
+      reasonable security measures that resulted in the August 2026 data breach
+      and increased the risk of identity theft. The lawsuits also allege that
+      the Company failed to timely notify affected individuals. Claims include
+      negligence, negligence per se, invasion of privacy, breach of fiduciary
+      duty, unjust enrichment, breach of implied contract, and breach of
+      confidence. The Company intends to vigorously defend its positions in the
+      litigation. On October 7, 2026, the plaintiffs filed a motion to
+      consolidate the four actions and appoint interim lead class counsel. The
+      Company also anticipates regulatory responses. To date, the Company is not
+      aware of any unauthorized use of protected health information or any
+      damages as a result of the incident.
+
+
+      Security is a top priority for Park Dental Partners, Inc. and the Company
+      continues to focus on protecting the privacy of protected health
+      information in its care and mitigating cybersecurity risk, maintaining
+      safeguards designed to protect data, continuously reviewing and enhancing
+      those protections to address evolving threats, and providing ongoing and
+      regular cybersecurity awareness training and testing for all employees.
+      The Company maintains a cybersecurity risk-management program designed to
+      assess, identify, and manage material risks arising from cybersecurity
+      threats, consistent with the standards reported by peer companies in the
+      dental and medical industries, which commonly leverage the National
+      Institute of Standards and Technology ("NIST") Cybersecurity Framework as
+      a basis for security posture measurement and risk management.
+
+
+      To date, the Company has not identified any material impact on its
+      financial condition or results of operations as a result of this incident,
+      including the current expected legal and advisor cost to address the
+      incident.
+
+
+      To the extent additional information becomes available that could affect
+      the Company's assessment of the incident and its impact, the Company will
+      update this disclosure in a timely manner.
 ---
 
 ## Incident Overview

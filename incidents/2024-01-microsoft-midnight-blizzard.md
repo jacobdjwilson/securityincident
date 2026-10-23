@@ -19,10 +19,85 @@ regulatory_filings:
     accession_number: 0001193125-24-011295
     filing_date: 2024-01-19
     url: https://www.sec.gov/Archives/edgar/data/789019/000119312524011295/0001193125-24-011295-index.htm
-    description: Item 1.05 Material Cybersecurity Incident disclosure filed by
-      Microsoft Corporation regarding Russian state-sponsored threat actor
-      Midnight Blizzard accessing senior leadership email accounts and internal
-      cybersecurity communications.
+    description: >-
+      Item 1.05. Material Cybersecurity Incidents
+
+
+      On January 12, 2024, Microsoft (the "Company" or "we") detected that
+      beginning in late November 2023, a nation-state associated threat actor
+      had gained access to and exfiltrated information from a very small
+      percentage of employee email accounts including members of our senior
+      leadership team and employees in our cybersecurity, legal, and other
+      functions, on the basis of preliminary analysis. We were able to remove
+      the threat actor's access to the email accounts on or about January 13,
+      2024. We are examining the information accessed to determine the impact of
+      the incident. We also continue to investigate the extent of the incident.
+      We have notified and are working with law enforcement. We are also
+      notifying relevant regulatory authorities with respect to unauthorized
+      access to personal information. As of the date of this filing, the
+      incident has not had a material impact on the Company's operations. The
+      Company has not yet determined whether the incident is reasonably likely
+      to materially impact the Company's financial condition or results of
+      operations.
+
+
+      This Form 8-K contains forward-looking statements, which are any
+      predictions, projections or other statements about future events based on
+      current expectations and assumptions that are subject to risks and
+      uncertainties, which are described in our filings with the Securities and
+      Exchange Commission. Forward-looking statements speak only as of the date
+      they are made. Readers are cautioned not to put undue reliance on
+      forward-looking statements, and the Company undertakes no duty to update
+      any forward-looking statement to conform the statement to actual results
+      or changes in the Company's expectations.
+  - regulator: SEC
+    form: Form 8-K Item 1.05
+    accession_number: 0001193125-24-062997
+    url: https://www.sec.gov/Archives/edgar/data/789019/000119312524062997/0001193125-24-062997-index.htm
+    filing_date: 2024-03-08
+    description: >-
+      Item 1.05.
+
+      Material Cybersecurity Incidents
+
+
+      As disclosed in the Original Filing, the Company detected that beginning
+      in late November 2023, a nation-state threat actor had gained access to
+      and exfiltrated information from a very small percentage of employee email
+      accounts including members of our senior leadership team and employees in
+      our cybersecurity, legal, and other functions. Since the date of the
+      Original Filing, the Company has determined that the threat actor used and
+      continues to use information it obtained to gain, or attempt to gain,
+      unauthorized access to some of the Company's source code repositories and
+      internal systems. The threat actor's ongoing attack is characterized by a
+      sustained, significant commitment of the threat actor's resources,
+      coordination, and focus. Our active investigations of the threat actor's
+      activities are ongoing, findings of our investigations will continue to
+      evolve, and further unauthorized access may occur.
+
+
+      We have increased our security investments, cross-enterprise coordination
+      and mobilization, and have enhanced our ability to defend ourselves and
+      secure and harden our environment against this advanced persistent threat.
+      We continue to coordinate with federal law enforcement with respect to its
+      ongoing investigation of the threat actor and the incident.
+
+
+      As of the date of this filing, the incident has not had a material impact
+      on the Company's operations. The Company has not yet determined that the
+      incident is reasonably likely to materially impact the Company's financial
+      condition or results of operations.
+
+
+      This Form 8-K contains forward-looking statements, which are any
+      predictions, projections or other statements about future events based on
+      current expectations and assumptions that are subject to risks and
+      uncertainties, which are described in our filings with the SEC.
+      Forward-looking statements speak only as of the date they are made.
+      Readers are cautioned not to put undue reliance on forward-looking
+      statements, and the Company undertakes no duty to update any
+      forward-looking statement to conform the statement to actual results or
+      changes in the Company's expectations.
 vendor_advisories:
   - publisher: Microsoft Security Response Center (MSRC)
     advisory_id: MSRC Incident Advisory
