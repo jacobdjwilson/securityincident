@@ -2,7 +2,7 @@
 id: 2024-06-globe-life
 target: Globe Life
 domain: globelifeinsurance.com
-status: CONFIRMED
+status: ACKNOWLEDGED
 first_seen: 2024-06-14
 last_updated: 2024-06-14
 threat_actor: null
@@ -11,7 +11,7 @@ summary: Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by
 tags:
   - regulatory
   - sec-8k
-  - confirmed
+  - acknowledged
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 8.01
@@ -41,9 +41,8 @@ regulatory_filings:
       this report, the incident has not had a material impact on the Company's
       operations, and the Company has not determined whether this is a material
       cybersecurity incident required to be reported under
-incident_type: Material Cybersecurity Incident
+incident_type: Unauthorized System Access / Active Investigation
 ---
-
 
 ## Incident Overview
 
@@ -67,4 +66,3 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Event:** SEC Form 8-K Item 8.01 Disclosure
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0000320335-24-000029)](https://www.sec.gov/Archives/edgar/data/320335/000032033524000029/0000320335-24-000029-index.htm)
-

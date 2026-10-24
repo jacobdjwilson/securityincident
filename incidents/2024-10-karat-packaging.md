@@ -2,7 +2,7 @@
 id: 2024-10-karat-packaging
 target: Karat Packaging
 domain: karatpackaging.com
-status: CONFIRMED
+status: ACKNOWLEDGED
 first_seen: 2024-10-23
 last_updated: 2024-10-23
 threat_actor: null
@@ -11,7 +11,7 @@ summary: Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by
 tags:
   - regulatory
   - sec-8k
-  - confirmed
+  - acknowledged
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 8.01
@@ -45,9 +45,8 @@ regulatory_filings:
 
       change, the Company will reassess materiality considerations in accordance
       with
-incident_type: Material Cybersecurity Incident
+incident_type: Unauthorized System Access / Active Investigation
 ---
-
 
 ## Incident Overview
 
@@ -71,4 +70,3 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Event:** SEC Form 8-K Item 8.01 Disclosure
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001213900-24-089965)](https://www.sec.gov/Archives/edgar/data/1758021/000121390024089965/0001213900-24-089965-index.htm)
-

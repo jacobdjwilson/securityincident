@@ -41,3 +41,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Andersen Group Listed on SilentRansomGroup Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [SilentRansomGroup Ransomware Leak Site Claim](https://www.ransomware.live/id/QW5kZXJzZW4gR3JvdXBAU2lsZW50UmFuc29tR3JvdXA=)
+
+### 2026-10-08 16:26 UTC
+- **Event:** Andersen Group Inc. Listed on SilentRansomGroup Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [SilentRansomGroup Ransomware Leak Site Claim](https://www.ransomware.live/id/QW5kZXJzZW4gR3JvdXAgSW5jLkBTaWxlbnRSYW5zb21Hcm91cA==)

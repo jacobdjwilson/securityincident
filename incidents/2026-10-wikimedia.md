@@ -2,7 +2,7 @@
 id: 2026-10-wikimedia
 target: Wikimedia
 domain: wikimedia.com
-status: DEVELOPING
+status: ACKNOWLEDGED
 first_seen: 2026-10-06
 last_updated: 2026-10-07
 threat_actor: null
@@ -14,8 +14,10 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - acknowledged
 compromised_data:
   - Authentication Credentials
+incident_type: Rogue Agent Telemetry / Service Disruption
 ---
 
 ## Incident Overview

@@ -13,8 +13,22 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - regulatory
+  - state-ag
+  - california
+  - confirmed
 compromised_data:
   - Customer / Employee PII
+  - Authentication Credentials
+regulatory_filings:
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630848
+    filing_date: 2026-10-05
+    description: Official statutory data breach notification submitted by Advantest
+      America to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 ---
 
 ## Incident Overview
@@ -45,3 +59,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** Press Coverage: Advantest Discloses Data Breach Months After Ransomware Attack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/advantest-discloses-data-breach-months-after-ransomware-attack/)
+
+### 2026-10-05 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-630848)

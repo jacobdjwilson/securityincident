@@ -41,3 +41,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** DIPECARR Listed on Eclipse Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Eclipse Ransomware Leak Site Claim](https://www.ransomware.live/id/RElQRUNBUlJARWNsaXBzZQ==)
+
+### 2026-10-08 21:21 UTC
+- **Event:** dipecarr.com.br Listed on Eclipse Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Eclipse Ransomware Leak Site Claim](https://www.ransomware.live/id/ZGlwZWNhcnIuY29tLmJyQEVjbGlwc2U=)

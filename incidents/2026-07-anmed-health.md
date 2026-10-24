@@ -3,19 +3,18 @@ id: 2026-07-anmed-health
 target: AnMed Health
 domain: anmed.org
 status: CONFIRMED
-first_seen: '2026-07-26'
-last_updated: '2026-07-26'
+first_seen: 2026-07-26
+last_updated: 2026-07-26
 threat_actor: Unknown / Unattributed
-summary: >-
-  South Carolina healthcare system AnMed Health experienced extensive IT and
-  telecommunications outages across all hospital campuses.
+summary: South Carolina healthcare system AnMed Health experienced extensive IT
+  and telecommunications outages across all hospital campuses.
 tags:
   - investigative
   - healthcare
   - outage
   - acknowledged
 industry: Healthcare
-incident_type: Network Intrusion & Data Exfiltration
+incident_type: Operational IT & Telecommunications Disruption
 affected_records: null
 compromised_data:
   - Social Security Numbers (SSNs)
@@ -23,6 +22,7 @@ compromised_data:
   - Clinical & Diagnostic Records
 regulatory_filings: []
 ---
+
 ## Incident Overview
 
 The **AnMed Health** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Healthcare** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.

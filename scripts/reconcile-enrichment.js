@@ -338,16 +338,51 @@ export function reconcileIncidents() {
     }
 
     // 4. Status Hierarchy Reconciliation
-    // If timeline contains a verified regulatory notice or confirmed target statement,
-    // ensure status is elevated to CONFIRMED or ACKNOWLEDGED
+    // Ground-truth status rules:
+    // - Item 8.01 only filings or target outage/disruption acknowledgments -> ACKNOWLEDGED
+    // - Statutory filings (Item 1.05, State AG, HHS OCR) or target breach admission -> CONFIRMED
     const statusRank = { 'REFUTED': 0, 'EMERGING': 1, 'DEVELOPING': 2, 'ACKNOWLEDGED': 3, 'CONFIRMED': 4 };
     const currentRank = statusRank[data.status] || 0;
 
-    if (body.includes('CONFIRMED BY REGULATOR') || body.includes('CONFIRMED BY TARGET')) {
+    const regFilings = Array.isArray(data.regulatory_filings) ? data.regulatory_filings : [];
+    const hasItem105 = regFilings.some(rf => (rf.form || '').includes('1.05'));
+    const hasStateAg = regFilings.some(rf => (rf.regulator || '').toLowerCase().includes('attorney general') || (rf.regulator || '').toLowerCase().includes('justice'));
+    const hasHhs = regFilings.some(rf => (rf.regulator || '').toLowerCase().includes('hhs'));
+    const hasItem801Only = regFilings.length > 0 && regFilings.every(rf => (rf.form || '').includes('8.01')) && !hasItem105 && !hasStateAg && !hasHhs;
+
+    const hasStatutoryBreachFiling = hasItem105 || hasStateAg || hasHhs;
+
+    // Check if target confirmed a breach vs outage/investigation
+    const isTargetBreachAdmission = (
+      body.includes('CONFIRMED BY TARGET') &&
+      /\b(?:data breach|customer records|exfiltrat|stolen|ransomware attack|personal information|patient records|credential|compromised)\b/i.test(`${data.summary || ''} ${body}`) &&
+      !/\b(?:believes that this incident is not material|incident is not material|service outage|phone and internet outage)\b/i.test(`${data.summary || ''} ${body}`)
+    );
+
+    const isPureOutageOrInvestigationAck = (
+      hasItem801Only ||
+      /\b(?:believes that this incident is not material|incident is not material|service outage as users lose access|phone and internet outage impacting all hospital locations)\b/i.test(`${data.summary || ''} ${body}`) ||
+      (body.includes('ACKNOWLEDGED') && !hasStatutoryBreachFiling && !isTargetBreachAdmission)
+    );
+
+    if (isPureOutageOrInvestigationAck && !hasStatutoryBreachFiling) {
+      if (data.status !== 'ACKNOWLEDGED') {
+        data.status = 'ACKNOWLEDGED';
+        modified = true;
+      }
+      if (Array.isArray(data.tags)) {
+        if (!data.tags.includes('acknowledged')) data.tags.push('acknowledged');
+        const confIdx = data.tags.indexOf('confirmed');
+        if (confIdx !== -1) data.tags.splice(confIdx, 1);
+      }
+    } else if (hasStatutoryBreachFiling || isTargetBreachAdmission) {
       if (currentRank < statusRank['CONFIRMED']) {
         data.status = 'CONFIRMED';
         modified = true;
       }
+    } else if ((body.includes('ACKNOWLEDGED') || (Array.isArray(data.tags) && data.tags.includes('acknowledged'))) && currentRank < statusRank['ACKNOWLEDGED']) {
+      data.status = 'ACKNOWLEDGED';
+      modified = true;
     } else if (body.includes('INDEPENDENT VERIFICATION') && currentRank < statusRank['DEVELOPING']) {
       data.status = 'DEVELOPING';
       modified = true;

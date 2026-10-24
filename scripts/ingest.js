@@ -136,7 +136,10 @@ const INVALID_TARGETS = new Set([
   'four cyber', 'official mcp', 'one does', 'critical zero-day',
   'pizza restaurant chain', 'pizza chain', 'restaurant chain',
   'hospital system', 'school district', 'law firm', 'water utility',
-  'former soldier', 'dutch national', 'security firm', 'tech giant'
+  'former soldier', 'dutch national', 'security firm', 'tech giant',
+  'cyberattack', 'victim', 'japan', 'venture global', 'google will end',
+  'millions of iphones', 'ai minister', 'ai agents', 'fridges',
+  'south korean banks', 'south korean banks were likely', 'gaming giant capcom', 'a...n'
 ]);
 
 // Curated entity knowledge map for recognized organizations and verified domains
@@ -229,13 +232,37 @@ function detectThreatActor(text) {
 
 function detectStatus(title, desc) {
   const text = `${title} ${desc}`.toLowerCase();
-  if (text.includes('8-k') || text.includes('item 1.05') || text.includes('attorney general') || text.includes('formal filing')) {
+  if (text.includes('item 1.05') || text.includes('attorney general') || text.includes('formal filing') || text.includes('rcw 19.255') || text.includes('sb-24')) {
     return 'CONFIRMED';
   }
-  if (text.includes('confirms breach') || text.includes('confirms hack') || text.includes('confirms data breach') || text.includes('confirms ransomware') || text.includes('notifies customers') || text.includes('admits breach') || text.includes('confirms unauthorized')) {
+  if (text.includes('item 8.01') || text.includes('form 8-k item 8.01')) {
+    return 'ACKNOWLEDGED';
+  }
+  if (text.includes('confirms breach') || text.includes('confirms hack') || text.includes('confirms data breach') || text.includes('confirms ransomware') || text.includes('notifies customers') || text.includes('admits breach') || text.includes('confirms data theft') || text.includes('confirms data leak')) {
     return 'CONFIRMED';
   }
-  if (text.includes('investigating') || text.includes('reports outage') || text.includes('operational disruption') || text.includes('diverts ambulances') || text.includes('system downtime')) {
+  if (
+    text.includes('acknowledg') ||
+    text.includes('investigating') ||
+    text.includes('reports outage') ||
+    text.includes('operational disruption') ||
+    text.includes('diverts ambulances') ||
+    text.includes('system downtime') ||
+    text.includes('service disruption') ||
+    text.includes('systems offline') ||
+    text.includes('takes systems offline') ||
+    text.includes('precautionary measures') ||
+    text.includes('isolated systems') ||
+    text.includes('proactively disconnected') ||
+    text.includes('unauthorized activity detected') ||
+    text.includes('suspicious activity detected') ||
+    text.includes('confirms outage') ||
+    text.includes('confirms service outage') ||
+    text.includes('confirms incident') ||
+    text.includes('confirms cyber incident') ||
+    text.includes('confirms disruption') ||
+    text.includes('assessing impact')
+  ) {
     return 'ACKNOWLEDGED';
   }
   if (text.includes('researchers verify') || text.includes('independently verified') || text.includes('corroborated') || text.includes('samples match')) {
@@ -252,10 +279,54 @@ function detectStatus(title, desc) {
 
 function detectVerification(title, desc, defaultVerification) {
   const text = `${title} ${desc}`.toLowerCase();
-  if (text.includes('sec 8-k') || text.includes('item 1.05') || text.includes('cisa advisory') || text.includes('attorney general')) {
+  if (text.includes('item 1.05') || text.includes('attorney general') || text.includes('rcw 19.255') || text.includes('sb-24')) {
     return 'CONFIRMED BY REGULATOR';
   }
-  if (text.includes('confirms') || text.includes('admits') || text.includes('statement by') || text.includes('official blog') || text.includes('spokesperson said')) {
+  if (text.includes('cisa') || text.includes('ncsc') || text.includes('fbi advisory') || text.includes('government advisory')) {
+    return 'GOVERNMENT ADVISORY';
+  }
+  // Target breach confirmation (CONFIRMED BY TARGET)
+  const isTargetBreachConfirmation = (
+    text.includes('confirms breach') ||
+    text.includes('confirms data breach') ||
+    text.includes('confirms hack') ||
+    text.includes('admits breach') ||
+    text.includes('confirms ransomware') ||
+    text.includes('confirms data theft') ||
+    text.includes('confirms data leak') ||
+    text.includes('notifies customers of breach') ||
+    text.includes('notice of data breach')
+  );
+  if (isTargetBreachConfirmation) {
+    return 'CONFIRMED BY TARGET';
+  }
+  // Target disruption/outage/investigation acknowledgment (ACKNOWLEDGED)
+  const isTargetAcknowledgment = (
+    text.includes('acknowledg') ||
+    text.includes('confirms outage') ||
+    text.includes('confirms service outage') ||
+    text.includes('confirms disruption') ||
+    text.includes('confirms incident') ||
+    text.includes('confirms cyber incident') ||
+    text.includes('confirms unauthorized access') ||
+    text.includes('reports outage') ||
+    text.includes('reports disruption') ||
+    text.includes('statement on it incident') ||
+    text.includes('statement on cyber incident') ||
+    text.includes('statement on unauthorized activity') ||
+    text.includes('takes systems offline') ||
+    text.includes('investigating incident') ||
+    text.includes('investigating disruption') ||
+    text.includes('investigating cyber incident') ||
+    text.includes('item 8.01')
+  );
+  if (isTargetAcknowledgment) {
+    return 'ACKNOWLEDGED';
+  }
+  if (text.includes('statement by') || text.includes('official blog') || text.includes('spokesperson said')) {
+    if (text.includes('investigat') || text.includes('outage') || text.includes('disruption') || text.includes('offline') || text.includes('precautionary')) {
+      return 'ACKNOWLEDGED';
+    }
     return 'CONFIRMED BY TARGET';
   }
   if (text.includes('claims') || text.includes('leak site') || text.includes('forum post') || text.includes('threat actor lists') || text.includes('extortion demand')) {
@@ -266,9 +337,11 @@ function detectVerification(title, desc, defaultVerification) {
 
 function isValidTargetCandidate(candidate) {
   if (!candidate || candidate.length < 3 || candidate.length > 70) return false;
-  const lower = candidate.toLowerCase();
+  const lower = candidate.toLowerCase().trim();
   if (INVALID_TARGETS.has(lower)) return false;
   if (detectThreatActor(candidate) !== null) return false;
+  if (/^company\s*#?\d+$/i.test(candidate.trim())) return false;
+  if (/^[a-z]\.{2,}[a-z]?$/i.test(candidate.trim())) return false;
   if (/\b(?:botnet|malware|trojan|stealer|ransomware|backdoor|spyware|exploit|docker|flaw|firmware|scam|scammers|hackers|investigation|phishing|campaign|zero-day|zeroday|vulnerability|payload|botnets)\b/i.test(lower)) {
     return false;
   }

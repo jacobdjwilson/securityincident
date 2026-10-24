@@ -2,7 +2,7 @@
 id: 2026-10-railway
 target: Railway
 domain: railway.com
-status: DEVELOPING
+status: ACKNOWLEDGED
 first_seen: 2026-10-22
 last_updated: 2026-10-22
 threat_actor: null
@@ -12,8 +12,10 @@ summary: Cloud platform Railway published an urgent warning to users after
 tags:
   - threat-intel
   - developing
+  - acknowledged
 compromised_data:
   - Authentication Credentials
+incident_type: Credential Exposure / Precautionary Security Action
 ---
 
 ## Incident Overview

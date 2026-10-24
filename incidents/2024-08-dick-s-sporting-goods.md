@@ -2,7 +2,7 @@
 id: 2024-08-dick-s-sporting-goods
 target: Dick'S Sporting Goods
 domain: dickssportinggoods.com
-status: CONFIRMED
+status: ACKNOWLEDGED
 first_seen: 2024-08-28
 last_updated: 2024-08-28
 threat_actor: null
@@ -11,7 +11,7 @@ summary: Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by
 tags:
   - regulatory
   - sec-8k
-  - confirmed
+  - acknowledged
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 8.01
@@ -20,9 +20,8 @@ regulatory_filings:
     filing_date: 2024-08-28
     description: Official statutory Form 8-K filing submitted by Dick'S Sporting
       Goods to the SEC pursuant to cybersecurity disclosure mandates.
-incident_type: Material Cybersecurity Incident
+incident_type: Unauthorized System Access / Active Investigation
 ---
-
 
 ## Incident Overview
 
@@ -46,4 +45,3 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Event:** SEC Form 8-K Item 8.01 Disclosure
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001089063-24-000104)](https://www.sec.gov/Archives/edgar/data/1089063/000108906324000104/0001089063-24-000104-index.htm)
-

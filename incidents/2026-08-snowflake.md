@@ -2,7 +2,7 @@
 id: 2026-08-snowflake
 target: Snowflake
 domain: snowflake.com
-status: CONFIRMED
+status: ACKNOWLEDGED
 first_seen: 2026-08-06
 last_updated: 2026-10-06
 threat_actor: UNC5537
@@ -14,8 +14,8 @@ tags:
   - investigative
   - developing
   - threat-intel
-  - confirmed
   - media-pickup
+  - acknowledged
 industry: Technology
 incident_type: Credential Stuffing / Cloud Account Takeover
 affected_records: 165000000

@@ -41,3 +41,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Global AirFreight International Listed on Eclipse Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Eclipse Ransomware Leak Site Claim](https://www.ransomware.live/id/R2xvYmFsIEFpckZyZWlnaHQgSW50ZXJuYXRpb25hbEBFY2xpcHNl)
+
+### 2026-10-17 22:21 UTC
+- **Event:** PART2 Global AirFreight International Listed on Eclipse Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Eclipse Ransomware Leak Site Claim](https://www.ransomware.live/id/UEFSVDIgR2xvYmFsIEFpckZyZWlnaHQgSW50ZXJuYXRpb25hbEBFY2xpcHNl)

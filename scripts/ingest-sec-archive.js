@@ -282,11 +282,12 @@ export async function ingestSecArchive() {
 
       const ym = fileDate.slice(0, 7);
       const timeUtc = `${fileDate} 16:00 UTC`;
-      const milestoneBlock = `### ${timeUtc}\n- **Event:** SEC ${formName} Disclosure\n- **Verification:** CONFIRMED BY REGULATOR\n- **Source:** [SEC EDGAR 8-K Filing (${adsh})](${permanentUrl})\n`;
+      const verificationTier = hasItem105 ? 'CONFIRMED BY REGULATOR' : 'ACKNOWLEDGED';
+      const milestoneBlock = `### ${timeUtc}\n- **Event:** SEC ${formName} Disclosure\n- **Verification:** ${verificationTier}\n- **Source:** [SEC EDGAR 8-K Filing (${adsh})](${permanentUrl})\n`;
 
       const summaryText = hasItem105
         ? `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`
-        : `Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by ${target}.`;
+        : `Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by ${target} acknowledging an ongoing investigation or operational disruption.`;
 
       // Check if incident dossier already exists
       const existingPath = findExistingIncidentFilePath(targetSlug, target);
@@ -297,15 +298,19 @@ export async function ingestSecArchive() {
           const parsed = matter(raw);
           let modified = false;
 
-          // Always elevate status to CONFIRMED
-          if (parsed.data.status !== 'CONFIRMED') {
+          // Elevate status: Item 1.05 -> CONFIRMED, Item 8.01 -> ACKNOWLEDGED (if not already CONFIRMED)
+          if (hasItem105 && parsed.data.status !== 'CONFIRMED') {
             parsed.data.status = 'CONFIRMED';
+            modified = true;
+          } else if (!hasItem105 && parsed.data.status !== 'CONFIRMED' && parsed.data.status !== 'ACKNOWLEDGED') {
+            parsed.data.status = 'ACKNOWLEDGED';
             modified = true;
           }
 
           // Ensure tags
           if (!Array.isArray(parsed.data.tags)) parsed.data.tags = [];
-          for (const t of ['regulatory', 'sec-8k', 'confirmed']) {
+          const requiredTags = hasItem105 ? ['regulatory', 'sec-8k', 'confirmed'] : ['regulatory', 'sec-8k', 'acknowledged'];
+          for (const t of requiredTags) {
             if (!parsed.data.tags.includes(t)) {
               parsed.data.tags.push(t);
               modified = true;
@@ -364,11 +369,11 @@ export async function ingestSecArchive() {
           id: newIncidentId,
           target,
           domain,
-          status: 'CONFIRMED',
+          status: hasItem105 ? 'CONFIRMED' : 'ACKNOWLEDGED',
           first_seen: fileDate,
           last_updated: fileDate,
           summary: summaryText,
-          tags: ['regulatory', 'sec-8k', 'confirmed'],
+          tags: hasItem105 ? ['regulatory', 'sec-8k', 'confirmed'] : ['regulatory', 'sec-8k', 'acknowledged'],
           regulatory_filings: [regFilingObj],
           timeline: milestoneBlock
         });
@@ -377,7 +382,7 @@ export async function ingestSecArchive() {
           fs.writeFileSync(newFilePath, dossierContent, 'utf-8');
           validateIncidentFile(newFilePath);
           createdCount++;
-          console.log(`      ✨ Created new confirmed dossier: ${newIncidentId}.md`);
+          console.log(`      ✨ Created new ${hasItem105 ? 'confirmed' : 'acknowledged'} dossier: ${newIncidentId}.md`);
         } catch (e) {
           console.error(`      ❌ Error creating ${newFilePath}:`, e.message);
         }

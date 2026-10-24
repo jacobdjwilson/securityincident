@@ -122,7 +122,7 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
       const sourceTitle = `SEC EDGAR 8-K ${hasItem105 ? 'Item 1.05' : 'Item 8.01'} Filing (${adsh})`;
       const summaryText = hasItem105
         ? `Official SEC Form 8-K Item 1.05 disclosure filed by ${target} regarding a material cybersecurity incident.`
-        : `Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by ${target}.`;
+        : `Official SEC Form 8-K Item 8.01 cybersecurity event disclosure filed by ${target} acknowledging an ongoing investigation or operational disruption.`;
 
       const docName = hit._id ? hit._id.split(':')[1] : null;
       let filingDescription = null;
@@ -146,15 +146,15 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
         target,
         targetSlug,
         domain,
-        status: 'CONFIRMED',
-        verification: 'CONFIRMED BY REGULATOR',
+        status: hasItem105 ? 'CONFIRMED' : 'ACKNOWLEDGED',
+        verification: hasItem105 ? 'CONFIRMED BY REGULATOR' : 'ACKNOWLEDGED',
         fileDate,
         timeUtc,
         event: `SEC ${formName} Disclosure`,
         sourceTitle,
         sourceUrl: permanentUrl,
         summary: summaryText,
-        tags: ['regulatory', 'sec-8k', 'confirmed'],
+        tags: hasItem105 ? ['regulatory', 'sec-8k', 'confirmed'] : ['regulatory', 'sec-8k', 'acknowledged'],
         regulatoryFilings: [regFiling]
       });
     }
