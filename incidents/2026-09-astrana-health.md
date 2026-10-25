@@ -4,7 +4,7 @@ target: Astrana Health
 domain: astranahealth.com
 status: CONFIRMED
 first_seen: 2026-09-23
-last_updated: 2026-09-23
+last_updated: 2026-10-25
 threat_actor: RansomHub
 summary: Healthcare management company Astrana Health filed Form 8-K Item 1.05
   disclosing a cybersecurity intrusion at its Astrana Health Management
@@ -14,6 +14,10 @@ tags:
   - sec-8k
   - healthcare
   - confirmed
+  - extortion
+  - ransomware-claim
+  - falcon
+  - emerging
 industry: Healthcare
 incident_type: Ransomware Extortion
 affected_records: 92000
@@ -119,3 +123,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** SEC Form 8-K Item 1.05 Filing: Astrana Health discloses cybersecurity incident impacting management subsidiary environments.
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Item 1.05 (Adsh 0001104659-26-109813)](https://www.sec.gov/Archives/edgar/data/1083446/000110465926109813/0001104659-26-109813-index.htm)
+
+### 2026-10-25 14:53 UTC
+- **Event:** Astrana Health Listed on Falcon Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Falcon Ransomware Leak Site Claim](https://www.ransomware.live/id/QXN0cmFuYSBIZWFsdGhARmFsY29u)
