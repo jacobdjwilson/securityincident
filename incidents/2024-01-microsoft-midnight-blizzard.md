@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-23
+last_updated: 2026-10-26
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -387,3 +387,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft Links ConnectWise Breach to China-Linked Group Using AI Pentesting Tool ARTEX
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/201501/apt/microsoft-links-connectwise-breach-to-china-linked-group-using-ai-pentesting-tool-artex.html)
+
+### 2026-10-26 08:35 UTC
+- **Event:** Press Coverage: Microsoft 365 Token-Replay Attacks Compromise 97 Accounts at 79 Organizations
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html)

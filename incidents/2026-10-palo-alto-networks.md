@@ -4,7 +4,7 @@ target: Palo Alto Networks
 domain: paloaltonetworks.com
 status: DEVELOPING
 first_seen: 2026-10-14
-last_updated: 2026-10-20
+last_updated: 2026-10-25
 threat_actor: Qilin
 summary: Palo Alto Networks has released security updates for a high-severity
   PAN-OS RCE zero-day, tracked as CVE-2026-0322, that has been exploited in
@@ -138,3 +138,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Qilin and INC Ransomware Groups Exploit Palo Alto Networks Flaw to Bypass MFA
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/qilin-and-inc-ransomware-groups-exploit.html)
+
+### 2026-10-25 17:19 UTC
+- **Event:** Press Coverage: PHP2Shell Exploitation Attempts Continue Amid Suspected N. Korea Global Scanning Activity
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/php2shell-exploitation-hits-government.html)
