@@ -26,8 +26,9 @@ function getVerificationIcon(verifText) {
   if (text.includes('GOVERNMENT') || text.includes('AGENCY')) return 'fa-solid fa-shield-halved';
   if (text.includes('TARGET')) return 'fa-solid fa-bullhorn';
   if (text.includes('INDEPENDENT')) return 'fa-solid fa-microscope';
+  if (text.includes('ACKNOWLEDGED')) return 'fa-solid fa-bullhorn';
   if (text.includes('REFUTED')) return 'fa-solid fa-ban';
-  return 'fa-solid fa-circle-question';
+  return 'fa-solid fa-bolt';
 }
 
 function getVerificationClass(verifText) {
@@ -36,6 +37,7 @@ function getVerificationClass(verifText) {
   if (text.includes('GOVERNMENT') || text.includes('AGENCY')) return 'government';
   if (text.includes('TARGET')) return 'target';
   if (text.includes('INDEPENDENT')) return 'independent';
+  if (text.includes('ACKNOWLEDGED')) return 'acknowledged';
   if (text.includes('REFUTED')) return 'refuted';
   return 'unverified';
 }
@@ -965,50 +967,100 @@ function generateIndexHtml(incidents, stats, pipelineStatus = {}, feedsConfig = 
 }
 
 function generateStatusHtml(stats, pipelineStatus = {}, feedsConfig = []) {
-  const feeds = (pipelineStatus && Array.isArray(pipelineStatus.feeds) && pipelineStatus.feeds.length > 0)
+  let feeds = (pipelineStatus && Array.isArray(pipelineStatus.feeds) && pipelineStatus.feeds.length > 0)
     ? pipelineStatus.feeds
     : (feedsConfig.length > 0 ? feedsConfig.map(f => ({
         id: f.id,
         name: f.name,
-        type: f.type === 'regulatory' ? 'Federal / Regulatory' : (f.type === 'general-media' ? 'Major News Wire' : 'Threat Intelligence'),
+        type: f.type === 'regulatory' ? 'Federal Regulatory Disclosures' : (f.type === 'general-media' ? 'Major News Wire' : (f.type === 'agency-advisory' ? 'Sovereign Cybersecurity Directives' : 'Threat Intelligence')),
+        category: f.type === 'regulatory' ? 'regulatory' : (f.type === 'agency-advisory' ? 'government' : (f.type === 'general-media' ? 'media' : 'threat-intel')),
         endpoint: f.url,
         status: 'Operational',
         verification: f.defaultVerification || 'INDEPENDENT VERIFICATION',
         method: f.feedType === 'json-api' ? 'REST API Telemetry' : 'Syndicated RSS Feed'
       })) : []);
 
+  function getFeedCategory(feed) {
+    if (feed.category) return feed.category;
+    const t = (feed.type || '').toLowerCase();
+    const id = (feed.id || '').toLowerCase();
+    const verif = (feed.verification || '').toUpperCase();
+    if (verif.includes('REGULATOR') || t.includes('regulatory') || t.includes('state ag') || id.includes('edgar') || id.includes('doj') || id.includes('ag') || id.includes('ocr')) {
+      return 'regulatory';
+    }
+    if (verif.includes('GOVERNMENT') || t.includes('government') || t.includes('advisory') || id.includes('cisa') || id.includes('ncsc')) {
+      return 'government';
+    }
+    if (verif.includes('UNVERIFIED') || t.includes('extortion') || t.includes('ransomware') || id.includes('darkweb')) {
+      return 'extortion';
+    }
+    if (t.includes('media') || t.includes('wire') || t.includes('news') || id === 'ap-news' || id === 'reuters' || id === 'bbc-tech' || id === 'the-guardian' || id === 'cnbc-tech' || id === 'npr-tech' || id === 'wired-security') {
+      return 'media';
+    }
+    return 'threat-intel';
+  }
+
+  // Sort feeds by authority tier order:
+  // 1. Regulatory (Base 0.65)
+  // 2. Government (Base 0.62)
+  // 3. Extortion (Base 0.06)
+  // 4. Threat Intel (Base 0.32)
+  // 5. Media (Base 0.32)
+  const categoryOrder = { regulatory: 1, government: 2, extortion: 3, 'threat-intel': 4, media: 5 };
+  feeds = [...feeds].sort((a, b) => {
+    const catA = getFeedCategory(a);
+    const catB = getFeedCategory(b);
+    const orderDiff = (categoryOrder[catA] || 99) - (categoryOrder[catB] || 99);
+    if (orderDiff !== 0) return orderDiff;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+
   const feedCount = feeds.length;
   const operationalCount = feeds.filter(f => (f.status || 'operational').toLowerCase() === 'operational').length;
   const allOperational = feedCount > 0 && operationalCount === feedCount;
 
+  const categoryCounts = {
+    ALL: feedCount,
+    regulatory: feeds.filter(f => getFeedCategory(f) === 'regulatory').length,
+    government: feeds.filter(f => getFeedCategory(f) === 'government').length,
+    'threat-intel': feeds.filter(f => getFeedCategory(f) === 'threat-intel').length,
+    extortion: feeds.filter(f => getFeedCategory(f) === 'extortion').length,
+    media: feeds.filter(f => getFeedCategory(f) === 'media').length
+  };
+
   const heroStatusText = allOperational
     ? `ALL ${feedCount} INGESTION PIPELINES OPERATIONAL`
     : `${operationalCount} OF ${feedCount} INGESTION PIPELINES OPERATIONAL`;
-  const heroDescText = `Automated continuous ingestion workflows poll ${feedCount} authoritative federal regulatory directories, state AG disclosures, dark web extortion portals, mainstream news wires, and technical telemetry feeds every 6 hours via GitHub Actions.`;
+  const heroDescText = `Automated continuous ingestion workflows poll ${feedCount} authoritative endpoints across federal statutory directories, state AG breach portals, sovereign agency directives, dark web extortion monitors, investigative threat labs, and verified news wires every 6 hours via GitHub Actions.`;
 
   const feedsTableHtml = feeds.map(feed => {
     const endpointUrl = feed.endpoint || feed.url || '';
     const verif = feed.verification || feed.defaultVerification || 'INDEPENDENT VERIFICATION';
+    const cat = getFeedCategory(feed);
+    const searchTokens = `${feed.name} ${endpointUrl} ${feed.type} ${verif} ${feed.method || ''}`.toLowerCase();
+    const endpointDisplay = endpointUrl.length > 45 ? endpointUrl.slice(0, 42) + '...' : endpointUrl;
+
     return `
-      <tr>
+      <tr class="status-feed-row" data-category="${cat}" data-search="${escapeXml(searchTokens)}">
         <td class="col-feed-name">
-          <strong>${feed.name}</strong>
-          <a href="${endpointUrl}" target="_blank" rel="noopener nofollow" class="feed-endpoint-link font-mono" title="Inspect source endpoint">
-            ${endpointUrl.length > 45 ? endpointUrl.slice(0, 42) + '...' : endpointUrl} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <strong>${escapeXml(feed.name)}</strong>
+          <a href="${endpointUrl}" target="_blank" rel="noopener nofollow" class="feed-endpoint-link font-mono" title="Inspect source endpoint: ${endpointUrl}">
+            ${escapeXml(endpointDisplay)} <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
         </td>
-        <td class="col-feed-type"><span class="badge-source-type">${feed.type}</span></td>
+        <td class="col-feed-type"><span class="badge-source-type">${escapeXml(feed.type)}</span></td>
         <td class="col-feed-verif"><span class="verify-badge ${getVerificationClass(verif)}"><i class="${getVerificationIcon(verif)}"></i> ${cleanVerification(verif)}</span></td>
-        <td class="col-feed-method font-mono">${feed.method || 'Automated Scraper'}</td>
+        <td class="col-feed-method font-mono">${escapeXml(feed.method || 'Automated Scraper')}</td>
         <td class="col-feed-lookback font-mono">${feed.lookback_days ? `${feed.lookback_days} days` : 'Real-time'}</td>
         <td class="col-feed-status">
-          <span class="status-indicator-operational"><span class="dot-pulse-green"></span> ${feed.status || 'Operational'}</span>
+          <span class="status-indicator-operational"><span class="dot-pulse-green"></span> ${escapeXml(feed.status || 'Operational')}</span>
         </td>
       </tr>
     `;
   }).join('\n');
 
   const lastRunIso = pipelineStatus.last_run || stats.generated_at;
+  const lastRunFormatted = lastRunIso ? lastRunIso.slice(0, 19).replace('T', ' ') + ' UTC' : 'Synchronized';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1044,7 +1096,7 @@ function generateStatusHtml(stats, pipelineStatus = {}, feedsConfig = []) {
           <span class="sh-pulse-dot"></span>
           <h1 class="sh-title">${heroStatusText}</h1>
         </div>
-        <div class="sh-last-check font-mono">Last Ingest: ${lastRunIso.slice(0, 19).replace('T', ' ')} UTC</div>
+        <div class="sh-last-check font-mono">Last Ingest: ${lastRunFormatted}</div>
       </div>
       <p class="sh-desc">
         ${heroDescText}
@@ -1052,7 +1104,7 @@ function generateStatusHtml(stats, pipelineStatus = {}, feedsConfig = []) {
       <div class="sh-cadence-bar">
         <span class="sc-item"><i class="fa-solid fa-clock text-cyan"></i> <strong>Cadence:</strong> ${pipelineStatus.cadence || 'Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)'}</span>
         <span class="sc-item"><i class="fa-solid fa-shield-halved text-confirmed"></i> <strong>Quality Gate:</strong> 100% Schema &amp; Milestone Validation</span>
-        <span class="sc-item"><i class="fa-solid fa-scale-balanced text-developing"></i> <strong>Confidence:</strong> Deterministic Open Weights</span>
+        <span class="sc-item"><i class="fa-solid fa-scale-balanced text-developing"></i> <strong>Confidence:</strong> Deterministic Open Weights (v2.0)</span>
       </div>
     </div>
 
@@ -1060,8 +1112,8 @@ function generateStatusHtml(stats, pipelineStatus = {}, feedsConfig = []) {
     <div class="status-metrics-grid">
       <div class="sm-card">
         <span class="sm-label">Active Monitored Feeds</span>
-        <span class="sm-val text-cyan">${feeds.length}</span>
-        <span class="sm-sub">Regulatory, AGs, Dark Web &amp; Intel</span>
+        <span class="sm-val text-cyan">${feedCount}</span>
+        <span class="sm-sub font-mono">5 Telemetry Authorities</span>
       </div>
       <div class="sm-card">
         <span class="sm-label">90-Day Rolling Dataset</span>
@@ -1074,28 +1126,49 @@ function generateStatusHtml(stats, pipelineStatus = {}, feedsConfig = []) {
         <span class="sm-sub font-mono">Flat Markdown Dossiers in Git</span>
       </div>
       <div class="sm-card">
-        <span class="sm-label">Validation Pass Rate</span>
+        <span class="sm-label">Quantified Records Tracked</span>
+        <span class="sm-val text-cyan">${formatAffectedCount(stats.total_affected_records)}</span>
+        <span class="sm-sub font-mono">Exposed Population Scope</span>
+      </div>
+      <div class="sm-card">
+        <span class="sm-label">Multi-Source Corroborated</span>
+        <span class="sm-val text-confirmed">${stats.corroborated_percent}%</span>
+        <span class="sm-sub font-mono">${stats.corroborated_count} Corroborated Events</span>
+      </div>
+      <div class="sm-card">
+        <span class="sm-label">Validation Gate Pass Rate</span>
         <span class="sm-val text-confirmed">${pipelineStatus.verification_pass_rate || '100%'}</span>
         <span class="sm-sub font-mono">Strict Schema &amp; RSS Testing</span>
-      </div>
-      <div class="sm-card">
-        <span class="sm-label">Corroborated Incidents</span>
-        <span class="sm-val text-cyan">${stats.corroborated_percent}%</span>
-        <span class="sm-sub font-mono">${stats.corroborated_count} Multi-Source Events</span>
-      </div>
-      <div class="sm-card">
-        <span class="sm-label">Machine-Readable Feeds</span>
-        <span class="sm-val text-confirmed">Active</span>
-        <span class="sm-sub">RSS 2.0 &amp; JSON Feed 1.1 In Sync</span>
       </div>
     </div>
 
     <!-- Monitored Sources Operational Table -->
-    <section class="status-section">
+    <section class="status-section" id="monitored-sources">
       <div class="status-section-header">
-        <h2 class="status-section-title"><i class="fa-solid fa-satellite-dish text-cyan"></i> Monitored Feeds &amp; Authoritative Endpoints</h2>
-        <span class="status-section-desc">Active continuous polling targets across federal regulatory EFTS APIs, State AG portals, dark web monitors, and technical advisories.</span>
+        <div class="ssh-left">
+          <h2 class="status-section-title"><i class="fa-solid fa-satellite-dish text-cyan"></i> Monitored Feeds &amp; Authoritative Endpoints</h2>
+          <span class="status-section-desc">Continuous automated polling targets across statutory directories, sovereign agency directives, dark web monitors, and threat intelligence wires.</span>
+        </div>
       </div>
+
+      <div class="status-feed-controls">
+        <div class="status-feed-filters" role="tablist" aria-label="Filter Monitored Feeds by Authority">
+          <button type="button" class="status-feed-filter-btn active" data-category="ALL"><i class="fa-solid fa-list-check"></i> All Feeds <span class="sff-badge">${categoryCounts.ALL}</span></button>
+          <button type="button" class="status-feed-filter-btn" data-category="regulatory"><i class="fa-solid fa-landmark"></i> Statutory Regulators <span class="sff-badge">${categoryCounts.regulatory}</span></button>
+          <button type="button" class="status-feed-filter-btn" data-category="government"><i class="fa-solid fa-shield-halved"></i> Sovereign Directives <span class="sff-badge">${categoryCounts.government}</span></button>
+          <button type="button" class="status-feed-filter-btn" data-category="threat-intel"><i class="fa-solid fa-microscope"></i> Threat Intelligence <span class="sff-badge">${categoryCounts['threat-intel']}</span></button>
+          <button type="button" class="status-feed-filter-btn" data-category="extortion"><i class="fa-solid fa-bolt"></i> Extortion Monitors <span class="sff-badge">${categoryCounts.extortion}</span></button>
+          <button type="button" class="status-feed-filter-btn" data-category="media"><i class="fa-solid fa-newspaper"></i> News Wires <span class="sff-badge">${categoryCounts.media}</span></button>
+        </div>
+        <div class="status-feed-search-wrap">
+          <div class="sfs-input-box">
+            <i class="fa-solid fa-magnifying-glass sfs-icon"></i>
+            <input type="search" id="status-feed-search" class="status-feed-search-input font-mono" placeholder="Search feeds by name, endpoint, or method..." aria-label="Search monitored feeds">
+          </div>
+          <span id="status-feed-visible-count" class="status-feed-visible-count font-mono">Showing ${feedCount} of ${feedCount} feeds</span>
+        </div>
+      </div>
+
       <div class="status-table-wrap">
         <table class="status-table">
           <thead>
@@ -1125,48 +1198,56 @@ function generateStatusHtml(stats, pipelineStatus = {}, feedsConfig = []) {
         <div class="stage-card">
           <div class="stage-num font-mono">01</div>
           <h3 class="stage-title"><i class="fa-solid fa-cloud-arrow-down"></i> Multi-Source Polling</h3>
-          <p class="stage-desc">Polls SEC EDGAR EFTS API, California/Washington/Oregon State AG portals, HHS OCR healthcare feeds, and real-time ransomware leak feeds with HTTP ETag &amp; Last-Modified caching.</p>
+          <p class="stage-desc">Polls SEC EDGAR EFTS API, California, Washington, and Oregon State AG breach portals, HHS OCR healthcare feeds, sovereign agency directives, and real-time ransomware leak feeds with HTTP ETag &amp; Last-Modified caching.</p>
         </div>
         <div class="stage-card">
           <div class="stage-num font-mono">02</div>
           <h3 class="stage-title"><i class="fa-solid fa-dna"></i> Entity &amp; Vector Parsing</h3>
-          <p class="stage-desc">Disambiguates corporate entities, resolves official domains, detects affected record counts, and classifies compromised data types using regex entity matchers.</p>
+          <p class="stage-desc">Disambiguates corporate entities, resolves official primary domains, extracts quantified affected record counts, and categorizes compromised data classes using standardized taxonomies.</p>
         </div>
         <div class="stage-card">
           <div class="stage-num font-mono">03</div>
           <h3 class="stage-title"><i class="fa-solid fa-stamp"></i> Ground-Truth Status</h3>
-          <p class="stage-desc">Assigns ground-truth observable status (CONFIRMED, ACKNOWLEDGED, DEVELOPING, EMERGING, REFUTED) based strictly on primary evidence rather than speculation.</p>
+          <p class="stage-desc">Assigns ground-truth observable status (CONFIRMED, ACKNOWLEDGED, DEVELOPING, EMERGING, REFUTED) based strictly on primary verifiable evidence rather than speculative premature categorization.</p>
         </div>
         <div class="stage-card">
           <div class="stage-num font-mono">04</div>
           <h3 class="stage-title"><i class="fa-solid fa-scale-balanced"></i> Open Weights Correlation</h3>
-          <p class="stage-desc">Executes deterministic confidence algorithm based on verification tier base weights and cross-domain corroboration bonuses (sources/weights.json).</p>
+          <p class="stage-desc">Executes deterministic 4-dimensional confidence scoring based on verification tier authority floors, evidence quality bonuses, multi-domain corroboration curves, and staleness decay.</p>
         </div>
         <div class="stage-card">
           <div class="stage-num font-mono">05</div>
           <h3 class="stage-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> Forensic Reconciliation</h3>
-          <p class="stage-desc">Cross-checks downstream technical feeds against existing dossiers, updating impact quantification, newly filed 8-Ks, and containment milestones.</p>
+          <p class="stage-desc">Cross-checks downstream technical reporting against existing dossiers, updating impact quantification, newly filed SEC Form 8-K accessions, CISA KEV alerts, and containment milestones.</p>
         </div>
         <div class="stage-card">
           <div class="stage-num font-mono">06</div>
-          <h3 class="stage-title"><i class="fa-solid fa-rocket"></i> Static Build &amp; Deployment</h3>
-          <p class="stage-desc">Validates all dossiers against strict schema (npm test), builds pure static HTML, search catalog, and RSS 2.0 / JSON Feed 1.1, deploying to GitHub Pages.</p>
+          <h3 class="stage-title"><i class="fa-solid fa-rocket"></i> Static Verification &amp; Release</h3>
+          <p class="stage-desc">Validates all dossiers against strict schema (npm test), generates pure static HTML, search catalog, and RSS 2.0 / JSON Feed 1.1, deploying atomically to GitHub Pages.</p>
         </div>
       </div>
     </section>
 
-    <!-- GitHub Actions & Audit CTA -->
+    <!-- Automated Execution & Pipeline Observability -->
     <div class="status-cta-card">
       <div class="sc-left">
-        <h3 class="sc-title">Audit Pipeline Workflows on GitHub</h3>
-        <p class="sc-text">All ingestion runs, schema checks, and deployment logs are 100% public, verifiable, and auditable via GitHub Actions.</p>
+        <h3 class="sc-title">Automated Continuous Delivery &amp; Auditable CI/CD</h3>
+        <p class="sc-text">All raw data aggregation, forensic reconciliation, schema testing, and deployment logs execute via GitHub Actions on a 6-hour schedule. Incidents reside in open Git Markdown dossiers, and all telemetry is syndicated in real time via RSS 2.0 and JSON Feed 1.1.</p>
+        <div class="sc-workflows font-mono" style="margin-top: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.65rem;">
+          <span style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); padding: 0.35rem 0.65rem; border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary);"><i class="fa-solid fa-gear text-cyan"></i> ingest.yml (Every 6h)</span>
+          <span style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); padding: 0.35rem 0.65rem; border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary);"><i class="fa-solid fa-vial-circle-check text-confirmed"></i> validate-pr.yml (PR Gate)</span>
+          <span style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); padding: 0.35rem 0.65rem; border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary);"><i class="fa-solid fa-cloud-arrow-up text-cyan"></i> deploy.yml (Pages Release)</span>
+        </div>
       </div>
-      <div class="sc-right">
+      <div class="sc-right" style="display: flex; flex-direction: column; gap: 0.65rem;">
         <a href="${GITHUB_REPO_URL}/actions" target="_blank" rel="noopener" class="btn-github-action">
           <i class="fa-brands fa-github"></i> View Workflow Runs <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
         <a href="feed.xml" target="_blank" class="btn-rss-action">
-          <i class="fa-solid fa-rss"></i> RSS Telemetry Feed
+          <i class="fa-solid fa-rss"></i> RSS 2.0 Feed
+        </a>
+        <a href="feed.json" target="_blank" class="btn-rss-action" style="background: rgba(0, 210, 211, 0.1); border-color: rgba(0, 210, 211, 0.3); color: var(--cyan-accent);">
+          <i class="fa-solid fa-code"></i> JSON Feed 1.1
         </a>
       </div>
     </div>
@@ -1962,12 +2043,14 @@ function generateAboutHtml() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verification Standard &amp; Philosophy | securityincident.net</title>
-  <meta name="description" content="How securityincident.net verifies security incident statuses and milestones on the open web using deterministic open weights.">
+  <title>Verification Standards &amp; Architecture | securityincident.net</title>
+  <meta name="description" content="Verification standards, deterministic open weights correlation, flat-file Git architecture, and telemetry tools powering securityincident.net.">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="securityincident.net RSS Feed" href="feed.xml">
   <link rel="alternate" type="application/feed+json" title="securityincident.net JSON Feed" href="feed.json">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="fontawesome.js"></script>
   <script>
     (function() {
@@ -1978,31 +2061,59 @@ function generateAboutHtml() {
     })();
   </script>
 </head>
-<body>
-  ${renderHeader(false)}
+<body class="page-about">
+  ${renderHeader(false, 'about')}
 
   <main class="container detail-page">
     <a href="./" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to all incidents</a>
 
     <div class="detail-header">
-      <h1 class="detail-title">Verification Standard &amp; Philosophy</h1>
+      <h1 class="detail-title">Verification Standards &amp; Platform Architecture</h1>
       <p class="detail-summary">
-        A neutral, high-signal index of security incident statuses and verifiable milestone timelines, powered by open weights correlation and community-driven GitHub PR editing.
+        A neutral, high-signal index of cybersecurity incident statuses and verifiable milestone timelines, powered by deterministic open weights correlation, 100% Git-native flat-file storage, and community-driven PR curation.
       </p>
     </div>
 
     <div class="about-panel">
       <h2>1. Neutral Intelligence Through Open Curation</h2>
       <p>
-        Modern security incident reporting is plagued by corporate PR ambiguity, premature categorization, and recycled claims. We provide a reliable and neutral source of cybersecurity intelligence by curating security data across its entire lifecycle, ranging from early dark web rumors to formal regulatory disclosures.
+        Modern cybersecurity incident reporting is compromised by corporate PR ambiguity, premature categorization, and recycled claims. We provide a reliable, neutral source of security intelligence by curating security events across their complete lifecycle—from early dark web extortion claims to formal statutory regulatory disclosures.
       </p>
       <p>
-        To deliver maximum clarity, we establish clear levels of confidence and correlate diverse data sources using open weights. Built entirely on open editing through GitHub pull requests, <strong>securityincident.net</strong> empowers security professionals, researchers, and organizations to maintain a transparent, verifiable, and high-signal record of security incidents without corporate bias or editorial filler.
+        Rather than forcing incidents into speculative labels during early triage (where an "IT outage" frequently morphs into an "unauthorized access event" and later "ransomware extortion"), <strong>securityincident.net</strong> tracks two ground truths:
       </p>
+      <ul style="padding-left: 1.5rem; margin: 0.75rem 0 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.6;">
+        <li><strong>Current Observable Status:</strong> A dynamic 5-tier classification based strictly on verifiable primary evidence.</li>
+        <li><strong>Chronological Milestone Timeline:</strong> Verifiable event progression where every entry requires a verification tier tag and an accessible primary public source link.</li>
+      </ul>
 
-      <h2>2. Granular Open Weights Correlation Model (v2.0)</h2>
+      <h2>2. The 5 Observable Ground-Truth Statuses</h2>
+      <div class="about-status-grid">
+        <div class="about-status-card">
+          <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
+          <p><strong>Highest assurance:</strong> Officially verified by the target organization or a government regulatory authority (e.g. SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR disclosures, formal press releases).</p>
+        </div>
+        <div class="about-status-card">
+          <span class="status-badge status-ACKNOWLEDGED"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span>
+          <p>Target organization publicly confirms an "IT disruption," system outage, or active cybersecurity investigation, but has not yet confirmed an intrusion or data compromise.</p>
+        </div>
+        <div class="about-status-card">
+          <span class="status-badge status-DEVELOPING"><i class="fa-solid fa-satellite-dish"></i> DEVELOPING</span>
+          <p>Corroborated intelligence: independent cybersecurity researchers verify leak samples, forensic telemetry confirms compromised systems, or observable outages align with claims before target disclosure.</p>
+        </div>
+        <div class="about-status-card">
+          <span class="status-badge status-EMERGING"><i class="fa-solid fa-bolt"></i> EMERGING</span>
+          <p>Early threat actor claims, dark web extortion blog listings, or unverified community chatter prior to target acknowledgment or independent corroboration.</p>
+        </div>
+        <div class="about-status-card">
+          <span class="status-badge status-REFUTED"><i class="fa-solid fa-ban"></i> REFUTED</span>
+          <p>Proven false alarm, recycled historical leak, fabricated extortion claim, or public web scrape mislabeled as an intrusion.</p>
+        </div>
+      </div>
+
+      <h2>3. Granular Open Weights Correlation Model (v2.0)</h2>
       <p>
-        Unlike opaque black-box AI scores or proprietary vendor risk ratings, our confidence scoring is 100% deterministic, auditable, and open-source. Defined in <code>sources/weights.json</code> and executed in <code>scripts/weights.js</code>, confidence is evaluated continuously across <strong>four orthogonal dimensions</strong> rather than clumping into coarse tiers:
+        Unlike opaque black-box AI scores or proprietary vendor risk ratings, our confidence scoring is 100% deterministic, auditable, and open-source. Defined in <code>sources/weights.json</code> and executed in <code>scripts/weights.js</code>, confidence is evaluated continuously across <strong>four orthogonal dimensions</strong>:
       </p>
 
       <div class="about-weights-table-wrap">
@@ -2011,98 +2122,165 @@ function generateAboutHtml() {
             <tr>
               <th>Verification Tier</th>
               <th>Primary Authority Baseline</th>
-              <th>Primary Sources</th>
+              <th>Primary Source Citations</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><span class="verify-badge regulator"><i class="fa-solid fa-building-shield"></i> CONFIRMED BY REGULATOR</span></td>
               <td class="font-mono"><strong>0.65 (65%)</strong></td>
-              <td>SEC Form 8-K Item 1.05, State AG breach portals (CA, WA, OR), HHS OCR healthcare disclosures, FTC/FCC breach notices, EU/UK DPAs.</td>
+              <td>Statutory regulatory disclosures: SEC Form 8-K Item 1.05, State Attorney General breach portals (CA DOJ, WA AG, OR DOJ), HHS OCR federal healthcare breach filings, FTC/FCC notices, EU/UK DPAs.</td>
             </tr>
             <tr>
               <td><span class="verify-badge government"><i class="fa-solid fa-shield-halved"></i> GOVERNMENT ADVISORY</span></td>
               <td class="font-mono"><strong>0.62 (62%)</strong></td>
-              <td>CISA KEV Catalog &amp; Emergency Directives (BOD), UK NCSC advisories, FBI PIN / Flash alerts, CCCS, BSI cyber directives.</td>
+              <td>Authoritative sovereign cybersecurity directives: CISA Known Exploited Vulnerabilities (KEV) Catalog &amp; Binding Operational Directives (BOD), UK NCSC advisories, FBI Flash/PIN alerts, CCCS, BSI directives.</td>
             </tr>
             <tr>
               <td><span class="verify-badge target"><i class="fa-solid fa-bullhorn"></i> CONFIRMED BY TARGET</span></td>
               <td class="font-mono"><strong>0.50 (50%)</strong></td>
-              <td>Official corporate press release, company security blog, direct target status bulletin.</td>
+              <td>Direct target disclosures: corporate press releases, company security blog disclosures, official vendor security bulletins (e.g. Microsoft MSRC, Cisco PSIRT, Citrix Support Bulletins).</td>
             </tr>
             <tr>
               <td><span class="verify-badge independent"><i class="fa-solid fa-microscope"></i> INDEPENDENT VERIFICATION</span></td>
               <td class="font-mono"><strong>0.32 (32%)</strong></td>
-              <td>Reputable cybersecurity researcher analysis, HaveIBeenPwned audit, forensic investigative reporting.</td>
+              <td>Third-party technical verification: cybersecurity researcher forensic telemetry, HaveIBeenPwned breach validation, reputable investigative reporting, industry ISAC alerts.</td>
             </tr>
             <tr>
-              <td><span class="verify-badge" style="color: var(--status-acknowledged); background: var(--status-acknowledged-bg);"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span></td>
+              <td><span class="verify-badge acknowledged" style="color: var(--status-acknowledged); background: var(--status-acknowledged-bg); border: 1px solid rgba(254, 202, 87, 0.3);"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span></td>
               <td class="font-mono"><strong>0.18 (18%)</strong></td>
-              <td>Target publicly confirms operational disruption or active investigation without confirming data compromise.</td>
+              <td>Target public notice confirming an IT disruption or active technical investigation without confirming unauthorized access or data loss.</td>
             </tr>
             <tr>
               <td><span class="verify-badge unverified"><i class="fa-solid fa-bolt"></i> UNVERIFIED CLAIM</span></td>
               <td class="font-mono"><strong>0.06 (6%)</strong></td>
-              <td>Threat actor leak blog, dark web forum listing, unverified community chatter (low baseline floor).</td>
+              <td>Unilateral adversary claims: ransomware leak blog listing, dark web forum dump, extortion post, or uncorroborated community chatter.</td>
             </tr>
             <tr>
               <td><span class="verify-badge refuted"><i class="fa-solid fa-ban"></i> REFUTED</span></td>
               <td class="font-mono"><strong>0.00 (0%)</strong></td>
-              <td>Proven false alarm, recycled historical data, or web scrape mislabeled as a breach.</td>
+              <td>Explicitly disproven claims, recycled historical datasets, or benign security research misattributed as a breach.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="ow-dimensions-doc" style="margin-top: 1.25rem;">
-        <p><strong>Multi-Dimensional Scoring Dimensions:</strong></p>
+        <p><strong>The Four Multi-Dimensional Scoring Dimensions:</strong></p>
         <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.7;">
-          <li><strong>1. Primary Authority Base:</strong> 6% baseline for raw unverified claims up to 65% for statutory regulatory disclosures (62% for sovereign government directives).</li>
-          <li><strong>2. Evidence Specificity &amp; Data Quality (+0% to +23%):</strong> Statutory regulatory filings (+12%) or Sovereign Agency / Vendor Advisories (+8%), verified primary domain (+3%), disclosed compromised data classes (+4%), and quantified affected records (+4%).</li>
-          <li><strong>3. Corroboration &amp; Multi-Source Curve (+0% to +25%):</strong> Logarithmic curve for independent source domains (2 domains: +7%, 3 domains: +12%, 4 domains: +16%, 5+ domains: +20%), plus a +5% cross-tier correlation boost when threat telemetry is corroborated by target or regulatory disclosure.</li>
-          <li><strong>4. Temporal Dynamics &amp; Unverified Staleness Decay (-10% to +5%):</strong> Milestone timeline depth (+3% for &ge;3 milestones, +5% for &ge;5 milestones). Dormant uncorroborated darkweb claims decay over time (-3% at 14 days, -5% at 30 days) to prevent adversary bluffs from retaining confidence.</li>
+          <li><strong>1. Primary Authority Base Floor (0.06 to 0.65):</strong> Baseline floor determined strictly by top verification tier (0.65 for statutory regulators, 0.62 for sovereign government directives, down to 0.06 for unverified extortion claims).</li>
+          <li><strong>2. Evidence Specificity &amp; Data Quality (+0% to +23%):</strong> Statutory regulatory filing on record (+12%) or Sovereign Agency / Vendor Advisory (+8%), verified primary domain (+3%), disclosed compromised data classes (+4%), and quantified affected records count (+4%).</li>
+          <li><strong>3. Corroboration &amp; Multi-Source Curve (+0% to +25%):</strong> Logarithmic scale based on independent source domains (2 domains: +7%, 3 domains: +12%, 4 domains: +16%, 5+ domains: +20%), plus a +5% cross-tier boost when adversary claims are corroborated by target, agency, or regulatory disclosure.</li>
+          <li><strong>4. Temporal Dynamics &amp; Staleness Decay (-10% to +5%):</strong> Milestone timeline depth (+3% for &ge;3 milestones, +5% for &ge;5 milestones). Dormant uncorroborated extortion claims decay over time (-3% at 14 days, -5% at 30 days) to prevent adversary bluff listings from retaining inflated confidence.</li>
         </ul>
       </div>
 
-      <h2>3. The 5 Observable Statuses</h2>
-      <div class="about-status-grid">
-        <div class="about-status-card">
-          <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
-          <p><strong>Highest assurance:</strong> Officially verified by the target or government regulator (e.g. SEC Form 8-K Item 1.05, State AG breach portals, formal press releases).</p>
+      <h2>4. The 3-Part Technical Narrative Dossier Standard</h2>
+      <p>
+        Every incident tracked on <strong>securityincident.net</strong> is synthesized into a standardized, deep technical briefing dossier before the chronological timeline. Thin or single-paragraph dossiers are strictly prohibited:
+      </p>
+
+      <div class="about-dossier-parts">
+        <div class="about-dossier-part">
+          <div class="adp-num">SECTION 01</div>
+          <h4><i class="fa-solid fa-shield-halved text-cyan"></i> Incident Overview</h4>
+          <p>Technical profile of the target entity, initial discovery vector, threat actor attribution, operational disruption scope, containment chronology, and active response efforts.</p>
         </div>
-        <div class="about-status-card">
-          <span class="status-badge status-ACKNOWLEDGED"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span>
-          <p>Target publicly confirms an "IT disruption" or active investigation, but has not yet confirmed a breach or data loss.</p>
+        <div class="about-dossier-part">
+          <div class="adp-num">SECTION 02</div>
+          <h4><i class="fa-solid fa-database text-confirmed"></i> Compromised Assets &amp; Scope</h4>
+          <p>Specific exposed infrastructure, compromised corporate directories, databases, and structured classifications of sensitive data types (SSNs, PHI, financial records, credentials, PII) along with quantified affected records.</p>
         </div>
-        <div class="about-status-card">
-          <span class="status-badge status-DEVELOPING"><i class="fa-solid fa-satellite-dish"></i> DEVELOPING</span>
-          <p>Corroborated intelligence: independent researchers verify samples or observable outages align with claims before target response.</p>
+        <div class="about-dossier-part">
+          <div class="adp-num">SECTION 03</div>
+          <h4><i class="fa-solid fa-scale-balanced text-developing"></i> Statutory Disclosures &amp; Directives</h4>
+          <p>Complete statutory filings submitted to federal and state authorities (SEC Form 8-K Item 1.05, State AG portals, HHS OCR) or sovereign agency advisories (CISA KEV, UK NCSC) and vendor security bulletins.</p>
         </div>
-        <div class="about-status-card">
-          <span class="status-badge status-EMERGING"><i class="fa-solid fa-bolt"></i> EMERGING</span>
-          <p>Early threat actor claims, dark web forum leaks, or unverified community chatter before target comment.</p>
-        </div>
-        <div class="about-status-card">
-          <span class="status-badge status-REFUTED"><i class="fa-solid fa-ban"></i> REFUTED</span>
-          <p>Proven false alarm, recycled historical leak, or public web scrape mislabeled as a breach.</p>
+        <div class="about-dossier-part">
+          <div class="adp-num">SECTION 04</div>
+          <h4><i class="fa-solid fa-timeline text-cyan"></i> Milestone Timeline</h4>
+          <p>Chronological, verifiable progression of events where every milestone includes a verification tier badge, event timestamp, and direct public source URL.</p>
         </div>
       </div>
 
-      <h2>4. 100% Git-Native &amp; Transparent</h2>
+      <div class="about-invariance-card">
+        <div class="about-invariance-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="about-invariance-content">
+          <h3>Statutory Regulatory Invariance Rule</h3>
+          <p>
+            Material statutory filings (SEC Form 8-K Item 1.05 disclosures, State Attorney General breach notices, HHS OCR HIPAA reports) represent legal ground truth. In accordance with repository invariants, these statutory disclosures are captured verbatim as filed by the reporting entity and are <strong>never modified, overridden, or synthesized by AI models</strong>. Non-statutory agency advisories and vendor bulletins are strictly disentangled from statutory regulatory filings.
+          </p>
+        </div>
+      </div>
+
+      <h2>5. Interactive Telemetry Platform &amp; Exploration Tools</h2>
       <p>
-        Every incident is stored as an open Markdown document in our GitHub repository. We use GitHub Actions to automate indexing from regulatory RSS and infosec feeds, with zero complex databases. Anyone can audit our sources, examine historical revisions in Git, or submit updates via Pull Request.
+        Designed with a high-density cybersecurity telemetry aesthetic, the platform provides security researchers, threat intelligence analysts, and incident responders with zero-latency exploration capabilities:
       </p>
 
-      <h2>5. How to Contribute via GitHub PR</h2>
+      <div class="about-features-grid">
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-layer-group text-cyan"></i> Real-Time Stream Tabs</h3>
+          <p>Quickly switch between curated views: <em>Trending Threat Stream</em> (prioritizing high-confidence &amp; active 90d events), <em>Emerging Signals</em> (early threat telemetry), <em>Confirmed Disclosures</em> (statutory filings &amp; admissions), and <em>All Tracked Events</em>.</p>
+        </div>
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-sliders text-cyan"></i> Granular Filters Drawer</h3>
+          <p>Multi-field filtering across 5 Status tiers, Industry Sectors, Attack Classifications, Compromised Data Classes (SSNs, PHI, Payment Info, Credentials), Statutory Filing types, and Affected Record Scales with a &gt;100K High-Impact toggle.</p>
+        </div>
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-table-cells text-cyan"></i> Dual-Mode Telemetry View</h3>
+          <p>Seamlessly toggle between a visual Card Grid view and a high-density, sortable Telemetry Table view designed for threat analysts evaluating bulk incidents.</p>
+        </div>
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-chart-column text-cyan"></i> Dynamic Visual Analytics</h3>
+          <p>Interactive incident velocity charts (monthly volume across rolling multi-month windows) and industry sector breakdowns that double as instant 1-click telemetry filters.</p>
+        </div>
+      </div>
+
+      <h2>6. Telemetry Export &amp; Machine-Readable Syndication</h2>
       <p>
-        Because all incidents are stored as flat Markdown files in Git, you don't need special permissions or database access to contribute. You can propose updates in two easy ways:
+        Incident data is available through open, machine-readable formats for automated security operations, SIEM/SOAR pipelines, and academic research:
       </p>
-      <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-        <li><strong>In-Browser (Zero Setup):</strong> On any incident detail page, click the <em>"Propose Update via GitHub"</em> button at the bottom of the timeline. Use GitHub's web editor to add your milestone with a verified primary source link and click <em>"Propose changes"</em> to automatically submit a Pull Request.</li>
-        <li><strong>Local PR Workflow:</strong> Fork the repository, create a new incident in <code style="color: var(--cyan-accent);">incidents/YYYY-MM-&lt;slug&gt;.md</code>, and open a Pull Request.</li>
-      </ul>
+
+      <div class="about-features-grid">
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-file-export text-confirmed"></i> 1-Click Client-Side Export</h3>
+          <p>Export current filtered incident sets directly to standardized JSON or CSV formats instantly in the browser without server latency or data limits.</p>
+        </div>
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-rss text-developing"></i> Syndicated RSS 2.0 Feed</h3>
+          <p>Subscribable at <code>/feed.xml</code>, featuring full milestone timelines, verification badges, and regulatory metadata formatted for threat intel readers.</p>
+        </div>
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-code text-cyan"></i> JSON Feed 1.1 Specification</h3>
+          <p>Available at <code>/feed.json</code>, providing structured JSON syndication with Open Weights confidence scores, compromised data classes, and source citations.</p>
+        </div>
+        <div class="about-feature-card">
+          <h3><i class="fa-solid fa-magnifying-glass text-cyan"></i> Client-Side Search Index</h3>
+          <p>Live static catalog at <code>/search-index.json</code> supporting instantaneous client-side fuzzy searching across targets, domains, CVEs, and summaries.</p>
+        </div>
+      </div>
+
+      <h2>7. 100% Git-Native Zero-Database Architecture</h2>
       <p>
-        For detailed schema requirements and verification standards, read our <a href="${GITHUB_REPO_URL}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="color: var(--cyan-accent); text-decoration: underline;">Contributing Guidelines</a> on GitHub.
+        <strong>securityincident.net</strong> operates with zero databases (no SQL, NoSQL, or external cloud databases). The Git filesystem is the single source of truth:
+      </p>
+      <ul style="padding-left: 1.5rem; margin: 0.75rem 0 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.6;">
+        <li>All incident dossiers reside in plain Markdown files with YAML frontmatter inside <code>/incidents/</code> (named <code>YYYY-MM-&lt;slug&gt;.md</code>).</li>
+        <li>Every update, status transition, and milestone addition is permanently tracked in Git version history, making every change fully auditable, attributable, and reversible.</li>
+        <li>Automated continuous ingestion workflows poll 30 authoritative endpoints every 6 hours via GitHub Actions, running strict schema and validation gates (<code>npm test</code>) before static deployment to GitHub Pages.</li>
+      </ul>
+
+      <h2>8. How to Propose Updates &amp; Contribute via GitHub PR</h2>
+      <p>
+        Because all incidents are stored as flat Markdown files in Git, you don't need special permissions or database credentials to contribute. Community contributions and researcher additions are welcome through Pull Requests:
+      </p>
+      <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.65rem; line-height: 1.6;">
+        <li><strong>In-Browser (Zero Setup):</strong> On any incident detail page, click the <em>"Propose Update via GitHub"</em> button at the bottom of the milestone timeline. Use GitHub's web editor to add your milestone with a verified primary source link and click <em>"Propose changes"</em> to automatically open a Pull Request.</li>
+        <li><strong>Local PR Workflow:</strong> Fork the repository, create or update an incident dossier in <code style="color: var(--cyan-accent);">incidents/YYYY-MM-&lt;slug&gt;.md</code>, verify compliance using <code style="color: var(--cyan-accent);">npm test</code>, and submit a Pull Request.</li>
+      </ul>
+      <p style="margin-top: 1rem;">
+        For detailed schema requirements, frontmatter specifications, and verification rules, review our <a href="${GITHUB_REPO_URL}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="color: var(--cyan-accent); text-decoration: underline;">Contributing Guidelines</a> on GitHub.
       </p>
     </div>
   </main>

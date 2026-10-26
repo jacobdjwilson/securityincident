@@ -5012,6 +5012,244 @@ a:hover {
   }
 }
 
+/* ===================================================================
+   Status Page: Interactive Feed Controls & Search
+   =================================================================== */
+.status-feed-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
 
+.status-feed-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
 
+.status-feed-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
 
+.status-feed-filter-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-active);
+  background: var(--bg-surface-hover);
+}
+
+.status-feed-filter-btn.active {
+  color: var(--cyan-accent);
+  background: rgba(0, 210, 211, 0.1);
+  border-color: var(--cyan-accent);
+  box-shadow: 0 0 10px rgba(0, 210, 211, 0.2);
+}
+
+.sff-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.status-feed-filter-btn.active .sff-badge {
+  background: rgba(0, 210, 211, 0.25);
+  color: var(--cyan-accent);
+}
+
+.status-feed-search-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.sfs-input-box {
+  position: relative;
+  flex: 1;
+  max-width: 480px;
+}
+
+.sfs-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  pointer-events: none;
+}
+
+.status-feed-search-input {
+  width: 100%;
+  padding: 0.5rem 0.85rem 0.5rem 2.25rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+}
+
+.status-feed-search-input:focus {
+  outline: none;
+  border-color: var(--cyan-accent);
+  box-shadow: 0 0 0 3px rgba(0, 210, 211, 0.15);
+}
+
+.status-feed-visible-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ===================================================================
+   About Page: Feature Grids, Dossier Standard & Invariance Styles
+   =================================================================== */
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.about-feature-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.about-feature-card:hover {
+  border-color: var(--border-active);
+  transform: translateY(-2px);
+}
+
+.about-feature-card h3 {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.about-feature-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.about-invariance-card {
+  background: rgba(0, 210, 211, 0.04);
+  border: 1px solid rgba(0, 210, 211, 0.3);
+  border-left: 4px solid var(--cyan-accent);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin: 1.25rem 0 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.about-invariance-icon {
+  font-size: 1.4rem;
+  color: var(--cyan-accent);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.about-invariance-content h3 {
+  margin: 0 0 0.35rem 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.about-invariance-content p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.about-dossier-parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.about-dossier-part {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+}
+
+.about-dossier-part .adp-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan-accent);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.05em;
+}
+
+.about-dossier-part h4 {
+  margin: 0 0 0.45rem 0;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.about-dossier-part p {
+  margin: 0;
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .status-feed-search-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sfs-input-box {
+    max-width: 100%;
+  }
+
+  .about-dossier-parts {
+    grid-template-columns: 1fr;
+  }
+
+  .about-features-grid {
+    grid-template-columns: 1fr;
+  }
+}

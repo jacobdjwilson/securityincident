@@ -998,6 +998,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Status Page: Interactive Feed Table Filtering & Search
+  const statusFeedSearchInput = document.getElementById('status-feed-search');
+  const statusFeedFilterBtns = document.querySelectorAll('.status-feed-filter-btn');
+  const statusFeedRows = document.querySelectorAll('.status-feed-row');
+  const statusFeedCountBadge = document.getElementById('status-feed-visible-count');
+
+  if (statusFeedRows && statusFeedRows.length > 0) {
+    let activeCategory = 'ALL';
+    let feedSearchQuery = '';
+
+    function filterFeedRows() {
+      let visible = 0;
+      statusFeedRows.forEach(row => {
+        const cat = row.getAttribute('data-category') || '';
+        const searchTarget = (row.getAttribute('data-search') || '').toLowerCase();
+        const matchesCategory = (activeCategory === 'ALL' || cat === activeCategory);
+        const matchesQuery = (!feedSearchQuery || searchTarget.includes(feedSearchQuery));
+
+        if (matchesCategory && matchesQuery) {
+          row.style.display = '';
+          visible++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      if (statusFeedCountBadge) {
+        statusFeedCountBadge.textContent = `Showing ${visible} of ${statusFeedRows.length} feeds`;
+      }
+    }
+
+    if (statusFeedSearchInput) {
+      statusFeedSearchInput.addEventListener('input', (e) => {
+        feedSearchQuery = e.target.value.trim().toLowerCase();
+        filterFeedRows();
+      });
+    }
+
+    statusFeedFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        statusFeedFilterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.getAttribute('data-category') || 'ALL';
+        filterFeedRows();
+      });
+    });
+  }
+
   // Initial Run
   sortItems();
   applyFiltersAndPaginate();
