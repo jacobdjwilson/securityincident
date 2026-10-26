@@ -4,12 +4,14 @@ target: Dutch Police (Politie)
 domain: politie.nl
 status: DEVELOPING
 first_seen: 2026-09-28
-last_updated: 2026-09-29
+last_updated: 2026-10-26
 threat_actor: ShinyHunters
 summary: Identified a network intrusion and
 tags:
   - investigative
   - developing
+  - media-pickup
+  - threat-intel
 industry: Government & Law Enforcement
 incident_type: Network Intrusion & Exfiltration
 affected_records: 65000
@@ -54,3 +56,18 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Dutch Police Arrest Convicted Hacker in ShinyHunters Investigation
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Intelligence Notice](https://www.securityweek.com/dutch-police-arrest-convicted-hacker-in-shinyhunters-investigation/)
+
+### 2026-10-26 16:37 UTC
+- **Event:** Press Coverage: Dutch police extradite Chinese national accused of laundering Cambodian investment scam funds
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/dutch-police-extradite-chinese-national-money-laundering-scams)
+
+### 2026-10-26 11:47 UTC
+- **Event:** Press Coverage: Dutch Police Arrest Two Over NFC Relay Attacks That Drained $400,000+ From Bank Accounts
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/dutch-police-arrest-two-over-nfc-relay-attacks-that-drained-400000/)
+
+### 2026-10-26 15:06 UTC
+- **Event:** Press Coverage: AI-Generated Fake Bank Calls and NFC App Enabled €380,000 Fraud, Dutch Police Say
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/201786/cyber-crime/ai-generated-fake-bank-calls-and-nfc-app-enabled-e380000-fraud-dutch-police-say.html)

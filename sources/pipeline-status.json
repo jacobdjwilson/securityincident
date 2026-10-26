@@ -1,13 +1,13 @@
 {
   "status": "OPERATIONAL",
-  "last_run": "2026-10-26T11:46:17.348Z",
+  "last_run": "2026-10-26T17:48:46.434Z",
   "cadence": "Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)",
-  "total_indexed": 1715,
-  "recent_90d_count": 713,
-  "last_discovered": 8,
-  "last_updated": 10,
+  "total_indexed": 1735,
+  "recent_90d_count": 733,
+  "last_discovered": 20,
+  "last_updated": 24,
   "verification_pass_rate": "100%",
-  "open_weights_engine": "Active & Deterministic (v2.0)",
+  "open_weights_engine": "Active & Deterministic",
   "feeds": [
     {
       "id": "sec-edgar",
