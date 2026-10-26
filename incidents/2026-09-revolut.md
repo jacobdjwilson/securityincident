@@ -4,7 +4,7 @@ target: Revolut
 domain: revolut.com
 status: CONFIRMED
 first_seen: 2026-09-14
-last_updated: 2026-09-21
+last_updated: 2026-10-20
 threat_actor: null
 summary: An unauthorized party used a legitimate government email domain to
   fraudulently request Revolut customer data
@@ -13,6 +13,7 @@ tags:
   - confirmed
   - developing
   - media-pickup
+  - general-media
 compromised_data:
   - Authentication Credentials
 ---
@@ -44,3 +45,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Revolut Customers Targeted with New Wave of Phishing Attacks
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/revolut-customers-targeted-wave/)
+
+### 2026-10-20 17:21 UTC
+- **Event:** Mainstream Media Pickup: Revolut says some services back online after outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMipwFBVV95cUxPWmtxU0llU3JkYXhuYzZuM21hMGt6cUxxM1JWMWFPRWF1UzdGQzk4MlVhYnV1OTRKU0pOWFhTNmRqdzJZU3lzeXF5MWE1RWoweEVSam9rMG5pQUFnX05INkFZRHpVWnVWRUY3OEF0U0NTS2lPVkc5aUNYSFkxbXc5OHFMV1psOTg3LWM1ZC1obkdUZDFTbTVrSXIyblZicFZqNmVCTW1LNA?oc=5)

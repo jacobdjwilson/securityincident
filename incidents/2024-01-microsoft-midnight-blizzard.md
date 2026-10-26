@@ -392,3 +392,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft 365 Token-Replay Attacks Compromise 97 Accounts at 79 Organizations
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html)
+
+### 2026-10-26 15:52 UTC
+- **Event:** Press Coverage: Attackers Use Microsoft Teams IT Support Scams to Deploy Malware and Ransomware
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/attackers-use-microsoft-teams-it.html)
