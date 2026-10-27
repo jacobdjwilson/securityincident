@@ -4,7 +4,7 @@ target: University of Copenhagen
 domain: universityofcopenhagen.com
 status: DEVELOPING
 first_seen: 2026-10-26
-last_updated: 2026-10-26
+last_updated: 2026-10-27
 threat_actor: null
 summary: The University of Copenhagen in Denmark confirmed that hackers accessed
   one of its test environments containing personal data belonging to 525,000
@@ -12,6 +12,7 @@ summary: The University of Copenhagen in Denmark confirmed that hackers accessed
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** University of Copenhagen data breach exposes data of 525,000 people
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/university-of-copenhagen-data-breach-exposes-data-of-525-000-people/)
+
+### 2026-10-27 11:00 UTC
+- **Event:** Press Coverage: Copenhagen University Breach Compromises Data on Half a Million People
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/copenhagen-university-data-breach/)
