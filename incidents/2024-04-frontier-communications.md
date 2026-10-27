@@ -4,14 +4,16 @@ target: Frontier Communications
 domain: frontier.com
 status: CONFIRMED
 first_seen: 2024-04-18
-last_updated: 2024-04-18
-threat_actor: null
+last_updated: 2026-10-20
+threat_actor: RansomHub
 summary: Official SEC Form 8-K Item 1.05 disclosure filed by Frontier
   Communications regarding a material cybersecurity incident.
 tags:
   - regulatory
   - sec-8k
   - confirmed
+  - investigative
+  - media-pickup
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 1.05
@@ -74,7 +76,6 @@ regulatory_filings:
 incident_type: Material Cybersecurity Incident
 ---
 
-
 ## Incident Overview
 
 Frontier Communications, within its operating sector, has been subject to a cybersecurity incident disclosed to federal securities regulators. Ground-truth telemetry indicates the event prompted statutory disclosure under SEC cybersecurity reporting mandates.
@@ -98,3 +99,7 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001193125-24-100764)](https://www.sec.gov/Archives/edgar/data/20520/000119312524100764/0001193125-24-100764-index.htm)
 
+### 2026-10-20 13:17 UTC
+- **Event:** Press Coverage: Attorney General Tong Announces $625,000 Settlement with Frontier Over Data Breach
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/20/attorney-general-tong-announces-625000-settlement-with-frontier-over-data-breach/)

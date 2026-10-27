@@ -2,7 +2,7 @@
 id: 2026-10-university-of-copenhagen
 target: University of Copenhagen
 domain: universityofcopenhagen.com
-status: DEVELOPING
+status: ACKNOWLEDGED
 first_seen: 2026-10-26
 last_updated: 2026-10-27
 threat_actor: null
@@ -13,6 +13,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - acknowledged
 compromised_data:
   - Authentication Credentials
 ---
@@ -44,3 +45,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Copenhagen University Breach Compromises Data on Half a Million People
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/copenhagen-university-data-breach/)
+
+### 2026-10-27 11:39 UTC
+- **Event:** Press Coverage: Cyberattack on University of Copenhagen exposes data of 525,000 people
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/27/university-of-copenhagen-cyberattack-data-breach/)

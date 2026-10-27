@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-26
+last_updated: 2026-10-27
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -180,9 +180,11 @@ tags:
   - agency-advisory
   - cve-2026-96951
   - cve-2026-104935
+  - cve-2026-80097
 cve_ids:
   - CVE-2026-96951
   - CVE-2026-104935
+  - CVE-2026-80097
 agency_advisories:
   - agency: CISA Cybersecurity Advisories
     advisory_id: CISA Adds Two Known Exploited Vulnerabilities to Catalog
@@ -397,3 +399,13 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Attackers Use Microsoft Teams IT Support Scams to Deploy Malware and Ransomware
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/attackers-use-microsoft-teams-it.html)
+
+### 2026-10-27 14:01 UTC
+- **Event:** Press Coverage: The Huntress Tragic Quadrant: Ranking Threats Hitting Businesses Hardest
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/the-huntress-tragic-quadrant-ranking-threats-hitting-businesses-hardest/)
+
+### 2026-10-27 12:09 UTC
+- **Event:** Press Coverage: Microsoft Authenticator Flaw Let Permissionless Android Apps Steal Work Account Tokens
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/microsoft-authenticator-flaw-let.html)

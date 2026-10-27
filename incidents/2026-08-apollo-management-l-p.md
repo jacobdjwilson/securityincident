@@ -4,7 +4,7 @@ target: Apollo Management , L.P
 domain: apollomanagementlp.com
 status: CONFIRMED
 first_seen: 2026-08-20
-last_updated: 2026-08-20
+last_updated: 2026-10-23
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Apollo Management , L.P.
@@ -48,3 +48,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-628551)
+
+### 2026-10-23 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631823)
