@@ -3,13 +3,20 @@ id: 2026-09-times-car
 target: Times Car
 domain: timescar.jp
 status: CONFIRMED
-first_seen: '2026-09-28'
-last_updated: '2026-09-28'
+first_seen: 2026-09-28
+last_updated: 2026-10-28
 threat_actor: Unknown / Unattributed
-summary: "Disclosed a confirmed network intrusion at Times Car resulting in the unauthorized exfiltration of sensitive personal identifiable information and corporate contact records affecting 6.6 million user accounts. Official breach notifications have been registered with regulatory authorities while containment and forensic remediation procedures remain ongoing."
+summary: Disclosed a confirmed network intrusion at Times Car resulting in the
+  unauthorized exfiltration of sensitive personal identifiable information and
+  corporate contact records affecting 6.6 million user accounts. Official breach
+  notifications have been registered with regulatory authorities while
+  containment and forensic remediation procedures remain ongoing.
 tags:
   - threat-intel
   - confirmed
+  - investigative
+  - developing
+  - media-pickup
 industry: Transportation & Logistics
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: 6600000
@@ -18,6 +25,7 @@ compromised_data:
   - Corporate Contact Records
 regulatory_filings: []
 ---
+
 ## Incident Overview
 
 The **Times Car** cybersecurity event represents a confirmed **Network Intrusion & Data Exfiltration** within the **Transportation & Logistics** sector, attributed to the **Unknown / Unattributed** cyber threat collective. Discovered through technical indicators and regulatory breach filings, the event resulted in unauthorized access to sensitive internal IT environments, with the exact population scope undergoing regulatory audit.
@@ -41,3 +49,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Times Car confirms data breach affecting 6.6 million user accounts
 - **Verification:** CONFIRMED BY TARGET
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/times-car-confirms-data-breach-affecting-66-million-user-accounts/)
+
+### 2026-10-28 15:22 UTC
+- **Event:** Press Coverage: JPN: Times Car reporting ¥5.5 billion loss has firms bracing for data breach fallout
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/28/jpn-times-car-reporting-%c2%a55-5-billion-loss-has-firms-bracing-for-data-breach-fallout/)

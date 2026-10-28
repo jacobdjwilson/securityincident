@@ -4,8 +4,8 @@ target: Inszone Insurance Services
 domain: inszoneinsuranceservices.com
 status: CONFIRMED
 first_seen: 2024-11-08
-last_updated: 2024-11-08
-threat_actor: null
+last_updated: 2026-10-28
+threat_actor: Akira
 summary: Washington State Attorney General formal data breach disclosure notice
   filed by Inszone Insurance Services affecting 18,649 residents.
 tags:
@@ -13,6 +13,10 @@ tags:
   - state-ag
   - washington
   - confirmed
+  - extortion
+  - ransomware-claim
+  - akira
+  - emerging
 affected_records: 18649
 regulatory_filings:
   - regulator: Washington Attorney General
@@ -25,6 +29,7 @@ regulatory_filings:
       impacting 18,649 residents.
 compromised_data:
   - Authentication Credentials
+industry: Financial Services
 ---
 
 ## Incident Overview
@@ -49,3 +54,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31327.pdf)
+
+### 2026-10-28 12:58 UTC
+- **Event:** Insurance Services Listed on Akira Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Akira Ransomware Leak Site Claim](https://www.ransomware.live/id/SW5zdXJhbmNlIFNlcnZpY2VzQGFraXJh)

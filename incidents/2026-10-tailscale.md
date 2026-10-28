@@ -4,7 +4,7 @@ target: Tailscale
 domain: tailscale.com
 status: DEVELOPING
 first_seen: 2026-10-25
-last_updated: 2026-10-27
+last_updated: 2026-10-28
 threat_actor: null
 summary: The Tailscale security team is working to patch almost a dozen security
   vulnerabilities that could be exploited to steal credentials, crash servers,
@@ -15,6 +15,21 @@ tags:
   - media-pickup
 compromised_data:
   - Authentication Credentials
+vendor_advisories:
+  - publisher: Tailscale
+    advisory_id: Tailscale Patches SSH Flaws That Could Let Hacked Devices Ga
+    title: Tailscale Patches SSH Flaws That Could Let Hacked Devices Gain Root
+      Access on Other Servers
+    severity: Critical
+    release_date: 2026-10-28
+    cve_ids: []
+    url: https://thehackernews.com/2026/10/tailscale-patches-ssh-flaws-that-could.html
+    description: Tailscale has released version 1.104.4 to fix flaws in its built-in
+      SSH server that could let an attacker reach services and files on other
+      servers that only the root user should be able to touch. The flaws are in
+      how Tailscale SSH forwards network connections, a job the Tailscale
+      background process carries out with root privileges. To use them, an
+      attacker must
 ---
 
 ## Incident Overview
@@ -44,3 +59,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Unpatched Tailscale SSH Flaws Could Let a Hacked Device Reach Root on Other Servers
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/unpatched-tailscale-ssh-flaws-could-let.html)
+
+### 2026-10-28 06:20 UTC
+- **Event:** Press Coverage: Tailscale Patches SSH Flaws That Could Let Hacked Devices Gain Root Access on Other Servers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/tailscale-patches-ssh-flaws-that-could.html)
