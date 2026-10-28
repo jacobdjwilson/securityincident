@@ -23,6 +23,30 @@ const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 (securityincident-verifier/1.0)';
 const TIMEOUT_MS = 15000;
 
+export const BOT_PROTECTED_DOMAINS = [
+  'oag.ca.gov',
+  'justice.oregon.gov',
+  'atg.wa.gov',
+  'darkreading.com',
+  'bleepingcomputer.com',
+  'bloomberg.com',
+  'reuters.com',
+  'sec.gov',
+  'ransomware.live',
+  'databreaches.net',
+  'securityweek.com',
+  'hipaajournal.com'
+];
+
+export function isBotProtectedDomain(url) {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return BOT_PROTECTED_DOMAINS.some(d => hostname === d || hostname.endsWith(`.${d}`));
+  } catch {
+    return false;
+  }
+}
+
 async function fetchWithTimeout(url, method, timeoutMs) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -46,21 +70,61 @@ async function fetchWithTimeout(url, method, timeoutMs) {
 }
 
 export async function testUrl(url) {
+  const isProtected = isBotProtectedDomain(url);
+  const headTimeout = isProtected ? 3000 : 8000;
+  const getTimeout = isProtected ? 4000 : TIMEOUT_MS;
+  const maxAttempts = isProtected ? 1 : 2;
+
   let lastError = null;
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       // 1. Try HEAD first (fast header check)
       let res = null;
+      let headTimedOut = false;
       try {
-        res = await fetchWithTimeout(url, 'HEAD', 8000);
-      } catch {
-        // HEAD failed, timed out, or connection dropped; fallback to GET
+        res = await fetchWithTimeout(url, 'HEAD', headTimeout);
+      } catch (err) {
+        if (err?.name === 'AbortError') {
+          headTimedOut = true;
+        }
         res = null;
       }
 
-      // 2. If HEAD returned non-ok (404/403/405/500) or failed, fallback to GET
+      // If HEAD succeeded, return
+      if (res && res.ok) {
+        return {
+          url,
+          status: res.status,
+          ok: true,
+          statusText: res.statusText
+        };
+      }
+
+      // If bot-protected domain and HEAD returned a bot challenge status (403, 401, 429),
+      // return immediately without a wasteful heavy GET
+      if (isProtected && res && (res.status === 403 || res.status === 401 || res.status === 429)) {
+        return {
+          url,
+          status: res.status,
+          ok: false,
+          statusText: res.statusText
+        };
+      }
+
+      // If bot-protected domain and HEAD timed out or connection dropped,
+      // return immediately as WAF challenge rather than waiting for heavy GET timeouts
+      if (isProtected && (headTimedOut || !res)) {
+        return {
+          url,
+          status: 0,
+          ok: false,
+          error: headTimedOut ? 'Timeout (WAF / Bot Protected)' : 'Connection Dropped (WAF Protected)'
+        };
+      }
+
+      // 2. If HEAD returned non-ok (404/405/500) or failed, fallback to GET
       if (!res || !res.ok) {
-        res = await fetchWithTimeout(url, 'GET', TIMEOUT_MS);
+        res = await fetchWithTimeout(url, 'GET', getTimeout);
       }
 
       return {
@@ -71,7 +135,7 @@ export async function testUrl(url) {
       };
     } catch (err) {
       lastError = err;
-      if (attempt < 2) {
+      if (attempt < maxAttempts) {
         // Brief pause before retry on transient network congestion / WAF challenge
         await new Promise(resolve => setTimeout(resolve, 1500));
       }
@@ -133,25 +197,7 @@ export function extractIncidentUrls(filePath) {
   return items;
 }
 
-const BOT_PROTECTED_DOMAINS = [
-  'oag.ca.gov',
-  'justice.oregon.gov',
-  'atg.wa.gov',
-  'darkreading.com',
-  'bleepingcomputer.com',
-  'bloomberg.com',
-  'reuters.com',
-  'sec.gov'
-];
 
-function isBotProtectedDomain(url) {
-  try {
-    const hostname = new URL(url).hostname.toLowerCase();
-    return BOT_PROTECTED_DOMAINS.some(d => hostname === d || hostname.endsWith(`.${d}`));
-  } catch {
-    return false;
-  }
-}
 
 async function runCli() {
   const args = process.argv.slice(2);
@@ -213,8 +259,8 @@ async function runCli() {
         console.log(`   ✅ [${res.status}] ${item.type}: ${item.label} -> ${item.url}`);
       } else if (res.status === 403 || res.status === 401 || res.status === 429) {
         console.log(`   🟡 [${res.status} Bot Protected] ${item.type}: ${item.label} -> ${item.url}`);
-      } else if (res.status === 0 && isBotProtectedDomain(item.url)) {
-        console.log(`   🟡 [WAF / Network Challenge] ${item.type}: ${item.label} -> ${item.url} (${res.error || 'Connection Dropped'})`);
+      } else if ((res.status === 0 || res.status === 503) && isBotProtectedDomain(item.url)) {
+        console.log(`   🟡 [WAF / Network Challenge] ${item.type}: ${item.label} -> ${item.url} (${res.error || res.statusText || 'Connection Dropped'})`);
       } else {
         console.error(`   ❌ [${res.status || 'ERR'}] ${item.type}: ${item.label} -> ${item.url} (${res.error || res.statusText || 'Failed'})`);
         totalFailed++;
