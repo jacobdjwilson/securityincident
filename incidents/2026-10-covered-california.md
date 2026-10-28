@@ -4,7 +4,7 @@ target: Covered California
 domain: coveredcalifornia.com
 status: CONFIRMED
 first_seen: 2026-10-16
-last_updated: 2026-10-16
+last_updated: 2026-10-27
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Covered California.
@@ -13,6 +13,8 @@ tags:
   - state-ag
   - california
   - confirmed
+  - investigative
+  - media-pickup
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
@@ -48,3 +50,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631490)
+
+### 2026-10-27 18:41 UTC
+- **Event:** Press Coverage: Covered California Agent Data Exposed In Phishing Attack
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/27/covered-california-agent-data-exposed-in-phishing-attack/)

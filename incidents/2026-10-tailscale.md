@@ -3,7 +3,7 @@ id: 2026-10-tailscale
 target: Tailscale
 domain: tailscale.com
 status: DEVELOPING
-first_seen: 2026-10-27
+first_seen: 2026-10-25
 last_updated: 2026-10-27
 threat_actor: null
 summary: The Tailscale security team is working to patch almost a dozen security
@@ -12,6 +12,7 @@ summary: The Tailscale security team is working to patch almost a dozen security
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Tailscale warns of SSH flaws allowing root privilege escalation
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/tailscale-warns-of-serious-ssh-flaws-allowing-root-privilege-escalation/)
+
+### 2026-10-25 17:44 UTC
+- **Event:** Press Coverage: Unpatched Tailscale SSH Flaws Could Let a Hacked Device Reach Root on Other Servers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/unpatched-tailscale-ssh-flaws-could-let.html)

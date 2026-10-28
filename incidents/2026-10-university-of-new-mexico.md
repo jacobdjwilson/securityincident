@@ -66,3 +66,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Cyberattack disrupts University of New Mexico hospitals, extortion group claims attack
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/27/university-of-new-mexico-hospitals-cyberattack/)
+
+### 2026-10-27 18:49 UTC
+- **Event:** Press Coverage: Cyberattack forces University of New Mexico Health to divert ambulances, cancel appointments
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/27/cyberattack-forces-university-of-new-mexico-health-to-divert-ambulances-cancel-appointments/)
+
+### 2026-10-27 22:07 UTC
+- **Event:** Press Coverage: UNM Health ransomware attack disrupts patient care, surgeries
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/unm-health-ransomware-attack-disrupts-patient-care-surgeries/)

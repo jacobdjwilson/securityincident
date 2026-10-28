@@ -163,6 +163,17 @@ vendor_advisories:
       collaboration tools like Teams and Slack. Alternatively, users &#8230;
       More &#8594; The post Microsoft fixes exploited Mark of the Web bypass
       vulnerability (CVE-2026-96951) appeared first on Help Net Security .
+  - publisher: Microsoft
+    advisory_id: Microsoft releases Windows OOB updates to distrust eMudhra c
+    title: Microsoft releases Windows OOB updates to distrust eMudhra certificates
+    severity: Critical
+    release_date: 2026-10-27
+    cve_ids: []
+    url: https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-windows-oob-updates-to-distrust-emudhra-certificates/
+    description: Microsoft has released out-of-band (OOB) Windows updates to remove
+      trust in certificates tied to compromised eMudhra certificate authority
+      keys, protecting systems that do not receive automatic certificate trust
+      updates. [...]
 summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
   group Midnight Blizzard (APT29), accessing senior leadership corporate emails
   and source code.
@@ -409,3 +420,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft Authenticator Flaw Let Permissionless Android Apps Steal Work Account Tokens
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/microsoft-authenticator-flaw-let.html)
+
+### 2026-10-27 18:20 UTC
+- **Event:** Press Coverage: Microsoft releases Windows OOB updates to distrust eMudhra certificates
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-windows-oob-updates-to-distrust-emudhra-certificates/)

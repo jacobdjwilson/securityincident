@@ -14,6 +14,7 @@ tags:
   - developing
   - media-pickup
   - acknowledged
+  - investigative
 compromised_data:
   - Authentication Credentials
 ---
@@ -50,3 +51,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Cyberattack on University of Copenhagen exposes data of 525,000 people
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/27/university-of-copenhagen-cyberattack-data-breach/)
+
+### 2026-10-27 20:10 UTC
+- **Event:** Press Coverage: University of Copenhagen data breach exposes data of 525,000 people
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/27/university-of-copenhagen-data-breach-exposes-data-of-525000-people/)
