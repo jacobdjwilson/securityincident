@@ -4,7 +4,7 @@ target: U.S. Department of Defense (Pentagon)
 domain: defense.gov
 status: DEVELOPING
 first_seen: 2026-09-26
-last_updated: 2026-10-21
+last_updated: 2026-10-29
 threat_actor: Unattributed
 summary: Disclosed a network intrusion
 tags:
@@ -67,3 +67,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Mainstream Media Pickup: Pentagon hit with class action over data breach affecting millions of military members
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixwFBVV95cUxOOGZMZ3YzV2F0WmE0eUdxQkZnS24taEt0LW1KeG9wdVB4LUFha2F2SFJ6NmZvcUdNcEdZTUxZTkRLaUxqMnYtNmJQN0NQc09IYU5DbGtkbW9SRFhCUEpIbVh0VjBRTXR2dnhvOTdOdldzYWUyX3ltTTMzdmxUenFXNXpWa1FhOW9yQ3NqZVJ2cnA5QVJkN1FrbFZwQ0p2alpUdGQtN0hrOUNCTkVFR2dscWdXd1ZTSWVSWWh5RjRRQUE5SkhhSTc0?oc=5)
+
+### 2026-10-29 10:45 UTC
+- **Event:** Mainstream Media Pickup: EXCLUSIVE: Pentagon treating military base freezer malfunctions as suspected cyberattack, officials say
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMivgFBVV95cUxNZWtDa2JmUnFRRENlQ0RoX2hseFpyajltZE5vbjUwdnlDeTQ5M01zanFrNTBJcE1NV0RwZGFCd29LQXZQN2RYd3pBZnhNbU91eEdZalRSbVpXbTdnS2VXMXNaWE9ZdV9tSHVub29PUy1kX3BFYTNZUWM2NFpTLTZTWGdLX2hTXzYxR2JPanVaeVowcVZmMTZubVZxZE9QSjFPYmVuQjJFVVZqTUJKRUlMclM0NGM4YTNzMmR0ZUdR?oc=5)

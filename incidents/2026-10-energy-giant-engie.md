@@ -4,7 +4,7 @@ target: Energy giant ENGIE
 domain: energygiantengie.com
 status: CONFIRMED
 first_seen: 2026-10-27
-last_updated: 2026-10-28
+last_updated: 2026-10-29
 threat_actor: null
 summary: French energy giant ENGIE, one of the world's largest power and natural
   gas providers, confirmed that attackers stole customer data after breaching a
@@ -45,3 +45,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Energy Giant Engie Notifies Customers of Supply Chain Breach
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/energy-giant-engie-supply-chain/)
+
+### 2026-10-29 08:53 UTC
+- **Event:** Press Coverage: ENGIE Data Breach Exposes Customer Details and Energy Contracts
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/201985/data-breach/engie-data-breach-exposes-customer-details-and-energy-contracts.html)

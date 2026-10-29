@@ -4,7 +4,7 @@ target: CrowdStrike
 domain: crowdstrike.com
 status: CONFIRMED
 first_seen: 2024-08-08
-last_updated: 2026-09-07
+last_updated: 2026-10-29
 threat_actor: null
 summary: Healthcare data breach disclosure submitted to federal regulators by
   CrowdStrike.
@@ -16,6 +16,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - cve-2026-41709
 industry: Healthcare
 incident_type: Protected Health Information (PHI) Breach
 compromised_data:
@@ -34,6 +35,8 @@ regulatory_filings:
       Outage; Healthcare Losses Anticipated to be $1.94B appeared first on The
       HIPAA Journal .
 affected_records: 8500000
+cve_ids:
+  - CVE-2026-41709
 ---
 
 ## Incident Overview
@@ -65,3 +68,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** Press Coverage: Researcher Publishes CrowdStrike Privilege Escalation Zero Day
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/crowdstrike-privilege-escalation/)
+
+### 2026-10-29 06:22 UTC
+- **Event:** Press Coverage: China-Linked Hackers Exploited VMware ESX Zero-Day to Reduce Audit Trail Visibility
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/china-linked-hackers-exploited-vmware.html)

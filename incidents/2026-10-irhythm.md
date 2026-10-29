@@ -4,7 +4,7 @@ target: iRhythm
 domain: irhythm.com
 status: CONFIRMED
 first_seen: 2026-10-09
-last_updated: 2026-10-12
+last_updated: 2026-10-29
 threat_actor: null
 summary: Hackers stole patients’ personal information, including names,
   addresses, email addresses, dates of birth, and phone numbers. The post
@@ -142,3 +142,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43155.pdf)
+
+### 2026-10-29 08:27 UTC
+- **Event:** Press Coverage: HHS Filing Puts iRhythm Data Breach Toll at 8.2 Million
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/hhs-filing-puts-irhythm-data-breach-toll-at-8-2-million/)
