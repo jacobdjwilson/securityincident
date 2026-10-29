@@ -2,9 +2,9 @@
 id: 2026-10-baker-mckenzie
 target: Baker McKenzie
 domain: bakermckenzie.com
-status: EMERGING
+status: CONFIRMED
 first_seen: 2026-10-08
-last_updated: 2026-10-08
+last_updated: 2026-10-27
 threat_actor: SilentRansomGroup
 summary: Baker McKenzie was listed on the SilentRansomGroup ransomware extortion
   leak portal. Unverified extortion claim alleging unauthorized network access
@@ -14,9 +14,22 @@ tags:
   - ransomware-claim
   - silentransomgroup
   - emerging
+  - regulatory
+  - state-ag
+  - california
+  - confirmed
 industry: Professional Services
 compromised_data:
   - Authentication Credentials
+regulatory_filings:
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-631961
+    filing_date: 2026-10-27
+    description: Official statutory data breach notification submitted by Baker &
+      McKenzie to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 ---
 
 ## Incident Overview
@@ -41,3 +54,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Baker McKenzie Listed on SilentRansomGroup Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [SilentRansomGroup Ransomware Leak Site Claim](https://www.ransomware.live/id/QmFrZXIgTWNLZW56aWVAU2lsZW50UmFuc29tR3JvdXA=)
+
+### 2026-10-27 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631961)

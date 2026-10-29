@@ -4,7 +4,7 @@ target: University of New Mexico
 domain: universityofnewmexico.com
 status: ACKNOWLEDGED
 first_seen: 2026-10-26
-last_updated: 2026-10-27
+last_updated: 2026-10-29
 threat_actor: BYOD
 summary: University of New Mexico was listed on the BYOD ransomware extortion
   leak portal. Unverified extortion claim alleging unauthorized network access
@@ -76,3 +76,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: UNM Health ransomware attack disrupts patient care, surgeries
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/unm-health-ransomware-attack-disrupts-patient-care-surgeries/)
+
+### 2026-10-29 13:30 UTC
+- **Event:** Press Coverage: University of New Mexico restores hospital systems, urges no contact with hackers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/new-mexico-cyberattack-hospital)
