@@ -4,7 +4,7 @@ target: Frontline Education
 domain: frontlineeducation.com
 status: CONFIRMED
 first_seen: 2026-10-05
-last_updated: 2026-10-26
+last_updated: 2026-10-29
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Frontline Education.
@@ -16,6 +16,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - investigative
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
@@ -56,3 +57,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Frontline Education Breach Impacts K-12 School District Staff
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/frontline-education-breach-k12/)
+
+### 2026-10-29 19:45 UTC
+- **Event:** Press Coverage: Student SSNs and Medicaid IDs Exposed in Frontline School Software Breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/29/student-ssns-and-medicaid-ids-exposed-in-frontline-school-software-breach/)

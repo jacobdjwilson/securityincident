@@ -81,3 +81,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: University of New Mexico restores hospital systems, urges no contact with hackers
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/new-mexico-cyberattack-hospital)
+
+### 2026-10-29 20:10 UTC
+- **Event:** Press Coverage: UNM Health addresses cyberattack in New Mexico after ransomware group claims responsibility
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/29/unm-health-addresses-cyberattack-in-new-mexico-after-ransomware-group-claims-responsibility/)

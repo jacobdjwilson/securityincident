@@ -4,13 +4,15 @@ target: Japan Airlines
 domain: japanairlines.com
 status: DEVELOPING
 first_seen: 2026-10-28
-last_updated: 2026-10-28
+last_updated: 2026-10-29
 threat_actor: null
 summary: Hackers stole passport numbers, frequent flyer numbers, email addresses
   and phone numbers for about 2,000 customers.
 tags:
   - investigative
   - developing
+  - threat-intel
+  - media-pickup
 compromised_data:
   - Driver's License / State ID
   - Authentication Credentials
@@ -38,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Japan Airlines warns of data breach as country grapples with multiple cyber incidents
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/japan-airlines-warns-of-breach-country-grapples-with-incidents)
+
+### 2026-10-29 22:08 UTC
+- **Event:** Press Coverage: Japan Airlines suffers third-party data breach exposing passenger info
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/japan-airlines-suffers-third-party-data-breach-exposing-passenger-info/)

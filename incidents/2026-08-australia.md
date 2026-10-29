@@ -4,7 +4,7 @@ target: Australia
 domain: australia.com
 status: DEVELOPING
 first_seen: 2026-08-25
-last_updated: 2026-10-12
+last_updated: 2026-10-29
 threat_actor: null
 summary: Australian officials are urging TeamCity customers to patch an actively
   exploited critical flaw, which follows a similar warning from the US
@@ -71,3 +71,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Cyber-attack similar to OpenAI Medicare breach seems likely in UK, says minister
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/oct/12/cyber-attack-like-openai-medicare-breach-seems-likely-in-uk-says-minister)
+
+### 2026-10-29 19:55 UTC
+- **Event:** Press Coverage: Australia severs criminal access to 180,000 computers after breaching Amadey malware backend
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/29/australia-severs-criminal-access-to-180000-computers-after-breaching-amadey-malware-backend/)

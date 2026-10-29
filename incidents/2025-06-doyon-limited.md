@@ -4,7 +4,7 @@ target: DOYON, LIMITED
 domain: doyonlimited.com
 status: CONFIRMED
 first_seen: 2025-06-12
-last_updated: 2025-06-12
+last_updated: 2026-10-29
 threat_actor: null
 summary: Washington State Attorney General formal data breach disclosure notice
   filed by DOYON, LIMITED affecting 1,929 residents.
@@ -14,6 +14,9 @@ tags:
   - washington
   - confirmed
   - california
+  - investigative
+  - developing
+  - media-pickup
 affected_records: 1929
 regulatory_filings:
   - regulator: Washington Attorney General
@@ -63,3 +66,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-603922)
+
+### 2026-10-29 20:01 UTC
+- **Event:** Press Coverage: Limited reports of PHP bug exploitation emerge
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/php2shell-successful-exploitation-reports-emerge)
