@@ -77,3 +77,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: In the year AI re-wrote the infosec rulebook, it’s comforting to know crypto exchanges still have bad security
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Register Security Report](https://www.theregister.com/security/2026/10/30/in-the-year-ai-re-wrote-the-infosec-rulebook-its-comforting-to-know-crypto-exchanges-still-have-bad-security/5306539)
+
+### 2026-10-30 18:50 UTC
+- **Event:** Press Coverage: $6.3 Billion Stolen from Binance in Attack Attributed to North Korea
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202119/cyber-crime/6-3-billion-stolen-from-binance-in-attack-attributed-to-north-korea.html)

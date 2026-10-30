@@ -4,7 +4,7 @@ target: CrowdStrike
 domain: crowdstrike.com
 status: CONFIRMED
 first_seen: 2024-08-08
-last_updated: 2026-10-29
+last_updated: 2026-10-30
 threat_actor: null
 summary: Healthcare data breach disclosure submitted to federal regulators by
   CrowdStrike.
@@ -17,6 +17,7 @@ tags:
   - developing
   - media-pickup
   - cve-2026-41709
+  - investigative
 industry: Healthcare
 incident_type: Protected Health Information (PHI) Breach
 compromised_data:
@@ -73,3 +74,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** Press Coverage: China-Linked Hackers Exploited VMware ESX Zero-Day to Reduce Audit Trail Visibility
 - **Verification:** GOVERNMENT ADVISORY
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/china-linked-hackers-exploited-vmware.html)
+
+### 2026-10-30 21:30 UTC
+- **Event:** Press Coverage: China-backed threat group used agentic AI pentesting tool to compromise 140 sensitive targets in 11 days
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CyberScoop Report](https://cyberscoop.com/china-vapor-panda-agentic-ai-artex-campaign-crowdstrike/)
