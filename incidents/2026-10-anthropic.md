@@ -4,7 +4,7 @@ target: Anthropic
 domain: anthropic.com
 status: DEVELOPING
 first_seen: 2026-08-06
-last_updated: 2026-10-19
+last_updated: 2026-10-30
 threat_actor: null
 summary: Anthropic's latest research adds to the growing safety concerns around
   AI from the ability for models to carry out cyberattacks to the technology
@@ -66,3 +66,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: OpenCode Breach Could Affect OpenAI, Anthropic and Google
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/opencode-breach-openai-anthropic/)
+
+### 2026-10-30 08:55 UTC
+- **Event:** Press Coverage: Official Claude Code VS Code Extension Compromised to Install Persistent SSH Backdoor
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/official-claude-code-vs-code-extension.html)

@@ -4,7 +4,7 @@ target: Baker McKenzie
 domain: bakermckenzie.com
 status: CONFIRMED
 first_seen: 2026-10-08
-last_updated: 2026-10-27
+last_updated: 2026-10-29
 threat_actor: SilentRansomGroup
 summary: Baker McKenzie was listed on the SilentRansomGroup ransomware extortion
   leak portal. Unverified extortion claim alleging unauthorized network access
@@ -18,6 +18,9 @@ tags:
   - state-ag
   - california
   - confirmed
+  - general-media
+  - developing
+  - media-pickup
 industry: Professional Services
 compromised_data:
   - Authentication Credentials
@@ -59,3 +62,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631961)
+
+### 2026-10-29 21:13 UTC
+- **Event:** Mainstream Media Pickup: Law firms Baker McKenzie, Troutman targeted in cyber breaches
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMirwFBVV95cUxOTXRHMWpaMlAwV2FsSkFMWmhJRVlOeGtzOXVUMmlPY1B1ZGZyWUx5VDd1N0g4SFozdmtncFBxNnE3cHNqVG5uT0I4WDc4UWw3ZGV0bUpzMGZXX2ZzTHk2TDgzaWhIbWxmbm1DR05BMW41MXBPSzRESDBVVWNPYjhXZ01UYW5WMDZzSE8wVTd2R0k3T3RTcy1jWW4yLVVfc3ZHbzc0cHFoZzdxV3RZUW1V?oc=5)

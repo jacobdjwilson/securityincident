@@ -78,3 +78,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: US Probes Suspected Hack Behind Military Base Freezer Failures
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202073/hacking/us-probes-suspected-hack-behind-military-base-freezer-failures.html)
+
+### 2026-10-29 23:01 UTC
+- **Event:** Mainstream Media Pickup: Pentagon probes base freezer failures as suspected cyberattack, sources say
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBHcW50T0wwRmU5TEpaWHBjUVoxMi1iOFpXdmJVVW1MS09JYmNaMVk5OE9iWXhjNEFPS1o1VlBXcDRpNVozQ0ljZXg4RjM3dF8yUW9oQ1NFTjNyS096ODl4S0xWNHNadUU?oc=5)

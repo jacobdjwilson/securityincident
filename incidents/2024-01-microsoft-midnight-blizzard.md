@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-10-27
+last_updated: 2026-10-30
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -425,3 +425,13 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft releases Windows OOB updates to distrust eMudhra certificates
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-windows-oob-updates-to-distrust-emudhra-certificates/)
+
+### 2026-10-30 11:15 UTC
+- **Event:** Press Coverage: Claude Code extension poisoned with persistent SSH backdoor
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/30/claude-code-extension-ssh-backdoor/)
+
+### 2026-10-30 06:30 UTC
+- **Event:** Press Coverage: Fake IT help desk callers got by on little more than names and email addresses
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/10/30/cisco-talos-it-help-desk-vishing/)
