@@ -4,7 +4,7 @@ target: Cloudflare
 domain: cloudflare.com
 status: DEVELOPING
 first_seen: 2026-09-26
-last_updated: 2026-10-15
+last_updated: 2026-10-30
 threat_actor: null
 summary: The Psychedelic Stealer malware distributed via compromised Ukrainian
   websites using ClickFix-style Cloudflare verification checks is part of a
@@ -52,3 +52,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** Press Coverage: Help TDS Linked to Hotejka as 20,000+ Cloudflare Pages Domains Host Tech Support Scams
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/help-tds-linked-to-hotejka-as-20000.html)
+
+### 2026-10-30 14:41 UTC
+- **Event:** Press Coverage: In Other News: Anthropic Breach Dispute, UEFI Flaw Hits Most Servers, Cloudflare AI Data Leak
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/in-other-news-anthropic-breach-dispute-uefi-flaw-hits-most-servers-cloudflare-ai-data-leak/)

@@ -2,9 +2,9 @@
 id: 2026-10-shield-wall-systems-of-florida
 target: Shield Wall Systems of Florida
 domain: shieldwsfl.com
-status: EMERGING
+status: DEVELOPING
 first_seen: 2026-10-15
-last_updated: 2026-10-15
+last_updated: 2026-10-30
 threat_actor: Qilin
 summary: Shield Wall Systems of Florida was listed on the Qilin ransomware
   extortion leak portal. Unverified extortion claim alleging unauthorized
@@ -14,6 +14,9 @@ tags:
   - ransomware-claim
   - qilin
   - emerging
+  - investigative
+  - developing
+  - media-pickup
 industry: Government & Defense
 compromised_data:
   - Authentication Credentials
@@ -41,3 +44,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Shield Wall Systems of Florida Listed on Qilin Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Qilin Ransomware Leak Site Claim](https://www.ransomware.live/id/U2hpZWxkIFdhbGwgU3lzdGVtcyBvZiBGbG9yaWRhQHFpbGlu)
+
+### 2026-10-30 15:54 UTC
+- **Event:** Press Coverage: Florida warns that 4.9 million people had Social Security numbers leaked in financial aid site breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/florida-warns-5-million-affected-financial-aid-site-breach)

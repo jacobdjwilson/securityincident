@@ -2,9 +2,9 @@
 id: 2026-10-verification
 target: Verification
 domain: verification.com
-status: EMERGING
+status: DEVELOPING
 first_seen: 2026-10-27
-last_updated: 2026-10-27
+last_updated: 2026-10-30
 threat_actor: Whitearmor
 summary: Verification was listed on the Whitearmor ransomware extortion leak
   portal. Verification for Gamblinglore.com
@@ -13,6 +13,9 @@ tags:
   - ransomware-claim
   - whitearmor
   - emerging
+  - threat-intel
+  - developing
+  - media-pickup
 industry: Technology
 compromised_data:
   - Authentication Credentials
@@ -40,3 +43,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Verification Listed on Whitearmor Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Whitearmor Ransomware Leak Site Claim](https://www.ransomware.live/id/VmVyaWZpY2F0aW9uQFdoaXRlYXJtb3I=)
+
+### 2026-10-30 14:00 UTC
+- **Event:** Press Coverage: SS7 and Diameter Attacks: How Signaling Flaws Expose Your Phone
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/ss7-and-diameter-attacks-how-signaling-flaws-expose-your-phone/)

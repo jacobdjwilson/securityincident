@@ -71,3 +71,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Official Claude Code VS Code Extension Compromised to Install Persistent SSH Backdoor
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/official-claude-code-vs-code-extension.html)
+
+### 2026-10-30 16:27 UTC
+- **Event:** Press Coverage: Anthropic: That Claude Code extension compromise… couldn't be us
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/cyber-crime/2026/10/30/anthropic-that-claude-code-extension-compromise-couldnt-be-us/5306682)
