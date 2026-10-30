@@ -2,7 +2,7 @@
 id: 2026-09-us-dod-pentagon
 target: U.S. Department of Defense (Pentagon)
 domain: defense.gov
-status: DEVELOPING
+status: ACKNOWLEDGED
 first_seen: 2026-09-26
 last_updated: 2026-10-29
 threat_actor: Unattributed
@@ -13,6 +13,7 @@ tags:
   - threat-intel
   - general-media
   - media-pickup
+  - acknowledged
 industry: Government & Defense
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: 240000
@@ -72,3 +73,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Mainstream Media Pickup: EXCLUSIVE: Pentagon treating military base freezer malfunctions as suspected cyberattack, officials say
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMivgFBVV95cUxNZWtDa2JmUnFRRENlQ0RoX2hseFpyajltZE5vbjUwdnlDeTQ5M01zanFrNTBJcE1NV0RwZGFCd29LQXZQN2RYd3pBZnhNbU91eEdZalRSbVpXbTdnS2VXMXNaWE9ZdV9tSHVub29PUy1kX3BFYTNZUWM2NFpTLTZTWGdLX2hTXzYxR2JPanVaeVowcVZmMTZubVZxZE9QSjFPYmVuQjJFVVZqTUJKRUlMclM0NGM4YTNzMmR0ZUdR?oc=5)
+
+### 2026-10-29 21:58 UTC
+- **Event:** Press Coverage: US Probes Suspected Hack Behind Military Base Freezer Failures
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202073/hacking/us-probes-suspected-hack-behind-military-base-freezer-failures.html)
