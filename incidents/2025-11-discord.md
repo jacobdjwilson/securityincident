@@ -4,7 +4,7 @@ target: Discord
 domain: discord.com
 status: CONFIRMED
 first_seen: 2025-11-26
-last_updated: 2025-11-26
+last_updated: 2026-10-31
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Discord.
@@ -13,6 +13,9 @@ tags:
   - state-ag
   - california
   - confirmed
+  - investigative
+  - developing
+  - media-pickup
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
@@ -48,3 +51,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-614835)
+
+### 2026-10-31 12:00 UTC
+- **Event:** Press Coverage: Spooky New Infostealer Malware Uses AI to ‘Autodox’ Victims
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Wired Security Report](https://www.wired.com/story/kernel-panic-volta-autodoxer-ai-infostealer-malware/)
