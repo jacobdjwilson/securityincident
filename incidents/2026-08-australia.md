@@ -76,3 +76,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Australia severs criminal access to 180,000 computers after breaching Amadey malware backend
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/29/australia-severs-criminal-access-to-180000-computers-after-breaching-amadey-malware-backend/)
+
+### 2026-10-28 03:26 UTC
+- **Event:** Mainstream Media Pickup: Australia's Star Entertainment fined $183 million for anti-money laundering law breaches
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixAFBVV95cUxOdDEzR2l3NGVCMzJiSjBNdGx1NGE1eGN6LUczbUNBb241T0FCU2hKU2FvMDZUbmdMdEVrLXViTzBzWE5udE1TMWkzZjQ0T1JIRmc4Wjh1YURLeW16eE1pX3gwdlhCSkJmRFUtd2Jhd0h3d0R2Sm1VZ3hSWW9CTTl1SDRfbWt2ZnNwcEwtazZCTjZUSEN1a1JJZk5DdElhNlptM3dSa0xZWUQ1eGotcEVtckd6c1dGVXp2LVVyWWM4azRpZnBX?oc=5)
