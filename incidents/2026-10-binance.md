@@ -82,3 +82,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: $6.3 Billion Stolen from Binance in Attack Attributed to North Korea
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202119/cyber-crime/6-3-billion-stolen-from-binance-in-attack-attributed-to-north-korea.html)
+
+### 2026-10-30 10:38 UTC
+- **Event:** Mainstream Media Pickup: Where Binance's $6.3 billion breach ranks in crypto's biggest hacks and heists
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMivAFBVV95cUxQUklCT0Zncjc4TE93UXRGOFczR29GTTg1WllYUXVhWko5YWpRZ05DcXZKb0ZSMnhWS3VnNnBBUzJtRThXSHdYUlRPdC1scGtPb1BCb3hJM0JRWFVpVE1rUGFiUFBtV2hleHVVdl8wRW03eDdLdGc3TkpvdzY4UFNiTXJ3ZkEzZmNIY0ZUVkt4WHdYQVBtQkZhcm9GU2xiRXVUaUVndXlpYmxKQnpXamZiUV83OHZpU3U3Z2tFLQ?oc=5)

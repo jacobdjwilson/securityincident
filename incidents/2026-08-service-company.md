@@ -4,7 +4,7 @@ target: Service Company
 domain: servicecompany.com
 status: CONFIRMED
 first_seen: 2026-08-13
-last_updated: 2026-08-13
+last_updated: 2026-11-02
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Service Company.
@@ -13,6 +13,9 @@ tags:
   - state-ag
   - california
   - confirmed
+  - general-media
+  - developing
+  - media-pickup
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
@@ -48,3 +51,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-628224)
+
+### 2026-11-02 08:33 UTC
+- **Event:** Mainstream Media Pickup: Japanese online service company GMO apologizes for security breaches and promises compensation
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [AP News Report](https://news.google.com/rss/articles/CBMimwFBVV95cUxNdWtDYXFndkV4UTRNbTRLS2hmcHlxOHdBNTJmNy13NDJpcS01cmMtZ2Rqb2xTYk02Sjh5RlRvelo2WWthamtzckZkU2g4enNfZTFoNW1nbFQzdVctejFaNU5YMVdHNW9FdmlSSUh6cDhLNnhtTUNrbGJfMkYyMVZsTGUwcDhBTjFUZXBHREdHZTZ0ME1KT3dicUdiaw?oc=5)

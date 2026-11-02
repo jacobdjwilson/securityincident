@@ -4,7 +4,7 @@ target: Polymarket
 domain: polymarket.com
 status: DEVELOPING
 first_seen: 2026-10-29
-last_updated: 2026-10-30
+last_updated: 2026-11-02
 threat_actor: null
 summary: Prediction market platform Polymarket temporarily suspended trading on
   Thursday after hackers compromised a third-party service to distribute
@@ -46,3 +46,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Polymarket confirms cyberattack on third-party provider after outages
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/polymarket-confirms-cyberattack-third-party)
+
+### 2026-11-02 09:33 UTC
+- **Event:** Press Coverage: Polymarket Returns $3.9 Million to Traders as DebugBear Cites DNS Hijack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/polymarket-returns-3-9-million-to-traders-as-debugbear-cites-dns-hijack/)
