@@ -4,7 +4,7 @@ target: Ukraine
 domain: ukraine.com
 status: DEVELOPING
 first_seen: 2026-10-26
-last_updated: 2026-10-27
+last_updated: 2026-11-01
 threat_actor: null
 summary: CERT-UA says it has identified cases in which hackers compromised Dahua
   internet-connected cameras and video recorders, changed their settings and
@@ -14,6 +14,7 @@ tags:
   - developing
   - threat-intel
   - media-pickup
+  - general-media
 compromised_data:
   - Authentication Credentials
 ---
@@ -50,3 +51,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Attackers Take Control of Dahua Cameras and Video Recorders Via Easy4IP
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/201827/hacking/attackers-take-control-of-dahua-cameras-and-video-recorders-via-easy4ip.html)
+
+### 2026-11-01 21:36 UTC
+- **Event:** Mainstream Media Pickup: Ukraine says public air raid alert app sent false alerts after being hacked
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMitgFBVV95cUxPYjdWbExXZ1JiYUVET2JwdTc2VVZ0T3J0czdJbUNyLWhLTzI3cW1zOWkxZF9mU3ZnVWtDYXR5SjVwZTlDZ0tFdXE5bkdIUjBwZEZRbmRDWGY4WkNvVkFqSFRJeXdBMzBPS0VJSmlzRkRTS1lCekRwOWRWZ3dSUXNyOVJMRk1Ga3lKZHV2bnctMFhVNTJDVFQ3UlBSWGl5QV95b3pMR2lGd05TRXdiRDdlUHFITkxmZw?oc=5)
