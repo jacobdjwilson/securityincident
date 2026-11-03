@@ -4,7 +4,7 @@ target: Ukraine
 domain: ukraine.com
 status: DEVELOPING
 first_seen: 2026-10-26
-last_updated: 2026-11-02
+last_updated: 2026-11-03
 threat_actor: null
 summary: CERT-UA says it has identified cases in which hackers compromised Dahua
   internet-connected cameras and video recorders, changed their settings and
@@ -66,3 +66,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Hackers Send Fake Nuclear Threat Alerts to Ukrainian and Russian Citizens
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202248/security/hackers-send-fake-nuclear-threat-alerts-to-ukrainian-and-russian-citizens.html)
+
+### 2026-11-03 10:00 UTC
+- **Event:** Press Coverage: Gorbag APT group hits Ukrainian courts and city councils with self-deleting malware
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/03/gorbag-apt-group-malware/)

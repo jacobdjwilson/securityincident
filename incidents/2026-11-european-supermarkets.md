@@ -4,7 +4,7 @@ target: European supermarkets
 domain: europeansupermarkets.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-02
+last_updated: 2026-11-03
 threat_actor: null
 summary: European supermarkets hit by new fridge cyber attack Reuters
 tags:
@@ -53,3 +53,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: New wave of fridge cyberattacks hits European supermarkets, this time in Belgium, Luxembourg, Sweden and Estonia
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202260/security/another-fridge-cyberattack-hits-european-supermarkets-this-time-in-belgium-luxembourg-sweden-and-estonia.html)
+
+### 2026-11-03 12:46 UTC
+- **Event:** Mainstream Media Pickup: Supermarket fridges hit with cyberattacks across Europe — here&apos;s what&apos;s happening
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/11/03/supermarket-fridges-hack-cyberattack-europe.html)

@@ -4,7 +4,7 @@ target: Synology
 domain: synology.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-02
+last_updated: 2026-11-03
 threat_actor: null
 summary: Taiwanese network-attached storage (NAS) appliance maker Synology
   warned customers to update their devices immediately due to a surge in C3RB3r
@@ -12,6 +12,7 @@ summary: Taiwanese network-attached storage (NAS) appliance maker Synology
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Synology warns of C3RB3R ransomware attacks targeting NAS devices
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/synology-warns-customers-of-ongoing-c3rb3r-ransomware-attacks/)
+
+### 2026-11-03 07:43 UTC
+- **Event:** Press Coverage: Synology NAS Devices Targeted in Ransomware Attacks Exploiting Patched DSM Flaw
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/synology-nas-devices-targeted-in.html)
