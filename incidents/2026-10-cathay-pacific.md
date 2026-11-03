@@ -4,12 +4,14 @@ target: Cathay Pacific
 domain: cathaypacific.com
 status: DEVELOPING
 first_seen: 2026-10-30
-last_updated: 2026-10-30
+last_updated: 2026-11-02
 threat_actor: null
 summary: Cathay Pacific says Amadeus breach affected 53,000 bookings Reuters
 tags:
   - general-media
   - developing
+  - investigative
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -36,3 +38,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Cathay Pacific says Amadeus breach affected 53,000 bookings
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMisAFBVV95cUxOY21ablZ6S0REUC1UdlFVR2ltTFRxMVV0V1o5N296TmZPSnRnOGpLMUQ2a1o3b0ZNWEVCanlkTWsta0VHYVJIcmxiUVNvZlpGSmkwNW5ndmZmaVdlLXFmd1QwQ01NQjVmamlJTXZfeTZkR1pDZkwtcS1nWTlTUXZoX2VYdm5tLW8zWlRIOXh2WGJZTW9XbmZvdXFyOUV6RExwam51dk0yWjlpVkluUjl3Rw?oc=5)
+
+### 2026-11-02 23:25 UTC
+- **Event:** Press Coverage: Hong Kong privacy watchdog investigates data leaks linked to major airlines and retailers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/02/hong-kong-privacy-watchdog-investigates-data-leaks-linked-to-major-airlines-and-retailers/)

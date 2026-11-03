@@ -51,3 +51,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Polymarket Returns $3.9 Million to Traders as DebugBear Cites DNS Hijack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/polymarket-returns-3-9-million-to-traders-as-debugbear-cites-dns-hijack/)
+
+### 2026-11-02 17:05 UTC
+- **Event:** Press Coverage: Polymarket pledges to give $3.9 million back to victims after site compromise
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/polymarket-returning-funds-to-customers-after-site-compromise)
