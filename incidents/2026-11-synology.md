@@ -44,3 +44,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Synology NAS Devices Targeted in Ransomware Attacks Exploiting Patched DSM Flaw
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/synology-nas-devices-targeted-in.html)
+
+### 2026-11-03 16:31 UTC
+- **Event:** Press Coverage: Synology Warns of Ransomware Attacks Targeting NAS Devices Running Outdated DSM Versions
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202343/security/synology-warns-of-ransomware-attacks-targeting-nas-devices-running-outdated-dsm-versions.html)

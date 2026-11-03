@@ -71,3 +71,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Gorbag APT group hits Ukrainian courts and city councils with self-deleting malware
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/03/gorbag-apt-group-malware/)
+
+### 2026-11-03 20:07 UTC
+- **Event:** Press Coverage: Ukraine and Russia both report fake emergency alerts after cyberattacks target apps as limited ceasefire ends
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/03/ukraine-and-russia-both-report-fake-emergency-alerts-after-cyberattacks-target-apps-as-limited-ceasefire-ends/)

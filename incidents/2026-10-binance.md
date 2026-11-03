@@ -4,7 +4,7 @@ target: Binance
 domain: binance.com
 status: ACKNOWLEDGED
 first_seen: 2026-10-29
-last_updated: 2026-11-02
+last_updated: 2026-11-03
 threat_actor: null
 summary: Binance, the world's largest cryptocurrency exchange, confirmed
   Thursday that it had been hacked in a $6.3 billion cyber heist that blockchain
@@ -92,3 +92,38 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: One Compromised Laptop, Billions Lost: The Binance Attack-Path Warning
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Dark Reading Report](https://www.darkreading.com/cyberattacks-data-breaches/binance-hack-test-attack-paths)
+
+### 2026-11-03 20:05 UTC
+- **Event:** Press Coverage: Binance says fake job interview led to $6.3 billion crypto heist
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/binance-says-fake-job-interview-led-to-63-billion-crypto-heist/)
+
+### 2026-11-03 16:42 UTC
+- **Event:** Press Coverage: Binance CEO says ‘months-long campaign’ led to $6.3 billion theft as N. Korea denies responsibility
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/binance-cryptocurrency-theft-months-long-campaign-nkorea)
+
+### 2026-11-03 16:55 UTC
+- **Event:** Press Coverage: Binance Reveals How Fake Job Interviews and AI Tool Abuse Led to $6.43 Billion Theft
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/binance-reveals-how-fake-job-interviews.html)
+
+### 2026-11-03 19:00 UTC
+- **Event:** Mainstream Media Pickup: Hackers behind $6.3bn Binance heist ‘used malware and bogus job interviews’
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/business/2026/nov/03/hackers-63bn-binance-heist-malware-bogus-job-interviews-cryptocurrency)
+
+### 2026-11-03 20:13 UTC
+- **Event:** Mainstream Media Pickup: Binance breach puts custody at center of crypto infrastructure trade
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/11/03/binance-breach-puts-custody-at-center-of-crypto-infrastructure-trade.html)
+
+### 2026-11-03 22:04 UTC
+- **Event:** Press Coverage: North Korean fake job interview led to $6.3B Binance heist
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/03/north-korean-fake-job-interview-led-to-63b-binance-heist/5307398)
+
+### 2026-11-03 19:44 UTC
+- **Event:** Press Coverage: Binance Hack: How Fake Job Interviews and AI Abuse Led to a $6.34 Billion Attack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202369/cyber-crime/binance-hack-how-fake-job-interviews-and-ai-abuse-led-to-a-6-34-billion-attack.html)

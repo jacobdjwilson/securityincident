@@ -4,7 +4,7 @@ target: State Bank of India
 domain: statebankofindia.com
 status: CONFIRMED
 first_seen: 2026-10-21
-last_updated: 2026-10-23
+last_updated: 2026-11-03
 threat_actor: null
 summary: State Bank of India has identified 3,897 customer records containing
   personal information in a set of about 375,000 records available on the dark
@@ -14,6 +14,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - general-media
 compromised_data:
   - Authentication Credentials
   - Customer / Employee PII
@@ -46,3 +47,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: State Bank of India Suffers a Customer PII Data Leak
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Dark Reading Report](https://www.darkreading.com/cyberattacks-data-breaches/state-bank-india-customer-pii-data-leak)
+
+### 2026-11-03 12:10 UTC
+- **Event:** Mainstream Media Pickup: State Bank of India quarterly profit rises; to boost cybersecurity after breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMilwFBVV95cUxPQnFRWGMtM3JxME1pR2FXOWo4NU1Ua1VncXNLa0dqN0RORm5MbTJ2Nk9YcU04cV9mRVVOLVNFTmxrTUVhRVZ3TnhqUC13RXdMUXgzNFQ2TGsxSklSYUp1c3dWMDhpVFJoYnh4NEhvVnh1YWdKTS15Z29NLU5LaEFXVFNZYzhZc01CSGh6enE0UGV1TE9tbkhN?oc=5)
