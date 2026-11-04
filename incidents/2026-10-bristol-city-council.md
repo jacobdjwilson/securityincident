@@ -2,9 +2,9 @@
 id: 2026-10-bristol-city-council
 target: Bristol City Council
 domain: bristolcitycouncil.com
-status: EMERGING
+status: DEVELOPING
 first_seen: 2026-10-27
-last_updated: 2026-10-27
+last_updated: 2026-11-04
 threat_actor: Wallstreet
 summary: Bristol City Council was listed on the Wallstreet ransomware extortion
   leak portal. Unverified extortion claim alleging unauthorized network access
@@ -14,6 +14,9 @@ tags:
   - ransomware-claim
   - wallstreet
   - emerging
+  - investigative
+  - developing
+  - media-pickup
 industry: Government & Defense
 compromised_data:
   - Authentication Credentials
@@ -41,3 +44,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Bristol City Council Listed on Wallstreet Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Wallstreet Ransomware Leak Site Claim](https://www.ransomware.live/id/QnJpc3RvbCBDaXR5IENvdW5jaWxAV2FsbHN0cmVldA==)
+
+### 2026-11-04 18:15 UTC
+- **Event:** Press Coverage: Hackers steal 320,000 UK school files and publish them on dark web
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/04/hackers-steal-320000-uk-school-files-and-publish-them-on-dark-web/)

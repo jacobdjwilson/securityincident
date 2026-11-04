@@ -4,7 +4,7 @@ target: DreamHost
 domain: dreamhost.com
 status: CONFIRMED
 first_seen: 2026-11-02
-last_updated: 2026-11-02
+last_updated: 2026-11-04
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by DreamHost.
@@ -13,6 +13,8 @@ tags:
   - state-ag
   - california
   - confirmed
+  - threat-intel
+  - media-pickup
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
@@ -48,3 +50,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-632268)
+
+### 2026-11-04 19:05 UTC
+- **Event:** Press Coverage: DreamHost confirms data breach exposed FTP logins and webmail sessions
+- **Verification:** CONFIRMED BY TARGET
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/dreamhost-confirms-data-breach-exposed-ftp-logins-and-webmail-sessions/)

@@ -2,9 +2,9 @@
 id: 2026-11-unnamed
 target: Unnamed
 domain: unnamed.com
-status: EMERGING
+status: DEVELOPING
 first_seen: 2026-11-03
-last_updated: 2026-11-03
+last_updated: 2026-11-04
 threat_actor: PixelLeaks
 summary: "Unnamed was listed on the PixelLeaks ransomware extortion leak portal.
   IT services / hosted email provider Deadline: 2026-11-05 07:22 UTC"
@@ -13,6 +13,9 @@ tags:
   - ransomware-claim
   - pixelleaks
   - emerging
+  - investigative
+  - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +42,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Unnamed Listed on PixelLeaks Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [PixelLeaks Ransomware Leak Site Claim](https://www.ransomware.live/id/VW5uYW1lZEBQaXhlbExlYWtz)
+
+### 2026-11-04 18:58 UTC
+- **Event:** Press Coverage: French bank confirms cyber heist, hackers suspected to have stolen an estimated $133 million
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/french-bank-confirms-cyber-heist)

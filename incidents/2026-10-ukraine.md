@@ -4,7 +4,7 @@ target: Ukraine
 domain: ukraine.com
 status: DEVELOPING
 first_seen: 2026-10-26
-last_updated: 2026-11-03
+last_updated: 2026-11-04
 threat_actor: null
 summary: CERT-UA says it has identified cases in which hackers compromised Dahua
   internet-connected cameras and video recorders, changed their settings and
@@ -76,3 +76,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Ukraine and Russia both report fake emergency alerts after cyberattacks target apps as limited ceasefire ends
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/03/ukraine-and-russia-both-report-fake-emergency-alerts-after-cyberattacks-target-apps-as-limited-ceasefire-ends/)
+
+### 2026-11-04 16:15 UTC
+- **Event:** Press Coverage: Ukrainian news outlet Kyiv Independent hit by suspected Russian cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/ukraine-kyiv-independent-cyberattack)

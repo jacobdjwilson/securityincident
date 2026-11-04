@@ -13,6 +13,8 @@ summary: Temperature and defrosting thresholds raised to ‘very high levels’ 
 tags:
   - general-media
   - developing
+  - media-pickup
+  - threat-intel
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +41,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** French blood banks hacked in latest cyber-attack on Europe
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/04/france-national-blood-service-hack-cyber-attack-europe)
+
+### 2026-11-04 14:15 UTC
+- **Event:** Mainstream Media Pickup: Blood banks targeted in latest European fridge cyberattacks
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/11/04/blood-bank-fridges-cyberattacks.html)
+
+### 2026-11-04 13:36 UTC
+- **Event:** Press Coverage: Cyberattack hits French blood banks
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/04/cyberattack-hits-french-blood-banks/)
+
+### 2026-11-04 19:01 UTC
+- **Event:** Press Coverage: Cyberattack Hits French Blood Banks as Hackers Target Refrigeration Systems Across Europe
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202431/hacking/cyberattack-hits-french-blood-banks-as-hackers-target-refrigeration-systems-across-europe.html)
