@@ -4,7 +4,7 @@ target: Binance
 domain: binance.com
 status: ACKNOWLEDGED
 first_seen: 2026-10-29
-last_updated: 2026-11-03
+last_updated: 2026-11-04
 threat_actor: null
 summary: Binance, the world's largest cryptocurrency exchange, confirmed
   Thursday that it had been hacked in a $6.3 billion cyber heist that blockchain
@@ -127,3 +127,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Binance Hack: How Fake Job Interviews and AI Abuse Led to a $6.34 Billion Attack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202369/cyber-crime/binance-hack-how-fake-job-interviews-and-ai-abuse-led-to-a-6-34-billion-attack.html)
+
+### 2026-11-04 10:36 UTC
+- **Event:** Press Coverage: Rigged Coding Assignment, Abused AI Tool Opened Path to $6 Billion Binance Heist
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/rigged-coding-assignment-abused-ai-tool-opened-path-to-6-billion-binance-heist/)
+
+### 2026-11-04 10:29 UTC
+- **Event:** Press Coverage: Fake job interview opened the door to $6.34 billion Binance heist
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/04/binance-hack-north-korea-fake-job-interview/)

@@ -4,7 +4,7 @@ target: UK school estate
 domain: ukschoolestate.com
 status: DEVELOPING
 first_seen: 2026-11-03
-last_updated: 2026-11-03
+last_updated: 2026-11-04
 threat_actor: null
 summary: A 3AM ransomware affiliate targeted a school estate in the UK and
   successfully encrypted around 37 of nearly 50 machines reached from an
@@ -12,6 +12,7 @@ summary: A 3AM ransomware affiliate targeted a school estate in the UK and
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** UK school estate hit by 3AM ransomware in suspected AI-assisted attack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/uk-school-estate-hit-by-3am-ransomware-in-suspected-ai-assisted-attack/)
+
+### 2026-11-04 12:00 UTC
+- **Event:** Press Coverage: 3AM Ransomware Used Human-AI Hybrid Tactics in UK School Estate Compromise
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/3am-ransomware-hybrid-ai-uk-school/)
