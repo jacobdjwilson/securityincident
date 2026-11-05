@@ -49,3 +49,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: DarkBlinders Compromises Israeli Target and Iraqi Kurdish Government Cloud Environment
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/darkblinders-compromises-israeli-target.html)
+
+### 2026-11-05 16:42 UTC
+- **Event:** Press Coverage: Researchers Bypass ChatGPT Lockdown Mode to Exfiltrate Chats Without User Interaction
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/researchers-bypass-chatgpt-lockdown.html)
+
+### 2026-11-05 13:56 UTC
+- **Event:** Press Coverage: Cyberattack on Norway’s aid agency may have swept up all user data
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/05/norad-grants-portal-breach/)

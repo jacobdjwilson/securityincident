@@ -4,7 +4,7 @@ target: Quantum Health
 domain: quantumhealth.com
 status: CONFIRMED
 first_seen: 2026-08-14
-last_updated: 2026-08-14
+last_updated: 2026-10-27
 threat_actor: Unknown / Unattributed
 summary: Washington State Attorney General formal data breach disclosure notice
   filed by Quantum Health affecting 5909 residents.
@@ -73,3 +73,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-628342)
+
+### 2026-10-27 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631987)

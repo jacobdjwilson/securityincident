@@ -3,7 +3,7 @@ id: 2026-11-french-bank-credit-mutuel-arkea
 target: French bank Credit Mutuel Arkea
 domain: frenchbankcreditmutuelarkea.com
 status: DEVELOPING
-first_seen: 2026-11-05
+first_seen: 2026-11-04
 last_updated: 2026-11-05
 threat_actor: null
 summary: French bank Credit Mutuel Arkea says €100 million missing after
@@ -11,6 +11,7 @@ summary: French bank Credit Mutuel Arkea says €100 million missing after
 tags:
   - general-media
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -37,3 +38,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** French bank Credit Mutuel Arkea says €100 million missing after cyberattack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixgFBVV95cUxObnU2SlpvVWVvS09oNFhpM25OcnhQeDhHLVF5SC1HSjZSY2dUMVZ1eFlyX1J6OGxyQVctbVRGRnF6X2luaFhnZVlaTmRnaTl3MXd2YnVONS1fbFZhQ2xBUFZmR3JETFQwTWh6cjF1Ty0yMjFlTjRDN2QwVzFFekhPZTMwY19la3QxdldNUUhFbFVoRjNtOXdFSTNlMzBHRU1JRnlaWUxUY01RVHUyeTUtYjZDSDhPUjFlOXcwV3B5Nkkzakh0c1E?oc=5)
+
+### 2026-11-04 16:58 UTC
+- **Event:** Mainstream Media Pickup: French bank Credit Mutuel Arkea counting losses from cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMingFBVV95cUxOMk9lNHNwaDVoMHhWMmVnT3cwQ21SSzBDLUxDTHpJZDRrVlRyaGdHMVVZQV94dEtpeHRWc2dqN0dtTXY3cG5OOGlIcXMxRmhIb2hZVTU1T2t4TFpWQ1dqVXRkNkdWTlhLRzZGdTBxTkx3enB6NTRXM2NFY3FsS2dtMzBwLWF1cVJzX1Zzdk5TbXlFaV9jbTNURDZLY1JvZw?oc=5)

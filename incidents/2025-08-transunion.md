@@ -4,7 +4,7 @@ target: TransUnion
 domain: transunion.com
 status: CONFIRMED
 first_seen: 2025-08-27
-last_updated: 2025-08-27
+last_updated: 2026-11-05
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by TransUnion.
@@ -14,6 +14,9 @@ tags:
   - california
   - confirmed
   - washington
+  - investigative
+  - developing
+  - media-pickup
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice
@@ -63,3 +66,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34488.pdf)
+
+### 2026-11-05 16:48 UTC
+- **Event:** Press Coverage: Ninth Circuit: Breach Of Confidence Confers Standing In Health Data Security Case
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/05/ninth-circuit-breach-of-confidence-confers-standing-in-health-data-security-case/)
