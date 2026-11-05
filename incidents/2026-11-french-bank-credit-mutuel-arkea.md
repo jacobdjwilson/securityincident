@@ -1,0 +1,39 @@
+---
+id: 2026-11-french-bank-credit-mutuel-arkea
+target: French bank Credit Mutuel Arkea
+domain: frenchbankcreditmutuelarkea.com
+status: DEVELOPING
+first_seen: 2026-11-05
+last_updated: 2026-11-05
+threat_actor: null
+summary: French bank Credit Mutuel Arkea says €100 million missing after
+  cyberattack Reuters
+tags:
+  - general-media
+  - developing
+compromised_data:
+  - Authentication Credentials
+---
+
+## Incident Overview
+
+French bank Credit Mutuel Arkea, within its operating sector, has been subject to a cybersecurity incident. Ground-truth telemetry indicates the threat activity is currently unconfirmed or under forensic attribution.
+
+French bank Credit Mutuel Arkea says €100 million missing after cyberattack Reuters
+
+## Compromised Assets & Data Scope
+
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `frenchbankcreditmutuelarkea.com`.
+
+Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
+
+## Authoritative Directives & Vendor Disclosures
+
+- **Continuous Telemetry Monitoring:** Formal statutory regulatory filings (SEC Form 8-K, State AG portals) and sovereign agency advisories (CISA, NCSC) are continuously monitored via automated ingestion pipeline.
+
+## Timeline
+
+### 2026-11-05 12:25 UTC
+- **Event:** French bank Credit Mutuel Arkea says €100 million missing after cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixgFBVV95cUxObnU2SlpvVWVvS09oNFhpM25OcnhQeDhHLVF5SC1HSjZSY2dUMVZ1eFlyX1J6OGxyQVctbVRGRnF6X2luaFhnZVlaTmRnaTl3MXd2YnVONS1fbFZhQ2xBUFZmR3JETFQwTWh6cjF1Ty0yMjFlTjRDN2QwVzFFekhPZTMwY19la3QxdldNUUhFbFVoRjNtOXdFSTNlMzBHRU1JRnlaWUxUY01RVHUyeTUtYjZDSDhPUjFlOXcwV3B5Nkkzakh0c1E?oc=5)

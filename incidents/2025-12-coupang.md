@@ -4,7 +4,7 @@ target: Coupang
 domain: coupang.com
 status: CONFIRMED
 first_seen: 2025-12-16
-last_updated: 2025-12-16
+last_updated: 2026-11-05
 threat_actor: null
 summary: Official SEC Form 8-K Item 1.05 disclosure filed by Coupang regarding a
   material cybersecurity incident.
@@ -12,6 +12,9 @@ tags:
   - regulatory
   - sec-8k
   - confirmed
+  - investigative
+  - developing
+  - media-pickup
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 1.05
@@ -162,3 +165,8 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Event:** SEC Form 8-K Item 1.05 Disclosure
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001834584-25-000202)](https://www.sec.gov/Archives/edgar/data/1834584/000183458425000202/0001834584-25-000202-index.htm)
+
+### 2026-11-05 12:40 UTC
+- **Event:** Press Coverage: Korean court keeps Coupang’s record data breach fine in force, delays corrective action plan for 30 days
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/05/korean-court-keeps-coupangs-record-data-breach-fine-in-force-delays-corrective-action-plan-for-30-days/)

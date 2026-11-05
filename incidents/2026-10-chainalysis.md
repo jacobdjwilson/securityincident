@@ -4,7 +4,7 @@ target: Chainalysis
 domain: chainalysis.com
 status: DEVELOPING
 first_seen: 2026-10-31
-last_updated: 2026-11-02
+last_updated: 2026-11-05
 threat_actor: null
 summary: Blockchain analytics firm Chainalysis disclosed a data breach after
   attackers used "offensive agentic techniques" to access internal systems and
@@ -14,6 +14,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - investigative
 compromised_data:
   - Authentication Credentials
   - Customer / Employee PII
@@ -61,3 +62,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Chainalysis Investigates Security Incident Involving AI-Driven Attack Techniques
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202241/ai/chainalysis-investigates-security-incident-involving-ai-driven-attack-techniques.html)
+
+### 2026-11-05 00:00 UTC
+- **Event:** Press Coverage: Chainalysis warns all users hit in cyber breach involving ‘agentic’ techniques
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/chainalysis-all-users-hit-by-agentic-cyberattack)
