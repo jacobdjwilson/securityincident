@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-02
+last_updated: 2026-11-06
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -440,3 +440,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Attackers Pose as IT Support on Microsoft Teams, Abuse AD CS to Steal Company Data
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/attackers-pose-as-it-support-on.html)
+
+### 2026-11-06 07:00 UTC
+- **Event:** Press Coverage: November 2026 Patch Tuesday forecast: Old software continues to bite
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/06/november-2026-patch-tuesday-forecast/)

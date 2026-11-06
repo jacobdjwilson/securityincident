@@ -4,7 +4,7 @@ target: Baker McKenzie
 domain: bakermckenzie.com
 status: CONFIRMED
 first_seen: 2026-10-08
-last_updated: 2026-10-29
+last_updated: 2026-11-05
 threat_actor: SilentRansomGroup
 summary: Baker McKenzie was listed on the SilentRansomGroup ransomware extortion
   leak portal. Unverified extortion claim alleging unauthorized network access
@@ -67,3 +67,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Law firms Baker McKenzie, Troutman targeted in cyber breaches
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMirwFBVV95cUxOTXRHMWpaMlAwV2FsSkFMWmhJRVlOeGtzOXVUMmlPY1B1ZGZyWUx5VDd1N0g4SFozdmtncFBxNnE3cHNqVG5uT0I4WDc4UWw3ZGV0bUpzMGZXX2ZzTHk2TDgzaWhIbWxmbm1DR05BMW41MXBPSzRESDBVVWNPYjhXZ01UYW5WMDZzSE8wVTd2R0k3T3RTcy1jWW4yLVVfc3ZHbzc0cHFoZzdxV3RZUW1V?oc=5)
+
+### 2026-11-05 15:03 UTC
+- **Event:** Mainstream Media Pickup: Law firms Baker McKenzie, Squire Patton Boggs sued over cyber breaches
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMivwFBVV95cUxORTd2S09WbERBMDNBaV9KT2hLclFiZVFfaXBqd0xEelZmQWtQdkRXRGNRRG1TVUp5azV1Rk9Ed3MzZ2NBeFVMQTgxUVRuQ1BuY1lYWERBZ2l2NHo1M0pNYVZXeHY1MEl4R2Q0bzRmeTNLdjc2UVdTTjJ3YzNNYjd2c1dJaENBR1QyYTdWYjhoTWZWeUdocEhWaFpuazlWcEwyLWYtWnRuR3c5V05WM1VTTnZheEFsWnFyR0FfRnRJZw?oc=5)
