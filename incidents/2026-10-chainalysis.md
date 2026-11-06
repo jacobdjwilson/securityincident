@@ -72,3 +72,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Chainalysis Breach Exposes All Users' Credentials, Forces Shutdown of Key Services
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/chainalysis-breach-exposes-all-users.html)
+
+### 2026-11-06 14:17 UTC
+- **Event:** Press Coverage: Chainalysis says breach exposed credentials for all customers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/chainalysis-says-breach-exposed-credentials-for-all-customers/)
+
+### 2026-11-06 14:40 UTC
+- **Event:** Press Coverage: In Other News: Trezor Implant, LLMJacking Bills Hit $1M, SAP Flaws Weaponized Within Days
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/in-other-news-trezor-implant-llmjacking-bills-hit-1m-sap-flaws-weaponized-within-days/)

@@ -4,7 +4,7 @@ target: "New Victim Company #6"
 domain: newvictimcompany6.com
 status: EMERGING
 first_seen: 2026-11-03
-last_updated: 2026-11-03
+last_updated: 2026-11-06
 threat_actor: OBSOFT
 summary: "New Victim Company #6 was listed on the OBSOFT ransomware extortion
   leak portal. Status: Pending Deadline: 2026-11-03T15:27:00.000Z"
@@ -39,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** New Victim Company #6 Listed on OBSOFT Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [OBSOFT Ransomware Leak Site Claim](https://www.ransomware.live/id/TmV3IFZpY3RpbSBDb21wYW55ICM2QE9CU09GVA==)
+
+### 2026-11-06 12:52 UTC
+- **Event:** Company #6 Listed on OBSOFT Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [OBSOFT Ransomware Leak Site Claim](https://www.ransomware.live/id/Q29tcGFueSAjNkBPQlNPRlQ=)
