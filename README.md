@@ -31,9 +31,10 @@ To deliver maximum clarity, we establish clear levels of confidence and correlat
 Unlike opaque proprietary risk ratings, **securityincident.net** computes confidence scores deterministically using open weights defined in [`sources/weights.json`](sources/weights.json) and executed via [`scripts/weights.js`](scripts/weights.js) across **four orthogonal dimensions**:
 
 * **1. Primary Authority Base Floor:**
-  * 🟢 `CONFIRMED BY REGULATOR`: **0.65 (65%)** — SEC Form 8-K Item 1.05, State AG breach portals (CA DOJ, WA AG, OR DOJ), HHS OCR, CISA KEV directives.
-  * 🟢 `CONFIRMED BY TARGET`: **0.50 (50%)** — Target press releases, security advisories, status page bulletins.
-  * 🟠 `INDEPENDENT VERIFICATION`: **0.32 (32%)** — Forensic research, HaveIBeenPwned audit, technical sample analysis.
+  * 🟢 `CONFIRMED BY REGULATOR`: **0.65 (65%)** — SEC Form 8-K Item 1.05, State AG breach portals (CA DOJ, WA AG, OR DOJ), HHS OCR federal healthcare breach filings, UK ICO casework disclosures, FTC/FCC notices.
+  * 🟣 `GOVERNMENT ADVISORY`: **0.62 (62%)** — Authoritative sovereign cybersecurity directives: CISA Known Exploited Vulnerabilities (KEV) Catalog & Binding Operational Directives (BOD), UK NCSC advisories, FBI Flash/PIN alerts, CCCS, BSI directives.
+  * 🟢 `CONFIRMED BY TARGET`: **0.50 (50%)** — Target press releases, corporate security blog disclosures, official vendor security bulletins (Microsoft MSRC, Cisco PSIRT, Citrix).
+  * 🟠 `INDEPENDENT VERIFICATION`: **0.32 (32%)** — Forensic research, HaveIBeenPwned audit, technical sample analysis, industry ISAC alerts.
   * 🟡 `ACKNOWLEDGED`: **0.18 (18%)** — Target publicly confirms disruption or investigation without breach admission.
   * 🔴 `UNVERIFIED CLAIM`: **0.06 (6%)** — Dark web leak sites, extortion blogs, community chatter (low baseline floor).
   * 🔘 `REFUTED`: **0.00 (0%)** — Proven false alarm, recycled historical leak, or mislabeled web scrape.
@@ -76,7 +77,7 @@ Rather than merely linking to external third-party articles or serving superfici
   * `## Timeline`: Chronological milestones with verification tiers and direct primary source links.
 * **📊 Production Data-Driven Telemetry Dashboard & Forensic UI:**
   * **Zero Hardcoded Metrics:** All operational counters, feed monitors, status distributions, and velocity timelines are dynamically computed at build/runtime from underlying Git dossiers and live configs.
-  * **29 Monitored Ingestion Endpoints:** Automated continuous ingestion across federal regulatory EFTS APIs, State AG portals, dark web monitors, technical advisories, and mainstream news wires.
+  * **25 Monitored Ingestion Endpoints:** Automated continuous ingestion across federal regulatory EFTS APIs, State AG portals, UK ICO, dark web monitors, technical advisories, and mainstream news wires.
   * **5-Tier Observable Status Streams:** Dedicated stream tabs (Trending, Emerging Claims, Developing, Confirmed Disclosures, All Incidents) with bidirectional filter synchronization.
   * **Disclosed Impact Metric:** Aggregate real-time counter of total cumulative impacted records and confirmed disclosure scopes.
   * **Forensic Filtering Controls:** Instant filtering by Sector dropdown, Compromised Data Class dropdown, and quick High-Impact toggle (>100K records).
@@ -113,6 +114,7 @@ securityincident/
 │   │   ├── sec-edgar.js               # SEC EDGAR Form 8-K Item 1.05 EFTS client
 │   │   ├── state-ag.js                # Multi-state breach notification scrapers (CA, WA, OR)
 │   │   ├── hhs-ocr.js                 # HHS OCR federal healthcare breach syndication
+│   │   ├── ico.js                     # UK ICO statutory casework & enforcement scraper
 │   │   └── darkweb.js                 # Real-time dark web extortion & ransomware disclosures
 │   └── serve.js                       # Local lightweight HTTP preview server
 ├── src/

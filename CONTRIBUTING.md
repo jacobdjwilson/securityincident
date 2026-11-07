@@ -134,10 +134,12 @@ tags:
 
 ### Milestone Verification Tiers
 
-* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K Item 1.05, State AG breach notice, HHS OCR portal, CISA advisory.
-* `CONFIRMED BY TARGET` (🟢 Green / Teal): Target press release, official blog post, status page bulletin.
+* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K Item 1.05, State AG breach notice (CA DOJ, WA AG, OR DOJ), HHS OCR portal, UK ICO casework.
+* `GOVERNMENT ADVISORY` (🟣 Purple): Sovereign cybersecurity agency directives (CISA KEV Catalog & BODs, UK NCSC advisories, FBI Flash/PIN alerts).
+* `CONFIRMED BY TARGET` (🟢 Green / Teal): Target press release, official blog post, vendor security bulletin (Microsoft MSRC, Cisco PSIRT).
 * `INDEPENDENT VERIFICATION` (🟠 Orange): Cybersecurity researcher analysis, HaveIBeenPwned audit, reputable investigative reporting.
-* `UNVERIFIED CLAIM` (🔴 Red): Threat actor leak site listing, dark web forum post, anonymous paste.
+* `ACKNOWLEDGED` (🟡 Yellow): Target public notice confirming IT disruption or active investigation without confirming data compromise.
+* `UNVERIFIED CLAIM` (🔴 Red): Threat actor leak site listing, dark web forum post, extortion blog dump.
 * `REFUTED` (🔘 Gray): Explicitly disproven with forensic or public evidence.
 
 > [!IMPORTANT]

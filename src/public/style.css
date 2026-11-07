@@ -1356,35 +1356,72 @@ a:hover {
   color: var(--text-primary);
 }
 
-/* About Status Cards Grid */
+/* About Status Cards - Full Width Cards */
 .about-status-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  margin: 0.5rem 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0.75rem 0 1.5rem;
+  width: 100%;
 }
 
 .about-status-card {
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  transition: border-color var(--transition-fast), transform var(--transition-fast);
+  padding: 1.15rem 1.35rem;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .about-status-card:hover {
   border-color: var(--border-active);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+}
+
+/* Status-specific subtle accent borders */
+.about-status-card.about-status-CONFIRMED {
+  border-left: 4px solid var(--status-confirmed);
+}
+.about-status-card.about-status-ACKNOWLEDGED {
+  border-left: 4px solid var(--status-acknowledged);
+}
+.about-status-card.about-status-DEVELOPING {
+  border-left: 4px solid var(--status-developing);
+}
+.about-status-card.about-status-EMERGING {
+  border-left: 4px solid var(--status-emerging);
+}
+.about-status-card.about-status-REFUTED {
+  border-left: 4px solid var(--status-refuted);
+}
+
+.about-status-card .status-badge {
+  justify-content: center;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.9rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  width: fit-content;
 }
 
 .about-status-card p {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
   margin: 0;
+}
+
+@media (max-width: 720px) {
+  .about-status-card {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem 1.15rem;
+  }
 }
 
 /* ===================================================================

@@ -288,9 +288,9 @@ function renderHeader(isSubpage = false, activePage = 'feed') {
       <nav class="nav-links">
         <a href="${prefix}" class="nav-link ${activePage === 'incidents' ? 'active' : ''}"><i class="fa-solid fa-shield-halved"></i> Incidents</a>
         <a href="${prefix}status.html" class="nav-link nav-status ${activePage === 'status' ? 'active' : ''}" title="Automated Ingestion Pipeline &amp; Feed Health">
-          <span class="status-pulse-dot"></span> Pipeline Status
+          <span class="status-pulse-dot"></span> Status
         </a>
-        <a href="${prefix}about.html" class="nav-link ${activePage === 'about' ? 'active' : ''}">Standards</a>
+        <a href="${prefix}about.html" class="nav-link ${activePage === 'about' ? 'active' : ''}">About</a>
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml" class="nav-link nav-rss" title="RSS Telemetry Feed">
           <i class="fa-solid fa-rss"></i>
           <span>RSS</span>
@@ -325,9 +325,9 @@ function renderFooter(isSubpage = false) {
         Powered by open weights correlation and community-driven GitHub PR editing.
       </div>
       <div class="footer-links">
-        <a href="${prefix}status.html"><i class="fa-solid fa-circle-nodes" style="color: var(--status-confirmed);"></i> Ingestion Pipeline Status</a>
+        <a href="${prefix}status.html"><i class="fa-solid fa-circle-nodes" style="color: var(--status-confirmed);"></i> Status</a>
         <a href="${prefix}feed.xml" target="_blank" rel="alternate" type="application/rss+xml"><i class="fa-solid fa-rss" style="color: var(--status-developing);"></i> RSS Feed</a>
-        <a href="${prefix}about.html"><i class="fa-solid fa-shield-halved"></i> Verification Standards</a>
+        <a href="${prefix}about.html"><i class="fa-solid fa-shield-halved"></i> About</a>
         <a href="${GITHUB_REPO_URL}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Audit on GitHub</a>
         <a href="${GITHUB_REPO_URL}/tree/main/incidents" target="_blank" rel="noopener"><i class="fa-solid fa-code-pull-request"></i> Propose Incident via PR</a>
       </div>
@@ -2143,7 +2143,7 @@ function generateIncidentDetailHtml(inc) {
 </html>`;
 }
 
-function generateAboutHtml() {
+function generateAboutHtml(feedsCount = 25) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2195,23 +2195,23 @@ function generateAboutHtml() {
 
       <h2>2. The 5 Observable Ground-Truth Statuses</h2>
       <div class="about-status-grid">
-        <div class="about-status-card">
+        <div class="about-status-card about-status-CONFIRMED">
           <span class="status-badge status-CONFIRMED"><i class="fa-solid fa-circle-check"></i> CONFIRMED</span>
-          <p><strong>Highest assurance:</strong> Officially verified by the target organization or a government regulatory authority (e.g. SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR disclosures, formal press releases).</p>
+          <p><strong>Highest assurance:</strong> Officially verified by the target organization or a government regulatory authority (e.g. SEC Form 8-K Item 1.05, State AG breach portals, HHS OCR disclosures, UK ICO casework, formal press releases).</p>
         </div>
-        <div class="about-status-card">
+        <div class="about-status-card about-status-ACKNOWLEDGED">
           <span class="status-badge status-ACKNOWLEDGED"><i class="fa-solid fa-bullhorn"></i> ACKNOWLEDGED</span>
           <p>Target organization publicly confirms an "IT disruption," system outage, or active cybersecurity investigation, but has not yet confirmed an intrusion or data compromise.</p>
         </div>
-        <div class="about-status-card">
+        <div class="about-status-card about-status-DEVELOPING">
           <span class="status-badge status-DEVELOPING"><i class="fa-solid fa-satellite-dish"></i> DEVELOPING</span>
           <p>Corroborated intelligence: independent cybersecurity researchers verify leak samples, forensic telemetry confirms compromised systems, or observable outages align with claims before target disclosure.</p>
         </div>
-        <div class="about-status-card">
+        <div class="about-status-card about-status-EMERGING">
           <span class="status-badge status-EMERGING"><i class="fa-solid fa-bolt"></i> EMERGING</span>
           <p>Early threat actor claims, dark web extortion blog listings, or unverified community chatter prior to target acknowledgment or independent corroboration.</p>
         </div>
-        <div class="about-status-card">
+        <div class="about-status-card about-status-REFUTED">
           <span class="status-badge status-REFUTED"><i class="fa-solid fa-ban"></i> REFUTED</span>
           <p>Proven false alarm, recycled historical leak, fabricated extortion claim, or public web scrape mislabeled as an intrusion.</p>
         </div>
@@ -2281,7 +2281,7 @@ function generateAboutHtml() {
         </ul>
       </div>
 
-      <h2>4. The 3-Part Technical Narrative Dossier Standard</h2>
+      <h2>4. The Structured Dossier Architecture Standard</h2>
       <p>
         Every incident tracked on <strong>securityincident.net</strong> is synthesized into a standardized, deep technical briefing dossier before the chronological timeline. Thin or single-paragraph dossiers are strictly prohibited:
       </p>
@@ -2300,7 +2300,7 @@ function generateAboutHtml() {
         <div class="about-dossier-part">
           <div class="adp-num">SECTION 03</div>
           <h4><i class="fa-solid fa-scale-balanced text-developing"></i> Statutory Disclosures &amp; Directives</h4>
-          <p>Complete statutory filings submitted to federal and state authorities (SEC Form 8-K Item 1.05, State AG portals, HHS OCR) or sovereign agency advisories (CISA KEV, UK NCSC) and vendor security bulletins.</p>
+          <p>Complete statutory filings submitted to federal, state, and international regulatory authorities (SEC Form 8-K Item 1.05, State AG portals, HHS OCR, UK ICO) or sovereign agency advisories (CISA KEV, UK NCSC) and vendor security bulletins.</p>
         </div>
         <div class="about-dossier-part">
           <div class="adp-num">SECTION 04</div>
@@ -2314,7 +2314,7 @@ function generateAboutHtml() {
         <div class="about-invariance-content">
           <h3>Statutory Regulatory Invariance Rule</h3>
           <p>
-            Material statutory filings (SEC Form 8-K Item 1.05 disclosures, State Attorney General breach notices, HHS OCR HIPAA reports) represent legal ground truth. In accordance with repository invariants, these statutory disclosures are captured verbatim as filed by the reporting entity and are <strong>never modified, overridden, or synthesized by AI models</strong>. Non-statutory agency advisories and vendor bulletins are strictly disentangled from statutory regulatory filings.
+            Material statutory filings (SEC Form 8-K Item 1.05 disclosures, State Attorney General breach notices, HHS OCR HIPAA reports, UK ICO casework records) represent legal ground truth. In accordance with repository invariants, these statutory disclosures are captured verbatim as filed by the reporting entity and are <strong>never modified, overridden, or synthesized by AI models</strong>. Non-statutory agency advisories and vendor bulletins are strictly disentangled from statutory regulatory filings.
           </p>
         </div>
       </div>
@@ -2327,7 +2327,7 @@ function generateAboutHtml() {
       <div class="about-features-grid">
         <div class="about-feature-card">
           <h3><i class="fa-solid fa-layer-group text-cyan"></i> Real-Time Stream Tabs</h3>
-          <p>Quickly switch between curated views: <em>Trending Threat Stream</em> (prioritizing high-confidence &amp; active 90d events), <em>Emerging Signals</em> (early threat telemetry), <em>Confirmed Disclosures</em> (statutory filings &amp; admissions), and <em>All Tracked Events</em>.</p>
+          <p>Quickly switch between curated views: <em>Trending Threat Stream</em> (prioritizing high-confidence &amp; active 90d events), <em>Emerging Claims</em> (early threat telemetry), <em>Developing Corroborations</em> (active forensic telemetry), <em>Confirmed Disclosures</em> (statutory filings &amp; admissions), and <em>All Incidents</em>.</p>
         </div>
         <div class="about-feature-card">
           <h3><i class="fa-solid fa-sliders text-cyan"></i> Granular Filters Drawer</h3>
@@ -2374,7 +2374,7 @@ function generateAboutHtml() {
       <ul style="padding-left: 1.5rem; margin: 0.75rem 0 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.6;">
         <li>All incident dossiers reside in plain Markdown files with YAML frontmatter inside <code>/incidents/</code> (named <code>YYYY-MM-&lt;slug&gt;.md</code>).</li>
         <li>Every update, status transition, and milestone addition is permanently tracked in Git version history, making every change fully auditable, attributable, and reversible.</li>
-        <li>Automated continuous ingestion workflows poll 30 authoritative endpoints every 6 hours via GitHub Actions, running strict schema and validation gates (<code>npm test</code>) before static deployment to GitHub Pages.</li>
+        <li>Automated continuous ingestion workflows poll ${feedsCount} authoritative endpoints every 6 hours via GitHub Actions, running strict schema and validation gates (<code>npm test</code>) before static deployment to GitHub Pages.</li>
       </ul>
 
       <h2>8. How to Propose Updates &amp; Contribute via GitHub PR</h2>
@@ -2518,7 +2518,7 @@ async function build() {
   fs.writeFileSync(path.join(DIST_DIR, 'status.html'), statusHtml, 'utf-8');
 
   // Generate about.html
-  const aboutHtml = generateAboutHtml();
+  const aboutHtml = generateAboutHtml(feedsConfig.length);
   fs.writeFileSync(path.join(DIST_DIR, 'about.html'), aboutHtml, 'utf-8');
 
   // Output pipeline-status.json

@@ -117,6 +117,7 @@ securityincident/
 │   │   ├── sec-edgar.js               # SEC EDGAR Form 8-K Item 1.05 EFTS client
 │   │   ├── state-ag.js                # Multi-state breach notification scrapers (CA, WA, OR)
 │   │   ├── hhs-ocr.js                 # HHS OCR federal healthcare data breach syndication
+│   │   ├── ico.js                     # UK ICO statutory casework & enforcement scraper
 │   │   └── darkweb.js                 # Real-time dark web extortion & ransomware disclosures
 │   └── serve.js                       # Local lightweight HTTP preview server
 ├── src/

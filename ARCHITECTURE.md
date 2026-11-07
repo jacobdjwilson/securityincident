@@ -41,10 +41,12 @@ Every incident is categorized into exactly one of five top-level ground-truth st
 
 ### Milestone Verification Badges
 Each milestone entry in the timeline is labeled with its verification level:
-* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K, State Attorney General notice (CA DOJ, WA AG, OR DOJ), HHS OCR breach report, CISA advisory.
-* `CONFIRMED BY TARGET` (🟢 Green / Teal): Target press release, official blog post, status page.
-* `INDEPENDENT VERIFICATION` (🟠 Orange): Independent researcher or news outlet verifying data validity.
-* `UNVERIFIED CLAIM` (🔴 Red): Threat actor leak post, breach forum listing, anonymous leak.
+* `CONFIRMED BY REGULATOR` (🟢 Green): SEC Form 8-K, State Attorney General notice (CA DOJ, WA AG, OR DOJ), HHS OCR breach report, UK ICO statutory breach notice.
+* `GOVERNMENT ADVISORY` (🟣 Purple): Authoritative sovereign agency directives: CISA KEV Catalog & BODs, UK NCSC, FBI PIN/Flash alerts, CCCS, BSI directives.
+* `CONFIRMED BY TARGET` (🟢 Green / Teal): Target press release, official blog post, vendor security bulletin (Microsoft MSRC, Cisco PSIRT).
+* `INDEPENDENT VERIFICATION` (🟠 Orange): Independent researcher or news outlet verifying data validity, HaveIBeenPwned audit, industry ISAC alerts.
+* `ACKNOWLEDGED` (🟡 Yellow): Target public confirmation of IT disruption or active investigation without confirming data compromise.
+* `UNVERIFIED CLAIM` (🔴 Red): Threat actor leak post, breach forum listing, anonymous extortion post.
 * `REFUTED` (🔘 Gray): Explicitly disproven or denied with evidence.
 
 ---
