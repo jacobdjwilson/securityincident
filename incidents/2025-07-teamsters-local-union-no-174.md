@@ -16,13 +16,14 @@ tags:
 affected_records: 37828
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34021)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34021.pdf
     filing_date: 2025-07-16
     description: Official statutory data breach notification submitted by Teamsters
       Local Union No. 174 to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 37,828 residents.
+    accession_number: BreachA34021
 compromised_data:
   - Authentication Credentials
 ---

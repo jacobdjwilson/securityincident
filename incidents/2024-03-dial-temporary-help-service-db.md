@@ -17,13 +17,14 @@ tags:
 affected_records: 528
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA28292)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA28292.pdf
     filing_date: 2024-03-19
     description: Official statutory data breach notification submitted by Dial
       Temporary Help Service,  dba Employers Overload to the Washington State
       Office of the Attorney General pursuant to RCW 19.255.010, disclosing
       unauthorized system access impacting 528 residents.
+    accession_number: BreachA28292
 compromised_data:
   - Authentication Credentials
 ---

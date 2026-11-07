@@ -15,7 +15,7 @@ compromised_data:
   - Financing Applications & Customer PII
   - Customer Records
 regulatory_filings:
-  - regulator: State AG
+  - regulator: California Department of Justice
     form: Breach Notification (CA DOJ)
     accession_number: CA-DOJ-2024-CDK
     url: https://oag.ca.gov/privacy/databreach/list

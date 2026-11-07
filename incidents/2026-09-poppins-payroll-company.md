@@ -19,13 +19,14 @@ compromised_data:
 affected_records: 17954
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA43076)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43076.pdf
     filing_date: 2026-09-29
     description: Official statutory data breach notification submitted by Poppins
       Payroll Company to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 17,954 residents.
+    accession_number: BreachA43076
 ---
 
 ## Incident Overview

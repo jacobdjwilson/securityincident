@@ -15,13 +15,14 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-624055)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-624055
     filing_date: 2026-05-28
     description: Official statutory data breach notification submitted by Smith &
       James, CPAs to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-624055
 compromised_data:
   - Authentication Credentials
 ---

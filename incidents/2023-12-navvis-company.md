@@ -16,13 +16,14 @@ tags:
 affected_records: 6783
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA27442)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA27442.pdf
     filing_date: 2023-12-29
     description: Official statutory data breach notification submitted by Navvis &
       Company to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting 6,783
       residents.
+    accession_number: BreachA27442
 compromised_data:
   - Authentication Credentials
 ---

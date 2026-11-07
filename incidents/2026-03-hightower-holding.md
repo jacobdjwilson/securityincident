@@ -16,13 +16,14 @@ tags:
 affected_records: 7528
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA37362)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA37362.pdf
     filing_date: 2026-03-23
     description: Official statutory data breach notification submitted by Hightower
       Holding to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting 7,528
       residents.
+    accession_number: BreachA37362
 compromised_data:
   - Authentication Credentials
 ---

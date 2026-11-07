@@ -16,13 +16,14 @@ tags:
 affected_records: 9612
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34760)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34760.pdf
     filing_date: 2025-09-26
     description: Official statutory data breach notification submitted by T.R.A.
       Industries to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 9,612
       residents.
+    accession_number: BreachA34760
 compromised_data:
   - Authentication Credentials
 ---

@@ -29,6 +29,8 @@ regulatory_filings:
       Justice under California Civil Code § 1798.82 (SB-24), disclosing
       unauthorized access to personal identifiable information of California
       residents.
+    accession_number: sb24-629908
+    form: SB-24 Data Breach Notice (sb24-629908)
   - regulator: HHS Office for Civil Rights
     form: HIPAA Breach Portal
     url: https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf

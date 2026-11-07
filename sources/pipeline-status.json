@@ -71,6 +71,16 @@
       "method": "Statutory Healthcare Breach Syndication"
     },
     {
+      "id": "uk-ico",
+      "name": "UK Information Commissioner's Office (ICO)",
+      "type": "Data Protection Authority (DPA)",
+      "category": "regulatory",
+      "endpoint": "https://ico.org.uk/action-weve-taken/enforcement/",
+      "status": "Operational",
+      "verification": "CONFIRMED BY REGULATOR",
+      "method": "UK GDPR Article 33 Statutory Breach Disclosures & Enforcement"
+    },
+    {
       "id": "cisa-advisories",
       "name": "CISA Cybersecurity Advisories & KEV",
       "type": "Sovereign Cybersecurity Directives",

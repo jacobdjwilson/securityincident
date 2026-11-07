@@ -16,13 +16,14 @@ tags:
 affected_records: 1082
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA31956)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31956.pdf
     filing_date: 2025-01-17
     description: Official statutory data breach notification submitted by Garden of
       Life to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting 1,082
       residents.
+    accession_number: BreachA31956
 compromised_data:
   - Authentication Credentials
 ---

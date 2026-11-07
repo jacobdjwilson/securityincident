@@ -16,13 +16,14 @@ tags:
 affected_records: 1089
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29966)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29966.pdf
     filing_date: 2024-07-26
     description: Official statutory data breach notification submitted by United of
       Omaha Life Insurance Company to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 1,089 residents.
+    accession_number: BreachA29966
 compromised_data:
   - Authentication Credentials
 ---

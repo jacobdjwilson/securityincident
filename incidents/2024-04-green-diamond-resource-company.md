@@ -16,13 +16,14 @@ tags:
 affected_records: 9532
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA28746)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA28746.pdf
     filing_date: 2024-04-19
     description: Official statutory data breach notification submitted by Green
       Diamond Resource Company to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 9,532 residents.
+    accession_number: BreachA28746
 compromised_data:
   - Authentication Credentials
 ---

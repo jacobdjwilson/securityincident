@@ -5,6 +5,7 @@ import { validateIncidentFile } from './validate.js';
 import { fetchSecItem105Filings } from './regulatory/sec-edgar.js';
 import { fetchAllStateAgNotices } from './regulatory/state-ag.js';
 import { fetchHhsOcrBreaches } from './regulatory/hhs-ocr.js';
+import { fetchIcoDisclosures } from './regulatory/ico.js';
 import { fetchDarkWebVictims } from './regulatory/darkweb.js';
 import { reconcileIncidents } from './reconcile-enrichment.js';
 import { calculateConfidenceScore } from './weights.js';
@@ -139,7 +140,10 @@ const INVALID_TARGETS = new Set([
   'former soldier', 'dutch national', 'security firm', 'tech giant',
   'cyberattack', 'victim', 'japan', 'venture global', 'google will end',
   'millions of iphones', 'ai minister', 'ai agents', 'fridges',
-  'south korean banks', 'south korean banks were likely', 'gaming giant capcom', 'a...n'
+  'south korean banks', 'south korean banks were likely', 'gaming giant capcom', 'a...n',
+  'cisa', 'ftc', 'sec', 'fbi', 'ncsc', 'doj', 'europol', 'enisa', 'cert-in', 'us cert',
+  'bleepingcomputer', 'the register', 'cyberscoop', 'reuters', 'krebs on security', 'securityweek',
+  'verification', 'probe', 'sample'
 ]);
 
 // Curated entity knowledge map for recognized organizations and verified domains
@@ -160,6 +164,7 @@ const KNOWN_TARGETS = {
   'fbi': { name: 'Federal Bureau of Investigation (FBI)', domain: 'fbi.gov', slug: 'fbi' },
   'arizona supreme court': { name: 'Arizona Supreme Court', domain: 'azcourts.gov', slug: 'arizona-supreme-court' },
   'nhs': { name: 'NHS England', domain: 'nhs.uk', slug: 'nhs-england' },
+  'synnovis': { name: 'NHS Pathology Provider Synnovis', domain: 'nhspathologyprovidersynnovis.com', slug: 'nhs-pathology-provider-synnovis' },
   'dutch police': { name: 'Dutch Police (Politie)', domain: 'politie.nl', slug: 'dutch-police-politie' },
   'at&t': { name: 'AT&T', domain: 'att.com', slug: 'at-t' },
   't-mobile': { name: 'T-Mobile', domain: 't-mobile.com', slug: 't-mobile' },
@@ -211,7 +216,7 @@ function isVendorPatchAdvisory(title, description) {
 }
 
 function isLawEnforcementAction(title) {
-  return /^(?:FBI|Police|CISA|NCSC|DOJ|SEC|Europol|Authorities|Feds)\s+(?:probes|arrests|charges|sues|raids|warns|seizes|indicts|orders|unveils)\b/i.test(title);
+  return /^(?:FBI|Police|CISA|NCSC|DOJ|SEC|FTC|Europol|Authorities|Feds|ENISA)\s+(?:probes|arrests|charges|sues|raids|warns|seizes|indicts|orders|unveils|says|alerts|urges|releases|adds|penalizes|penalises|fines)\b/i.test(title);
 }
 
 function detectThreatActor(text) {
@@ -342,6 +347,8 @@ function isValidTargetCandidate(candidate) {
   if (detectThreatActor(candidate) !== null) return false;
   if (/^company\s*#?\d+$/i.test(candidate.trim())) return false;
   if (/^[a-z]\.{2,}[a-z]?$/i.test(candidate.trim())) return false;
+  if (candidate.includes('...') || /^[a-z0-9]\.{2,}/i.test(candidate)) return false;
+  if (/^(?:probe[-_]|zzq[-_]|test[-_])/i.test(lower)) return false;
   if (/\b(?:botnet|malware|trojan|stealer|ransomware|backdoor|spyware|exploit|docker|flaw|firmware|scam|scammers|hackers|investigation|phishing|campaign|zero-day|zeroday|vulnerability|payload|botnets)\b/i.test(lower)) {
     return false;
   }
@@ -365,7 +372,13 @@ function loadTargetIndex() {
         const lowerName = targetName.toLowerCase();
         const slug = parsed.data.id ? parsed.data.id.replace(/^\d{4}-\d{2}-/, '') : slugify(targetName);
         const domain = parsed.data.domain || `${slug.replace(/-/g, '')}.com`;
-        if (lowerName.length >= 4 && !INVALID_TARGETS.has(lowerName) && !targetMap[lowerName]) {
+        if (
+          lowerName.length >= 4 &&
+          !INVALID_TARGETS.has(lowerName) &&
+          !lowerName.includes('...') &&
+          !/^[a-z0-9]\.{2,}/i.test(lowerName) &&
+          !targetMap[lowerName]
+        ) {
           targetMap[lowerName] = { name: targetName, domain, slug };
         }
       }
@@ -388,11 +401,12 @@ function extractTargetEntity(title, link = '', description = '', customTargets =
     .replace(/^Alert:\s*/i, '')
     .replace(/^Breaking:\s*/i, '')
     .replace(/^Update:\s*/i, '')
+    .replace(/^UPDATE:\s*/i, '')
     .replace(/^UK:\s*/i, '')
     .trim();
 
   cleaned = cleaned
-    .replace(/^(?:Japan's|UK's|U\.S\.|US|Australia's|Canada's|France's|Germany's|Russian)\s+/i, '')
+    .replace(/^(?:Japan(?:'s)?|UK(?:'s)?|U\.S\.|US|Australia(?:'s)?|Canada(?:'s)?|France(?:'s)?|Germany(?:'s)?|Belgium(?:'s)?|Russian)\s+/i, '')
     .trim();
 
   const lowerTitle = cleaned.toLowerCase();
@@ -713,7 +727,11 @@ function upsertIncidentMilestone({
 
       if (Array.isArray(safeFilings) && safeFilings.length > 0) {
         if (!Array.isArray(parsed.data.regulatory_filings)) parsed.data.regulatory_filings = [];
-        for (const filing of safeFilings) {
+        for (const rawFiling of safeFilings) {
+          const filing = { ...rawFiling };
+          if (filing.url && /^https?:\/\/(?:www\.)?ico\.org\.uk\/?$/i.test(filing.url)) {
+            filing.url = 'https://ico.org.uk/action-weve-taken/enforcement/';
+          }
           const existingFiling = parsed.data.regulatory_filings.find(f => f.url === filing.url || (f.regulator === filing.regulator && (f.form === filing.form || (f.accession_number && f.accession_number === filing.accession_number))));
           if (!existingFiling) {
             parsed.data.regulatory_filings.push(filing);
@@ -818,7 +836,14 @@ function upsertIncidentMilestone({
     if (incidentType) frontmatter.incident_type = incidentType;
     if (typeof affectedRecords === 'number' && affectedRecords > 0) frontmatter.affected_records = affectedRecords;
     if (Array.isArray(compromisedData) && compromisedData.length > 0) frontmatter.compromised_data = compromisedData;
-    if (Array.isArray(safeFilings) && safeFilings.length > 0) frontmatter.regulatory_filings = safeFilings;
+    if (Array.isArray(safeFilings) && safeFilings.length > 0) {
+      frontmatter.regulatory_filings = safeFilings.map(f => {
+        if (f.url && /^https?:\/\/(?:www\.)?ico\.org\.uk\/?$/i.test(f.url)) {
+          return { ...f, url: 'https://ico.org.uk/action-weve-taken/enforcement/' };
+        }
+        return f;
+      });
+    }
     if (Array.isArray(agencyAdvisories) && agencyAdvisories.length > 0) frontmatter.agency_advisories = agencyAdvisories;
     if (Array.isArray(vendorAdvisories) && vendorAdvisories.length > 0) frontmatter.vendor_advisories = vendorAdvisories;
     if (Array.isArray(consortiumBulletins) && consortiumBulletins.length > 0) frontmatter.consortium_bulletins = consortiumBulletins;
@@ -1049,9 +1074,55 @@ export async function ingestFeeds() {
   }
 
   // =========================================================================
-  // 4. Real-Time Dark Web Ransomware Extortion Leak Telemetry Pipeline
+  // 4. UK Information Commissioner's Office (ICO) Regulatory Pipeline
   // =========================================================================
-  console.log('\n--- 4. Dark Web Extortion Telemetry Pipeline ---');
+  console.log('\n--- 4. UK ICO Regulatory Disclosures Pipeline ---');
+  try {
+    const icoDisclosures = await fetchIcoDisclosures();
+    for (const item of icoDisclosures) {
+      if (existingSourceUrls.has(item.sourceUrl)) continue;
+
+      const targetSlug = item.targetSlug;
+      const target = item.target;
+      const existingFile = findExistingIncidentFilePath(targetSlug, target);
+
+      if (existingFile) {
+        const res = upsertIncidentMilestone({
+          incidentId: path.basename(existingFile, '.md'),
+          target,
+          domain: item.domain,
+          status: item.status,
+          verification: item.verification,
+          event: item.event,
+          sourceTitle: item.sourceTitle,
+          sourceUrl: item.sourceUrl,
+          timeUtc: item.timeUtc,
+          dateIso: item.fileDate,
+          summary: item.summary,
+          tags: item.tags,
+          industry: item.industry,
+          incidentType: item.incidentType,
+          compromisedData: item.compromisedData,
+          regulatoryFilings: item.regulatoryFilings
+        });
+
+        if (res.action === 'created') {
+          totalNew++;
+          existingSourceUrls.add(item.sourceUrl);
+        } else if (res.action === 'updated') {
+          totalUpdated++;
+          existingSourceUrls.add(item.sourceUrl);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ UK ICO ingestion error:', err.message);
+  }
+
+  // =========================================================================
+  // 5. Real-Time Dark Web Ransomware Extortion Leak Telemetry Pipeline
+  // =========================================================================
+  console.log('\n--- 5. Dark Web Extortion Telemetry Pipeline ---');
   try {
     const darkWebVictims = await fetchDarkWebVictims({ limit: 40 });
     for (const victim of darkWebVictims) {

@@ -29,21 +29,26 @@ regulatory_filings:
       Candies to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-629221
+    form: SB-24 Data Breach Notice (sb24-629221)
   - regulator: Washington Attorney General
     notice_id: WA-2026-04192
-    url: https://www.atg.wa.gov/data-breach-notifications
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42672.pdf
     description: Official statutory data breach notification submitted by See’s
       Candies to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting 12,500
       residents.
+    accession_number: BreachA42672
+    form: RCW 19.255 Data Breach Notice (BreachA42672)
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
-    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-628237
+    form: SB-24 Data Breach Notice (sb24-629221)
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629221
     filing_date: 2026-08-13
     description: Official statutory data breach notification submitted by See’s
       Candies to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-629221
 ---
 
 ## Incident Overview

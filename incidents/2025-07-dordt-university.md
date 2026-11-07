@@ -17,21 +17,23 @@ tags:
 affected_records: 3711
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33975)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33975.pdf
     filing_date: 2025-07-11
     description: Official statutory data breach notification submitted by Dordt
       University to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 3,711
       residents.
+    accession_number: BreachA33975
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-605274)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-605274
     filing_date: 2025-07-11
     description: Official statutory data breach notification submitted by Dordt
       University to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-605274
 compromised_data:
   - Authentication Credentials
 ---

@@ -4,7 +4,7 @@ target: wagyu.xyz
 domain: wagyu.xyz
 status: EMERGING
 first_seen: 2026-10-27
-last_updated: 2026-10-27
+last_updated: 2026-10-28
 threat_actor: Whitearmor
 summary: wagyu.xyz was listed on the Whitearmor ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -41,3 +41,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** wagyu.xyz Listed on Whitearmor Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Whitearmor Ransomware Leak Site Claim](https://www.ransomware.live/id/d2FneXUueHl6QFdoaXRlYXJtb3I=)
+
+### 2026-10-28 02:10 UTC
+- **Event:** Whitearmor Extortion Portal Publishes Follow-up Listing (wagyu.xyz unfairness)
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Whitearmor Ransomware Leak Site Claim](https://www.ransomware.live/id/d2FneXUueHl6IHVuZmFpcm5lc3NAV2hpdGVhcm1vcg==)

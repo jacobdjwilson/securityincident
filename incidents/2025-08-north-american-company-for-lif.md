@@ -17,13 +17,14 @@ tags:
 affected_records: 2
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34364)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34364.pdf
     filing_date: 2025-08-16
     description: Official statutory data breach notification submitted by North
       American Company for Life and Health Insurance to the Washington State
       Office of the Attorney General pursuant to RCW 19.255.010, disclosing
       unauthorized system access impacting 2 residents.
+    accession_number: BreachA34364
 compromised_data:
   - Authentication Credentials
 ---

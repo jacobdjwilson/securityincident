@@ -15,13 +15,14 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-617249)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-617249
     filing_date: 2026-01-16
     description: Official statutory data breach notification submitted by Santa Cruz
       Community Health to the California Department of Justice under California
       Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-617249
 compromised_data:
   - Authentication Credentials
 ---

@@ -16,13 +16,14 @@ tags:
 affected_records: 849
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29224)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29224.pdf
     filing_date: 2024-05-22
     description: Official statutory data breach notification submitted by Trionfo
       Solutions to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 849
       residents.
+    accession_number: BreachA29224
 compromised_data:
   - Authentication Credentials
 ---

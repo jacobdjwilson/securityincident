@@ -16,13 +16,14 @@ tags:
 affected_records: 1167
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA32829)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA32829.pdf
     filing_date: 2025-03-26
     description: Official statutory data breach notification submitted by Lee
       University to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 1,167
       residents.
+    accession_number: BreachA32829
 compromised_data:
   - Authentication Credentials
 ---

@@ -8,6 +8,14 @@
     "enabled": true
   },
   {
+    "id": "uk-ico",
+    "name": "UK Information Commissioner's Office (ICO)",
+    "url": "https://news.google.com/rss/search?q=(breach+OR+ransomware+OR+cyber+OR+fine+OR+reprimand+OR+enforcement)+site:ico.org.uk&hl=en-GB&gl=GB&ceid=GB:en",
+    "type": "regulatory",
+    "defaultVerification": "CONFIRMED BY REGULATOR",
+    "enabled": true
+  },
+  {
     "id": "cisa-advisories",
     "name": "CISA Cybersecurity Advisories",
     "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",

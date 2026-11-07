@@ -16,13 +16,14 @@ tags:
 affected_records: 4853
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29682)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29682.pdf
     filing_date: 2024-07-02
     description: Official statutory data breach notification submitted by CF Arcis
       XII,  dba Arcis Golf to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 4,853 residents.
+    accession_number: BreachA29682
 compromised_data:
   - Authentication Credentials
 ---

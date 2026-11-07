@@ -66,10 +66,28 @@ export function validateIncidentFile(filename) {
 
   if (!data.target || typeof data.target !== 'string' || !data.target.trim()) {
     errors.push("Missing or empty required field: 'target' (string)");
+  } else {
+    const tLower = data.target.toLowerCase().trim();
+    if (tLower.startsWith('http://') || tLower.startsWith('https://') || tLower.includes('://')) {
+      errors.push(`'target' cannot be a URL ('${data.target}'). Use the organization's name.`);
+    }
+    if (data.target.includes('...') || /^[a-z0-9]\.{2,}/i.test(data.target)) {
+      errors.push(`'target' contains ellipsis or unannounced initials ('${data.target}'). Must be an identifiable organization.`);
+    }
+    if (/^(?:probe[-_]|zzq[-_]|test[-_])/i.test(tLower)) {
+      errors.push(`'target' appears to be a test/probe entry ('${data.target}').`);
+    }
+    if (['cisa', 'ftc', 'sec', 'fbi', 'ncsc'].includes(tLower)) {
+      errors.push(`'target' is a sovereign regulatory agency ('${data.target}'). Regulatory agencies belong in advisories, not as incident victims.`);
+    }
   }
 
   if (data.domain === undefined || typeof data.domain !== 'string') {
     errors.push("Missing required field: 'domain' (string)");
+  } else {
+    if (data.domain.startsWith('http:') || data.domain.startsWith('https:') || data.domain.includes('/')) {
+      errors.push(`'domain' ('${data.domain}') must be a hostname/domain name, not a URL with protocol/path.`);
+    }
   }
 
   // 4. Status validation

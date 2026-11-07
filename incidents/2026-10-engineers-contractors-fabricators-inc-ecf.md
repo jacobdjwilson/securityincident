@@ -1,7 +1,7 @@
 ---
 id: 2026-10-engineers-contractors-fabricators-inc-ecf
 target: Engineers Contractors Fabricators Inc. (ECF)
-domain: https:ecfinc.net
+domain: ecfinc.net
 status: EMERGING
 first_seen: 2026-10-12
 last_updated: 2026-10-12
@@ -27,7 +27,7 @@ Engineers Contractors Fabricators Inc. (ECF) was listed on the Interlock ransomw
 
 ## Compromised Assets & Data Scope
 
-The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `https:ecfinc.net`.
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `ecfinc.net`.
 
 Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
 

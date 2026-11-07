@@ -16,13 +16,14 @@ tags:
 affected_records: 19297
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33001)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33001.pdf
     filing_date: 2025-04-11
     description: Official statutory data breach notification submitted by The Hertz
       to the Washington State Office of the Attorney General pursuant to RCW
       19.255.010, disclosing unauthorized system access impacting 19,297
       residents.
+    accession_number: BreachA33001
 compromised_data:
   - Authentication Credentials
 ---

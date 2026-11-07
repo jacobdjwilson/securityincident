@@ -22,20 +22,22 @@ compromised_data:
   - Direct Deposit & Banking Details
 regulatory_filings:
   - regulator: State of California Department of Justice
-    form: Data Security Breach Disclosure Report
+    form: SB-24 Data Breach Notice (sb24-629202)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629202
     description: Official statutory data breach notification submitted by YouLend US
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-629202
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
-    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-626504
+    form: SB-24 Data Breach Notice (sb24-629202)
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629202
     filing_date: 2026-07-15
     description: Official statutory data breach notification submitted by YouLend US
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-629202
 ---
 
 ## Incident Overview

@@ -15,7 +15,7 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-607649)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-607649
     filing_date: 2025-08-24
     description: Official statutory data breach notification submitted by Petrusha
@@ -23,6 +23,7 @@ regulatory_filings:
       of Justice under California Civil Code § 1798.82 (SB-24), disclosing
       unauthorized access to personal identifiable information of California
       residents.
+    accession_number: sb24-607649
 compromised_data:
   - Authentication Credentials
 ---

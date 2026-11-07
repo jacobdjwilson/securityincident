@@ -23,18 +23,20 @@ compromised_data:
   - Confidential Corporate Communications
 regulatory_filings:
   - regulator: State of California Department of Justice
-    form: Data Security Breach Disclosure Report
-    url: https://oag.ca.gov/privacy/databreach/list
+    form: SB-24 Data Breach Notice (sb24-627090)
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-627090
     description: Official statutory data breach notification submitted by CareCloud
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-627090
   - regulator: Washington State Office of the Attorney General
-    form: Consumer Protection Data Breach Notification
-    url: https://www.atg.wa.gov/data-breach-notifications
+    form: RCW 19.255 Data Breach Notice (BreachM25126)
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM25126.pdf
     description: Official statutory data breach notification submitted by CareCloud
       to the Washington State Office of the Attorney General pursuant to RCW
       19.255.010, disclosing unauthorized system access impacting residents.
+    accession_number: BreachM25126
   - regulator: SEC
     form: Form 8-K Item 1.05
     accession_number: 0001493152-26-013239
@@ -127,13 +129,14 @@ regulatory_filings:
       determined the full impact of the incident. To the extent any information
       required by
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-627090)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-627090
     filing_date: 2026-07-25
     description: Official statutory data breach notification submitted by CareCloud
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-627090
 ---
 
 ## Incident Overview

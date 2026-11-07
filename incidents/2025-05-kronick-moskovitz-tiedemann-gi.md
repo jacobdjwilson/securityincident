@@ -16,13 +16,14 @@ tags:
 affected_records: 9892
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33410)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33410.pdf
     filing_date: 2025-05-23
     description: Official statutory data breach notification submitted by Kronick
       Moskovitz Tiedemann & Girard to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 9,892 residents.
+    accession_number: BreachA33410
 compromised_data:
   - Authentication Credentials
 ---

@@ -16,13 +16,14 @@ tags:
 affected_records: 294217
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA31886)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31886.pdf
     filing_date: 2025-01-09
     description: Official statutory data breach notification submitted by Get Air
       Management to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 294,217
       residents.
+    accession_number: BreachA31886
 compromised_data:
   - Authentication Credentials
 ---

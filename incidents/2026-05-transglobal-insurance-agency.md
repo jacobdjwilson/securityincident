@@ -17,21 +17,23 @@ tags:
 affected_records: 1880
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA40435)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA40435.pdf
     filing_date: 2026-05-05
     description: Official statutory data breach notification submitted by
       TransGlobal Insurance Agency to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 1,880 residents.
+    accession_number: BreachA40435
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-626782)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-626782
     filing_date: 2026-07-20
     description: Official statutory data breach notification submitted by
       TransGlobal Insurance Agency to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-626782
 compromised_data:
   - Authentication Credentials
 ---

@@ -16,13 +16,14 @@ tags:
 affected_records: 783
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33074)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33074.pdf
     filing_date: 2025-04-21
     description: Official statutory data breach notification submitted by Allied
       Telesis to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting 783
       residents.
+    accession_number: BreachA33074
 compromised_data:
   - Authentication Credentials
 ---

@@ -56,12 +56,13 @@ regulatory_filings:
       Should any of the relevant facts and circumstances substantively change,
       the Company will reassess materiality considerations in accordance with
   - regulator: State of California Department of Justice
-    form: Data Security Breach Disclosure Report
+    form: SB-24 Data Breach Notice (sb24-630390)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630390
     description: Official statutory data breach notification submitted by Upbound
       Group to the California Department of Justice under California Civil Code
       § 1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-630390
 ---
 
 ## Incident Overview

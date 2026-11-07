@@ -17,21 +17,23 @@ tags:
 affected_records: 1932
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34084)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34084.pdf
     filing_date: 2025-07-23
     description: Official statutory data breach notification submitted by Benworth
       Capital Partners to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 1,932 residents.
+    accession_number: BreachA34084
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-613667)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-613667
     filing_date: 2025-10-31
     description: Official statutory data breach notification submitted by Benworth
       Capital Partners to the California Department of Justice under California
       Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-613667
 compromised_data:
   - Authentication Credentials
 ---

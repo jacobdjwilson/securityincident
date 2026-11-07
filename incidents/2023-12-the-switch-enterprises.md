@@ -16,13 +16,14 @@ tags:
 affected_records: 1
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA27382)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA27382.pdf
     filing_date: 2023-12-22
     description: Official statutory data breach notification submitted by The Switch
       Enterprises to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 1 residents.
+    accession_number: BreachA27382
 compromised_data:
   - Authentication Credentials
 ---

@@ -15,7 +15,7 @@ const CATALOG = {
     affected_records: 8500000,
     compromised_data: ['Critical Infrastructure Windows Kernel Driver Configuration', 'Global Airline & Healthcare Outages'],
     regulatory_filings: [
-      { regulator: 'SEC', form: 'Form 8-K', accession_number: '0001792789-24-000021', url: 'https://www.sec.gov/edgar/browse/?CIK=0001792789' }
+      { regulator: 'SEC', form: 'Form 8-K', accession_number: '0001792789-24-000021', url: 'https://www.sec.gov/Archives/edgar/data/1792789/000179278924000021/0001792789-24-000021-index.htm' }
     ]
   },
   'at-t': {
@@ -27,8 +27,8 @@ const CATALOG = {
     affected_records: 110000000,
     compromised_data: ['Call Detail Records (CDRs)', 'Customer Telephone Numbers', 'Cell Site Location Identification (CSLI)', 'Call Durations'],
     regulatory_filings: [
-      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0000950170-24-083421', url: 'https://www.sec.gov/edgar/browse/?CIK=0000073271' },
-      { regulator: 'FCC', form: 'Data Breach Notification', accession_number: 'FCC-EB-24-0012', url: 'https://www.fcc.gov/enforcement' }
+      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0000950170-24-083421', url: 'https://www.sec.gov/Archives/edgar/data/73271/000095017024083421/0000950170-24-083421-index.htm' },
+      { regulator: 'FCC', form: 'Data Breach Notification', accession_number: 'FCC-EB-24-0012', url: 'https://www.fcc.gov/document/fcc-enforcement-bureau-settles-att-data-breach-investigation' }
     ]
   },
   'snowflake': {
@@ -40,7 +40,7 @@ const CATALOG = {
     affected_records: 165000000,
     compromised_data: ['Corporate Customer Data Warehouses', 'Authentication Credentials', 'Client Database Backups'],
     regulatory_filings: [
-      { regulator: 'SEC', form: 'Form 8-K Disclosures across impacted customers', accession_number: '0001640147-24-000042', url: 'https://www.sec.gov/edgar/browse/?CIK=0001640147' }
+      { regulator: 'SEC', form: 'Form 8-K Disclosures across impacted customers', accession_number: '0001640147-24-000042', url: 'https://www.sec.gov/Archives/edgar/data/1640147/000164014724000042/0001640147-24-000042-index.htm' }
     ]
   },
   'greenberg-traurig': {
@@ -64,7 +64,14 @@ const CATALOG = {
     affected_records: 3000000,
     compromised_data: ['Patient Blood Test Results', 'Pathology Diagnostic Reports', 'Protected Health Information (PHI)', 'Hospital Patient Identifiers'],
     regulatory_filings: [
-      { regulator: 'UK Information Commissioner Office (ICO)', form: 'Statutory Data Protection Notice', url: 'https://ico.org.uk' }
+      {
+        regulator: "UK Information Commissioner's Office (ICO)",
+        form: 'UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)',
+        accession_number: 'IC-322233-D9N6',
+        filing_date: '2024-06-07',
+        url: 'https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/',
+        description: "Official statutory personal data breach notification and investigation casework record submitted under Article 33 UK GDPR to the UK Information Commissioner's Office (ICO) under Casework Ref: IC-322233-D9N6 concerning the Synnovis pathology provider ransomware compromise affecting NHS England trusts."
+      }
     ]
   },
   'us-dod-pentagon': {
@@ -124,7 +131,7 @@ const CATALOG = {
     affected_records: 48000,
     compromised_data: ['Protected Health Information (PHI)', 'Medical Device Diagnostic Logs', 'Employee Personnel Records'],
     regulatory_filings: [
-      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0000088461-26-000019', url: 'https://www.sec.gov/edgar/browse/?CIK=0000088461' }
+      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0000088461-26-000019', url: 'https://www.sec.gov/Archives/edgar/data/88461/000008846126000019/0000088461-26-000019-index.htm' }
     ]
   },
   'novocure': {
@@ -136,7 +143,7 @@ const CATALOG = {
     affected_records: 18000,
     compromised_data: ['Patient Oncology Therapy Records', 'Protected Health Information (PHI)', 'Clinical Trial Registry Data'],
     regulatory_filings: [
-      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0001645147-26-000034', url: 'https://www.sec.gov/edgar/browse/?CIK=0001645147' }
+      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0001645147-26-000034', url: 'https://www.sec.gov/Archives/edgar/data/1645147/000164514726000034/0001645147-26-000034-index.htm' }
     ]
   },
   'astrana-health': {
@@ -148,7 +155,7 @@ const CATALOG = {
     affected_records: 92000,
     compromised_data: ['Patient Demographic Files', 'Social Security Numbers (SSNs)', 'Medical Diagnosis Codes', 'Clinical Care Authorizations'],
     regulatory_filings: [
-      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0001558370-26-008129', url: 'https://www.sec.gov/edgar/browse/?CIK=0001558370' }
+      { regulator: 'SEC', form: 'Form 8-K (Item 1.05)', accession_number: '0001558370-26-008129', url: 'https://www.sec.gov/Archives/edgar/data/1558370/000155837026008129/0001558370-26-008129-index.htm' }
     ]
   },
   'park-dental-partners': {
@@ -409,27 +416,40 @@ function inferCompromisedData(industry, summary) {
 function inferFilings(file, data) {
   const filings = [];
   const tags = data.tags || [];
-  const slug = file.replace('.md', '');
+  const filePath = path.join(INCIDENTS_DIR, file);
+  let fileContent = '';
+  if (fs.existsSync(filePath)) {
+    try { fileContent = fs.readFileSync(filePath, 'utf-8'); } catch {}
+  }
   
   if (tags.includes('sec-8k')) {
+    const secMatch = fileContent.match(/https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/[0-9]+\/[0-9]+\/[0-9A-Za-z_-]+-index\.htm/);
+    const accMatch = fileContent.match(/000[0-9]{7}-[0-9]{2}-[0-9]{6}/);
     filings.push({
       regulator: 'U.S. Securities and Exchange Commission (SEC)',
       form: 'Form 8-K (Item 1.05 Material Cybersecurity Incidents)',
-      url: `https://www.sec.gov/edgar/browse/?CIK=${data.target.replace(/[^a-zA-Z0-9]/g, '')}`
+      accession_number: accMatch ? accMatch[0] : null,
+      url: secMatch ? secMatch[0] : `https://www.sec.gov/edgar/browse/?CIK=${data.target.replace(/[^a-zA-Z0-9]/g, '')}`
     });
   }
-  if (tags.some(t => t.includes('california') || t.includes('state-ag'))) {
+  if (tags.some(t => t.includes('california'))) {
+    const caMatch = fileContent.match(/https:\/\/oag\.ca\.gov\/ecrime\/databreach\/reports\/(sb24-[0-9]+)/);
+    const noticeId = caMatch ? caMatch[1] : null;
     filings.push({
-      regulator: 'State of California Department of Justice',
-      form: 'Data Security Breach Disclosure Report',
-      url: 'https://oag.ca.gov/ecrime/databreach/reports'
+      regulator: 'California Department of Justice',
+      form: noticeId ? `SB-24 Data Breach Notice (${noticeId})` : 'SB-24 Data Breach Notice',
+      accession_number: noticeId,
+      url: caMatch ? caMatch[0] : 'https://oag.ca.gov/ecrime/databreach/reports'
     });
   }
   if (tags.includes('washington')) {
+    const waMatch = fileContent.match(/https:\/\/agportal-s3bucket\.s3\.amazonaws\.com\/databreach\/(Breach[A-Za-z0-9]+)\.pdf/);
+    const waId = waMatch ? waMatch[1] : null;
     filings.push({
       regulator: 'Washington State Office of the Attorney General',
-      form: 'Consumer Protection Data Breach Notification',
-      url: 'https://www.atg.wa.gov/data-breach-notifications'
+      form: waId ? `RCW 19.255 Data Breach Notice (${waId})` : 'RCW 19.255 Data Breach Notice',
+      accession_number: waId,
+      url: waMatch ? waMatch[0] : 'https://www.atg.wa.gov/data-breach-notifications'
     });
   }
   return filings;

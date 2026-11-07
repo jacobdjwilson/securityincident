@@ -35,7 +35,8 @@ export const BOT_PROTECTED_DOMAINS = [
   'ransomware.live',
   'databreaches.net',
   'securityweek.com',
-  'hipaajournal.com'
+  'hipaajournal.com',
+  'ico.org.uk'
 ];
 
 export function isBotProtectedDomain(url) {

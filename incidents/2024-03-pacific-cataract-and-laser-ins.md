@@ -17,13 +17,14 @@ tags:
 affected_records: 6587
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA28133)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA28133.pdf
     filing_date: 2024-03-01
     description: Official statutory data breach notification submitted by Pacific
       Cataract and Laser Institute, , P.C to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 6,587 residents.
+    accession_number: BreachA28133
 compromised_data:
   - Authentication Credentials
 ---

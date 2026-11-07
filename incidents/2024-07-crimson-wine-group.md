@@ -107,13 +107,14 @@ regulatory_filings:
       forward-looking statements, whether as result of new information, future
       events or otherwise.
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA31705)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31705.pdf
     filing_date: 2024-12-13
     description: Official statutory data breach notification submitted by Crimson
       Wine Group to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 3,436
       residents.
+    accession_number: BreachA31705
 incident_type: Material Cybersecurity Incident
 affected_records: 3436
 ---

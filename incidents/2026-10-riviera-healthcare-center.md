@@ -1,7 +1,7 @@
 ---
 id: 2026-10-riviera-healthcare-center
 target: Riviera Healthcare Center
-domain: https:rivierahealthcare.com
+domain: rivierahealthcare.com
 status: EMERGING
 first_seen: 2026-10-07
 last_updated: 2026-10-07
@@ -27,7 +27,7 @@ Riviera Healthcare Center was listed on the Interlock ransomware extortion leak 
 
 ## Compromised Assets & Data Scope
 
-The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `https:rivierahealthcare.com`.
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `rivierahealthcare.com`.
 
 Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
 

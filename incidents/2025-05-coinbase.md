@@ -119,13 +119,14 @@ regulatory_filings:
       statements, whether as result of new information, future events or
       otherwise.
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33375)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33375.pdf
     filing_date: 2025-05-20
     description: Official statutory data breach notification submitted by Coinbase
       to the Washington State Office of the Attorney General pursuant to RCW
       19.255.010, disclosing unauthorized system access impacting 3,337
       residents.
+    accession_number: BreachA33375
 incident_type: Material Cybersecurity Incident
 affected_records: 3337
 ---

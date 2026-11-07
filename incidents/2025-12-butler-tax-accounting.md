@@ -16,13 +16,14 @@ tags:
 affected_records: 3
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA35951)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35951.pdf
     filing_date: 2025-12-22
     description: Official statutory data breach notification submitted by Butler Tax
       & Accounting to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 3 residents.
+    accession_number: BreachA35951
 compromised_data:
   - Authentication Credentials
 ---

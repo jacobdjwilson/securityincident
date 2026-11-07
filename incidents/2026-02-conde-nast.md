@@ -16,13 +16,14 @@ tags:
 affected_records: 1392
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA36738)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA36738.pdf
     filing_date: 2026-02-20
     description: Official statutory data breach notification submitted by Condé Nast
       to the Washington State Office of the Attorney General pursuant to RCW
       19.255.010, disclosing unauthorized system access impacting 1,392
       residents.
+    accession_number: BreachA36738
 compromised_data:
   - Authentication Credentials
 ---

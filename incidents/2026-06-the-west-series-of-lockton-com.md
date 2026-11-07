@@ -15,13 +15,14 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-624765)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-624765
     filing_date: 2026-06-12
     description: Official statutory data breach notification submitted by the West
       Series of Lockton Companies to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-624765
 compromised_data:
   - Authentication Credentials
 ---

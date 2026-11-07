@@ -16,13 +16,14 @@ tags:
 affected_records: 3275
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA35772)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35772.pdf
     filing_date: 2025-12-04
     description: Official statutory data breach notification submitted by Anchor
       Computer to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 3,275
       residents.
+    accession_number: BreachA35772
 compromised_data:
   - Authentication Credentials
 ---

@@ -17,20 +17,22 @@ tags:
 affected_records: 845
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA35732)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35732.pdf
     filing_date: 2025-12-02
     description: Official statutory data breach notification submitted by Veradigm
       to the Washington State Office of the Attorney General pursuant to RCW
       19.255.010, disclosing unauthorized system access impacting 845 residents.
+    accession_number: BreachA35732
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-615974)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-615974
     filing_date: 2025-12-18
     description: Official statutory data breach notification submitted by Veradigm
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-615974
 compromised_data:
   - Authentication Credentials
 ---

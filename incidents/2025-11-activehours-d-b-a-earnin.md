@@ -16,13 +16,14 @@ tags:
 affected_records: 3412
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA35487)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35487.pdf
     filing_date: 2025-11-12
     description: Official statutory data breach notification submitted by
       Activehours,  d/b/a EarnIn to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 3,412 residents.
+    accession_number: BreachA35487
 compromised_data:
   - Authentication Credentials
 ---

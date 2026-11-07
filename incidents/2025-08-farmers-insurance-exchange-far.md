@@ -16,13 +16,14 @@ tags:
 affected_records: 45354
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34432)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34432.pdf
     filing_date: 2025-08-22
     description: Official statutory data breach notification submitted by Farmers
       Insurance Exchange, Farmers Group to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 45,354 residents.
+    accession_number: BreachA34432
 compromised_data:
   - Authentication Credentials
 ---

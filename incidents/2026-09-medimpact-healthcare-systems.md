@@ -23,12 +23,13 @@ compromised_data:
   - Prescription Drug Records
 regulatory_filings:
   - regulator: State of California Department of Justice
-    form: Data Security Breach Disclosure Report
+    form: SB-24 Data Breach Notice (sb24-630343)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-630343
     description: Official statutory data breach notification submitted by MedImpact
       Healthcare Systems to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-630343
 ---
 
 ## Incident Overview

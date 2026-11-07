@@ -16,13 +16,14 @@ tags:
 affected_records: 1929
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA30498)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA30498.pdf
     filing_date: 2024-09-09
     description: Official statutory data breach notification submitted by Kemper
       Sports Management to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 1,929 residents.
+    accession_number: BreachA30498
 compromised_data:
   - Authentication Credentials
 ---

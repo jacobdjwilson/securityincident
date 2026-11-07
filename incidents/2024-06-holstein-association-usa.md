@@ -16,13 +16,14 @@ tags:
 affected_records: 12
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29637)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29637.pdf
     filing_date: 2024-06-27
     description: Official statutory data breach notification submitted by Holstein
       Association USA to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 12 residents.
+    accession_number: BreachA29637
 compromised_data:
   - Authentication Credentials
 ---

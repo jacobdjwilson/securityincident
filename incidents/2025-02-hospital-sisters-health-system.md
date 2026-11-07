@@ -16,13 +16,14 @@ tags:
 affected_records: 662
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachM18448)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM18448.pdf
     filing_date: 2025-02-06
     description: Official statutory data breach notification submitted by Hospital
       Sisters Health System to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 662 residents.
+    accession_number: BreachM18448
 compromised_data:
   - Authentication Credentials
 ---

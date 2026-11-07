@@ -16,13 +16,14 @@ tags:
 affected_records: 850
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33071)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33071.pdf
     filing_date: 2025-04-21
     description: Official statutory data breach notification submitted by Grant
       County Public Utility District No. 2 to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 850 residents.
+    accession_number: BreachA33071
 compromised_data:
   - Authentication Credentials
 ---

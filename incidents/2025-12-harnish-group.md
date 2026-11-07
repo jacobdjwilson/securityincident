@@ -16,13 +16,14 @@ tags:
 affected_records: 1435
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA35969)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35969.pdf
     filing_date: 2025-12-29
     description: Official statutory data breach notification submitted by Harnish
       Group to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting 1,435
       residents.
+    accession_number: BreachA35969
 compromised_data:
   - Authentication Credentials
 ---

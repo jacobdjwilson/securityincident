@@ -17,13 +17,14 @@ tags:
 affected_records: 4276
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29794)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29794.pdf
     filing_date: 2024-07-10
     description: Official statutory data breach notification submitted by Coalition
       for the Common Good dba Antioch University to the Washington State Office
       of the Attorney General pursuant to RCW 19.255.010, disclosing
       unauthorized system access impacting 4,276 residents.
+    accession_number: BreachA29794
 compromised_data:
   - Authentication Credentials
 ---

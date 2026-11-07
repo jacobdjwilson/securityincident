@@ -16,13 +16,14 @@ tags:
 affected_records: 788
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34850)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34850.pdf
     filing_date: 2025-10-06
     description: Official statutory data breach notification submitted by Spokane
       Produce to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting 788
       residents.
+    accession_number: BreachA34850
 compromised_data:
   - Authentication Credentials
 ---

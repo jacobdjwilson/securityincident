@@ -15,13 +15,14 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-631233)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-631233
     filing_date: 2026-10-13
     description: Official statutory data breach notification submitted by American
       Board of Preventive Medicine to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-631233
 compromised_data:
   - Authentication Credentials
 ---

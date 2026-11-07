@@ -15,13 +15,14 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachM19692)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM19692.pdf
     filing_date: 2025-07-07
     description: Official statutory data breach notification submitted by
       EventConnect to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting residents.
+    accession_number: BreachM19692
 compromised_data:
   - Authentication Credentials
 ---

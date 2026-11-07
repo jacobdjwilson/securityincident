@@ -16,13 +16,14 @@ tags:
 affected_records: 940
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA27447)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA27447.pdf
     filing_date: 2023-12-29
     description: Official statutory data breach notification submitted by
       Transformative Healthcare to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 940 residents.
+    accession_number: BreachA27447
 compromised_data:
   - Authentication Credentials
 ---

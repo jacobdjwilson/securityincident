@@ -21,7 +21,11 @@ function slugify(text) {
 
 function cleanDomain(rawDomain, targetSlug) {
   if (!rawDomain) return `${targetSlug.replace(/-/g, '')}.com`;
-  let cleaned = rawDomain.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '').replace(/^www\./, '');
+  let cleaned = rawDomain.trim().toLowerCase()
+    .replace(/^https?:\/*/, '')
+    .replace(/\/.*$/, '')
+    .replace(/[:\/].*$/, '')
+    .replace(/^www\./, '');
   if (cleaned.includes('.') && !cleaned.includes('*')) {
     return cleaned;
   }
@@ -79,10 +83,29 @@ export async function fetchDarkWebVictims({ limit = 50 } = {}) {
     const slice = data.slice(0, limit);
 
     for (const item of slice) {
-      const target = (item.victim || '').trim();
+      let target = (item.victim || '').trim();
       if (!target || target.length < 3 || target.length > 80 || target.includes('***') || target.toLowerCase() === 'not found') {
         continue;
       }
+
+      // Reject URLs, telegram links, and onion domains misclassified as targets
+      if (/^(?:https?:\/\/|t\.me\/|ftp:\/\/)/i.test(target) || target.includes('://')) {
+        continue;
+      }
+
+      // Reject probe, test, and placeholder leak portal listings
+      if (/^(?:probe[-_]|zzq[-_]|test[-_])/i.test(target) || /^(?:test|probe|sample|verification)$/i.test(target)) {
+        continue;
+      }
+
+      // Reject unannounced redacted teasers containing ellipses or isolated letter placeholders
+      if (target.includes('...') || /^[a-z0-9]\.{2,}/i.test(target) || /^(?:[a-z]\.\.\.\s*)+[a-z]?$/i.test(target)) {
+        continue;
+      }
+
+      // Normalize follow-up update titles (e.g. "UPDATE: UNM" -> "UNM")
+      target = target.replace(/^UPDATE:\s*/i, '').trim();
+      if (!target || target.length < 3) continue;
 
       const targetSlug = slugify(target);
       if (!targetSlug || targetSlug.length < 3) continue;

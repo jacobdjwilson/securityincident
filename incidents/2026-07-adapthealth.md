@@ -90,27 +90,30 @@ regulatory_filings:
 
       To the extent any information required by
   - regulator: State of California Department of Justice
-    form: Data Security Breach Disclosure Report
-    url: https://oag.ca.gov/privacy/databreach/list
+    form: SB-24 Data Breach Notice (sb24-628241)
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-628241
     description: Official statutory data breach notification submitted by
       AdaptHealth to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-628241
   - regulator: Washington State Office of the Attorney General
-    form: Consumer Protection Data Breach Notification
-    url: https://www.atg.wa.gov/data-breach-notifications
+    form: RCW 19.255 Data Breach Notice (BreachA42340)
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42340.pdf
     description: Official statutory data breach notification submitted by
       AdaptHealth to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting residents.
+    accession_number: BreachA42340
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-628241)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-628241
     filing_date: 2026-08-14
     description: Official statutory data breach notification submitted by
       AdaptHealth to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-628241
 ---
 
 ## Incident Overview

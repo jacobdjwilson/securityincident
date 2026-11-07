@@ -16,13 +16,14 @@ tags:
 affected_records: 5694
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA27368)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA27368.pdf
     filing_date: 2023-12-21
     description: Official statutory data breach notification submitted by California
       Northstate University to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 5,694 residents.
+    accession_number: BreachA27368
 compromised_data:
   - Authentication Credentials
 ---

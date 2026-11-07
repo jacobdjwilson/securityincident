@@ -15,13 +15,14 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29881)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29881.pdf
     filing_date: 2024-07-18
     description: Official statutory data breach notification submitted by Washington
       State University, Cougar Health Services Pharmacy to the Washington State
       Office of the Attorney General pursuant to RCW 19.255.010, disclosing
       unauthorized system access impacting residents.
+    accession_number: BreachA29881
 compromised_data:
   - Authentication Credentials
 ---

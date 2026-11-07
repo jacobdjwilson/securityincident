@@ -17,6 +17,7 @@ function cleanCompanyName(raw) {
     .replace(/\s*,\s*a [A-Za-z\s]+ (?:limited liability company|corporation|company|comp)\b.*$/gi, '')
     .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO|CORPORATION|INCORPORATED|HOLDINGS|LLP|PC)\b\.?/gi, '')
     .replace(/^[,\s.-]+|[,\s.-]+$/g, '')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
@@ -119,6 +120,7 @@ export async function fetchCaliforniaOagNotices({ pages = 1, minDate = null } = 
 
         const ym = dateIso.slice(0, 7);
         const timeUtc = `${dateIso} 17:00 UTC`;
+        const noticeId = reportUrl.split('/').pop() || null;
 
         notices.push({
           id: `${ym}-${targetSlug}`,
@@ -136,7 +138,8 @@ export async function fetchCaliforniaOagNotices({ pages = 1, minDate = null } = 
           regulatoryFilings: [
             {
               regulator: 'California Department of Justice',
-              form: 'SB-24 Data Breach Notice',
+              form: noticeId ? `SB-24 Data Breach Notice (${noticeId})` : 'SB-24 Data Breach Notice',
+              accession_number: noticeId,
               url: reportUrl,
               filing_date: dateIso,
               description: `Official statutory data breach notification submitted by ${target} to the California Department of Justice under California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal identifiable information of California residents.`
@@ -237,6 +240,8 @@ export async function fetchWashingtonAgNotices({ pages = 1, minDate = null } = {
 
         const ym = reportDate.slice(0, 7);
         const timeUtc = `${reportDate} 16:30 UTC`;
+        const waIdMatch = reportUrl.match(/Breach[A-Za-z0-9]+/);
+        const accessionNumber = waIdMatch ? waIdMatch[0] : null;
 
         let affectedCount = null;
         if (affected && affected !== 'Unknown') {
@@ -266,7 +271,8 @@ export async function fetchWashingtonAgNotices({ pages = 1, minDate = null } = {
           regulatoryFilings: [
             {
               regulator: 'Washington Attorney General',
-              form: 'RCW 19.255 Data Breach Notice',
+              form: accessionNumber ? `RCW 19.255 Data Breach Notice (${accessionNumber})` : 'RCW 19.255 Data Breach Notice',
+              accession_number: accessionNumber,
               url: reportUrl,
               filing_date: reportDate,
               description: `Official statutory data breach notification submitted by ${target} to the Washington State Office of the Attorney General pursuant to RCW 19.255.010, disclosing unauthorized system access impacting ${affectedCount ? affectedCount.toLocaleString() + ' ' : ''}residents.`
@@ -349,6 +355,17 @@ export async function fetchOregonDojNotices({ limit = 40 } = {}) {
       const ym = reportDate.slice(0, 7);
       const timeUtc = `${reportDate} 17:00 UTC`;
 
+      let detailUrl = url;
+      let accessionNumber = null;
+      const linkMatch = row.match(/href=["']([^"']+)["']/i);
+      if (linkMatch) {
+        let matchedHref = linkMatch[1].trim();
+        if (matchedHref.startsWith('/')) matchedHref = `https://justice.oregon.gov${matchedHref}`;
+        detailUrl = matchedHref;
+        const idMatch = matchedHref.match(/(?:id=|\/)([0-9]+)/i);
+        if (idMatch) accessionNumber = `OR-DOJ-${idMatch[1]}`;
+      }
+
       let affectedCount = null;
       if (numAffectedStr && numAffectedStr !== 'Unknown') {
         const parsed = parseInt(numAffectedStr.replace(/,/g, ''), 10);
@@ -371,14 +388,15 @@ export async function fetchOregonDojNotices({ limit = 40 } = {}) {
         timeUtc,
         affectedRecords: affectedCount,
         sourceTitle: `Oregon Department of Justice Breach Notice`,
-        sourceUrl: url,
+        sourceUrl: detailUrl,
         summary,
         tags: ['regulatory', 'state-ag', 'oregon', 'confirmed'],
         regulatoryFilings: [
           {
             regulator: 'Oregon Department of Justice',
-            form: 'ORS 646A.604 Data Breach Notice',
-            url: url,
+            form: accessionNumber ? `ORS 646A.604 Data Breach Notice (${accessionNumber})` : 'ORS 646A.604 Data Breach Notice',
+            accession_number: accessionNumber,
+            url: detailUrl,
             filing_date: reportDate,
             description: `Official statutory data breach disclosure notice submitted by ${target} to the Oregon Department of Justice pursuant to the Oregon Consumer Information Protection Act (ORS 646A.604)${affectedCount ? ` impacting approximately ${affectedCount.toLocaleString()} individuals.` : '.'}`
           }

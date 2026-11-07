@@ -191,13 +191,14 @@ regulatory_filings:
       any other forward-looking statements, whether as a result of new
       information, future events or otherwise.
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29465)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29465.pdf
     filing_date: 2024-06-10
     description: Official statutory data breach notification submitted by First
       American Financial to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 706 residents.
+    accession_number: BreachA29465
 summary: First American Financial filed the very first SEC Form 8-K Item 1.05
   disclosure under the SEC mandate following an unauthorized network intrusion
   that disabled title portals.

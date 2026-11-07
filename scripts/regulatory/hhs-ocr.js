@@ -29,6 +29,7 @@ function cleanCompanyName(raw) {
     .replace(/\s*\([^)]*\)/g, '')
     .replace(/\b(?:INC|CORP|LLC|LTD|PLC|CO|CORPORATION|INCORPORATED|HOLDINGS|LLP|PC|SYSTEM|SYSTEMS|HEALTH|HEALTHCARE)\b\.?/gi, '')
     .replace(/^[,\s.-]+|[,\s.-]+$/g, '')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 

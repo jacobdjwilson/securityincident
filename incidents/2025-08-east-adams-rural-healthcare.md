@@ -16,13 +16,14 @@ tags:
 affected_records: 8896
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34284)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34284.pdf
     filing_date: 2025-08-11
     description: Official statutory data breach notification submitted by East Adams
       Rural Healthcare to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 8,896 residents.
+    accession_number: BreachA34284
 compromised_data:
   - Authentication Credentials
 ---

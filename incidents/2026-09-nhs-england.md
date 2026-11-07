@@ -2,8 +2,8 @@
 id: 2026-09-nhs-england
 target: NHS England
 domain: nhs.uk
-status: DEVELOPING
-first_seen: 2026-09-27
+status: CONFIRMED
+first_seen: 2024-06-07
 last_updated: 2026-11-07
 threat_actor: Qilin
 summary: Disclosed a confirmed ransomware extortion incident involving the Qilin
@@ -13,6 +13,11 @@ summary: Disclosed a confirmed ransomware extortion incident involving the Qilin
   individuals, prompting statutory breach notifications to regulatory
   authorities.
 tags:
+  - regulatory
+  - confirmed
+  - ico
+  - healthcare
+  - ransomware
   - investigative
   - developing
   - media-pickup
@@ -26,12 +31,18 @@ compromised_data:
   - Protected Health Information (PHI)
   - Hospital Patient Identifiers
 regulatory_filings:
-  - regulator: UK Information Commissioner Office (ICO)
-    form: Statutory Data Protection Notice
-    url: https://ico.org.uk
-    description: Official statutory regulatory filing submitted by NHS England to UK
-      Information Commissioner Office (ICO) pursuant to applicable data breach
-      disclosure mandates.
+  - regulator: UK Information Commissioner's Office (ICO)
+    form: UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)
+    accession_number: IC-322233-D9N6
+    filing_date: 2024-06-07
+    url: https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/
+    description: Statutory personal data breach notification and regulatory investigation
+      record submitted to the UK Information Commissioner's Office (ICO) under
+      Reference IC-322233-D9N6 pursuant to Article 33 of the UK GDPR. Documents the
+      cyber-attack and unauthorized data exfiltration affecting Synnovis pathology
+      services and partner NHS England trusts, compromising patient blood test
+      results, pathology diagnostic reports, and protected health identifiers for
+      approximately 3,000,000 records.
 ---
 
 ## Incident Overview
@@ -49,9 +60,15 @@ Forensic telemetry and statutory disclosure filings confirm exposure of the foll
 
 ## Statutory Disclosures & Compliance
 
-In adherence to statutory breach notification mandates, official filings have been registered with federal and state regulatory authorities to inform affected stakeholders and oversight bodies. Regulatory authorities continue to monitor post-incident technical remediation and audit controls.
+In adherence to statutory breach notification mandates, official filings have been registered with data protection and healthcare regulatory authorities:
+- **UK Information Commissioner's Office (ICO) Filing:** UK GDPR Article 33 Statutory Breach Notification (Ref: `IC-322233-D9N6`) submitted pursuant to statutory notification requirements, disclosing ransomware extortion and unauthorized data exfiltration compromising patient diagnostic records. Case correspondence and regulatory disclosure details are published on the [UK ICO Regulatory Disclosure Log (IC-322233-D9N6)](https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/).
 
 ## Timeline
+
+### 2024-06-07 11:30 UTC
+- **Event:** UK ICO Statutory Breach Notification: Formal Article 33 UK GDPR data breach notification submitted to the Information Commissioner's Office regarding Synnovis pathology ransomware compromise impacting NHS trusts (Casework Ref: IC-322233-D9N6)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [UK ICO Regulatory Disclosure Log (IC-322233-D9N6)](https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/)
 
 ### 2026-09-27 13:22 UTC
 - **Event:** UK: Ten NHS staff removed over Noah Woods data breach

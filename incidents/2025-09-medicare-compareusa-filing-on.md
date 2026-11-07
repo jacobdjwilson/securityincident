@@ -17,13 +17,14 @@ tags:
 affected_records: 1258
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34630)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34630.pdf
     filing_date: 2025-09-10
     description: Official statutory data breach notification submitted by Medicare
       CompareUSA filing on behalf of United Healthcare to the Washington State
       Office of the Attorney General pursuant to RCW 19.255.010, disclosing
       unauthorized system access impacting 1,258 residents.
+    accession_number: BreachA34630
 compromised_data:
   - Authentication Credentials
 ---

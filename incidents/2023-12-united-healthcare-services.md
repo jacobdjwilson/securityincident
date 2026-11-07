@@ -16,13 +16,14 @@ tags:
 affected_records: 9938
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachM16398)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM16398.pdf
     filing_date: 2023-12-22
     description: Official statutory data breach notification submitted by United
       Healthcare Services to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 9,938 residents.
+    accession_number: BreachM16398
 compromised_data:
   - Authentication Credentials
 ---

@@ -15,13 +15,14 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-624475)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-624475
     filing_date: 2026-06-05
     description: Official statutory data breach notification submitted by Meta
       Platforms to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-624475
 compromised_data:
   - Authentication Credentials
 ---

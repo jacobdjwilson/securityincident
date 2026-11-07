@@ -24,19 +24,22 @@ compromised_data:
 regulatory_filings:
   - regulator: Washington Attorney General
     notice_id: WA-2026-03984
-    url: https://www.atg.wa.gov/data-breach-notifications
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42399.pdf
     description: Official statutory data breach notification submitted by Turner
       Construction Company to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 34,000 residents.
+    accession_number: BreachA42399
+    form: RCW 19.255 Data Breach Notice (BreachA42399)
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-628438)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-628438
     filing_date: 2026-08-18
     description: Official statutory data breach notification submitted by Turner
       Construction Company to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-628438
 ---
 
 ## Incident Overview

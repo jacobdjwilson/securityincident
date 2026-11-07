@@ -28,6 +28,8 @@ regulatory_filings:
       Medical Center to the California Department of Justice under California
       Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-630126
+    form: SB-24 Data Breach Notice (sb24-630126)
 ---
 
 ## Incident Overview

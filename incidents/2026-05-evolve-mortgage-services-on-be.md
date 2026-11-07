@@ -18,15 +18,16 @@ tags:
 affected_records: 507
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA40713)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA40713.pdf
     filing_date: 2026-05-13
     description: Official statutory data breach notification submitted by Evolve
       Mortgage Services on behalf of financial institutions to the Washington
       State Office of the Attorney General pursuant to RCW 19.255.010,
       disclosing unauthorized system access impacting 507 residents.
+    accession_number: BreachA40713
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-618182)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-618182
     filing_date: 2026-02-04
     description: Official statutory data breach notification submitted by Evolve
@@ -34,6 +35,7 @@ regulatory_filings:
       Department of Justice under California Civil Code § 1798.82 (SB-24),
       disclosing unauthorized access to personal identifiable information of
       California residents.
+    accession_number: sb24-618182
 compromised_data:
   - Authentication Credentials
 ---

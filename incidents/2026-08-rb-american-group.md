@@ -23,11 +23,13 @@ compromised_data:
 regulatory_filings:
   - regulator: Washington Attorney General
     notice_id: WA-2026-03912
-    url: https://www.atg.wa.gov/data-breach-notifications
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42591.pdf
     description: Official statutory data breach notification submitted by RB
       American Group to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 98,000 residents.
+    accession_number: BreachA42591
+    form: RCW 19.255 Data Breach Notice (BreachA42591)
 ---
 
 ## Incident Overview

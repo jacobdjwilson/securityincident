@@ -16,13 +16,14 @@ tags:
 affected_records: 336826
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33657)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33657.pdf
     filing_date: 2025-06-20
     description: Official statutory data breach notification submitted by Pierce
       County Library System to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 336,826 residents.
+    accession_number: BreachA33657
 compromised_data:
   - Authentication Credentials
 ---

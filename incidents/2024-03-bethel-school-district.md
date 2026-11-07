@@ -16,13 +16,14 @@ tags:
 affected_records: 28645
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA28276)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA28276.pdf
     filing_date: 2024-03-18
     description: Official statutory data breach notification submitted by Bethel
       School District to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 28,645 residents.
+    accession_number: BreachA28276
 compromised_data:
   - Authentication Credentials
 ---

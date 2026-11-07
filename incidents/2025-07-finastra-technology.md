@@ -17,21 +17,23 @@ tags:
 affected_records: 679
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA33811)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA33811.pdf
     filing_date: 2025-07-03
     description: Official statutory data breach notification submitted by Finastra
       Technology to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 679
       residents.
+    accession_number: BreachA33811
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-604911)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-604911
     filing_date: 2025-07-03
     description: Official statutory data breach notification submitted by Finastra
       Technology to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-604911
 compromised_data:
   - Authentication Credentials
 ---

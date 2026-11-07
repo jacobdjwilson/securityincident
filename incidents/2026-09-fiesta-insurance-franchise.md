@@ -22,20 +22,22 @@ compromised_data:
   - Direct Deposit & Banking Details
 regulatory_filings:
   - regulator: State of California Department of Justice
-    form: Data Security Breach Disclosure Report
+    form: SB-24 Data Breach Notice (sb24-629220)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629220
     description: Official statutory data breach notification submitted by Fiesta
       Insurance Franchise to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-629220
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
-    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-626421
+    form: SB-24 Data Breach Notice (sb24-629220)
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629220
     filing_date: 2026-07-13
     description: Official statutory data breach notification submitted by Fiesta
       Insurance Franchise to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-629220
 ---
 
 ## Incident Overview

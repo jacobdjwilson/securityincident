@@ -16,13 +16,14 @@ tags:
 affected_records: 5954
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA29273)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA29273.pdf
     filing_date: 2024-05-28
     description: Official statutory data breach notification submitted by Johnson &
       Johnson Services to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 5,954 residents.
+    accession_number: BreachA29273
 compromised_data:
   - Authentication Credentials
 ---

@@ -29,21 +29,26 @@ regulatory_filings:
       Health  and Virta Medical to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-629093
+    form: SB-24 Data Breach Notice (sb24-629093)
   - regulator: Washington Attorney General
     notice_id: WA-2026-03822
-    url: https://www.atg.wa.gov/data-breach-notifications
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42682.pdf
     description: Official statutory data breach notification submitted by Virta
       Health  and Virta Medical to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 36,000 residents.
+    accession_number: BreachA42682
+    form: RCW 19.255 Data Breach Notice (BreachA42682)
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
-    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-624890
+    form: SB-24 Data Breach Notice (sb24-629093)
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629093
     filing_date: 2026-06-12
     description: Official statutory data breach notification submitted by Virta
       Medical to the California Department of Justice under California Civil
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-629093
 ---
 
 ## Incident Overview

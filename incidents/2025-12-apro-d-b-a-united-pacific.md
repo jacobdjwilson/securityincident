@@ -17,21 +17,23 @@ tags:
 affected_records: 1226
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA35971)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA35971.pdf
     filing_date: 2025-12-29
     description: Official statutory data breach notification submitted by
       Apro,  d/b/a United Pacific to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 1,226 residents.
+    accession_number: BreachA35971
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-616358)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-616358
     filing_date: 2025-12-29
     description: Official statutory data breach notification submitted by
       Apro,  d/b/a United Pacific to the California Department of Justice under
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
+    accession_number: sb24-616358
 compromised_data:
   - Authentication Credentials
 ---

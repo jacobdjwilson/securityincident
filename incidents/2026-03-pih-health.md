@@ -17,21 +17,23 @@ tags:
 affected_records: 3639
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachM23172)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM23172.pdf
     filing_date: 2026-03-04
     description: Official statutory data breach notification submitted by PIH Health
       to the Washington State Office of the Attorney General pursuant to RCW
       19.255.010, disclosing unauthorized system access impacting 3,639
       residents.
+    accession_number: BreachM23172
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-619504)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-619504
     filing_date: 2026-02-27
     description: Official statutory data breach notification submitted by PIH Health
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-619504
 compromised_data:
   - Authentication Credentials
 ---

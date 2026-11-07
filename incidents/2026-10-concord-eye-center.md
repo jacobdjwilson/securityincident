@@ -1,7 +1,7 @@
 ---
 id: 2026-10-concord-eye-center
 target: Concord Eye Center
-domain: http:www.concordeyecenternh.com
+domain: concordeyecenternh.com
 status: EMERGING
 first_seen: 2026-10-12
 last_updated: 2026-10-12
@@ -27,7 +27,7 @@ Concord Eye Center was listed on the Interlock ransomware extortion leak portal.
 
 ## Compromised Assets & Data Scope
 
-The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `http:www.concordeyecenternh.com`.
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `concordeyecenternh.com`.
 
 Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
 

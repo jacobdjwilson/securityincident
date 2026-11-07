@@ -16,13 +16,14 @@ tags:
 affected_records: 11151
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA28287)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA28287.pdf
     filing_date: 2024-03-18
     description: Official statutory data breach notification submitted by V12
       Software to the Washington State Office of the Attorney General pursuant
       to RCW 19.255.010, disclosing unauthorized system access impacting 11,151
       residents.
+    accession_number: BreachA28287
 compromised_data:
   - Authentication Credentials
 ---

@@ -15,12 +15,13 @@ tags:
   - confirmed
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA31760)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31760.pdf
     filing_date: 2024-12-20
     description: Official statutory data breach notification submitted by Marine
       Floats to the Washington State Office of the Attorney General pursuant to
       RCW 19.255.010, disclosing unauthorized system access impacting residents.
+    accession_number: BreachA31760
 compromised_data:
   - Authentication Credentials
 ---

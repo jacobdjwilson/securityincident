@@ -16,13 +16,14 @@ tags:
 affected_records: 690
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA30738)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA30738.pdf
     filing_date: 2024-09-25
     description: Official statutory data breach notification submitted by Prentke
       Romich Company dba PRC-Saltillo to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 690 residents.
+    accession_number: BreachA30738
 compromised_data:
   - Authentication Credentials
 ---

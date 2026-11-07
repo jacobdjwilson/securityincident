@@ -23,11 +23,13 @@ compromised_data:
 regulatory_filings:
   - regulator: Washington Attorney General
     notice_id: WA-2026-03890
-    url: https://www.atg.wa.gov/data-breach-notifications
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42441.pdf
     description: Official statutory data breach notification submitted by Rockwood
       Retirement Communities to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 6,200 residents.
+    accession_number: BreachA42441
+    form: RCW 19.255 Data Breach Notice (BreachA42441)
 ---
 
 ## Incident Overview

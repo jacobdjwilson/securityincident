@@ -16,13 +16,14 @@ tags:
 affected_records: 845
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA32836)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA32836.pdf
     filing_date: 2025-03-26
     description: Official statutory data breach notification submitted by The
       Pension Specialist to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 845 residents.
+    accession_number: BreachA32836
 compromised_data:
   - Authentication Credentials
 ---

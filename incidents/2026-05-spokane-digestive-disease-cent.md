@@ -16,13 +16,14 @@ tags:
 affected_records: 2093
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA41058)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA41058.pdf
     filing_date: 2026-05-26
     description: Official statutory data breach notification submitted by Spokane
       Digestive Disease Center, P.S to the Washington State Office of the
       Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 2,093 residents.
+    accession_number: BreachA41058
 compromised_data:
   - Authentication Credentials
 ---

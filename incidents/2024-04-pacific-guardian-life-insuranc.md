@@ -17,13 +17,14 @@ tags:
 affected_records: 1950
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA28534)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA28534.pdf
     filing_date: 2024-04-04
     description: Official statutory data breach notification submitted by Pacific
       Guardian Life Insurance Company, Limited to the Washington State Office of
       the Attorney General pursuant to RCW 19.255.010, disclosing unauthorized
       system access impacting 1,950 residents.
+    accession_number: BreachA28534
 compromised_data:
   - Authentication Credentials
 ---

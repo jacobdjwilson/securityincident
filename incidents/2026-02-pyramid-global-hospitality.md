@@ -16,13 +16,14 @@ tags:
 affected_records: 3434
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA36808)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA36808.pdf
     filing_date: 2026-02-25
     description: Official statutory data breach notification submitted by Pyramid
       Global Hospitality to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 3,434 residents.
+    accession_number: BreachA36808
 compromised_data:
   - Authentication Credentials
 ---

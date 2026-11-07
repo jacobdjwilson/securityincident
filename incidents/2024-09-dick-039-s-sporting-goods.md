@@ -16,13 +16,14 @@ tags:
 affected_records: 72012
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA30601)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA30601.pdf
     filing_date: 2024-09-17
     description: Official statutory data breach notification submitted by
       DICK&#039;S Sporting Goods to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 72,012 residents.
+    accession_number: BreachA30601
 compromised_data:
   - Authentication Credentials
 ---

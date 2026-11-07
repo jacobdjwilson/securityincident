@@ -16,13 +16,14 @@ tags:
 affected_records: 1400
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA30405)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA30405.pdf
     filing_date: 2024-08-30
     description: Official statutory data breach notification submitted by Futurity
       First Insurance Group to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 1,400 residents.
+    accession_number: BreachA30405
 compromised_data:
   - Authentication Credentials
 ---

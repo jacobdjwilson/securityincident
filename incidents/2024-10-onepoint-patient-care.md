@@ -16,13 +16,14 @@ tags:
 affected_records: 34394
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA31107)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31107.pdf
     filing_date: 2024-10-23
     description: Official statutory data breach notification submitted by OnePoint
       Patient Care to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 34,394 residents.
+    accession_number: BreachA31107
 compromised_data:
   - Authentication Credentials
 ---

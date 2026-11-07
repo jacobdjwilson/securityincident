@@ -16,13 +16,14 @@ tags:
 affected_records: 526
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34758)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34758.pdf
     filing_date: 2025-09-26
     description: Official statutory data breach notification submitted by Emergency
       Responders Health Center to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 526 residents.
+    accession_number: BreachA34758
 compromised_data:
   - Authentication Credentials
 ---

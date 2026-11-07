@@ -17,13 +17,14 @@ tags:
 affected_records: 5878
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA37706)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA37706.pdf
     filing_date: 2026-04-15
     description: Official statutory data breach notification submitted by The
       Trustees of the University of Pennsylvania to the Washington State Office
       of the Attorney General pursuant to RCW 19.255.010, disclosing
       unauthorized system access impacting 5,878 residents.
+    accession_number: BreachA37706
 compromised_data:
   - Authentication Credentials
 ---

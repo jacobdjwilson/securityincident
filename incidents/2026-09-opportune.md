@@ -21,20 +21,22 @@ compromised_data:
   - Corporate Contact Records
 regulatory_filings:
   - regulator: State of California Department of Justice
-    form: Data Security Breach Disclosure Report
+    form: SB-24 Data Breach Notice (sb24-629948)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629948
     description: Official statutory data breach notification submitted by Opportune
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-629948
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
-    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-631707
+    form: SB-24 Data Breach Notice (sb24-629948)
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629948
     filing_date: 2026-10-22
     description: Official statutory data breach notification submitted by Opportune
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+    accession_number: sb24-629948
 ---
 
 ## Incident Overview

@@ -1266,6 +1266,7 @@ function normalizeRegulatoryFilings(filings, milestones = []) {
     const filing = { ...f };
     const reg = (filing.regulator || '').toUpperCase();
     const isSec = reg.includes('SEC') || reg.includes('SECURITIES');
+    const isIco = reg.includes('ICO') || reg.includes('INFORMATION COMMISSIONER') || (filing.url && filing.url.includes('ico.org.uk'));
     
     if (isSec) {
       // 1. Check if milestones contain a direct SEC Archive URL
@@ -1283,6 +1284,109 @@ function normalizeRegulatoryFilings(filings, milestones = []) {
           filing.url = `https://www.sec.gov/Archives/edgar/data/${cleanCik}/${cleanAdsh}/${filing.accession_number}-index.htm`;
         }
       }
+    } else if (isIco) {
+      // Normalize regulator name if missing apostrophe
+      if (filing.regulator && filing.regulator.includes('Commissioner Office')) {
+        filing.regulator = filing.regulator.replace('Commissioner Office', "Commissioner's Office");
+      } else if (!filing.regulator || filing.regulator.toUpperCase() === 'ICO') {
+        filing.regulator = "UK Information Commissioner's Office (ICO)";
+      }
+
+      // Check if milestones contain a specific ICO URL (e.g. disclosure log, decision notice, or enforcement)
+      const milestoneIcoUrl = milestones
+        .map(m => m.sourceUrl)
+        .find(u => u && u.includes('ico.org.uk') && !/^https?:\/\/(?:www\.)?ico\.org\.uk\/?$/i.test(u));
+
+      if (milestoneIcoUrl && (!filing.url || /^https?:\/\/(?:www\.)?ico\.org\.uk\/?$/i.test(filing.url))) {
+        filing.url = milestoneIcoUrl;
+      } else if (filing.accession_number && (!filing.url || /^https?:\/\/(?:www\.)?ico\.org\.uk\/?$/i.test(filing.url))) {
+        // Specific case reference (e.g. IC-322233-D9N6)
+        const ref = filing.accession_number.trim();
+        if (/^IC-322233-D9N6$/i.test(ref)) {
+          filing.url = 'https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/';
+        } else if (/^IC-366772-N7B1$/i.test(ref)) {
+          filing.url = 'https://ico.org.uk/action-weve-taken/decision-notices/2025/08/ic-366772-n7b1/';
+        } else {
+          filing.url = `https://ico.org.uk/about-the-ico/our-information/disclosure-log/?q=${encodeURIComponent(ref)}`;
+        }
+      } else if (!filing.url || /^https?:\/\/(?:www\.)?ico\.org\.uk\/?$/i.test(filing.url)) {
+        // Fallback from generic root homepage to the specific public enforcement action portal
+        filing.url = 'https://ico.org.uk/action-weve-taken/enforcement/';
+      }
+
+      // Normalize generic form title
+      if (!filing.form || filing.form === 'Statutory Data Protection Notice') {
+        filing.form = filing.accession_number 
+          ? `UK GDPR Article 33 Statutory Breach Notification (${filing.accession_number})`
+          : 'UK GDPR Article 33 Statutory Breach Notification';
+      }
+    } else if (reg.includes('WASHINGTON') || reg.includes('WA AG') || (filing.url && (filing.url.includes('atg.wa.gov') || filing.url.includes('agportal-s3bucket')))) {
+      // Normalize Washington State AG filings
+      if (filing.regulator !== 'Washington State Attorney General' && filing.regulator !== 'Washington Attorney General') {
+        filing.regulator = 'Washington State Office of the Attorney General';
+      }
+      
+      const milestoneWa = milestones.find(m => m.sourceUrl && (m.sourceUrl.includes('agportal-s3bucket') || m.sourceUrl.includes('/databreach/Breach')));
+      if (milestoneWa && (!filing.url || filing.url.includes('atg.wa.gov') || !filing.url.includes('.pdf'))) {
+        filing.url = milestoneWa.sourceUrl;
+      }
+      if (filing.url && filing.url.includes('/databreach/Breach')) {
+        const idMatch = filing.url.match(/Breach[A-Za-z0-9]+/);
+        if (idMatch && !filing.accession_number) {
+          filing.accession_number = idMatch[0];
+        }
+      }
+      if (!filing.filing_date && milestoneWa && milestoneWa.date) {
+        filing.filing_date = milestoneWa.date;
+      }
+      if (!filing.form || filing.form === 'Consumer Protection Data Breach Notification') {
+        filing.form = filing.accession_number
+          ? `RCW 19.255 Data Breach Notice (${filing.accession_number})`
+          : 'RCW 19.255 Data Breach Notice';
+      }
+    } else if (reg.includes('CALIFORNIA') || reg.includes('CA DOJ') || (filing.url && filing.url.includes('oag.ca.gov'))) {
+      // Normalize California DOJ filings
+      filing.regulator = 'California Department of Justice';
+      
+      const milestoneCa = milestones.find(m => m.sourceUrl && m.sourceUrl.includes('/reports/sb24-'));
+      if (milestoneCa && (!filing.url || filing.url.includes('/list') || filing.url.includes('/reports') && !filing.url.includes('/sb24-'))) {
+        filing.url = milestoneCa.sourceUrl;
+      }
+      if (filing.url && filing.url.includes('/reports/sb24-')) {
+        const idMatch = filing.url.match(/sb24-[0-9]+/);
+        if (idMatch && !filing.accession_number) {
+          filing.accession_number = idMatch[0];
+        }
+      }
+      if (!filing.filing_date && milestoneCa && milestoneCa.date) {
+        filing.filing_date = milestoneCa.date;
+      }
+      if (!filing.form || filing.form === 'Data Security Breach Disclosure Report') {
+        filing.form = filing.accession_number
+          ? `SB-24 Data Breach Notice (${filing.accession_number})`
+          : 'SB-24 Data Breach Notice';
+      }
+    } else if (reg.includes('OREGON') || reg.includes('OR DOJ') || (filing.url && filing.url.includes('justice.oregon.gov'))) {
+      // Normalize Oregon DOJ filings
+      filing.regulator = 'Oregon Department of Justice';
+      const milestoneOr = milestones.find(m => m.sourceUrl && m.sourceUrl.includes('justice.oregon.gov') && m.sourceUrl.includes('id='));
+      if (milestoneOr) {
+        filing.url = milestoneOr.sourceUrl;
+        const idMatch = filing.url.match(/id=([0-9]+)/i);
+        if (idMatch && !filing.accession_number) {
+          filing.accession_number = `OR-DOJ-${idMatch[1]}`;
+        }
+      }
+      if (!filing.form) {
+        filing.form = 'ORS 646A.604 Data Breach Notice';
+      }
+    } else if (reg.includes('HHS') || reg.includes('OCR') || reg.includes('HIPAA')) {
+      filing.regulator = 'HHS OCR';
+      if (!filing.form) filing.form = 'HIPAA Breach Portal Disclosure';
+      const milestoneHhs = milestones.find(m => m.sourceUrl && (m.sourceUrl.includes('hipaajournal.com') || m.sourceUrl.includes('hhs.gov')));
+      if (milestoneHhs && (!filing.url || filing.url.includes('ocrportal.hhs.gov/ocr/breach/breach_report.jsf'))) {
+        filing.url = milestoneHhs.sourceUrl;
+      }
     }
     return filing;
   });
@@ -1293,6 +1397,7 @@ function getRegulatorBadgeClass(regulator = '') {
   if (/\bSEC\b/.test(r) || r.includes('SECURITIES AND EXCHANGE COMMISSION') || r.includes('EDGAR')) return 'reg-pill-sec';
   if (r.includes('CALIFORNIA') || r.includes('WASHINGTON') || r.includes('ATTORNEY GENERAL') || r.includes('STATE AG') || r.includes('OREGON') || r.includes('DOJ')) return 'reg-pill-state';
   if (r.includes('HHS') || r.includes('HIPAA') || r.includes('CIVIL RIGHTS') || r.includes('HEALTH AND HUMAN')) return 'reg-pill-hhs';
+  if (r.includes('ICO') || r.includes('INFORMATION COMMISSIONER')) return 'reg-pill-ico';
   return 'reg-pill-gov';
 }
 
@@ -1301,6 +1406,7 @@ function getRegulatorIcon(regulator = '') {
   if (/\bSEC\b/.test(r) || r.includes('SECURITIES AND EXCHANGE COMMISSION') || r.includes('EDGAR')) return 'fa-solid fa-landmark';
   if (r.includes('CALIFORNIA') || r.includes('WASHINGTON') || r.includes('ATTORNEY GENERAL') || r.includes('STATE AG') || r.includes('OREGON') || r.includes('DOJ')) return 'fa-solid fa-building-columns';
   if (r.includes('HHS') || r.includes('HIPAA') || r.includes('CIVIL RIGHTS') || r.includes('HEALTH AND HUMAN')) return 'fa-solid fa-heart-pulse';
+  if (r.includes('ICO') || r.includes('INFORMATION COMMISSIONER')) return 'fa-solid fa-scale-balanced';
   if (r.includes('CISA') || r.includes('DIRECTIVE') || r.includes('NCSC')) return 'fa-solid fa-shield-halved';
   return 'fa-solid fa-file-contract';
 }

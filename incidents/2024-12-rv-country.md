@@ -16,12 +16,13 @@ tags:
 affected_records: 773
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA31761)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA31761.pdf
     filing_date: 2024-12-20
     description: Official statutory data breach notification submitted by RV Country
       to the Washington State Office of the Attorney General pursuant to RCW
       19.255.010, disclosing unauthorized system access impacting 773 residents.
+    accession_number: BreachA31761
 compromised_data:
   - Authentication Credentials
 ---

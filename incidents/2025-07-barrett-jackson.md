@@ -17,21 +17,23 @@ tags:
 affected_records: 1033
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA34193)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA34193.pdf
     filing_date: 2025-07-31
     description: Official statutory data breach notification submitted by
       Barrett-Jackson to the Washington State Office of the Attorney General
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 1,033 residents.
+    accession_number: BreachA34193
   - regulator: California Department of Justice
-    form: SB-24 Data Breach Notice
+    form: SB-24 Data Breach Notice (sb24-606379)
     url: https://oag.ca.gov/ecrime/databreach/reports/sb24-606379
     filing_date: 2025-07-31
     description: Official statutory data breach notification submitted by
       Barrett-Jackson to the California Department of Justice under California
       Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+    accession_number: sb24-606379
 compromised_data:
   - Authentication Credentials
 ---

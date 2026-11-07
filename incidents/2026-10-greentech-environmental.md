@@ -1,7 +1,7 @@
 ---
 id: 2026-10-greentech-environmental
 target: Greentech Environmental
-domain: https:greentechenv.com
+domain: greentechenv.com
 status: EMERGING
 first_seen: 2026-10-12
 last_updated: 2026-10-12
@@ -27,7 +27,7 @@ Greentech Environmental was listed on the Interlock ransomware extortion leak po
 
 ## Compromised Assets & Data Scope
 
-The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `https:greentechenv.com`.
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `greentechenv.com`.
 
 Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
 

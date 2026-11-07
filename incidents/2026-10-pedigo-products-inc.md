@@ -1,7 +1,7 @@
 ---
 id: 2026-10-pedigo-products-inc
 target: Pedigo Products, Inc.
-domain: https:pedigo-usa.com
+domain: pedigo-usa.com
 status: EMERGING
 first_seen: 2026-10-12
 last_updated: 2026-10-12
@@ -27,7 +27,7 @@ Pedigo Products, Inc. was listed on the Interlock ransomware extortion leak port
 
 ## Compromised Assets & Data Scope
 
-The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `https:pedigo-usa.com`.
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `pedigo-usa.com`.
 
 Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
 

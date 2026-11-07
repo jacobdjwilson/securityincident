@@ -1,7 +1,7 @@
 ---
 id: 2026-10-university-of-new-mexico
 target: University of New Mexico
-domain: universityofnewmexico.com
+domain: unm.edu
 status: ACKNOWLEDGED
 first_seen: 2026-10-26
 last_updated: 2026-11-02
@@ -32,7 +32,7 @@ University of New Mexico was listed on the BYOD ransomware extortion leak portal
 
 ## Compromised Assets & Data Scope
 
-The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `universityofnewmexico.com`.
+The specific volume of affected customer or organizational records remains under active forensic investigation. Primary affected online infrastructure and perimeter domains include `unm.edu`.
 
 Specific classes of compromised records, credentials, or proprietary information continue to be audited through ongoing forensic investigation.
 
@@ -71,6 +71,11 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Cyberattack forces University of New Mexico Health to divert ambulances, cancel appointments
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/27/cyberattack-forces-university-of-new-mexico-health-to-divert-ambulances-cancel-appointments/)
+
+### 2026-10-27 18:50 UTC
+- **Event:** BYOD Ransomware Extortion Portal Publishes Follow-up UNM Listing
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [BYOD Ransomware Leak Site Claim](https://www.ransomware.live/id/VVBEQVRFOiBVTk1AQllPRA==)
 
 ### 2026-10-27 22:07 UTC
 - **Event:** Press Coverage: UNM Health ransomware attack disrupts patient care, surgeries

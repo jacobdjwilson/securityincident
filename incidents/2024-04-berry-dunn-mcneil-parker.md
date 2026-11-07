@@ -16,13 +16,14 @@ tags:
 affected_records: 1888
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachA28878)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA28878.pdf
     filing_date: 2024-04-25
     description: Official statutory data breach notification submitted by Berry,
       Dunn, McNeil & Parker to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 1,888 residents.
+    accession_number: BreachA28878
 compromised_data:
   - Authentication Credentials
 ---

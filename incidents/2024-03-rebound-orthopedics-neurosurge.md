@@ -16,13 +16,14 @@ tags:
 affected_records: 313093
 regulatory_filings:
   - regulator: Washington Attorney General
-    form: RCW 19.255 Data Breach Notice
+    form: RCW 19.255 Data Breach Notice (BreachM17552)
     url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM17552.pdf
     filing_date: 2024-03-07
     description: Official statutory data breach notification submitted by Rebound
       Orthopedics & Neurosurgery to the Washington State Office of the Attorney
       General pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 313,093 residents.
+    accession_number: BreachM17552
 compromised_data:
   - Authentication Credentials
 ---
