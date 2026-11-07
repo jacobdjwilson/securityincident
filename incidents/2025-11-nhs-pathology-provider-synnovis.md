@@ -3,7 +3,7 @@ id: 2025-11-nhs-pathology-provider-synnovis
 target: NHS Pathology Provider Synnovis
 domain: nhspathologyprovidersynnovis.com
 status: CONFIRMED
-first_seen: 2025-11-12
+first_seen: 2024-06-21
 last_updated: 2025-11-12
 threat_actor: null
 summary: Healthcare data breach disclosure submitted to federal regulators by
@@ -14,6 +14,7 @@ tags:
   - hhs-ocr
   - healthcare
   - confirmed
+  - developing
 industry: Healthcare
 incident_type: Protected Health Information (PHI) Breach
 compromised_data:
@@ -25,11 +26,11 @@ regulatory_filings:
     accession_number: IC-322233-D9N6
     filing_date: 2024-06-07
     url: https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/
-    description: Statutory personal data breach notification and regulatory investigation
-      casework registered with the UK Information Commissioner's Office (ICO) under
-      Reference IC-322233-D9N6 pursuant to Article 33 of the UK GDPR concerning the
-      ransomware extortion incident impacting Synnovis pathology services and partner
-      NHS England health services.
+    description: Statutory personal data breach notification and regulatory
+      investigation casework registered with the UK Information Commissioner's
+      Office (ICO) under Reference IC-322233-D9N6 pursuant to Article 33 of the
+      UK GDPR concerning the ransomware extortion incident impacting Synnovis
+      pathology services and partner NHS England health services.
   - regulator: HHS OCR
     form: HIPAA Breach Portal Disclosure
     url: https://www.hipaajournal.com/care-disrupted-at-london-hospitals-due-to-ransomware-attack-on-pathology-vendor/
@@ -70,3 +71,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** HHS OCR Healthcare Data Breach Disclosure: NHS Pathology Provider Synnovis Notifies Organizations Affected by June 2024 Ransomware Attack
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [HHS OCR Regulatory Healthcare Breach Report](https://www.hipaajournal.com/care-disrupted-at-london-hospitals-due-to-ransomware-attack-on-pathology-vendor/)
+
+### 2024-06-21 07:00 UTC
+- **Event:** Statement in response to Synnovis cyber attack - ICO
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [ICO Report](https://news.google.com/rss/articles/CBMitwFBVV95cUxQN3JvNGw3cnpUNkJpYkxhQ3lPd2tSaHk1UlRSdjdJRTJfME1tYl9BMzU5Mkh1SEpmcko4dVFtZk5wQ3VYRm03ejRQbzNJUHdKeGZ2cHFIZXhfVFJJNUxZUk1qWVpUREh1SzJvMzAzdnJJQzU1OTdEd0dFcEVsSkhtNkRuczIwZEducTN5NzBMcHVacWV2T2pBa2YyNGRuZjY2dTV6Nm1UdlFqZlZIdTVyYnRubFhuekk?oc=5)
