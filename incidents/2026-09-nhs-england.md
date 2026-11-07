@@ -4,7 +4,7 @@ target: NHS England
 domain: nhs.uk
 status: DEVELOPING
 first_seen: 2026-09-27
-last_updated: 2026-10-18
+last_updated: 2026-11-07
 threat_actor: Qilin
 summary: Disclosed a confirmed ransomware extortion incident involving the Qilin
   collective that breached NHS England core operational servers and cloud
@@ -16,6 +16,7 @@ tags:
   - investigative
   - developing
   - media-pickup
+  - threat-intel
 industry: Healthcare
 incident_type: Ransomware Extortion
 affected_records: 3000000
@@ -66,3 +67,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: More NHS staff sacked for accessing records of Nottingham stabbing victims
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [DataBreaches.net Report](https://databreaches.net/2026/10/18/more-nhs-staff-sacked-for-accessing-records-of-nottingham-stabbing-victims/)
+
+### 2026-11-07 10:30 UTC
+- **Event:** Press Coverage: NHS breach helpline left staff carrying a 'significant emotional burden'
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/07/nhs-breach-helpline-left-staff-carrying-a-significant-emotional-burden/5308201)
