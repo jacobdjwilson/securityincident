@@ -81,3 +81,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Ukrainian news outlet Kyiv Independent hit by suspected Russian cyberattack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/ukraine-kyiv-independent-cyberattack)
+
+### 2026-11-02 16:15 UTC
+- **Event:** Mainstream Media Pickup: Hacked emergency alert apps spread fear in Ukraine and Russia
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5JM0VNMlRuUTV3SnVzUWE2bzJLRWlhcWlHbUczOUg5bk5Nc2otWHZJT29rVWxyaF9lZzlfUG9rNGt0NFhOZ0N5OWxUdGs2WjZ1T1FpTjlXa2Z1aEc5LW14ZjkxdlRLYVU?oc=5)
