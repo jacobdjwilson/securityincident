@@ -4,7 +4,7 @@ target: Brenner Base Tunnel
 domain: brennerbasetunnel.com
 status: EMERGING
 first_seen: 2026-10-17
-last_updated: 2026-10-17
+last_updated: 2026-11-08
 threat_actor: Everest
 summary: Brenner Base Tunnel was listed on the Everest ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -14,6 +14,8 @@ tags:
   - ransomware-claim
   - everest
   - emerging
+  - threat-intel
+  - media-pickup
 industry: Transportation
 compromised_data:
   - Authentication Credentials
@@ -41,3 +43,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Brenner Base Tunnel Listed on Everest Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Everest Ransomware Leak Site Claim](https://www.ransomware.live/id/QnJlbm5lciBCYXNlIFR1bm5lbEBldmVyZXN0)
+
+### 2026-11-08 17:46 UTC
+- **Event:** Press Coverage: Don’t Hand Propaganda a Gift: Reading the Brenner Base Tunnel SE Breach Calmly
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202691/cyber-crime/dont-hand-propaganda-a-gift-reading-the-brenner-base-tunnel-se-breach-calmly.html)

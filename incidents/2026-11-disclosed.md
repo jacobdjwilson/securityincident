@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-05
+last_updated: 2026-11-08
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -59,3 +59,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Cyberattack on Norway’s aid agency may have swept up all user data
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/05/norad-grants-portal-breach/)
+
+### 2026-11-08 15:43 UTC
+- **Event:** Press Coverage: Iris Ohyama data cloud breach exposes info of 7.7 million customers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/iris-ohyama-data-cloud-breach-exposes-info-of-77-million-customers/)
