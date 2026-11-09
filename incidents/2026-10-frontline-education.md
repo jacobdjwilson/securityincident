@@ -4,7 +4,7 @@ target: Frontline Education
 domain: frontlineeducation.com
 status: CONFIRMED
 first_seen: 2026-10-05
-last_updated: 2026-11-03
+last_updated: 2026-11-09
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Frontline Education.
@@ -84,3 +84,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43502.pdf)
+
+### 2026-11-09 10:09 UTC
+- **Event:** Press Coverage: Over 3 Million People Hit by Frontline Education Data Breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/3-million-people-hit-by-frontline-education-data-breach/)

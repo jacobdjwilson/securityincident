@@ -4,7 +4,7 @@ target: NHS England
 domain: nhs.uk
 status: CONFIRMED
 first_seen: 2024-06-07
-last_updated: 2026-11-07
+last_updated: 2026-11-09
 threat_actor: Qilin
 summary: Disclosed a confirmed ransomware extortion incident involving the Qilin
   collective that breached NHS England core operational servers and cloud
@@ -22,6 +22,7 @@ tags:
   - developing
   - media-pickup
   - threat-intel
+  - general-media
 industry: Healthcare
 incident_type: Ransomware Extortion
 affected_records: 3000000
@@ -36,13 +37,13 @@ regulatory_filings:
     accession_number: IC-322233-D9N6
     filing_date: 2024-06-07
     url: https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/
-    description: Statutory personal data breach notification and regulatory investigation
-      record submitted to the UK Information Commissioner's Office (ICO) under
-      Reference IC-322233-D9N6 pursuant to Article 33 of the UK GDPR. Documents the
-      cyber-attack and unauthorized data exfiltration affecting Synnovis pathology
-      services and partner NHS England trusts, compromising patient blood test
-      results, pathology diagnostic reports, and protected health identifiers for
-      approximately 3,000,000 records.
+    description: Statutory personal data breach notification and regulatory
+      investigation record submitted to the UK Information Commissioner's Office
+      (ICO) under Reference IC-322233-D9N6 pursuant to Article 33 of the UK
+      GDPR. Documents the cyber-attack and unauthorized data exfiltration
+      affecting Synnovis pathology services and partner NHS England trusts,
+      compromising patient blood test results, pathology diagnostic reports, and
+      protected health identifiers for approximately 3,000,000 records.
 ---
 
 ## Incident Overview
@@ -89,3 +90,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: NHS breach helpline left staff carrying a 'significant emotional burden'
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/07/nhs-breach-helpline-left-staff-carrying-a-significant-emotional-burden/5308201)
+
+### 2026-11-09 06:00 UTC
+- **Event:** Mainstream Media Pickup: British people don’t trust Palantir – it’s not too late to reverse the NHS’s dependence on it | Ben Coleman
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/commentisfree/2026/nov/09/british-people-palantir-nhs-health-data-us-tech-firm)

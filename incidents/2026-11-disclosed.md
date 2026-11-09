@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-08
+last_updated: 2026-11-09
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -17,6 +17,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - investigative
 industry: Other
 compromised_data:
   - Authentication Credentials
@@ -64,3 +65,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Iris Ohyama data cloud breach exposes info of 7.7 million customers
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/iris-ohyama-data-cloud-breach-exposes-info-of-77-million-customers/)
+
+### 2026-11-09 14:06 UTC
+- **Event:** Press Coverage: Weill Cornell patient data entered into AI tools without authorization
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/09/weill-cornell-patient-data-entered-into-ai-tools-without-authorization/)
+
+### 2026-11-09 14:15 UTC
+- **Event:** Press Coverage: Alleged AI-aided cyberattack exploits assistant interface to breach German web host
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/cyberattack-germany-ai-mittwald)
+
+### 2026-11-09 10:03 UTC
+- **Event:** Press Coverage: $133 million stolen from French bank via exploited service provider
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/09/credit-mutuel-arkea-cyberattack-133-million/)

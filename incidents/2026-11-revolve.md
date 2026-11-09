@@ -4,7 +4,7 @@ target: Revolve
 domain: revolve.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-02
+last_updated: 2026-11-09
 threat_actor: null
 summary: Hackers accessed its online shopping platform and stole customers’
   personal and payment card information. The post Revolve Data Breach Impacts at
@@ -12,6 +12,7 @@ summary: Hackers accessed its online shopping platform and stole customers’
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Financial & Banking Data
   - Authentication Credentials
@@ -39,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Revolve Data Breach Impacts at Least 180,000 People
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/revolve-data-breach-impacts-at-least-180000-people/)
+
+### 2026-11-09 14:08 UTC
+- **Event:** Press Coverage: Revolve Puts Data Breach Victim Count at 1.5 Million
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/revolve-puts-data-breach-victim-count-at-1-5-million/)

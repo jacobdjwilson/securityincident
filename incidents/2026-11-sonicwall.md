@@ -4,7 +4,7 @@ target: SonicWall
 domain: sonicwall.com
 status: DEVELOPING
 first_seen: 2026-09-02
-last_updated: 2026-11-07
+last_updated: 2026-11-09
 threat_actor: null
 summary: SonicWall has released security updates to fix seven vulnerabilities in
   SonicOS firewalls, including an SSL-VPN authentication bypass flaw exploited
@@ -65,3 +65,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Hackers Chain Two New SonicWall Zero-Day Vulnerabilities
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/hackers-chain-sonicwall-zeroday/)
+
+### 2026-11-09 06:05 UTC
+- **Event:** Press Coverage: CISA Flags SonicWall SonicOS MFA Bypass Flaw Amid Reports of Possible Exploitation
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/cisa-flags-sonicwall-sonicos-mfa-bypass.html)
+
+### 2026-11-09 10:30 UTC
+- **Event:** Press Coverage: Exploited SonicWall SSL-VPN flaw lets attackers bypass SAML-enforced MFA (CVE-2026-19868)
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/09/exploited-sonicwall-ssl-vpn-flaw-lets-attackers-bypass-saml-enforced-mfa-cve-2026-19868/)

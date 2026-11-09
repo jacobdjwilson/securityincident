@@ -4,7 +4,7 @@ target: Student
 domain: student.com
 status: ACKNOWLEDGED
 first_seen: 2026-11-04
-last_updated: 2026-11-04
+last_updated: 2026-11-09
 threat_actor: null
 summary: "Iceland Review reports: A security breach affected Inna, the
   student-information system used by Icelandic upper-secondary schools. It
@@ -13,6 +13,9 @@ summary: "Iceland Review reports: A security breach affected Inna, the
 tags:
   - investigative
   - acknowledged
+  - general-media
+  - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +42,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Student Data Breach Affects Up to 16 Icelandic Schools
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/04/student-data-breach-affects-up-to-16-icelandic-schools/)
+
+### 2026-11-09 14:00 UTC
+- **Event:** Mainstream Media Pickup: Parents and teachers decry Google pledge to yank Search if schools block AI: ‘This threat is nothing but extortion’
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/us-news/2026/nov/09/parents-teachers-google-search-schools-ai)
