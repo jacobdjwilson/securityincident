@@ -16,6 +16,7 @@ tags:
   - threat-intel
   - media-pickup
   - developing
+  - washington
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice (sb24-632268)
@@ -26,8 +27,17 @@ regulatory_filings:
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
     accession_number: sb24-632268
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA43628)
+    accession_number: BreachA43628
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43628.pdf
+    filing_date: 2026-11-04
+    description: Official statutory data breach notification submitted by DreamHost
+      to the Washington State Office of the Attorney General pursuant to RCW
+      19.255.010, disclosing unauthorized system access impacting 871 residents.
 compromised_data:
   - Authentication Credentials
+affected_records: 871
 ---
 
 ## Incident Overview
@@ -62,3 +72,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: ThreatsDay: Apache OFBiz RCE, DreamHost Breach, DeFi Site Hijacks + 17 More Stories
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/threatsday-apache-ofbiz-rce-dreamhost.html)
+
+### 2026-11-04 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43628.pdf)

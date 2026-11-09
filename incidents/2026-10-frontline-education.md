@@ -17,6 +17,7 @@ tags:
   - developing
   - media-pickup
   - investigative
+  - washington
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice (sb24-631925)
@@ -27,8 +28,18 @@ regulatory_filings:
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
     accession_number: sb24-631925
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA43502)
+    accession_number: BreachA43502
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43502.pdf
+    filing_date: 2026-10-27
+    description: Official statutory data breach notification submitted by Frontline
+      Education to the Washington State Office of the Attorney General pursuant
+      to RCW 19.255.010, disclosing unauthorized system access impacting 40,494
+      residents.
 compromised_data:
   - Authentication Credentials
+affected_records: 40494
 ---
 
 ## Incident Overview
@@ -68,3 +79,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Frontline Education Data Breach Impacts Over 1.3 Million
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/frontline-education-data-breach-impacts-over-1-3-million/)
+
+### 2026-10-27 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43502.pdf)
