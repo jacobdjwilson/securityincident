@@ -4,8 +4,8 @@ target: Providence
 domain: providence.com
 status: CONFIRMED
 first_seen: 2026-04-16
-last_updated: 2026-04-16
-threat_actor: null
+last_updated: 2026-11-10
+threat_actor: BYOD
 summary: Washington State Attorney General formal data breach disclosure notice
   filed by Providence affecting 838 residents.
 tags:
@@ -14,6 +14,10 @@ tags:
   - washington
   - confirmed
   - california
+  - extortion
+  - ransomware-claim
+  - byod
+  - emerging
 affected_records: 838
 regulatory_filings:
   - regulator: Washington Attorney General
@@ -35,6 +39,7 @@ regulatory_filings:
     accession_number: sb24-621858
 compromised_data:
   - Authentication Credentials
+industry: Healthcare
 ---
 
 ## Incident Overview
@@ -64,3 +69,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-621858)
+
+### 2026-11-10 18:21 UTC
+- **Event:** Providence Listed on BYOD Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [BYOD Ransomware Leak Site Claim](https://www.ransomware.live/id/UHJvdmlkZW5jZUBCWU9E)

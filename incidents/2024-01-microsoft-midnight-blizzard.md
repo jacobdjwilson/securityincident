@@ -174,6 +174,29 @@ vendor_advisories:
       trust in certificates tied to compromised eMudhra certificate authority
       keys, protecting systems that do not receive automatic certificate trust
       updates. [...]
+  - publisher: Microsoft
+    advisory_id: Microsoft November 2026 Patch Tuesday fixes 1,235 flaws, Out
+    title: Microsoft November 2026 Patch Tuesday fixes 1,235 flaws, Outlook zero-day
+    severity: Critical
+    release_date: 2026-11-10
+    cve_ids: []
+    url: https://www.bleepingcomputer.com/news/microsoft/microsoft-november-2026-patch-tuesday-fixes-1-235-flaws-outlook-zero-day/
+    description: Today is Microsoft's November 2026 Patch Tuesday, with security
+      updates addressing a record-breaking 1,235 flaws, including one actively
+      exploited Microsoft Outlook zero-day vulnerability. [...]
+  - publisher: Microsoft
+    advisory_id: Microsoft Fixes Nearly 1,100 Security Vulnerabilities
+    title: Microsoft Fixes Nearly 1,100 Security Vulnerabilities
+    severity: Critical
+    release_date: 2026-11-10
+    cve_ids: []
+    url: https://krebsonsecurity.com/2026/11/microsoft-fixes-nearly-1100-security-vulnerabilities/
+    description: Microsoft did another four-digit patch drop today, releasing
+      updates to fix almost 1,100 security vulnerabilities in its Windows
+      operating systems and supported software. This month's Patch Tuesday
+      addresses 63 critical flaws -- including a zero-day in Microsoft Outlook
+      -- and comes amid important security updates from other software makers,
+      including Adobe, Apple, Google and Mozilla.
 summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
   group Midnight Blizzard (APT29), accessing senior leadership corporate emails
   and source code.
@@ -192,10 +215,12 @@ tags:
   - cve-2026-96951
   - cve-2026-104935
   - cve-2026-80097
+  - cve-2026-124194
 cve_ids:
   - CVE-2026-96951
   - CVE-2026-104935
   - CVE-2026-80097
+  - CVE-2026-124194
 agency_advisories:
   - agency: CISA Cybersecurity Advisories
     advisory_id: CISA Adds Two Known Exploited Vulnerabilities to Catalog
@@ -455,3 +480,28 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Turla's Cereal malware turns victims' Exchange servers into spy hubs
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/10/eset-turla-exchange-malware/)
+
+### 2026-11-10 19:07 UTC
+- **Event:** Press Coverage: Microsoft November 2026 Patch Tuesday fixes 1,235 flaws, Outlook zero-day
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/microsoft/microsoft-november-2026-patch-tuesday-fixes-1-235-flaws-outlook-zero-day/)
+
+### 2026-11-10 20:55 UTC
+- **Event:** Press Coverage: Microsoft’s Patch Tuesday surpasses 1,000 bugs for second month in a row
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/patch-tuesday-microsoft-1000-bugs-again)
+
+### 2026-11-10 21:55 UTC
+- **Event:** Press Coverage: Microsoft Fixes Nearly 1,100 Security Vulnerabilities
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Krebs on Security Report](https://krebsonsecurity.com/2026/11/microsoft-fixes-nearly-1100-security-vulnerabilities/)
+
+### 2026-11-10 19:19 UTC
+- **Event:** Press Coverage: Exploited Outlook Zero-Day Among 1,094 Flaws Patched by Microsoft
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/exploited-outlook-zero-day-among-1094-flaws-patched-by-microsoft/)
+
+### 2026-11-10 22:37 UTC
+- **Event:** Press Coverage: November Patch Tuesday boasts over 1,000 bugs but only one zero-day so far
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/10/november-patch-tuesday-boasts-over-1000-bugs-but-only-one-zero-day-so-far/5308946)

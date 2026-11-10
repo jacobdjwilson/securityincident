@@ -18,9 +18,14 @@ tags:
   - developing
   - media-pickup
   - investigative
+  - cve-2026-105133
+  - cve-2026-105134
 industry: Other
 compromised_data:
   - Authentication Credentials
+cve_ids:
+  - CVE-2026-105133
+  - CVE-2026-105134
 ---
 
 ## Incident Overview
@@ -95,3 +100,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Iris Ohyama data breach may expose personal information of 7.7 million people
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202740/data-breach/iris-ohyama-data-breach-may-expose-personal-information-of-7-7-million-people.html)
+
+### 2026-11-10 20:39 UTC
+- **Event:** Press Coverage: Near AI Breach Exposes User Details and Data From 18 AI Agents
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/10/near-ai-breach-exposes-user-details-and-data-from-18-ai-agents/)
+
+### 2026-11-10 16:00 UTC
+- **Event:** Press Coverage: Attackers Exploit AhsayCBS Flaws to Deploy Sandbox-Evading Python Backdoor
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/attackers-exploit-ahsaycbs-flaws-to.html)
+
+### 2026-11-10 15:33 UTC
+- **Event:** Press Coverage: Fireworks AI Confirms Wider Breach Affecting Customer Datasets, Model Weights and Notion AI Chats
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/fireworks-ai-breach-widens-to-expose.html)

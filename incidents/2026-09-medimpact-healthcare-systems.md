@@ -4,7 +4,7 @@ target: MedImpact Healthcare Systems
 domain: medimpacthealthcaresystems.com
 status: CONFIRMED
 first_seen: 2026-09-25
-last_updated: 2026-09-25
+last_updated: 2026-09-26
 threat_actor: Unknown / Unattributed
 summary: State of California Department of Justice data breach disclosure notice
   filed by MedImpact Healthcare Systems.
@@ -13,6 +13,7 @@ tags:
   - state-ag
   - california
   - confirmed
+  - washington
 industry: Healthcare
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: 327082
@@ -30,6 +31,15 @@ regulatory_filings:
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
     accession_number: sb24-630343
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA43016)
+    accession_number: BreachA43016
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43016.pdf
+    filing_date: 2026-09-26
+    description: Official statutory data breach notification submitted by MedImpact
+      Healthcare Systems to the Washington State Office of the Attorney General
+      pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 3,926 residents.
 ---
 
 ## Incident Overview
@@ -55,3 +65,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Disclosure Notice
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-630343)
+
+### 2026-09-26 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43016.pdf)

@@ -16,6 +16,7 @@ tags:
   - investigative
   - developing
   - media-pickup
+  - washington
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice (sb24-632484)
@@ -26,8 +27,18 @@ regulatory_filings:
       to the California Department of Justice under California Civil Code §
       1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachM26199)
+    accession_number: BreachM26199
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM26199.pdf
+    filing_date: 2026-11-05
+    description: Official statutory data breach notification submitted by Amplifon
+      to the Washington State Office of the Attorney General pursuant to RCW
+      19.255.010, disclosing unauthorized system access impacting 8,491
+      residents.
 compromised_data:
   - Authentication Credentials
+affected_records: 8491
 ---
 
 ## Incident Overview
@@ -57,3 +68,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Data breach at hearing aid giant Amplifon impacts thousands
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/amplifon-hearing-aid-company-data-breach)
+
+### 2026-11-05 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachM26199.pdf)
