@@ -16,6 +16,8 @@ tags:
   - general-media
   - developing
   - media-pickup
+  - threat-intel
+  - emerging
 compromised_data:
   - Authentication Credentials
 ---
@@ -47,3 +49,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Parents and teachers decry Google pledge to yank Search if schools block AI: ‘This threat is nothing but extortion’
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/us-news/2026/nov/09/parents-teachers-google-search-schools-ai)
+
+### 2026-11-09 23:52 UTC
+- **Event:** Press Coverage: Vanderbilt University hit in BYOD ransomware attack, data theft claimed
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/vanderbilt-university-hit-in-byod-ransomware-attack-data-theft-claimed/)

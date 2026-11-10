@@ -4,7 +4,7 @@ target: Ufp Technologies
 domain: ufptechnologies.com
 status: CONFIRMED
 first_seen: 2026-02-24
-last_updated: 2026-02-24
+last_updated: 2026-11-05
 threat_actor: null
 summary: Official SEC Form 8-K Item 1.05 disclosure filed by Ufp Technologies
   regarding a material cybersecurity incident.
@@ -12,6 +12,8 @@ tags:
   - regulatory
   - sec-8k
   - confirmed
+  - state-ag
+  - california
 regulatory_filings:
   - regulator: SEC
     form: Form 8-K Item 1.05
@@ -34,9 +36,17 @@ regulatory_filings:
       Cautionary Statement Regarding Forward-Looking Statements
 
       This Current Report on Form 8-K contains statements about future events and expectations which are "forward-looking statements" within the meaning of Sections 27A of the Securities Act of 1933, as amended, and 21E of the Securities Exchange Act of 1934, as amended. Forward-looking statements can be identified by forward-looking words such as "may," "might," "could," "would," "should," "will," "anticipate," "believe," "plan," "estimate," "project," "expect," "intend," "seek," "are encouraged," and other similar expressions. Any statement contained in this Current Report on Form 8-K that is not a statement of historical fact may be deemed to be a forward-looking statement. All forward-looking statements involve risks, uncertainties and other factors that may cause actual results to differ materially from those expressed or implied in the forward-looking statements. For example, all statements regarding the impact of the incident described above on the Company and its operations, financial systems, or financial condition, the scope of the investigation, expectations regarding the adequacy of insurance, the Company's plans, objectives, projections and expectations regarding the Company's operations or financial condition, and assumptions related thereto are all forward-looking statements. Factors that might cause the Company's actual results to differ materially from those anticipated in forward-looking statements include, but are not limited to, the Company's ongoing assessment of the impacts of the cybersecurity incident, including the Company's potential discovery of additional information related to the incident in connection with its investigation or otherwise; the Company's expectations regarding its ability to contain and remediate the cybersecurity incident; the impact of the cybersecurity incident on the Company's relationships with customers, employees, and governmental regulators; the legal, reputational, and financial risks resulting from the cybersecurity incident, including as may arise from the exfiltrated data or any potential regulatory inquiries and/or litigation to which the Company may become subject in connection with the incident; any further or still undetected cyber security incident; and remediation and other additional costs that may be incurred by the Company in connection with the investigation and remediation of the incident. The forward-looking statements speak only as of the date of this Current Report on Form 8-K. The Company undertakes no obligation to publicly update or revise any forward-looking statements, whether as a result of new information, future events, or otherwise, except as required by applicable law. For additional information on identifying factors that may cause actual results to vary materially from those stated in forward-looking statements, see the Company's Annual Report on Form 10-K for the fiscal year ended December 31, 2024, and the Company's subsequent filings with the Securities and Exchange Commission.
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice (sb24-632469)
+    accession_number: sb24-632469
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-632469
+    filing_date: 2026-11-05
+    description: Official statutory data breach notification submitted by UFP
+      Technologies to the California Department of Justice under California
+      Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 incident_type: Material Cybersecurity Incident
 ---
-
 
 ## Incident Overview
 
@@ -61,3 +71,7 @@ Specific classes of compromised records, infrastructure, or operational systems 
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Filing (0001628280-26-011152)](https://www.sec.gov/Archives/edgar/data/914156/000162828026011152/0001628280-26-011152-index.htm)
 
+### 2026-11-05 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-632469)

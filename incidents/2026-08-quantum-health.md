@@ -16,7 +16,7 @@ tags:
   - california
 industry: Healthcare
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 15321
 compromised_data:
   - Social Security Numbers (SSNs)
   - Protected Health Information (PHI)
@@ -46,6 +46,15 @@ regulatory_filings:
       § 1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
     accession_number: sb24-628342
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA42356)
+    accession_number: BreachA42356
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA42356.pdf
+    filing_date: 2026-10-27
+    description: Official statutory data breach notification submitted by Quantum
+      Health to the Washington State Office of the Attorney General pursuant to
+      RCW 19.255.010, disclosing unauthorized system access impacting 15,321
+      residents.
 ---
 
 ## Incident Overview
@@ -81,3 +90,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631987)
+
+### 2026-10-27 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43518.pdf)

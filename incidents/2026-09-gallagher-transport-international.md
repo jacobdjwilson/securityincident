@@ -13,9 +13,10 @@ tags:
   - state-ag
   - california
   - confirmed
+  - washington
 industry: Transportation & Logistics
 incident_type: Network Intrusion & Data Exfiltration
-affected_records: null
+affected_records: 1554
 compromised_data:
   - Personal Identifiable Information (PII)
   - Corporate Contact Records
@@ -28,6 +29,15 @@ regulatory_filings:
       California Civil Code § 1798.82 (SB-24), disclosing unauthorized access to
       personal identifiable information of California residents.
     accession_number: sb24-630300
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA43005)
+    accession_number: BreachA43005
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43005.pdf
+    filing_date: 2026-09-25
+    description: Official statutory data breach notification submitted by Gallagher
+      Transport International to the Washington State Office of the Attorney
+      General pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 1,554 residents.
 ---
 
 ## Incident Overview
@@ -53,3 +63,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Disclosure Notice
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-630300)
+
+### 2026-09-25 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43005.pdf)

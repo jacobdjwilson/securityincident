@@ -80,3 +80,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: $133 million stolen from French bank via exploited service provider
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/09/credit-mutuel-arkea-cyberattack-133-million/)
+
+### 2026-11-09 17:51 UTC
+- **Event:** Press Coverage: Hackers Exploit Qubole's Trusted AWS Access to Breach Customer Accounts and Steal Data
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/hackers-exploit-quboles-trusted-aws.html)

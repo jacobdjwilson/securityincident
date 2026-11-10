@@ -4,7 +4,7 @@ target: Park Dental Partners
 domain: parkdental.com
 status: CONFIRMED
 first_seen: 2026-09-01
-last_updated: 2026-10-13
+last_updated: 2026-11-05
 threat_actor: Akira
 summary: Dental support organization Park Dental Partners filed Form 8-K Item
   1.05 disclosing network disruption and forensic containment efforts.
@@ -13,6 +13,8 @@ tags:
   - sec-8k
   - healthcare
   - confirmed
+  - state-ag
+  - california
 industry: Healthcare
 incident_type: Network Intrusion & Ransomware
 affected_records: 62000
@@ -138,6 +140,15 @@ regulatory_filings:
       To the extent additional information becomes available that could affect
       the Company's assessment of the incident and its impact, the Company will
       update this disclosure in a timely manner.
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice (sb24-632486)
+    accession_number: sb24-632486
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-632486
+    filing_date: 2026-11-05
+    description: Official statutory data breach notification submitted by Park
+      Dental Partners to the California Department of Justice under California
+      Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 ---
 
 ## Incident Overview
@@ -168,3 +179,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** SEC Form 8-K Item 1.05 Material Cybersecurity Incident Filing
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [SEC EDGAR 8-K Item 1.05 Filing (0001104659-26-115541)](https://www.sec.gov/Archives/edgar/data/2069604/000110465926115541/0001104659-26-115541-index.htm)
+
+### 2026-11-05 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-632486)
