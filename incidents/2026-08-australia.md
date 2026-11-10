@@ -4,7 +4,7 @@ target: Australia
 domain: australia.com
 status: DEVELOPING
 first_seen: 2026-08-25
-last_updated: 2026-10-29
+last_updated: 2026-11-10
 threat_actor: null
 summary: Australian officials are urging TeamCity customers to patch an actively
   exploited critical flaw, which follows a similar warning from the US
@@ -81,3 +81,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Australia's Star Entertainment fined $183 million for anti-money laundering law breaches
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixAFBVV95cUxOdDEzR2l3NGVCMzJiSjBNdGx1NGE1eGN6LUczbUNBb241T0FCU2hKU2FvMDZUbmdMdEVrLXViTzBzWE5udE1TMWkzZjQ0T1JIRmc4Wjh1YURLeW16eE1pX3gwdlhCSkJmRFUtd2Jhd0h3d0R2Sm1VZ3hSWW9CTTl1SDRfbWt2ZnNwcEwtazZCTjZUSEN1a1JJZk5DdElhNlptM3dSa0xZWUQ1eGotcEVtckd6c1dGVXp2LVVyWWM4azRpZnBX?oc=5)
+
+### 2026-11-10 12:47 UTC
+- **Event:** Press Coverage: Australia to introduce mandatory reporting after OpenAI hack to combat artificial intelligence ‘going rogue’
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/10/australia-to-introduce-mandatory-reporting-after-openai-hack-to-combat-artificial-intelligence-going-rogue/)
+
+### 2026-11-10 05:29 UTC
+- **Event:** Mainstream Media Pickup: Mandatory AI safety and security protections announced after OpenAI breach of Medicare – video
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/australia-news/video/2026/nov/10/mandatory-ai-safety-and-security-protections-announced-after-openai-breach-of-medicare-video)

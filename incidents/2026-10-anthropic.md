@@ -4,7 +4,7 @@ target: Anthropic
 domain: anthropic.com
 status: DEVELOPING
 first_seen: 2026-08-06
-last_updated: 2026-10-30
+last_updated: 2026-11-10
 threat_actor: null
 summary: Anthropic's latest research adds to the growing safety concerns around
   AI from the ability for models to carry out cyberattacks to the technology
@@ -76,3 +76,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Anthropic: That Claude Code extension compromise… couldn't be us
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Register Security Report](https://www.theregister.com/cyber-crime/2026/10/30/anthropic-that-claude-code-extension-compromise-couldnt-be-us/5306682)
+
+### 2026-11-10 08:16 UTC
+- **Event:** Press Coverage: Anthropic's Claude Fable 5.2 Beats GPT-6 Cyber in Multi-Stage Cyberattack Benchmark
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html)

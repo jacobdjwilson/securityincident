@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-06
+last_updated: 2026-11-10
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -445,3 +445,13 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: November 2026 Patch Tuesday forecast: Old software continues to bite
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/06/november-2026-patch-tuesday-forecast/)
+
+### 2026-11-10 10:00 UTC
+- **Event:** Press Coverage: Russian Turla group used new toolset to silently pilfer emails from Kazakhstan, Romanian governments
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CyberScoop Report](https://cyberscoop.com/russian-turla-group-used-new-toolset-to-silently-pilfer-emails-from-kazakhstan-romanian-governments/)
+
+### 2026-11-10 10:00 UTC
+- **Event:** Press Coverage: Turla's Cereal malware turns victims' Exchange servers into spy hubs
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/10/eset-turla-exchange-malware/)

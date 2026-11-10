@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-09
+last_updated: 2026-11-10
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -85,3 +85,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Hackers Exploit Qubole's Trusted AWS Access to Breach Customer Accounts and Steal Data
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/hackers-exploit-quboles-trusted-aws.html)
+
+### 2026-11-10 07:49 UTC
+- **Event:** Press Coverage: Fireworks AI discloses new breach after cloud provider hack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/fireworks-ai-discloses-new-breach-after-cloud-provider-hack/)
+
+### 2026-11-10 06:28 UTC
+- **Event:** Press Coverage: Iris Ohyama data breach may expose personal information of 7.7 million people
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202740/data-breach/iris-ohyama-data-breach-may-expose-personal-information-of-7-7-million-people.html)
