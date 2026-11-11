@@ -4,7 +4,7 @@ target: Student
 domain: student.com
 status: ACKNOWLEDGED
 first_seen: 2026-11-04
-last_updated: 2026-11-09
+last_updated: 2026-11-11
 threat_actor: null
 summary: "Iceland Review reports: A security breach affected Inna, the
   student-information system used by Icelandic upper-secondary schools. It
@@ -54,3 +54,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Vanderbilt University hit in BYOD ransomware attack, data theft claimed
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/vanderbilt-university-hit-in-byod-ransomware-attack-data-theft-claimed/)
+
+### 2026-11-11 15:21 UTC
+- **Event:** Press Coverage: Ca: York University Breach Exposes 19 Years of Student Health and Financial Data
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/11/ca-york-university-breach-exposes-19-years-of-student-health-and-financial-data/)

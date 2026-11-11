@@ -120,3 +120,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: N-able releases security hotfixes for zero-day vulnerabilities
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/n-able-releases-security-hotfixes-for-zero-day-vulnerabilities/)
+
+### 2026-11-11 20:54 UTC
+- **Event:** Press Coverage: Notion says Fireworks breach exposed customer AI chat transcripts
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/notion-says-fireworks-breach-exposed-customer-ai-chat-transcripts/)
+
+### 2026-11-11 15:34 UTC
+- **Event:** Press Coverage: AntiFox AI Pentesting Platform Linked to Attacks That Accessed AWS Production Secrets
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/antifox-ai-pentesting-platform-linked.html)

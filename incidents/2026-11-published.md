@@ -4,7 +4,7 @@ target: Published
 domain: published.com
 status: DEVELOPING
 first_seen: 2026-09-07
-last_updated: 2026-11-09
+last_updated: 2026-11-11
 threat_actor: PixelLeaks
 summary: Published was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -20,6 +20,15 @@ tags:
 industry: Technology
 compromised_data:
   - Authentication Credentials
+vendor_advisories:
+  - publisher: Published
+    advisory_id: N-able Rushes Out N-central Fixes After 33 Zero-Days Go Publ
+    title: N-able Rushes Out N-central Fixes After 33 Zero-Days Go Public
+    severity: Critical
+    release_date: 2026-11-11
+    cve_ids: []
+    url: https://www.infosecurity-magazine.com/news/n-able-n-central-able2shell-0day/
+    description: N-able fixes seven N-central CVEs after 33 alleged zero-days are published
 ---
 
 ## Incident Overview
@@ -54,3 +63,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Rhysida Publishes Berlin Government Data After €2m Extortion Demand Refused
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/rhysida-berlin-data-extortion/)
+
+### 2026-11-11 17:15 UTC
+- **Event:** Press Coverage: N-able Rushes Out N-central Fixes After 33 Zero-Days Go Public
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/n-able-n-central-able2shell-0day/)
+
+### 2026-11-11 21:31 UTC
+- **Event:** Press Coverage: AI Pentest Tool AntiFox Abused To Steal AWS Credentials
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202880/hacking/ai-pentest-tool-antifox-abused-to-steal-aws-credentials.html)

@@ -4,7 +4,7 @@ target: French bank Credit Mutuel Arkea
 domain: frenchbankcreditmutuelarkea.com
 status: DEVELOPING
 first_seen: 2026-11-04
-last_updated: 2026-11-08
+last_updated: 2026-11-11
 threat_actor: null
 summary: French bank Credit Mutuel Arkea says €100 million missing after
   cyberattack Reuters
@@ -13,6 +13,7 @@ tags:
   - developing
   - media-pickup
   - threat-intel
+  - investigative
 compromised_data:
   - Authentication Credentials
 ---
@@ -49,3 +50,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Attackers Exploit Third-Party Provider to Raid French Bank Crédit Mutuel Arkéa
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202628/cyber-crime/attackers-exploit-third-party-provider-to-raid-french-bank-credit-mutuel-arkea.html)
+
+### 2026-11-11 14:11 UTC
+- **Event:** Press Coverage: French bank Credit Mutuel Arkea says €100m missing after cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/11/french-bank-credit-mutuel-arkea-says-e100m-missing-after-cyberattack/)

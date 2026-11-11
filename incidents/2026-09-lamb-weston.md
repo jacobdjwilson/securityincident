@@ -13,6 +13,7 @@ tags:
   - state-ag
   - oregon
   - confirmed
+  - washington
 affected_records: 7175
 regulatory_filings:
   - regulator: Oregon Department of Justice
@@ -23,6 +24,15 @@ regulatory_filings:
       Weston to the Oregon Department of Justice pursuant to the Oregon Consumer
       Information Protection Act (ORS 646A.604) impacting approximately 7,175
       individuals.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA43066)
+    accession_number: BreachA43066
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43066.pdf
+    filing_date: 2026-09-29
+    description: Official statutory data breach notification submitted by Lamb
+      Weston to the Washington State Office of the Attorney General pursuant to
+      RCW 19.255.010, disclosing unauthorized system access impacting 5,348
+      residents.
 industry: Food & Agriculture
 incident_type: Data Breach
 compromised_data:
@@ -51,3 +61,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Oregon Department of Justice Breach Notice
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [Oregon Department of Justice Breach Notice](https://justice.oregon.gov/consumer/databreach/)
+
+### 2026-09-29 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43066.pdf)

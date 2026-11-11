@@ -15,6 +15,7 @@ tags:
   - confirmed
   - state-ag
   - california
+  - washington
 industry: Retail & Consumer Goods
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: 76327
@@ -63,6 +64,15 @@ regulatory_filings:
       § 1798.82 (SB-24), disclosing unauthorized access to personal identifiable
       information of California residents.
     accession_number: sb24-630390
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA43022)
+    accession_number: BreachA43022
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43022.pdf
+    filing_date: 2026-09-26
+    description: Official statutory data breach notification submitted by Upbound
+      Group to the Washington State Office of the Attorney General pursuant to
+      RCW 19.255.010, disclosing unauthorized system access impacting 680
+      residents.
 ---
 
 ## Incident Overview
@@ -93,3 +103,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Disclosure Notice
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-630390)
+
+### 2026-09-26 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43022.pdf)
