@@ -505,3 +505,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: November Patch Tuesday boasts over 1,000 bugs but only one zero-day so far
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/10/november-patch-tuesday-boasts-over-1000-bugs-but-only-one-zero-day-so-far/5308946)
+
+### 2026-11-10 22:26 UTC
+- **Event:** Press Coverage: November Patch Tuesday: An Overflowing Cornucopia of CVEs
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Dark Reading Report](https://www.darkreading.com/vulnerabilities-threats/november-patch-tuesday-cornucopia-cves)
