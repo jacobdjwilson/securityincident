@@ -4,7 +4,7 @@ target: Railway
 domain: railway.com
 status: ACKNOWLEDGED
 first_seen: 2026-10-22
-last_updated: 2026-11-10
+last_updated: 2026-11-11
 threat_actor: null
 summary: Cloud platform Railway published an urgent warning to users after
   detecting suspicious activity on its systems that store customer environment
@@ -46,3 +46,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Railway breach leads to $740,000 in fraudulent AI charges
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/apple/railway-breach-leads-to-740-000-in-fraudulent-ai-charges/)
+
+### 2026-11-11 07:49 UTC
+- **Event:** Press Coverage: Railway Says Stolen Customer AI Keys Led to $740,000 in Estimated Unauthorized Usage Charges
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/railway-says-stolen-customer-ai-keys.html)

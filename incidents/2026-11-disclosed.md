@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-10
+last_updated: 2026-11-11
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -115,3 +115,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Fireworks AI Confirms Wider Breach Affecting Customer Datasets, Model Weights and Notion AI Chats
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/fireworks-ai-breach-widens-to-expose.html)
+
+### 2026-11-11 12:32 UTC
+- **Event:** Press Coverage: N-able releases security hotfixes for zero-day vulnerabilities
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/n-able-releases-security-hotfixes-for-zero-day-vulnerabilities/)

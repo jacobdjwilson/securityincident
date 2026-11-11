@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-10
+last_updated: 2026-11-11
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -197,6 +197,20 @@ vendor_advisories:
       addresses 63 critical flaws -- including a zero-day in Microsoft Outlook
       -- and comes amid important security updates from other software makers,
       including Adobe, Apple, Google and Mozilla.
+  - publisher: Microsoft
+    advisory_id: Microsoft Patches 1,259 Flaws, Including Exploited Outlook B
+    title: Microsoft Patches 1,259 Flaws, Including Exploited Outlook Bug That May
+      Expose NTLMv2 Hashes
+    severity: Critical
+    release_date: 2026-11-11
+    cve_ids: []
+    url: https://thehackernews.com/2026/11/microsoft-patches-1259-flaws-including.html
+    description: Microsoft on Tuesday released patches for a total of 1,259
+      vulnerabilities spanning its software portfolio, the second consecutive
+      month where the patch volume has exceeded 1,000 flaws. These cover 726
+      flaws in Windows, 174 in Office, 61 in Developer Tools, 59 in SQL Server,
+      53 in Developer Tools, and 27 in SharePoint Server. The patches also
+      include 165 non-Microsoft-issued CVE identifiers.
 summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
   group Midnight Blizzard (APT29), accessing senior leadership corporate emails
   and source code.
@@ -510,3 +524,13 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: November Patch Tuesday: An Overflowing Cornucopia of CVEs
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Dark Reading Report](https://www.darkreading.com/vulnerabilities-threats/november-patch-tuesday-cornucopia-cves)
+
+### 2026-11-11 08:17 UTC
+- **Event:** Press Coverage: Microsoft Patches 1,259 Flaws, Including Exploited Outlook Bug That May Expose NTLMv2 Hashes
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/microsoft-patches-1259-flaws-including.html)
+
+### 2026-11-11 09:03 UTC
+- **Event:** Press Coverage: Microsoft November Patch Tuesday: one exploited Outlook bug and 30 wormable flaws
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/202839/hacking/microsoft-november-patch-tuesday-one-exploited-outlook-bug-and-30-wormable-flaws.html)
