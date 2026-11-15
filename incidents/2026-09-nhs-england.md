@@ -4,7 +4,7 @@ target: NHS England
 domain: nhs.uk
 status: CONFIRMED
 first_seen: 2024-06-07
-last_updated: 2026-11-09
+last_updated: 2026-11-13
 threat_actor: Qilin
 summary: Disclosed a confirmed ransomware extortion incident involving the Qilin
   collective that breached NHS England core operational servers and cloud
@@ -95,3 +95,18 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Mainstream Media Pickup: British people don’t trust Palantir – it’s not too late to reverse the NHS’s dependence on it | Ben Coleman
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/commentisfree/2026/nov/09/british-people-palantir-nhs-health-data-us-tech-firm)
+
+### 2024-08-07 07:00 UTC
+- **Event:** Provisional decision to impose £6m fine on software provider following 2022 ransomware attack that disrupted NHS and social care services - ICO
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [ICO Report](https://news.google.com/rss/articles/CBMi9AFBVV95cUxQVFJERnIxU19ZSFRDQTV4N0JLRDI1NWh2dVZLQzZNUTdzZ1Nva3NPeG5nWXJoTEJyaHVuZmxnMEZOU1pNTEduVzByMmNfbWxRQUFlOW9sWnkwVkRBM0JTMFhVOHZnU2hJQjloSEtOZnN3Uk5LZko1YVpGZnI5MVJlcTB3Y2xQT0lvcW1VVnVEWUJfcG1jaGZCWjdaYml1cTB3b2ZQZ2JMRWZQNkl0b2hhekpHRkZJOFBXNXJYVUpRWElWTDM3T2wwR2tnODh1ZGthMzJ5Sk5DMy1lb3NGUFpuNzRSZzBrczQzR2FxT0JDTUpCMTFC?oc=5)
+
+### 2026-11-13 13:41 UTC
+- **Event:** Mainstream Media Pickup: NHS, schools and police forces hit by Microsoft outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BBC News Technology Report](https://www.bbc.co.uk/news/articles/c6vg2ljjpj32o?at_medium=RSS&at_campaign=rss)
+
+### 2026-11-12 11:00 UTC
+- **Event:** Mainstream Media Pickup: NHS England deletes ‘misleading’ claim 137 trusts benefiting from Palantir AI tools
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/12/nhs-england-deletes-misleading-claim-137-trusts-benefiting-from-palantir-ai-tools)

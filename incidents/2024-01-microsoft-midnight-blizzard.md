@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-11
+last_updated: 2026-11-15
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -211,6 +211,16 @@ vendor_advisories:
       flaws in Windows, 174 in Office, 61 in Developer Tools, 59 in SQL Server,
       53 in Developer Tools, and 27 in SharePoint Server. The patches also
       include 165 non-Microsoft-issued CVE identifiers.
+  - publisher: Microsoft
+    advisory_id: "Faxes, phones and Bluetooth: Microsoft outage forces busines"
+    title: "Faxes, phones and Bluetooth: Microsoft outage forces businesses to find
+      fixes - Reuters"
+    severity: Critical
+    release_date: 2026-11-13
+    cve_ids: []
+    url: https://news.google.com/rss/articles/CBMivgFBVV95cUxNWTd4RWIwQ1RNZXNmZzVFT3czU0dhcjBGNlBvV0RmNkQtdExIaWdNeEpZQ2NzR2MwS3J4R0g0MTdxaDVUSGlyRG1LZGxuNTNsb3pLTTBfZzhLZ1l2amJKdnhLLUhJUXp5NXdUalNCSHd4LWJMc05zbDBaeUI2TGhsN0ZDNVdwdTJxV0NDeG5qejNtcUxDWTRfU0ExQ19QeEFtZGJhd05oVUI3WG54WmxvbmlQYXNUSGs1NmlGLUhB?oc=5
+    description: "Faxes, phones and Bluetooth: Microsoft outage forces businesses to
+      find fixes Reuters"
 summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
   group Midnight Blizzard (APT29), accessing senior leadership corporate emails
   and source code.
@@ -230,6 +240,7 @@ tags:
   - cve-2026-104935
   - cve-2026-80097
   - cve-2026-124194
+  - acknowledged
 cve_ids:
   - CVE-2026-96951
   - CVE-2026-104935
@@ -534,3 +545,123 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft November Patch Tuesday: one exploited Outlook bug and 30 wormable flaws
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202839/hacking/microsoft-november-patch-tuesday-one-exploited-outlook-bug-and-30-wormable-flaws.html)
+
+### 2026-11-12 20:15 UTC
+- **Event:** Press Coverage: Massive Microsoft 365 outage disrupts Outlook, Teams, Copilot worldwide
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/microsoft/massive-microsoft-365-outage-disrupts-outlook-teams-copilot-worldwide/)
+
+### 2026-11-13 15:20 UTC
+- **Event:** Press Coverage: In Other News: New CISA Director Nominee, Connected Car Hacking, Baker Tilly Data Breach
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/in-other-news-new-cisa-director-nominee-connected-car-hacking-baker-tilly-data-breach/)
+
+### 2026-11-13 13:47 UTC
+- **Event:** Press Coverage: Microsoft Struggles to Restore Email and Other Services in a Global Outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/microsoft-struggles-to-restore-email-and-other-services-in-a-global-outage/)
+
+### 2026-11-12 20:09 UTC
+- **Event:** Press Coverage: Extortion Group Luna Moth Flits Into Law Firms a Second Time
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Dark Reading Report](https://www.darkreading.com/data-privacy/extortion-luna-moth-law-firms-second-time)
+
+### 2026-11-14 09:21 UTC
+- **Event:** Mainstream Media Pickup: Microsoft says services fully restored after hourslong global outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [AP News Report](https://news.google.com/rss/articles/CBMipAFBVV95cUxNZHlYRjJoX0RfREJ3UFBlQ3pacWMwMjBXeGJETGNBTFIzbHZMd1o0UFpMR00tQ25kb0x3YlBjZk4wd25hQTVoQ0FQdTVydERxenNBbkx0YVU5VGtnMUJwcW0tc2FFZ0tsMk0wbFc4TjRHWFhid01xWmljT0tZMVFicUVWRk1ueWdscFMyZXdHWGVJWjdSQ1ozLWJGdXpNMFRQdFc2Mw?oc=5)
+
+### 2026-11-15 19:10 UTC
+- **Event:** Mainstream Media Pickup: Could everything be broken? Grounded jets, Microsoft outage, AI chaos make some wonder
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [AP News Report](https://news.google.com/rss/articles/CBMimwFBVV95cUxQbUFCdzU3WWxqWDJyOThxR0pfSENwbHdjWE50LVZfX0xSUUZFZnpTemtWN2RRckNlOW56TnZwT2pmUHpPYnU0cGtiaUJ4aFpzLXZ4OHN0a3UxVEpNenFlc0VETFE2UDJkdy1Ld0ZSU2V2MHJxNE9WN3VFMjA2U1lLRThOdE5kSWk2UVdpektzb00yV3ZjUjhOeWpiNA?oc=5)
+
+### 2026-11-13 22:43 UTC
+- **Event:** Mainstream Media Pickup: Microsoft outage shows the risks of relying on a single technology provider for essential services
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [AP News Report](https://news.google.com/rss/articles/CBMiqgFBVV95cUxPYWY5MnRXdTRCaHJZT3BKRWs4TzQxdUR3NEZzQ3ZsTmxCLW9wcFJJMzFaLS1pVGhtb3BabWdhN3pvQUhPU0FNbDJMV2I0a3BWaGtuQWpxVVNxRTZIUGhNS3c5RG5oVHNGaGg3XzJDdkE1V0RBWFJKVzMzTFVnN3otc0xZNWhCWWducmlfS2dXZ3lGcUtWcFJQWkxnejVqWjFxTlZKbENDamJfUQ?oc=5)
+
+### 2026-11-12 18:32 UTC
+- **Event:** Mainstream Media Pickup: Microsoft restores service to Outlook and Teams after global outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMisAFBVV95cUxPQWpWeUZnbllhcFk4WktZS0s3T1N6T3k3Vnhhd3pfSE9SWF9iRmRIQUljdHZXN0UtWS1uZS1rbUNZSlVPd1NXLXRtVUVtc3NQNTgxMVFMWjVnT3pPb09EX1g1YUx3WkF2VHk0bUMwWlhkRHdpT0JFRE5SQ3pQRkdmSnpUOHNXLUo1dXNSY3lFdkpSdU5laDdwSlhWRDVnNjBFcUh2Y0FwMXNldE8tSFpPaw?oc=5)
+
+### 2026-11-13 03:08 UTC
+- **Event:** Mainstream Media Pickup: Australia's spy agency, federal police hit by Microsoft outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMiswFBVV95cUxPQ0x3UHpOT2FfZW9tc1Zia0F3NmNsZzUzUUJqd25Kcl9JdUFlOVhOMEFXR2ctazRoVXlkMFF4V1hIbGlLdnNQc3ZMRlBTeGZBVmxwSGx6a2cxVXgtZDhFUE80WFkxLUhfRjNMRmhtcGZvaGxlWjItSXpibmVXSkxrT1N4eWI4U3JzRDJnTXQ0SzBTMkFTYnBKT3JBWEQ1V0RMNzFoRDR6ckdvSTVRekw1SlU5SQ?oc=5)
+
+### 2026-11-13 15:15 UTC
+- **Event:** Mainstream Media Pickup: Faxes, phones and Bluetooth: Microsoft outage forces businesses to find fixes
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMivgFBVV95cUxNWTd4RWIwQ1RNZXNmZzVFT3czU0dhcjBGNlBvV0RmNkQtdExIaWdNeEpZQ2NzR2MwS3J4R0g0MTdxaDVUSGlyRG1LZGxuNTNsb3pLTTBfZzhLZ1l2amJKdnhLLUhJUXp5NXdUalNCSHd4LWJMc05zbDBaeUI2TGhsN0ZDNVdwdTJxV0NDeG5qejNtcUxDWTRfU0ExQ19QeEFtZGJhd05oVUI3WG54WmxvbmlQYXNUSGs1NmlGLUhB?oc=5)
+
+### 2026-11-14 06:42 UTC
+- **Event:** Mainstream Media Pickup: Microsoft says services fully restored after day-long global outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BBC News Technology Report](https://www.bbc.co.uk/news/articles/c6rrg51rkz09o?at_medium=RSS&at_campaign=rss)
+
+### 2026-11-13 21:15 UTC
+- **Event:** Mainstream Media Pickup: Microsoft outage 'stark reminder' of how much we rely on tech
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BBC News Technology Report](https://www.bbc.co.uk/news/articles/cxzd9171m51qo?at_medium=RSS&at_campaign=rss)
+
+### 2026-11-13 18:36 UTC
+- **Event:** Mainstream Media Pickup: Why is Microsoft's outage lasting so long and will emails be lost?
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BBC News Technology Report](https://www.bbc.co.uk/news/articles/cwvg238zrnm5o?at_medium=RSS&at_campaign=rss)
+
+### 2026-11-13 17:34 UTC
+- **Event:** Mainstream Media Pickup: Courts, spies and MPs: How the Microsoft outage has been felt around the world
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BBC News Technology Report](https://www.bbc.co.uk/news/articles/cqp9d58eldlro?at_medium=RSS&at_campaign=rss)
+
+### 2026-11-13 11:43 UTC
+- **Event:** Mainstream Media Pickup: What we know so far about the Microsoft outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BBC News Technology Report](https://www.bbc.co.uk/news/videos/cqzjr903n01po?at_medium=RSS&at_campaign=rss)
+
+### 2026-11-14 11:54 UTC
+- **Event:** Mainstream Media Pickup: Microsoft says services fully restored after global outage hits governments
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/14/microsoft-says-services-fully-restored-after-global-outage)
+
+### 2026-11-13 21:06 UTC
+- **Event:** Mainstream Media Pickup: Microsoft outage disrupts work and gives some a chance to unplug
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [NPR Technology Report](https://www.npr.org/2026/11/13/nx-s1-6040004/microsoft-outage-disrupts-work-and-gives-some-a-chance-to-unplug)
+
+### 2026-11-13 09:43 UTC
+- **Event:** Mainstream Media Pickup: Microsoft investigating widespread outage that took email and other apps offline
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [NPR Technology Report](https://www.npr.org/2026/11/13/nx-s1-6039350/microsoft-investigating-widespread-outage-that-took-email-and-other-apps-offline)
+
+### 2026-11-13 01:26 UTC
+- **Event:** Mainstream Media Pickup: A negative Outlook: Microsoft scrambles to fix email outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [NPR Technology Report](https://www.npr.org/2026/11/12/nx-s1-6039343/outlook-down-widespread-outage-microsoft-email)
+
+### 2026-11-13 19:08 UTC
+- **Event:** Press Coverage: Microsoft 365 Crawls Back to Life After a 24-Hour Outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Wired Security Report](https://www.wired.com/story/microsoft-365-crawls-back-to-life-after-a-24-hour-outage/)
+
+### 2026-11-13 17:15 UTC
+- **Event:** Press Coverage: The Microsoft Outage Is a Warning for the World
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Wired Security Report](https://www.wired.com/story/the-microsoft-outage-is-a-warning-for-the-world/)
+
+### 2026-11-12 20:01 UTC
+- **Event:** Press Coverage: Major Microsoft Outlook Outage Leaves People With Email Jobs Unable to Email
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Wired Security Report](https://www.wired.com/story/major-microsoft-outlook-outage-hits-365-customers-north-america/)
+
+### 2026-11-13 12:29 UTC
+- **Event:** Press Coverage: Microsoft 365 Outage Set to Ramp up Security Risks to Organizations
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/microsoft-365-outage-security/)
+
+### 2026-11-13 06:15 UTC
+- **Event:** Press Coverage: How attackers turned a Teams meeting booking into a device code phishing trap
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/13/microsoft-teams-device-code-phishing/)

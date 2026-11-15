@@ -4,7 +4,7 @@ target: Binance
 domain: binance.com
 status: ACKNOWLEDGED
 first_seen: 2026-10-29
-last_updated: 2026-11-10
+last_updated: 2026-11-13
 threat_actor: ShinyHunters
 summary: Binance, the world's largest cryptocurrency exchange, confirmed
   Thursday that it had been hacked in a $6.3 billion cyber heist that blockchain
@@ -153,3 +153,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Binance Investigates ShinyHunters Breach Claims
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/binance-investigates-shinyhunters/)
+
+### 2026-11-13 13:00 UTC
+- **Event:** Press Coverage: Attackers in Binance Breach Targeted Known Weakness, Missing Controls
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Dark Reading Report](https://www.darkreading.com/cybersecurity-operations/attackers-binance-breach-targeted-weakness-missing-controls)
+
+### 2026-11-13 00:32 UTC
+- **Event:** Press Coverage: US seizes North Korean hacking infrastructure, $1.2 billion in cryptocurrency stolen from Binance
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CyberScoop Report](https://cyberscoop.com/us-seizes-north-korea-hacking-infrastructure-binance/)
