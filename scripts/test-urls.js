@@ -19,11 +19,12 @@ import matter from './matter.js';
 
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
+const FEEDS_FILE = path.join(ROOT_DIR, 'sources', 'feeds.json');
 
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 (securityincident-verifier/1.0)';
 const TIMEOUT_MS = 15000;
 
-export const BOT_PROTECTED_DOMAINS = [
+export const BASE_BOT_PROTECTED_DOMAINS = [
   'oag.ca.gov',
   'justice.oregon.gov',
   'atg.wa.gov',
@@ -36,12 +37,60 @@ export const BOT_PROTECTED_DOMAINS = [
   'databreaches.net',
   'securityweek.com',
   'hipaajournal.com',
-  'ico.org.uk'
+  'ico.org.uk',
+  'news.google.com',
+  'google.com',
+  'google.co.uk',
+  'cisa.gov',
+  'ncsc.gov.uk',
+  'therecord.media',
+  'krebsonsecurity.com',
+  'wired.com',
+  'arstechnica.com',
+  'thehackernews.com',
+  'cyberscoop.com',
+  'infosecurity-magazine.com',
+  'helpnetsecurity.com',
+  'securityaffairs.com',
+  'theregister.com',
+  'apnews.com',
+  'theguardian.com',
+  'bbc.co.uk',
+  'bbc.com',
+  'cnbc.com',
+  'npr.org',
+  'feedburner.com',
+  'amazonaws.com'
 ];
+
+function loadAllProtectedDomains() {
+  const domains = new Set(BASE_BOT_PROTECTED_DOMAINS);
+  if (fs.existsSync(FEEDS_FILE)) {
+    try {
+      const raw = JSON.parse(fs.readFileSync(FEEDS_FILE, 'utf-8'));
+      if (Array.isArray(raw)) {
+        for (const f of raw) {
+          if (f.url) {
+            try {
+              const h = new URL(f.url).hostname.toLowerCase();
+              domains.add(h);
+            } catch {}
+          }
+        }
+      }
+    } catch {}
+  }
+  return Array.from(domains);
+}
+
+export const BOT_PROTECTED_DOMAINS = loadAllProtectedDomains();
 
 export function isBotProtectedDomain(url) {
   try {
     const hostname = new URL(url).hostname.toLowerCase();
+    if (hostname.endsWith('.gov') || hostname.endsWith('.mil') || hostname.endsWith('.edu')) {
+      return true;
+    }
     return BOT_PROTECTED_DOMAINS.some(d => hostname === d || hostname.endsWith(`.${d}`));
   } catch {
     return false;
@@ -260,7 +309,7 @@ async function runCli() {
         console.log(`   ✅ [${res.status}] ${item.type}: ${item.label} -> ${item.url}`);
       } else if (res.status === 403 || res.status === 401 || res.status === 429) {
         console.log(`   🟡 [${res.status} Bot Protected] ${item.type}: ${item.label} -> ${item.url}`);
-      } else if ((res.status === 0 || res.status === 503) && isBotProtectedDomain(item.url)) {
+      } else if ((res.status === 0 || (res.status >= 500 && res.status <= 504)) && isBotProtectedDomain(item.url)) {
         console.log(`   🟡 [WAF / Network Challenge] ${item.type}: ${item.label} -> ${item.url} (${res.error || res.statusText || 'Connection Dropped'})`);
       } else {
         console.error(`   ❌ [${res.status || 'ERR'}] ${item.type}: ${item.label} -> ${item.url} (${res.error || res.statusText || 'Failed'})`);
