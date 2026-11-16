@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-15
+last_updated: 2026-11-16
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -680,3 +680,13 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: The Microsoft Outage Left 15 Hotel Guests Poisoned by Chlorine
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203189/security/the-microsoft-outage-left-15-hotel-guests-poisoned-by-chlorine.html)
+
+### 2026-11-16 08:15 UTC
+- **Event:** Press Coverage: Microsoft Rules Out Cyberattack in Outage, Warns of Phishing Campaign
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/microsoft-rules-out-cyberattack-in-outage-warns-of-phishing-campaign/)
+
+### 2026-11-16 11:57 UTC
+- **Event:** Press Coverage: Microsoft previews remote lock for lost or stolen Windows devices
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/16/microsoft-remote-lock-feature-preview/)

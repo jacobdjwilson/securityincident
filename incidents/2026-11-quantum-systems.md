@@ -4,7 +4,7 @@ target: Quantum Systems
 domain: quantumsystems.com
 status: DEVELOPING
 first_seen: 2026-11-13
-last_updated: 2026-11-13
+last_updated: 2026-11-16
 threat_actor: null
 summary: Quantum Systems says grounded German military drones flying again after
   cyberattack Reuters
@@ -44,3 +44,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: German military drone operations disrupted by cyberattack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/german-military-drone-operations-disrupted-by-cyberattack/)
+
+### 2026-11-16 09:06 UTC
+- **Event:** Press Coverage: German Military Grounds Quantum Systems Drones Following Reported Cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203085/cyber-crime/german-military-grounds-quantum-systems-drones-following-reported-cyberattack.html)

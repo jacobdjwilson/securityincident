@@ -4,7 +4,7 @@ target: Published
 domain: published.com
 status: DEVELOPING
 first_seen: 2026-09-07
-last_updated: 2026-11-11
+last_updated: 2026-11-16
 threat_actor: PixelLeaks
 summary: Published was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -73,3 +73,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: AI Pentest Tool AntiFox Abused To Steal AWS Credentials
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202880/hacking/ai-pentest-tool-antifox-abused-to-steal-aws-credentials.html)
+
+### 2026-11-16 08:11 UTC
+- **Event:** Press Coverage: SilentAir and LIMINAL PANDA Target Telecom Networks to Spy on Subscribers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203099/apt/silentair-and-liminal-panda-target-telecom-networks-to-spy-on-subscribers.html)

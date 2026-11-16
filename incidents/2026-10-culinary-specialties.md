@@ -4,7 +4,7 @@ target: Culinary Specialties
 domain: culinaryspecialties.net
 status: EMERGING
 first_seen: 2026-10-13
-last_updated: 2026-10-13
+last_updated: 2026-11-16
 threat_actor: Play
 summary: Culinary Specialties was listed on the Play ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -14,6 +14,7 @@ tags:
   - ransomware-claim
   - play
   - emerging
+  - aoqin
 industry: Agriculture and Food Production
 compromised_data:
   - Authentication Credentials
@@ -41,3 +42,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Culinary Specialties Listed on Play Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Play Ransomware Leak Site Claim](https://www.ransomware.live/id/Q3VsaW5hcnkgU3BlY2lhbHRpZXNAcGxheQ==)
+
+### 2026-11-16 02:50 UTC
+- **Event:** Culinary Specialties Listed on Aoqin Ransomware Extortion Portal
+- **Verification:** UNVERIFIED CLAIM
+- **Source:** [Aoqin Ransomware Leak Site Claim](https://www.ransomware.live/id/Q3VsaW5hcnkgU3BlY2lhbHRpZXNAQW9xaW4=)
