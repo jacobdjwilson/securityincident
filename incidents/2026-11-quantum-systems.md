@@ -11,6 +11,8 @@ summary: Quantum Systems says grounded German military drones flying again after
 tags:
   - general-media
   - developing
+  - threat-intel
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -37,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Quantum Systems says grounded German military drones flying again after cyberattack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMizwFBVV95cUxQc2Vkc3h1WU5hemtpajdWWFN4ZU1Eb3NMVS1aaUliem1Ja2lvem5ERDZMU0gtUU9adjUzRUxaZXJtNVlkTEpRcFQwamp2am9xRVc2UzFxQVNpWFdVY2c0RFZUX3diQTJ0c3E5X1FhZm5KYjUyVk8teFQxaU44LW5yVl9VUXl6YkRWd283RXd1N1huM3YxR3d0UkQ2ZzF1aWZWeEZJYTBwT0dmVWdKMGJaN2lOVU0wcDRDWFQ3ajNzZUx4RWZNalFYdWJBUS1SWkE?oc=5)
+
+### 2026-11-13 17:31 UTC
+- **Event:** Press Coverage: German military drone operations disrupted by cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/german-military-drone-operations-disrupted-by-cyberattack/)

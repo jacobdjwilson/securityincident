@@ -4,7 +4,7 @@ target: Check Point
 domain: checkpoint.com
 status: DEVELOPING
 first_seen: 2026-11-13
-last_updated: 2026-11-13
+last_updated: 2026-11-14
 threat_actor: null
 summary: Check Point Software has released emergency hotfixes to address a
   high-severity flaw that hackers have been exploiting to gain root privileges
@@ -12,8 +12,12 @@ summary: Check Point Software has released emergency hotfixes to address a
 tags:
   - threat-intel
   - developing
+  - media-pickup
+  - cve-2026-114713
 compromised_data:
   - Authentication Credentials
+cve_ids:
+  - CVE-2026-114713
 ---
 
 ## Incident Overview
@@ -38,3 +42,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Check Point warns of zero-day flaw exploited for root access
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/check-point-patches-zero-day-that-lets-hackers-get-root-access/)
+
+### 2026-11-14 09:08 UTC
+- **Event:** Press Coverage: U.S. CISA adds Check Point and UnrealIRCd flaws to its Known Exploited Vulnerabilities catalog
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203040/hacking/u-s-cisa-adds-check-point-and-unrealircd-flaws-to-its-known-exploited-vulnerabilities-catalog.html)

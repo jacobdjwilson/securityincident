@@ -665,3 +665,18 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: How attackers turned a Teams meeting booking into a device code phishing trap
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/13/microsoft-teams-device-code-phishing/)
+
+### 2026-11-13 14:48 UTC
+- **Event:** Press Coverage: Hospitals, airlines and governments hit by Microsoft outage as employee risk warnings mount
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/13/hospitals-airlines-and-governments-hit-by-microsoft-outage-as-employee-risk-warnings-mount/)
+
+### 2026-11-13 14:47 UTC
+- **Event:** Press Coverage: Microsoft Outage 2026: What Happened and What the Law Says
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/13/microsoft-outage-2026-what-happened-and-what-the-law-says/)
+
+### 2026-11-15 22:38 UTC
+- **Event:** Press Coverage: The Microsoft Outage Left 15 Hotel Guests Poisoned by Chlorine
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203189/security/the-microsoft-outage-left-15-hotel-guests-poisoned-by-chlorine.html)

@@ -79,3 +79,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** Press Coverage: China-backed threat group used agentic AI pentesting tool to compromise 140 sensitive targets in 11 days
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [CyberScoop Report](https://cyberscoop.com/china-vapor-panda-agentic-ai-artex-campaign-crowdstrike/)
+
+### 2026-10-08 11:00 UTC
+- **Event:** Press Coverage: Chinese Hacker Deployed AI in Campaign Against South Korean Banks
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/chinese-hacker-ai-korean-banks/)
