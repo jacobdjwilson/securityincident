@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-11
+last_updated: 2026-11-17
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -26,6 +26,18 @@ compromised_data:
 cve_ids:
   - CVE-2026-105133
   - CVE-2026-105134
+vendor_advisories:
+  - publisher: Disclosed
+    advisory_id: N-able Kills Legacy APIs, Patches 17 N-central Zero-Days
+    title: N-able Kills Legacy APIs, Patches 17 N-central Zero-Days
+    severity: Critical
+    release_date: 2026-11-17
+    cve_ids: []
+    url: https://www.securityweek.com/n-able-kills-legacy-apis-patches-17-n-central-zero-days/
+    description: The patches target recently disclosed zero-days, as well as
+      vulnerabilities already exploited in the wild. The post N-able Kills
+      Legacy APIs, Patches 17 N-central Zero-Days appeared first on SecurityWeek
+      .
 ---
 
 ## Incident Overview
@@ -130,3 +142,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: AntiFox AI Pentesting Platform Linked to Attacks That Accessed AWS Production Secrets
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/antifox-ai-pentesting-platform-linked.html)
+
+### 2026-11-17 12:28 UTC
+- **Event:** Press Coverage: N-able Kills Legacy APIs, Patches 17 N-central Zero-Days
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/n-able-kills-legacy-apis-patches-17-n-central-zero-days/)

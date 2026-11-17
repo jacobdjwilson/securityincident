@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-16
+last_updated: 2026-11-17
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -221,6 +221,17 @@ vendor_advisories:
     url: https://news.google.com/rss/articles/CBMivgFBVV95cUxNWTd4RWIwQ1RNZXNmZzVFT3czU0dhcjBGNlBvV0RmNkQtdExIaWdNeEpZQ2NzR2MwS3J4R0g0MTdxaDVUSGlyRG1LZGxuNTNsb3pLTTBfZzhLZ1l2amJKdnhLLUhJUXp5NXdUalNCSHd4LWJMc05zbDBaeUI2TGhsN0ZDNVdwdTJxV0NDeG5qejNtcUxDWTRfU0ExQ19QeEFtZGJhd05oVUI3WG54WmxvbmlQYXNUSGs1NmlGLUhB?oc=5
     description: "Faxes, phones and Bluetooth: Microsoft outage forces businesses to
       find fixes Reuters"
+  - publisher: Microsoft
+    advisory_id: "Microsoft Warns of Coordinated Phishing Campaign Leveraging "
+    title: Microsoft Warns of Coordinated Phishing Campaign Leveraging M365 Service
+      Outage
+    severity: Critical
+    release_date: 2026-11-17
+    cve_ids: []
+    url: https://www.infosecurity-magazine.com/news/microsoft-phishing-service-outage/
+    description: Microsoft said the high volume campaign was likely designed to
+      capture user credentials, and urged organizations to investigate signs of
+      compromise
 summary: Microsoft disclosed an intrusion by Russian foreign intelligence threat
   group Midnight Blizzard (APT29), accessing senior leadership corporate emails
   and source code.
@@ -695,3 +706,18 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft says months-old bug caused global Microsoft 365 outage
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/microsoft/microsoft-says-months-old-bug-caused-global-microsoft-365-outage/)
+
+### 2026-11-17 11:20 UTC
+- **Event:** Press Coverage: New GitDoor and GraphDoor Backdoors Turn GitHub and SharePoint Into Covert C2 Channels
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/new-gitdoor-and-graphdoor-backdoors.html)
+
+### 2026-11-16 20:54 UTC
+- **Event:** Mainstream Media Pickup: Microsoft identifies months-old bug as a root cause of global outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/16/microsoft-global-outage-cause)
+
+### 2026-11-17 13:00 UTC
+- **Event:** Press Coverage: Microsoft Warns of Coordinated Phishing Campaign Leveraging M365 Service Outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/microsoft-phishing-service-outage/)

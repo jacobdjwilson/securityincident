@@ -12,6 +12,7 @@ summary: Chinese threat actors are broadly adopting the agentic AI penetration
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Barracuda Hacked Amid Surge in Artex-Powered Cyberattacks
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/barracuda-hacked-amid-surge-in-artex-powered-cyberattacks/)
+
+### 2026-11-16 19:57 UTC
+- **Event:** Press Coverage: Barracuda links cloud breach to ARTEX AI-powered cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/barracuda-links-cloud-breach-to-artex-ai-powered-cyberattack/)
