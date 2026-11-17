@@ -4,7 +4,7 @@ target: Fandango Media
 domain: fandangomedia.com
 status: CONFIRMED
 first_seen: 2026-11-13
-last_updated: 2026-11-13
+last_updated: 2026-11-16
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Fandango Media.
@@ -13,6 +13,9 @@ tags:
   - state-ag
   - california
   - confirmed
+  - threat-intel
+  - developing
+  - media-pickup
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice (sb24-632866)
@@ -49,3 +52,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-632866)
+
+### 2026-11-16 15:44 UTC
+- **Event:** Press Coverage: Fandango says hackers stole payment card details from checkout pages
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/fandango-says-hackers-stole-payment-card-details-from-checkout-pages/)

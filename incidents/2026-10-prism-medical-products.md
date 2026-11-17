@@ -2,9 +2,9 @@
 id: 2026-10-prism-medical-products
 target: Prism Medical Products
 domain: prismmedicalproducts.com
-status: EMERGING
+status: CONFIRMED
 first_seen: 2026-10-23
-last_updated: 2026-10-23
+last_updated: 2026-11-13
 threat_actor: Wallstreet
 summary: Prism Medical Products was listed on the Wallstreet ransomware
   extortion leak portal. Unverified extortion claim alleging unauthorized
@@ -14,9 +14,23 @@ tags:
   - ransomware-claim
   - wallstreet
   - emerging
+  - regulatory
+  - state-ag
+  - california
+  - confirmed
 industry: Healthcare
 compromised_data:
   - Authentication Credentials
+regulatory_filings:
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice (sb24-632932)
+    accession_number: sb24-632932
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-632932
+    filing_date: 2026-11-13
+    description: Official statutory data breach notification submitted by Prism
+      Medical Products to the California Department of Justice under California
+      Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 ---
 
 ## Incident Overview
@@ -41,3 +55,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Prism Medical Products Listed on Wallstreet Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [Wallstreet Ransomware Leak Site Claim](https://www.ransomware.live/id/UHJpc20gTWVkaWNhbCBQcm9kdWN0c0BXYWxsc3RyZWV0)
+
+### 2026-11-13 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-632932)

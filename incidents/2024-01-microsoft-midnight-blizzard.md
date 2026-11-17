@@ -690,3 +690,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft previews remote lock for lost or stolen Windows devices
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/16/microsoft-remote-lock-feature-preview/)
+
+### 2026-11-16 16:43 UTC
+- **Event:** Press Coverage: Microsoft says months-old bug caused global Microsoft 365 outage
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/microsoft/microsoft-says-months-old-bug-caused-global-microsoft-365-outage/)
