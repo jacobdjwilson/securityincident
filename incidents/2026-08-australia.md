@@ -4,7 +4,7 @@ target: Australia
 domain: australia.com
 status: DEVELOPING
 first_seen: 2026-08-25
-last_updated: 2026-11-10
+last_updated: 2026-11-19
 threat_actor: null
 summary: Australian officials are urging TeamCity customers to patch an actively
   exploited critical flaw, which follows a similar warning from the US
@@ -91,3 +91,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Mandatory AI safety and security protections announced after OpenAI breach of Medicare – video
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/australia-news/video/2026/nov/10/mandatory-ai-safety-and-security-protections-announced-after-openai-breach-of-medicare-video)
+
+### 2026-11-19 23:54 UTC
+- **Event:** Mainstream Media Pickup: Australia's Bell Financial says some client data likely accessed in cyber incident
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMiywFBVV95cUxNUVFVYlJmcE9TbktrajNRbDBfTVhRLU5hMXVBV2RPVHVQeUVLaEdtM2JFRVRRN0Q5MEw5TzBWcEdLQzlXWmZCWHVTSjdmU1p0Y1c4SThaLTlkbVl1Vy1TZVUxWC1HSFFYOUdDSDlTcEE0Q0RzTHExZkZOZTE2d2NNTmw1dFhfeGJrbDhRZFVBZm1mVUMwUEs4Q0pQVVk1U003Y3c2WlpLaGlsSkIxQndyWXF2OUxQV3RPd0hHUl92YnI4bTM2T0dUbFRDTQ?oc=5)

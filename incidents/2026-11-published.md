@@ -4,7 +4,7 @@ target: Published
 domain: published.com
 status: DEVELOPING
 first_seen: 2026-09-07
-last_updated: 2026-11-16
+last_updated: 2026-11-19
 threat_actor: PixelLeaks
 summary: Published was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -78,3 +78,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: SilentAir and LIMINAL PANDA Target Telecom Networks to Spy on Subscribers
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203099/apt/silentair-and-liminal-panda-target-telecom-networks-to-spy-on-subscribers.html)
+
+### 2026-11-19 15:11 UTC
+- **Event:** Press Coverage: Critical VMware vCenter Zero-Day Flaw Lets Network Attackers Bypass Authentication
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/critical-vmware-vcenter-flaw-cvss-98.html)

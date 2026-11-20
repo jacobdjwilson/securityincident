@@ -4,7 +4,7 @@ target: Prism Medical Products
 domain: prismmedicalproducts.com
 status: CONFIRMED
 first_seen: 2026-10-23
-last_updated: 2026-11-13
+last_updated: 2026-11-14
 threat_actor: Wallstreet
 summary: Prism Medical Products was listed on the Wallstreet ransomware
   extortion leak portal. Unverified extortion claim alleging unauthorized
@@ -18,6 +18,7 @@ tags:
   - state-ag
   - california
   - confirmed
+  - washington
 industry: Healthcare
 compromised_data:
   - Authentication Credentials
@@ -31,6 +32,16 @@ regulatory_filings:
       Medical Products to the California Department of Justice under California
       Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA43860)
+    accession_number: BreachA43860
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43860.pdf
+    filing_date: 2026-11-14
+    description: Official statutory data breach notification submitted by Prism
+      Medical Products to the Washington State Office of the Attorney General
+      pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 16,307 residents.
+affected_records: 16307
 ---
 
 ## Incident Overview
@@ -60,3 +71,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-632932)
+
+### 2026-11-14 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43860.pdf)

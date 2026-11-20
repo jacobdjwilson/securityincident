@@ -3,7 +3,7 @@ id: 2026-11-bank-outage
 target: Bank outage
 domain: bankoutage.com
 status: DEVELOPING
-first_seen: 2026-11-17
+first_seen: 2026-11-16
 last_updated: 2026-11-17
 threat_actor: null
 summary: "David Hollerith and Grace O'Donnell report: Reports of problems with
@@ -13,6 +13,7 @@ summary: "David Hollerith and Grace O'Donnell report: Reports of problems with
 tags:
   - investigative
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Bank outage reports spike: JPMorgan says issues are resolved, blames internal software bug for transaction delays
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/16/bank-outage-reports-spike-jpmorgan-says-issues-are-resolved-blames-internal-software-bug-for-transaction-delays/)
+
+### 2026-11-16 21:45 UTC
+- **Event:** Press Coverage: The Bank Outage May Have Nothing to Do With Your Bank
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Wired Security Report](https://www.wired.com/story/jpmorganchase-bank-outage-oh-come-on/)

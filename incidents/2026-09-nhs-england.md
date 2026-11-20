@@ -3,7 +3,7 @@ id: 2026-09-nhs-england
 target: NHS England
 domain: nhs.uk
 status: CONFIRMED
-first_seen: 2024-06-07
+first_seen: 2024-01-25
 last_updated: 2026-11-13
 threat_actor: Qilin
 summary: Disclosed a confirmed ransomware extortion incident involving the Qilin
@@ -110,3 +110,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Mainstream Media Pickup: NHS England deletes ‘misleading’ claim 137 trusts benefiting from Palantir AI tools
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/12/nhs-england-deletes-misleading-claim-137-trusts-benefiting-from-palantir-ai-tools)
+
+### 2024-01-25 08:00 UTC
+- **Event:** South Tees Hospitals NHS Foundation Trust reprimanded for “serious, harmful” data breach - ICO
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [ICO Report](https://news.google.com/rss/articles/CBMi6wFBVV95cUxORU5rRlg3VmJGaVg0dWlYdEhGallldU15XzdKMTVicGpjWHBVeGdtb2xuRl9ENkNUVmRLMV9fZ3JYcDdvUWJfZDdEcXVKa3YyMUNYWHVsQUZORENVUUZ0ZTRJRFl3ZVd0NEk1RVN3NXVnTEg0YkN4a1ZQNEtzZ3ZoRlBvby1mUjlRMVVRZE5FbVYwcF8xQzFnYl9KZENhN0c2UV85MEZ1NC00OEVIRkh1WHpCQjZlVWp6XzlhS08xNkliRTRHLU8zTXZ6UGUzemVLalNqN0JpNEdjdGZCSk42X3ZCYUJQY29FbkpR?oc=5)

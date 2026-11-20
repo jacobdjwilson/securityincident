@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-17
+last_updated: 2026-11-20
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -20,12 +20,14 @@ tags:
   - investigative
   - cve-2026-105133
   - cve-2026-105134
+  - cve-2026-76466
 industry: Other
 compromised_data:
   - Authentication Credentials
 cve_ids:
   - CVE-2026-105133
   - CVE-2026-105134
+  - CVE-2026-76466
 vendor_advisories:
   - publisher: Disclosed
     advisory_id: N-able Kills Legacy APIs, Patches 17 N-central Zero-Days
@@ -147,3 +149,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: N-able Kills Legacy APIs, Patches 17 N-central Zero-Days
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/n-able-kills-legacy-apis-patches-17-n-central-zero-days/)
+
+### 2026-11-20 10:32 UTC
+- **Event:** Press Coverage: Hackers Exploit Critical Cisco Expressway Flaw, Breach Four Devices and Reach Internal Network
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/hackers-exploit-critical-cisco.html)
+
+### 2026-11-20 05:30 UTC
+- **Event:** Press Coverage: New Unpatched Windows 0-Day FastUnlock Lets Someone Holding a Locked PC Run Programs on It
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/new-unpatched-windows-0-day-fastunlock.html)
+
+### 2026-11-19 09:31 UTC
+- **Event:** Press Coverage: Hackers Breach N-able Cloud Server, Disrupting Email Security Management Across 3 Regions
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/n-able-confirms-hackers-accessed-cloud.html)

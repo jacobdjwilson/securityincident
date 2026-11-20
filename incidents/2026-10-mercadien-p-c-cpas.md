@@ -4,7 +4,7 @@ target: Mercadien, P.C. CPAs
 domain: mercadienpccpas.com
 status: CONFIRMED
 first_seen: 2026-10-12
-last_updated: 2026-10-20
+last_updated: 2026-11-17
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Mercadien, P.C. CPAs.
@@ -23,6 +23,15 @@ regulatory_filings:
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
     accession_number: sb24-631182
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice (sb24-631182)
+    accession_number: sb24-631182
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-631182
+    filing_date: 2026-11-17
+    description: Official statutory data breach notification submitted by Mercadien,
+      P.C. CPAs to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 compromised_data:
   - Authentication Credentials
 ---
@@ -54,3 +63,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-631642)
+
+### 2026-11-17 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-633059)

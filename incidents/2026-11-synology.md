@@ -4,7 +4,7 @@ target: Synology
 domain: synology.com
 status: DEVELOPING
 first_seen: 2026-11-02
-last_updated: 2026-11-03
+last_updated: 2026-11-19
 threat_actor: null
 summary: Taiwanese network-attached storage (NAS) appliance maker Synology
   warned customers to update their devices immediately due to a surge in C3RB3r
@@ -13,8 +13,11 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - cve-2024-10441
 compromised_data:
   - Authentication Credentials
+cve_ids:
+  - CVE-2024-10441
 ---
 
 ## Incident Overview
@@ -49,3 +52,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Synology Warns of Ransomware Attacks Targeting NAS Devices Running Outdated DSM Versions
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/202343/security/synology-warns-of-ransomware-attacks-targeting-nas-devices-running-outdated-dsm-versions.html)
+
+### 2026-11-19 17:14 UTC
+- **Event:** Press Coverage: U.S. CISA adds Apache Axis, Vanderbilt REDCap,BerriAI LiteLLM, and Synology DSM flaws to its Known Exploited Vulnerabilities catalog
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203504/hacking/u-s-cisa-adds-apache-axis-vanderbilt-redcapberriai-litellm-and-synology-dsm-flaws-to-its-known-exploited-vulnerabilities-catalog.html)

@@ -3,7 +3,7 @@ id: 2026-11-infoblox
 target: Infoblox
 domain: infoblox.com
 status: ACKNOWLEDGED
-first_seen: 2026-11-17
+first_seen: 2026-11-16
 last_updated: 2026-11-17
 threat_actor: null
 summary: A breach at an Infoblox supplier exposed customer network snapshots and
@@ -13,6 +13,7 @@ summary: A breach at an Infoblox supplier exposed customer network snapshots and
 tags:
   - threat-intel
   - acknowledged
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Infoblox Confirms Supply Chain Breach After Attackers Access Sensitive Data
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203309/data-breach/infoblox-confirms-supply-chain-breach-after-attackers-access-sensitive-data.html)
+
+### 2026-11-16 21:53 UTC
+- **Event:** Press Coverage: Infoblox customer and staff data exposed in Sharepoint breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/16/infoblox-customer-and-staff-data-exposed-in-sharepoint-breach/5310280)

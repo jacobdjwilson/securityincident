@@ -4,7 +4,7 @@ target: Dutch Police (Politie)
 domain: politie.nl
 status: DEVELOPING
 first_seen: 2026-09-28
-last_updated: 2026-10-26
+last_updated: 2026-11-20
 threat_actor: ShinyHunters
 summary: Identified a network intrusion and
 tags:
@@ -12,6 +12,7 @@ tags:
   - developing
   - media-pickup
   - threat-intel
+  - general-media
 industry: Government & Law Enforcement
 incident_type: Network Intrusion & Exfiltration
 affected_records: 65000
@@ -71,3 +72,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: AI-Generated Fake Bank Calls and NFC App Enabled €380,000 Fraud, Dutch Police Say
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/201786/cyber-crime/ai-generated-fake-bank-calls-and-nfc-app-enabled-e380000-fraud-dutch-police-say.html)
+
+### 2026-11-20 11:59 UTC
+- **Event:** Mainstream Media Pickup: Dutch police says they foiled attempted violence linked to Revolut data leak
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMixAFBVV95cUxPOTA5LUFqWGktMnJRZ0I4NVpIeTVvOGQ0dTZfemZISDZFUGtxUFNpOFZoSkxJcnFlWVQzaVYyODIyZE10RW9CeXRxMDNIWENWN3hKOEVaODdGdWhPYmJzdUVaUHFrUlN3OUtDbzhidW1tV3phdnI4dHFXaDFqOVlGdlRCaGtDeVRtSHpTanJpcDRuNXBqZkw4RXZLM2g2TWZjUGVSYVVRbFN6VUR4UTh1TTFmek1tZmRrV19KRTJwZmdzNDB3?oc=5)

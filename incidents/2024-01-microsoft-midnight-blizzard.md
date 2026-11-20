@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-17
+last_updated: 2026-11-20
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -721,3 +721,28 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft Warns of Coordinated Phishing Campaign Leveraging M365 Service Outage
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/microsoft-phishing-service-outage/)
+
+### 2026-11-18 06:45 UTC
+- **Event:** Press Coverage: Attackers Compromise Microsoft's Agent Framework PyPI Package to Steal Cloud Credentials
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/attackers-compromise-microsofts-agent.html)
+
+### 2026-11-20 10:00 UTC
+- **Event:** Mainstream Media Pickup: Will AI break the internet? | Garrison Lovely
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/commentisfree/2026/nov/20/ai-internet-outages-apocalypse)
+
+### 2026-11-19 00:18 UTC
+- **Event:** Mainstream Media Pickup: Microsoft CEO Satya Nadella calls Outlook outage a &apos;perfect storm.&apos; Here&apos;s what went wrong
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/11/18/microsoft-put-the-ai-threat-to-software-behind-it-then-came-the-outage.html)
+
+### 2026-11-18 17:23 UTC
+- **Event:** Press Coverage: Microsoft's official Python agent framework hijacked to distribute malware
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/18/microsofts-official-python-agent-framework-hijacked-to-distribute-malware/5310858)
+
+### 2026-11-20 11:23 UTC
+- **Event:** Press Coverage: Trump's First Move After the Outages: Fire the Cyber Director
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203581/intelligence/trumps-first-move-after-the-outages-fire-the-cyber-director.html)

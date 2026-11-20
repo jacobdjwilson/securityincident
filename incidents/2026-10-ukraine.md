@@ -4,7 +4,7 @@ target: Ukraine
 domain: ukraine.com
 status: DEVELOPING
 first_seen: 2026-10-26
-last_updated: 2026-11-04
+last_updated: 2026-11-19
 threat_actor: null
 summary: CERT-UA says it has identified cases in which hackers compromised Dahua
   internet-connected cameras and video recorders, changed their settings and
@@ -86,3 +86,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Hacked emergency alert apps spread fear in Ukraine and Russia
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5JM0VNMlRuUTV3SnVzUWE2bzJLRWlhcWlHbUczOUg5bk5Nc2otWHZJT29rVWxyaF9lZzlfUG9rNGt0NFhOZ0N5OWxUdGs2WjZ1T1FpTjlXa2Z1aEc5LW14ZjkxdlRLYVU?oc=5)
+
+### 2026-11-19 10:07 UTC
+- **Event:** Press Coverage: Ukraine arrests key members of ransomware gang that extorted $40.5 million posing as IT support
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/19/ukraine-ransomware-gang-arrests-fake-it-support-calls/)

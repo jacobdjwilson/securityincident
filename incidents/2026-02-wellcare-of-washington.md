@@ -4,7 +4,7 @@ target: Wellcare of Washington
 domain: wellcareofwashington.com
 status: CONFIRMED
 first_seen: 2026-02-20
-last_updated: 2026-02-20
+last_updated: 2026-10-01
 threat_actor: null
 summary: Washington State Attorney General formal data breach disclosure notice
   filed by Wellcare of Washington affecting 2,485 residents.
@@ -24,6 +24,15 @@ regulatory_filings:
       pursuant to RCW 19.255.010, disclosing unauthorized system access
       impacting 2,485 residents.
     accession_number: BreachA36741
+  - regulator: Washington Attorney General
+    form: RCW 19.255 Data Breach Notice (BreachA36741)
+    accession_number: BreachA36741
+    url: https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA36741.pdf
+    filing_date: 2026-10-01
+    description: Official statutory data breach notification submitted by WellCare
+      of Washington to the Washington State Office of the Attorney General
+      pursuant to RCW 19.255.010, disclosing unauthorized system access
+      impacting 1,619 residents.
 compromised_data:
   - Authentication Credentials
 ---
@@ -50,3 +59,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA36741.pdf)
+
+### 2026-10-01 16:30 UTC
+- **Event:** Washington State Attorney General Breach Notice (RCW 19.255)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [Washington State Attorney General Breach Notice (RCW 19.255)](https://agportal-s3bucket.s3.amazonaws.com/databreach/BreachA43093.pdf)

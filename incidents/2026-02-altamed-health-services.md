@@ -4,7 +4,7 @@ target: AltaMed Health Services
 domain: altamedhealthservices.com
 status: CONFIRMED
 first_seen: 2025-06-13
-last_updated: 2026-02-12
+last_updated: 2026-11-08
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by AltaMed Health Services.
@@ -23,6 +23,15 @@ regulatory_filings:
       Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
     accession_number: sb24-618676
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice (sb24-618676)
+    accession_number: sb24-618676
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-618676
+    filing_date: 2026-11-08
+    description: Official statutory data breach notification submitted by AltaMed
+      Health Services to the California Department of Justice under California
+      Civil Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 compromised_data:
   - Authentication Credentials
 ---
@@ -54,3 +63,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-604053)
+
+### 2026-11-08 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-632600)
