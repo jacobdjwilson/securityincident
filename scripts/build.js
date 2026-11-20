@@ -1383,7 +1383,14 @@ function normalizeRegulatoryFilings(filings, milestones = []) {
     } else if (reg.includes('HHS') || reg.includes('OCR') || reg.includes('HIPAA')) {
       filing.regulator = 'HHS OCR';
       if (!filing.form) filing.form = 'HIPAA Breach Portal Disclosure';
-      const milestoneHhs = milestones.find(m => m.sourceUrl && (m.sourceUrl.includes('hipaajournal.com') || m.sourceUrl.includes('hhs.gov')));
+      const milestoneHhs = milestones.find(m => {
+        if (!m.sourceUrl) return false;
+        const domain = (extractDomainFromUrl(m.sourceUrl) || '').toLowerCase();
+        return domain === 'hipaajournal.com'
+          || domain.endsWith('.hipaajournal.com')
+          || domain === 'hhs.gov'
+          || domain.endsWith('.hhs.gov');
+      });
       if (milestoneHhs && (!filing.url || filing.url.includes('ocrportal.hhs.gov/ocr/breach/breach_report.jsf'))) {
         filing.url = milestoneHhs.sourceUrl;
       }
