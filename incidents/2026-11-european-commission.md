@@ -3,7 +3,7 @@ id: 2026-11-european-commission
 target: European Commission
 domain: europeancommission.com
 status: DEVELOPING
-first_seen: 2026-11-20
+first_seen: 2026-11-19
 last_updated: 2026-11-20
 threat_actor: null
 summary: The Commission took certain services offline to contain the incident,
@@ -12,6 +12,7 @@ summary: The Commission took certain services offline to contain the incident,
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +39,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** European Commission Confirms AI-Assisted Cyberattack Disrupted Services
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/european-commission-confirms-ai-assisted-cyberattack-disrupted-services/)
+
+### 2026-11-19 15:06 UTC
+- **Event:** Press Coverage: European Commission Cyberattack: ARTEX AI Tool Suspected in Prolonged Disruption
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203483/hacking/european-commission-cyberattack-artex-ai-tool-suspected-in-prolonged-disruption.html)

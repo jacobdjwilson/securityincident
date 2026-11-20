@@ -3,14 +3,15 @@ id: 2026-11-service-provider
 target: service provider
 domain: serviceprovider.com
 status: DEVELOPING
-first_seen: 2026-11-19
-last_updated: 2026-11-19
+first_seen: 2026-10-21
+last_updated: 2026-11-20
 threat_actor: null
 summary: Minister calls notification delay 'not acceptable' after October attack
   on Irish banking player Wellington IT came to light in November
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -37,3 +38,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Cyberattack on service provider exposes payee data at 40 Irish credit unions
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/19/cyberattack-on-service-provider-exposes-payee-data-at-40-irish-credit-unions/5310979)
+
+### 2026-11-20 15:58 UTC
+- **Event:** Press Coverage: Vendor data breach exposes Chase, Visa, Mastercard customer info
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/vendor-data-breach-exposes-chase-visa-mastercard-customer-info/)
+
+### 2026-10-21 09:05 UTC
+- **Event:** Press Coverage: Children’s Data Stolen After Ransomware Attack Compromises ‘Password1’ Account
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/children-data-stolen-password1/)

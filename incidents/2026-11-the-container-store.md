@@ -2,9 +2,9 @@
 id: 2026-11-the-container-store
 target: The Container Store
 domain: thecontainerstore.com
-status: EMERGING
+status: DEVELOPING
 first_seen: 2026-11-05
-last_updated: 2026-11-05
+last_updated: 2026-11-20
 threat_actor: N0n
 summary: The Container Store was listed on the N0n ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -14,6 +14,9 @@ tags:
   - ransomware-claim
   - n0n
   - emerging
+  - investigative
+  - developing
+  - media-pickup
 industry: Retail & E-Commerce
 compromised_data:
   - Authentication Credentials
@@ -41,3 +44,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** The Container Store Listed on N0n Ransomware Extortion Portal
 - **Verification:** UNVERIFIED CLAIM
 - **Source:** [N0n Ransomware Leak Site Claim](https://www.ransomware.live/id/VGhlIENvbnRhaW5lciBTdG9yZUBOMG4=)
+
+### 2026-11-20 19:32 UTC
+- **Event:** Press Coverage: Container Store restores systems after cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/container-store-restores-systems-cyberattack)

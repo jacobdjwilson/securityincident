@@ -2,7 +2,7 @@
 id: 2026-11-disclosed
 target: Disclosed
 domain: disclosed.com
-status: DEVELOPING
+status: ACKNOWLEDGED
 first_seen: 2026-11-02
 last_updated: 2026-11-20
 threat_actor: PixelLeaks
@@ -21,6 +21,7 @@ tags:
   - cve-2026-105133
   - cve-2026-105134
   - cve-2026-76466
+  - acknowledged
 industry: Other
 compromised_data:
   - Authentication Credentials
@@ -164,3 +165,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Hackers Breach N-able Cloud Server, Disrupting Email Security Management Across 3 Regions
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/n-able-confirms-hackers-accessed-cloud.html)
+
+### 2026-11-20 18:44 UTC
+- **Event:** Press Coverage: U.S. Department of Agriculture grapples with security breach as IT staff take multiple systems offline
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/20/u-s-department-of-agriculture-grapples-with-security-breach-as-it-staff-take-multiple-systems-offline/)
+
+### 2026-11-20 16:58 UTC
+- **Event:** Press Coverage: Bazuka Android Malware Uses Fake Screen Overlays to Hide Credential Theft and Device Control
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/bazuka-android-malware-uses-fake-screen.html)
+
+### 2026-11-20 16:43 UTC
+- **Event:** Press Coverage: Healthcare Sector Disclosed 100 Ransomware Attacks in Q3
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [HIPAA Journal Healthcare Breaches Report](https://www.hipaajournal.com/q3-2026-ransomware-report-healthcare/)
