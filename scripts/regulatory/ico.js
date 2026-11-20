@@ -46,7 +46,7 @@ const KNOWN_ICO_CASES = {
     accessionNumber: 'IC-322233-D9N6',
     filingDate: '2024-06-07',
     form: 'UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)',
-    url: 'https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/',
+    url: 'https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf',
     description: "Statutory personal data breach notification and regulatory investigation casework record registered with the UK Information Commissioner's Office (ICO) under Reference IC-322233-D9N6 pursuant to Article 33 of the UK GDPR concerning the ransomware extortion incident impacting Synnovis pathology services and partner NHS England health services."
   },
   'nhs-pathology-provider-synnovis': {
@@ -58,7 +58,7 @@ const KNOWN_ICO_CASES = {
     accessionNumber: 'IC-322233-D9N6',
     filingDate: '2024-06-07',
     form: 'UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)',
-    url: 'https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/',
+    url: 'https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf',
     description: "Statutory personal data breach notification and regulatory investigation casework record registered with the UK Information Commissioner's Office (ICO) under Reference IC-322233-D9N6 pursuant to Article 33 of the UK GDPR concerning the ransomware extortion incident impacting Synnovis pathology services."
   }
 };

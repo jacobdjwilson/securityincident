@@ -36,7 +36,7 @@ regulatory_filings:
     form: UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)
     accession_number: IC-322233-D9N6
     filing_date: 2024-06-07
-    url: https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/
+    url: https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf
     description: Statutory personal data breach notification and regulatory
       investigation record submitted to the UK Information Commissioner's Office
       (ICO) under Reference IC-322233-D9N6 pursuant to Article 33 of the UK
@@ -62,14 +62,14 @@ Forensic telemetry and statutory disclosure filings confirm exposure of the foll
 ## Statutory Disclosures & Compliance
 
 In adherence to statutory breach notification mandates, official filings have been registered with data protection and healthcare regulatory authorities:
-- **UK Information Commissioner's Office (ICO) Filing:** UK GDPR Article 33 Statutory Breach Notification (Ref: `IC-322233-D9N6`) submitted pursuant to statutory notification requirements, disclosing ransomware extortion and unauthorized data exfiltration compromising patient diagnostic records. Case correspondence and regulatory disclosure details are published on the [UK ICO Regulatory Disclosure Log (IC-322233-D9N6)](https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/).
+- **UK Information Commissioner's Office (ICO) Filing:** UK GDPR Article 33 Statutory Breach Notification (Ref: `IC-322233-D9N6`) submitted pursuant to statutory notification requirements, disclosing ransomware extortion and unauthorized data exfiltration compromising patient diagnostic records. Case correspondence and regulatory disclosure details are published on the [UK ICO Regulatory Disclosure Log (IC-322233-D9N6)](https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf).
 
 ## Timeline
 
 ### 2024-06-07 11:30 UTC
 - **Event:** UK ICO Statutory Breach Notification: Formal Article 33 UK GDPR data breach notification submitted to the Information Commissioner's Office regarding Synnovis pathology ransomware compromise impacting NHS trusts (Casework Ref: IC-322233-D9N6)
 - **Verification:** CONFIRMED BY REGULATOR
-- **Source:** [UK ICO Regulatory Disclosure Log (IC-322233-D9N6)](https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/)
+- **Source:** [UK ICO Regulatory Disclosure Log (IC-322233-D9N6)](https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf)
 
 ### 2026-09-27 13:22 UTC
 - **Event:** UK: Ten NHS staff removed over Noah Woods data breach
