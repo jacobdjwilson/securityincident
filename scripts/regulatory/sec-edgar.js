@@ -185,6 +185,7 @@ export function extractItemDisclosureText(html) {
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .replace(/<[^>]+>/g, '')
     .replace(/[ \t]+/g, ' ')
     .replace(/\n[ \t]+/g, '\n')
     .replace(/\n\s*\n\s*\n+/g, '\n\n')
