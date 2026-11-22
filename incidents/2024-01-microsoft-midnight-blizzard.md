@@ -756,3 +756,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Mainstream Media Pickup: Hacks, AI and conspiracy theories: why are we having so many outages?
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/22/hacks-ai-internet-outages-airlines-banks-microsoft-apple)
+
+### 2026-11-22 17:14 UTC
+- **Event:** Mainstream Media Pickup: Director of National Intelligence Jay Clayton warns Americans of &apos;bumps in the road&apos; after tech outages
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/11/22/jay-clayton-tech-outages-faa-microsoft-thanksgiving.html)
