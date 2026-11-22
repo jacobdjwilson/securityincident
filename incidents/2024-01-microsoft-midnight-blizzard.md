@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-20
+last_updated: 2026-11-22
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -746,3 +746,13 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Trump's First Move After the Outages: Fire the Cyber Director
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203581/intelligence/trumps-first-move-after-the-outages-fire-the-cyber-director.html)
+
+### 2026-11-21 18:01 UTC
+- **Event:** Press Coverage: Microsoft Entra Connect Health flaw exploited to steal tenant data
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data/)
+
+### 2026-11-22 06:00 UTC
+- **Event:** Mainstream Media Pickup: Hacks, AI and conspiracy theories: why are we having so many outages?
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/22/hacks-ai-internet-outages-airlines-banks-microsoft-apple)

@@ -4,7 +4,7 @@ target: Palo Alto Networks
 domain: paloaltonetworks.com
 status: DEVELOPING
 first_seen: 2026-10-14
-last_updated: 2026-10-25
+last_updated: 2026-11-19
 threat_actor: Qilin
 summary: Palo Alto Networks has released security updates for a high-severity
   PAN-OS RCE zero-day, tracked as CVE-2026-0322, that has been exploited in
@@ -20,12 +20,16 @@ tags:
   - media-pickup
   - investigative
   - cve-2026-0257
+  - cve-2026-123633
+  - cve-2026-123007
 cve_ids:
   - CVE-2026-0322
   - CVE-2026-76519
   - CVE-2026-105133
   - CVE-2026-105134
   - CVE-2026-0257
+  - CVE-2026-123633
+  - CVE-2026-123007
 compromised_data:
   - Authentication Credentials
 agency_advisories:
@@ -79,6 +83,25 @@ vendor_advisories:
       customers’ firewalls, and it has made IoCs available. The post Palo Alto
       Networks Patches PAN-OS Zero-Day Exploited for Remote Code Execution
       appeared first on SecurityWeek .
+  - publisher: Palo Alto Networks
+    advisory_id: "NGINX2Root: F5 patches five critical NGINX vulnerabilities"
+    title: "NGINX2Root: F5 patches five critical NGINX vulnerabilities"
+    severity: Critical
+    release_date: 2026-11-19
+    cve_ids:
+      - CVE-2026-123633
+      - CVE-2026-123007
+    url: https://www.helpnetsecurity.com/2026/11/19/nginx2root-nginx-vulnerabilities/
+    description: "F5 has patched five critical vulnerabilities in NGINX, the world's
+      most widely used open-source web server, that can allow remote code
+      execution under certain conditions. Dubbed \"NGINX2Root\" by Xint
+      researchers, two of the bunch (CVE-2026-123633 and CVE-2026-123007) were
+      also independently unearthed and reported by Rapid7, Wiz, Ikotas Labs,
+      Palo Alto Networks and Metnir researchers. There's no evidence that any of
+      them has been exploited in the wild, and none were on CISA’s Known
+      Exploited Vulnerabilities &#8230; More &#8594; The post NGINX2Root: F5
+      patches five critical NGINX vulnerabilities appeared first on Help Net
+      Security ."
 ---
 
 ## Incident Overview
@@ -143,3 +166,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: PHP2Shell Exploitation Attempts Continue Amid Suspected N. Korea Global Scanning Activity
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Hacker News Report](https://thehackernews.com/2026/10/php2shell-exploitation-hits-government.html)
+
+### 2026-11-19 18:25 UTC
+- **Event:** Press Coverage: NGINX2Root: F5 patches five critical NGINX vulnerabilities
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/19/nginx2root-nginx-vulnerabilities/)

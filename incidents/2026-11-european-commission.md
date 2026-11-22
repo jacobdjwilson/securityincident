@@ -44,3 +44,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: European Commission Cyberattack: ARTEX AI Tool Suspected in Prolonged Disruption
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203483/hacking/european-commission-cyberattack-artex-ai-tool-suspected-in-prolonged-disruption.html)
+
+### 2026-11-20 08:52 UTC
+- **Event:** Press Coverage: European Commission confirms AI-generated cyberattack disrupted its systems
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/20/european-commission-ai-generated-cyberattack-publicly-available-tool/)
