@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-22
+last_updated: 2026-11-23
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -761,3 +761,33 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Mainstream Media Pickup: Director of National Intelligence Jay Clayton warns Americans of &apos;bumps in the road&apos; after tech outages
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/11/22/jay-clayton-tech-outages-faa-microsoft-thanksgiving.html)
+
+### 2026-11-23 15:45 UTC
+- **Event:** Press Coverage: Norway says hackers exploited Microsoft security flaw to attack energy firms Equinor, Skagerak Energi
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/norway-microsoft-cyberattack-equinor)
+
+### 2026-11-23 15:47 UTC
+- **Event:** Press Coverage: Azure Flaw Exploited to Target Secrets at Norwegian Energy Firms
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/azure-flaw-exploited-to-target-secrets-at-norwegian-energy-firms/)
+
+### 2026-11-23 12:29 UTC
+- **Event:** Press Coverage: Norway links energy firm cyberattacks to critical Azure API Management flaw
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/23/norway-links-energy-firm-cyberattacks-to-critical-azure-api-management-flaw/5311598)
+
+### 2026-11-23 08:42 UTC
+- **Event:** Press Coverage: When Microsoft, Apple, and the FAA can't keep it up, it's a system of a down
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/columnists/2026/11/23/when-microsoft-apple-and-the-faa-cant-keep-it-up-its-a-system-of-a-down/5311363)
+
+### 2026-11-23 10:34 UTC
+- **Event:** Press Coverage: Attackers exploited Microsoft Entra Connect Health flaw to access tenant data
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/23/microsoft-entra-connect-health-vulnerability-tenant-data/)
+
+### 2026-11-23 14:33 UTC
+- **Event:** Press Coverage: Microsoft Entra Connect Health Breach Exposes Tenant Metadata and Admin Details
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203820/data-breach/microsoft-entra-connect-health-breach-exposes-tenant-metadata-and-admin-details.html)

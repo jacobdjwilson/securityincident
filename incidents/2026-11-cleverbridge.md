@@ -4,7 +4,7 @@ target: Cleverbridge
 domain: cleverbridge.com
 status: DEVELOPING
 first_seen: 2026-11-22
-last_updated: 2026-11-22
+last_updated: 2026-11-23
 threat_actor: null
 summary: E-commerce platform Cleverbridge is warning that hackers breached its
   systems and stole customers' payment card information, including credit card
@@ -12,6 +12,7 @@ summary: E-commerce platform Cleverbridge is warning that hackers breached its
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Financial & Banking Data
   - Authentication Credentials
@@ -39,3 +40,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Cleverbridge warns hackers stole credit card numbers, CVVs in data breach
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/cleverbridge-warns-hackers-stole-credit-card-numbers-cvvs-in-data-breach/)
+
+### 2026-11-23 11:48 UTC
+- **Event:** Press Coverage: Cleverbridge admits attackers stole customers' credit card and CVV numbers. Yep, you read that right
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/cyber-crime/2026/11/23/cleverbridge-admits-attackers-stole-customers-credit-card-and-cvv-numbers-yep-you-read-that-right/5311573)
+
+### 2026-11-23 10:45 UTC
+- **Event:** Press Coverage: Cleverbridge Confirms Customers’ Payment Card Data Breached
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/cleverbridge-payment-card-breached/)
+
+### 2026-11-23 13:00 UTC
+- **Event:** Press Coverage: Cleverbridge alerts customers that hackers stole their credit card and CVV numbers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/23/cleverbridge-data-breach-card-numbers-cvv/)

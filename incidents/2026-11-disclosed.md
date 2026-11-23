@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: ACKNOWLEDGED
 first_seen: 2026-11-02
-last_updated: 2026-11-20
+last_updated: 2026-11-23
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -41,6 +41,17 @@ vendor_advisories:
       vulnerabilities already exploited in the wild. The post N-able Kills
       Legacy APIs, Patches 17 N-central Zero-Days appeared first on SecurityWeek
       .
+  - publisher: Disclosed
+    advisory_id: N-able Patches Critical Flaw Disclosed After Mail Assure Cyb
+    title: N-able Patches Critical Flaw Disclosed After Mail Assure Cyberattack
+    severity: Critical
+    release_date: 2026-11-23
+    cve_ids: []
+    url: https://www.securityweek.com/n-able-patches-critical-flaw-disclosed-after-mail-assure-cyberattack/
+    description: The company has restored access to the affected services and
+      continues to monitor the affected environments. The post N-able Patches
+      Critical Flaw Disclosed After Mail Assure Cyberattack appeared first on
+      SecurityWeek .
 ---
 
 ## Incident Overview
@@ -180,3 +191,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Healthcare Sector Disclosed 100 Ransomware Attacks in Q3
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [HIPAA Journal Healthcare Breaches Report](https://www.hipaajournal.com/q3-2026-ransomware-report-healthcare/)
+
+### 2026-11-23 15:06 UTC
+- **Event:** Press Coverage: N-able Patches Critical Flaw Disclosed After Mail Assure Cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/n-able-patches-critical-flaw-disclosed-after-mail-assure-cyberattack/)

@@ -4,7 +4,7 @@ target: Austrian Foreign Ministry
 domain: austrianforeignministry.com
 status: DEVELOPING
 first_seen: 2026-11-21
-last_updated: 2026-11-21
+last_updated: 2026-11-24
 threat_actor: null
 summary: Austrian Foreign Ministry Hacked, Staff Contact Details Accessed
   Hackers accessed Austrian Foreign Ministry records containing staff contact
@@ -13,6 +13,8 @@ summary: Austrian Foreign Ministry Hacked, Staff Contact Details Accessed
 tags:
   - threat-intel
   - developing
+  - investigative
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +41,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Cyberattack on Austrian Foreign Ministry Exposes Diplomatic Staff Data
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203680/hacking/cyberattack-on-austrian-foreign-ministry-exposes-diplomatic-staff-data.html)
+
+### 2026-11-24 00:00 UTC
+- **Event:** Press Coverage: Hackers breach Austrian Foreign Ministry website, access diplomats' contact details
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/austrian-foreign-ministry-says-website-hacked)

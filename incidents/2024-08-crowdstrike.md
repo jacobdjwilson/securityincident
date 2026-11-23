@@ -4,7 +4,7 @@ target: CrowdStrike
 domain: crowdstrike.com
 status: CONFIRMED
 first_seen: 2024-08-08
-last_updated: 2026-10-30
+last_updated: 2026-11-23
 threat_actor: null
 summary: Healthcare data breach disclosure submitted to federal regulators by
   CrowdStrike.
@@ -18,6 +18,7 @@ tags:
   - media-pickup
   - cve-2026-41709
   - investigative
+  - general-media
 industry: Healthcare
 incident_type: Protected Health Information (PHI) Breach
 compromised_data:
@@ -84,3 +85,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** Press Coverage: Chinese Hacker Deployed AI in Campaign Against South Korean Banks
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/chinese-hacker-ai-korean-banks/)
+
+### 2026-11-23 14:38 UTC
+- **Event:** Mainstream Media Pickup: CrowdStrike to buy Zscaler in $44 billion deal as AI supercharges cyberattacks
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [CNBC Technology Report](https://www.cnbc.com/2026/11/23/crowdstrike-zscaler-aquisition-ai-cyberattacks.html)

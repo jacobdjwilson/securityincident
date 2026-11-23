@@ -4,7 +4,7 @@ target: European Commission
 domain: europeancommission.com
 status: DEVELOPING
 first_seen: 2026-11-19
-last_updated: 2026-11-20
+last_updated: 2026-11-23
 threat_actor: null
 summary: The Commission took certain services offline to contain the incident,
   but it has no evidence of a data breach. The post European Commission Confirms
@@ -13,6 +13,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - general-media
 compromised_data:
   - Authentication Credentials
 ---
@@ -49,3 +50,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: European Commission confirms AI-generated cyberattack disrupted its systems
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/20/european-commission-ai-generated-cyberattack-publicly-available-tool/)
+
+### 2026-11-23 13:24 UTC
+- **Event:** Mainstream Media Pickup: European Commission warns EU Academy users of data leak after AI-driven cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [AP News Report](https://news.google.com/rss/articles/CBMirAFBVV95cUxPSjNGakREcTJSN1N6bHM5aVhFY2lGVTY4aENmNU5PWHdvQ2JLV0tLZmFweTF1Zk1hQmNFRGFDa25MNkNlQ3dYbEFjNXNfbi16em85LXFkaFhHelB6Y2R0RDJ3TlJJX3dleDE2S0tSZWs4dVgyRU1sYzF4NWZ6a0hxWkxLTEkxUmJVWlR6eDE3djJ4U1MyczI1Mnh5VFNJSGtQRnpJTUNZQXExLXlJ?oc=5)
