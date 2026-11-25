@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-23
+last_updated: 2026-11-24
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -791,3 +791,18 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft Entra Connect Health Breach Exposes Tenant Metadata and Admin Details
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203820/data-breach/microsoft-entra-connect-health-breach-exposes-tenant-metadata-and-admin-details.html)
+
+### 2026-11-23 19:42 UTC
+- **Event:** Press Coverage: Microsoft Azure flaw exploited to steal customers' API credentials
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/)
+
+### 2026-11-23 16:58 UTC
+- **Event:** Mainstream Media Pickup: How freaked out should we be? After mass outages, experts tell us how close we are to ‘doomsday’
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Guardian Technology Report](https://www.theguardian.com/technology/2026/nov/23/tech-outages-security-experts)
+
+### 2026-11-24 12:04 UTC
+- **Event:** Press Coverage: Azure API Management vulnerability exploited to steal customers' secrets
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/24/azure-apim-vulnerability-credential-theft/)

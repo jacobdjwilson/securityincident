@@ -2,9 +2,9 @@
 id: 2026-11-disclosed
 target: Disclosed
 domain: disclosed.com
-status: ACKNOWLEDGED
+status: CONFIRMED
 first_seen: 2026-11-02
-last_updated: 2026-11-23
+last_updated: 2026-11-24
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -22,6 +22,7 @@ tags:
   - cve-2026-105134
   - cve-2026-76466
   - acknowledged
+  - confirmed
 industry: Other
 compromised_data:
   - Authentication Credentials
@@ -196,3 +197,28 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: N-able Patches Critical Flaw Disclosed After Mail Assure Cyberattack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/n-able-patches-critical-flaw-disclosed-after-mail-assure-cyberattack/)
+
+### 2026-11-24 18:59 UTC
+- **Event:** Press Coverage: Turnitin discloses cyberattack affecting customer-facing systems
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/turnitin-discloses-cyberattack-affecting-customer-facing-systems/)
+
+### 2026-11-24 14:09 UTC
+- **Event:** Press Coverage: McDonald's Japan data breach exposes customer location information
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/mcdonalds-japan-data-breach-exposes-customer-location-information/)
+
+### 2026-11-23 18:38 UTC
+- **Event:** Press Coverage: Spanish LaLiga confirms hackers stole soccer fans’ personal data
+- **Verification:** CONFIRMED BY TARGET
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/spanish-laliga-confirms-hackers-stole-soccer-fans-personal-data/)
+
+### 2026-11-24 08:34 UTC
+- **Event:** Press Coverage: WHMCS SQL Injection Could Expose Customer Data and Admin Password Hashes without Login
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/whmcs-sql-injection-flaw-could-expose.html)
+
+### 2026-11-24 20:29 UTC
+- **Event:** Press Coverage: EU Academy Users' Names and Emails Exposed in EU Commission Hack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203900/data-breach/eu-academy-users-names-and-emails-exposed-in-eu-commission-hack.html)

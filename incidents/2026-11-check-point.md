@@ -4,7 +4,7 @@ target: Check Point
 domain: checkpoint.com
 status: DEVELOPING
 first_seen: 2026-11-13
-last_updated: 2026-11-14
+last_updated: 2026-11-24
 threat_actor: null
 summary: Check Point Software has released emergency hotfixes to address a
   high-severity flaw that hackers have been exploiting to gain root privileges
@@ -47,3 +47,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: U.S. CISA adds Check Point and UnrealIRCd flaws to its Known Exploited Vulnerabilities catalog
 - **Verification:** GOVERNMENT ADVISORY
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203040/hacking/u-s-cisa-adds-check-point-and-unrealircd-flaws-to-its-known-exploited-vulnerabilities-catalog.html)
+
+### 2026-11-24 16:15 UTC
+- **Event:** Press Coverage: Hackers compromise Check Point Servers in 22 organizations
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/hackers-compromise-check-point-servers-in-22-organizations/)
+
+### 2026-11-24 14:21 UTC
+- **Event:** Press Coverage: Check Point Security Management Servers Hacked in AI-Assisted Campaign
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/check-point-security-management-servers-hacked-in-ai-assisted-campaign/)

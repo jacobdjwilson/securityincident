@@ -2,9 +2,9 @@
 id: 2026-11-european-commission
 target: European Commission
 domain: europeancommission.com
-status: DEVELOPING
+status: CONFIRMED
 first_seen: 2026-11-19
-last_updated: 2026-11-23
+last_updated: 2026-11-24
 threat_actor: null
 summary: The Commission took certain services offline to contain the incident,
   but it has no evidence of a data breach. The post European Commission Confirms
@@ -14,6 +14,7 @@ tags:
   - developing
   - media-pickup
   - general-media
+  - confirmed
 compromised_data:
   - Authentication Credentials
 ---
@@ -55,3 +56,18 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: European Commission warns EU Academy users of data leak after AI-driven cyberattack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [AP News Report](https://news.google.com/rss/articles/CBMirAFBVV95cUxPSjNGakREcTJSN1N6bHM5aVhFY2lGVTY4aENmNU5PWHdvQ2JLV0tLZmFweTF1Zk1hQmNFRGFDa25MNkNlQ3dYbEFjNXNfbi16em85LXFkaFhHelB6Y2R0RDJ3TlJJX3dleDE2S0tSZWs4dVgyRU1sYzF4NWZ6a0hxWkxLTEkxUmJVWlR6eDE3djJ4U1MyczI1Mnh5VFNJSGtQRnpJTUNZQXExLXlJ?oc=5)
+
+### 2026-11-24 16:22 UTC
+- **Event:** Press Coverage: European Commission confirms data theft in EU Academy breach
+- **Verification:** CONFIRMED BY TARGET
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/european-commission-confirms-data-theft-in-eu-academy-breach/)
+
+### 2026-11-24 14:49 UTC
+- **Event:** Press Coverage: European Commission Uncovers Data Breach in Cyberattack Investigation
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/european-commission-uncovers-data-breach-in-cyberattack-investigation/)
+
+### 2026-11-24 11:32 UTC
+- **Event:** Press Coverage: European Commission confirms personal data stolen in AI-assisted cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/cyber-crime/2026/11/24/european-commission-confirms-personal-data-stolen-in-ai-assisted-cyberattack/5311834)
