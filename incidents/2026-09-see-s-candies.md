@@ -4,7 +4,7 @@ target: See’s Candies
 domain: seescandies.com
 status: CONFIRMED
 first_seen: 2026-08-13
-last_updated: 2026-09-02
+last_updated: 2026-11-25
 threat_actor: Magecart / E-commerce Skimmer
 summary: State of California Department of Justice data breach disclosure notice
   filed by See’s Candies.
@@ -49,6 +49,15 @@ regulatory_filings:
       Code § 1798.82 (SB-24), disclosing unauthorized access to personal
       identifiable information of California residents.
     accession_number: sb24-629221
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice (sb24-629221)
+    accession_number: sb24-629221
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-629221
+    filing_date: 2026-11-25
+    description: Official statutory data breach notification submitted by See's
+      Candies to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 ---
 
 ## Incident Overview
@@ -84,3 +93,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-628237)
+
+### 2026-11-25 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-633435)

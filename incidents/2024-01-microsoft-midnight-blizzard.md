@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-24
+last_updated: 2026-11-25
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -806,3 +806,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Azure API Management vulnerability exploited to steal customers' secrets
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/24/azure-apim-vulnerability-credential-theft/)
+
+### 2026-11-25 21:18 UTC
+- **Event:** Press Coverage: Microsoft: China’s Salt Typhoon hackers are using Artex
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/microsoft-china-salt-typhoon-using-artex-ai-tool)

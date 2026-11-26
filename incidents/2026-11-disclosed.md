@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: CONFIRMED
 first_seen: 2026-11-02
-last_updated: 2026-11-24
+last_updated: 2026-11-26
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -23,6 +23,7 @@ tags:
   - cve-2026-76466
   - acknowledged
   - confirmed
+  - cve-2026-133275
 industry: Other
 compromised_data:
   - Authentication Credentials
@@ -30,6 +31,7 @@ cve_ids:
   - CVE-2026-105133
   - CVE-2026-105134
   - CVE-2026-76466
+  - CVE-2026-133275
 vendor_advisories:
   - publisher: Disclosed
     advisory_id: N-able Kills Legacy APIs, Patches 17 N-central Zero-Days
@@ -222,3 +224,28 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: EU Academy Users' Names and Emails Exposed in EU Commission Hack
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/203900/data-breach/eu-academy-users-names-and-emails-exposed-in-eu-commission-hack.html)
+
+### 2026-11-25 21:33 UTC
+- **Event:** Press Coverage: 1Password customer data stolen after employee GitHub account breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/1password-customer-data-stolen-after-employee-github-account-breach/)
+
+### 2026-11-26 10:57 UTC
+- **Event:** Press Coverage: 1Password Hacked, Customer Data and Source Code Stolen in GitHub Account Breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/1password-hacked-customer-data-and.html)
+
+### 2026-11-26 06:44 UTC
+- **Event:** Press Coverage: Hackers Exploit 10 Vulnerabilities Across Mitel, Juniper, Vates, and Danfoss Products
+- **Verification:** GOVERNMENT ADVISORY
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/hackers-exploit-10-vulnerabilities.html)
+
+### 2026-11-26 08:42 UTC
+- **Event:** Press Coverage: 1Password breached through hijacked employee GitHub account, customer names and emails stolen
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/26/1password-breach-github-customer-records/)
+
+### 2026-11-26 09:42 UTC
+- **Event:** Press Coverage: 1Password Hacked: Customer Names and Emails Copied, Vaults Untouched
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/204031/cyber-crime/1password-hacked-customer-names-and-emails-copied-vaults-untouched.html)

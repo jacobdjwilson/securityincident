@@ -4,7 +4,7 @@ target: InfraTrust report
 domain: infratrustreport.com
 status: DEVELOPING
 first_seen: 2026-10-28
-last_updated: 2026-10-28
+last_updated: 2026-11-25
 threat_actor: null
 summary: Attackers are actively exploiting vulnerabilities across critical
   network infrastructure, and PHP flaws known as "PHP2Shell" put the web
@@ -13,6 +13,7 @@ summary: Attackers are actively exploiting vulnerabilities across critical
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** InfraTrust report warns of exploited flaws in critical network infrastructure
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/infratrust-report-warns-of-exploited-flaws-in-critical-network-infrastructure/)
+
+### 2026-11-25 15:00 UTC
+- **Event:** Press Coverage: InfraTrust warns of exploited supply chain flaws in network appliances
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/infratrust-warns-of-exploited-supply-chain-flaws-in-network-appliances/)

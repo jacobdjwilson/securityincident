@@ -4,7 +4,7 @@ target: An Unclassified CIA System Was
 domain: anunclassifiedciasystemwas.com
 status: DEVELOPING
 first_seen: 2026-11-24
-last_updated: 2026-11-24
+last_updated: 2026-11-25
 threat_actor: null
 summary: It was not clear what specific information was compromised or who was
   responsible. The post An Unclassified CIA System Was Breached in a
@@ -12,6 +12,8 @@ summary: It was not clear what specific information was compromised or who was
 tags:
   - threat-intel
   - developing
+  - investigative
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** An Unclassified CIA System Was Breached in a Cyberattack, AP Source Says
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/an-unclassified-cia-system-was-breached-in-a-cyberattack-ap-source-says/)
+
+### 2026-11-25 01:52 UTC
+- **Event:** Press Coverage: CIA system breached in latest cyberattack targeting US intelligence agencies
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/24/cia-system-breached-in-latest-cyberattack-targeting-us-intelligence-agencies/)

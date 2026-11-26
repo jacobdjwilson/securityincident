@@ -2,9 +2,9 @@
 id: 2026-08-australia
 target: Australia
 domain: australia.com
-status: DEVELOPING
+status: ACKNOWLEDGED
 first_seen: 2026-08-25
-last_updated: 2026-11-19
+last_updated: 2026-11-26
 threat_actor: null
 summary: Australian officials are urging TeamCity customers to patch an actively
   exploited critical flaw, which follows a similar warning from the US
@@ -15,6 +15,7 @@ tags:
   - media-pickup
   - general-media
   - investigative
+  - acknowledged
 compromised_data:
   - Authentication Credentials
 ---
@@ -96,3 +97,23 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Mainstream Media Pickup: Australia's Bell Financial says some client data likely accessed in cyber incident
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMiywFBVV95cUxNUVFVYlJmcE9TbktrajNRbDBfTVhRLU5hMXVBV2RPVHVQeUVLaEdtM2JFRVRRN0Q5MEw5TzBWcEdLQzlXWmZCWHVTSjdmU1p0Y1c4SThaLTlkbVl1Vy1TZVUxWC1HSFFYOUdDSDlTcEE0Q0RzTHExZkZOZTE2d2NNTmw1dFhfeGJrbDhRZFVBZm1mVUMwUEs4Q0pQVVk1U003Y3c2WlpLaGlsSkIxQndyWXF2OUxQV3RPd0hHUl92YnI4bTM2T0dUbFRDTQ?oc=5)
+
+### 2026-11-26 13:18 UTC
+- **Event:** Press Coverage: Australia’s Flight Centre Data Breach Exposes Customer Records and Passport Details
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/26/australias-flight-centre-data-breach-exposes-customer-records-and-passport-details/)
+
+### 2026-11-25 06:37 UTC
+- **Event:** Press Coverage: Com-Affiliated Hackers Hijack Cloud Accounts via Vishing for Data Theft and Extortion
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/com-affiliated-hackers-hijack-cloud.html)
+
+### 2026-11-25 23:43 UTC
+- **Event:** Mainstream Media Pickup: Australia's Flight Centre probes data breach in third-party system
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Reuters Report](https://news.google.com/rss/articles/CBMiywFBVV95cUxPS3V6YWxUNDFXcU90eEFNd1FXdkFwSkF6eGdkQlk3SWwxNlc5cUNfNm45UkJFczdRTDhZOXlKVHR4OWo4SVBsWGs5Rmk5djhnZkpsUmk4azJleTB0SkFDNGVPUVZXV0pjdS03LXQzb0NFWlpWLTU5N1JrUU1VSWYwa0JUdG1kdGxQV3o2R3l3cW84TElnN2FjNjZDemh3eHUwQXRWQ2h0Q2Y1TXBScnczNjZPVF91eVVDWXhmUkJJRzVaMWMtVUYyVEhiaw?oc=5)
+
+### 2026-11-26 11:51 UTC
+- **Event:** Press Coverage: Australia’s Flight Centre Data Breach Exposes Customer Records and Passport Details
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/204049/data-breach/australias-flight-centre-data-breach-exposes-customer-records-and-passport-details.html)

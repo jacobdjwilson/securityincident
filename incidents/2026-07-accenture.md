@@ -4,7 +4,7 @@ target: Accenture
 domain: accenture.com
 status: CONFIRMED
 first_seen: 2026-07-09
-last_updated: 2026-07-09
+last_updated: 2026-11-26
 threat_actor: null
 summary: Healthcare data breach disclosure submitted to federal regulators by Accenture.
 tags:
@@ -12,6 +12,9 @@ tags:
   - hhs-ocr
   - healthcare
   - confirmed
+  - threat-intel
+  - developing
+  - media-pickup
 industry: Healthcare
 incident_type: Protected Health Information (PHI) Breach
 compromised_data:
@@ -52,3 +55,8 @@ Identified categories of compromised data and impacted assets include:
 - **Event:** HHS OCR Healthcare Data Breach Disclosure: Accenture Confirms Intrusion After Hacker Claims 35GB Data Breach
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [HHS OCR Regulatory Healthcare Breach Report](https://www.hipaajournal.com/accenture-intrusion-july-2026/)
+
+### 2026-11-26 11:35 UTC
+- **Event:** Press Coverage: Mitel MiCollab Zero-Days Exploited in Suspected AI-Assisted Attacks
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/mitel-micollab-zero-days-exploited-in-suspected-ai-assisted-attacks/)

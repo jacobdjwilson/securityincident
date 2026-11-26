@@ -4,7 +4,7 @@ target: Boston Scientific
 domain: bostonscientific.com
 status: CONFIRMED
 first_seen: 2026-08-27
-last_updated: 2026-09-08
+last_updated: 2026-11-25
 threat_actor: Unknown / Unattributed
 summary: Medical manufacturer Boston Scientific Corporation filed Form 8-K Item
   1.05 formalizing disclosure of an unauthorized intrusion into corporate IT
@@ -17,6 +17,8 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - state-ag
+  - california
 industry: Healthcare
 incident_type: Unauthorized Network Intrusion
 affected_records: 48000
@@ -167,6 +169,15 @@ regulatory_filings:
       forward-looking statements, except as required by law. This cautionary
       statement is applicable to all forward-looking statements contained in
       this Current Report on Form 8-K and any statements incorporated herein.
+  - regulator: California Department of Justice
+    form: SB-24 Data Breach Notice (sb24-633449)
+    accession_number: sb24-633449
+    url: https://oag.ca.gov/ecrime/databreach/reports/sb24-633449
+    filing_date: 2026-11-25
+    description: Official statutory data breach notification submitted by Boston
+      Scientific to the California Department of Justice under California Civil
+      Code § 1798.82 (SB-24), disclosing unauthorized access to personal
+      identifiable information of California residents.
 ---
 
 ## Incident Overview
@@ -197,3 +208,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: Boston Scientific Reveals Global Disruption After Cyber Incident
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/boston-scientific-global/)
+
+### 2026-11-25 17:00 UTC
+- **Event:** California Attorney General Data Breach Notice (SB-24)
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-633449)

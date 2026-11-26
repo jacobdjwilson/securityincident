@@ -4,7 +4,7 @@ target: Palo Alto Networks
 domain: paloaltonetworks.com
 status: DEVELOPING
 first_seen: 2026-10-14
-last_updated: 2026-11-19
+last_updated: 2026-11-25
 threat_actor: Qilin
 summary: Palo Alto Networks has released security updates for a high-severity
   PAN-OS RCE zero-day, tracked as CVE-2026-0322, that has been exploited in
@@ -171,3 +171,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: NGINX2Root: F5 patches five critical NGINX vulnerabilities
 - **Verification:** GOVERNMENT ADVISORY
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/19/nginx2root-nginx-vulnerabilities/)
+
+### 2026-11-25 22:05 UTC
+- **Event:** Press Coverage: Palo Alto Networks warns of Fragnesia flaw exploited in PAN-OS attacks
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/palo-alto-networks-warns-of-fragnesia-flaw-exploited-in-pan-os-attacks/)

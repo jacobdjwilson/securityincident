@@ -4,7 +4,7 @@ target: Peninsula Energy
 domain: peninsulaenergy.com
 status: DEVELOPING
 first_seen: 2026-11-23
-last_updated: 2026-11-24
+last_updated: 2026-11-26
 threat_actor: null
 summary: "DysruptionHub reports: Peninsula Energy said a cybersecurity incident
   at its Lance uranium project in Wyoming would temporarily affect operations as
@@ -46,3 +46,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Peninsula Energy Halts Trading After Cyber Incident Hits US Uranium Mine
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/peninsula-energy-halts-trading-after-cyber-incident-hits-us-uranium-mine/)
+
+### 2026-11-26 14:02 UTC
+- **Event:** Press Coverage: Wyoming uranium operation shuts down after cyberattack
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/26/wyoming-uranium-operation-shuts-down-after-cyberattack/5312323)

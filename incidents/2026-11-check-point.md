@@ -4,7 +4,7 @@ target: Check Point
 domain: checkpoint.com
 status: DEVELOPING
 first_seen: 2026-11-13
-last_updated: 2026-11-24
+last_updated: 2026-11-25
 threat_actor: null
 summary: Check Point Software has released emergency hotfixes to address a
   high-severity flaw that hackers have been exploiting to gain root privileges
@@ -57,3 +57,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Check Point Security Management Servers Hacked in AI-Assisted Campaign
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [SecurityWeek Report](https://www.securityweek.com/check-point-security-management-servers-hacked-in-ai-assisted-campaign/)
+
+### 2026-11-25 06:50 UTC
+- **Event:** Press Coverage: Hackers Compromise 24 Check Point Management Servers in Suspected AI-Driven Attack Campaign
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/hackers-compromise-24-check-point.html)
+
+### 2026-11-25 10:47 UTC
+- **Event:** Press Coverage: GT13: AI-Assisted Hackers Target 22 Organizations Through Check Point Servers
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Security Affairs Report](https://securityaffairs.com/203946/hacking/gt13-ai-assisted-hackers-target-22-organizations-through-check-point-servers.html)

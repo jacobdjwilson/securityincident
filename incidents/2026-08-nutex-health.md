@@ -4,7 +4,7 @@ target: Nutex Health
 domain: nutexhealth.com
 status: CONFIRMED
 first_seen: 2026-08-31
-last_updated: 2026-09-11
+last_updated: 2026-11-17
 threat_actor: Unknown / Unattributed
 summary: Nutex Health disclosed an unauthorized cybersecurity incident involving
   corporate data environments, triggering formal Item 1.05 notification.
@@ -16,6 +16,7 @@ tags:
   - threat-intel
   - developing
   - media-pickup
+  - acknowledged
 industry: Healthcare
 incident_type: Network Intrusion & Data Exfiltration
 affected_records: null
@@ -75,3 +76,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: Nutex Health Says Patient Data Stolen, Hackers Threaten Leak
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/nutex-patient-data-stolen/)
+
+### 2026-11-17 16:00 UTC
+- **Event:** SEC Form 8-K Item 8.01 Disclosure
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [SEC EDGAR 8-K Item 8.01 Filing (0001628280-26-074363)](https://www.sec.gov/Archives/edgar/data/1479681/000162828026074363/0001628280-26-074363-index.htm)
