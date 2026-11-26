@@ -73,8 +73,10 @@ function findExistingIncidentFilePath(targetSlug, targetName) {
   if (!fs.existsSync(INCIDENTS_DIR)) return null;
   const files = fs.readdirSync(INCIDENTS_DIR).filter(f => f.endsWith('.md'));
 
+  // 1. Direct slug match on filename: YYYY-MM-<targetSlug>.md
   for (const f of files) {
-    if (f.endsWith(`-${targetSlug}.md`)) {
+    const m = f.match(/^\d{4}-\d{2}-(.+)\.md$/);
+    if (m && m[1] === targetSlug) {
       return path.join(INCIDENTS_DIR, f);
     }
   }

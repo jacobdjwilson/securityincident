@@ -47,6 +47,8 @@ function cleanHtml(raw) {
   return raw
     .replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1')
     .replace(/<[^>]+>/g, ' ')
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(parseInt(dec, 10)))
+    .replace(/&#x([a-f\d]+);/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
     .replace(/&(?:[a-z\d]+|#\d+|#x[a-f\d]+);/gi, entity => HTML_ENTITIES[entity.toLowerCase()] || entity)
     .replace(/\s+/g, ' ')
     .trim();
@@ -522,9 +524,10 @@ function findExistingIncidentFilePath(targetSlug, targetName) {
   if (!fs.existsSync(INCIDENTS_DIR)) return null;
   const files = fs.readdirSync(INCIDENTS_DIR).filter(f => f.endsWith('.md'));
 
-  // 1. Direct slug match on filename: e.g. *-targetSlug.md
+  // 1. Direct slug match on filename: YYYY-MM-<targetSlug>.md
   for (const f of files) {
-    if (f.endsWith(`-${targetSlug}.md`)) {
+    const m = f.match(/^\d{4}-\d{2}-(.+)\.md$/);
+    if (m && m[1] === targetSlug) {
       return path.join(INCIDENTS_DIR, f);
     }
   }

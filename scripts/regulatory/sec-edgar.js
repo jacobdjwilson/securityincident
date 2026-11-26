@@ -147,7 +147,7 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
         targetSlug,
         domain,
         status: hasItem105 ? 'CONFIRMED' : 'ACKNOWLEDGED',
-        verification: hasItem105 ? 'CONFIRMED BY REGULATOR' : 'ACKNOWLEDGED',
+        verification: 'CONFIRMED BY REGULATOR',
         fileDate,
         timeUtc,
         event: `SEC ${formName} Disclosure`,
@@ -166,6 +166,40 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
   }
 }
 
+const HTML_ENTITIES = {
+  '&amp;': '&',
+  '&#038;': '&',
+  '&#38;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&ldquo;': '"',
+  '&rdquo;': '"',
+  '&#8220;': '"',
+  '&#8221;': '"',
+  '&lsquo;': "'",
+  '&rsquo;': "'",
+  '&#8216;': "'",
+  '&#8217;': "'",
+  '&#39;': "'",
+  '&#x27;': "'",
+  '&ndash;': '—',
+  '&mdash;': '—',
+  '&#8211;': '—',
+  '&#8212;': '—',
+  '&nbsp;': ' ',
+  '&#160;': ' ',
+  '&thinsp;': ' ',
+  '&ensp;': ' ',
+  '&emsp;': ' ',
+  '&#8200;': ' ',
+  '&#8201;': ' ',
+  '&#8202;': ' ',
+  '&#8203;': ' ',
+  '&#8204;': ' ',
+  '&#8205;': ' '
+};
+
 /**
  * Extract clean, verbatim disclosure text from an SEC Form 8-K document HTML
  * @param {string} html
@@ -173,18 +207,19 @@ export async function fetchSecItem105Filings({ days = 90 } = {}) {
  */
 export function extractItemDisclosureText(html) {
   if (!html) return null;
-  const cleaned = html
+  let text = html
     .replace(/<br\s*[\/]?>/gi, '\n')
-    .replace(/<\/p>|<\/div>|<\/tr>/gi, '\n\n')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&#8220;|&#8221;|&ldquo;|&rdquo;/g, '"')
-    .replace(/&#8216;|&#8217;|&lsquo;|&rsquo;/g, "'")
-    .replace(/&#8211;|&#8212;|&ndash;|&mdash;/g, '—')
-    .replace(/&nbsp;|&#160;|&#8200;|&#8201;|&#8202;|&#8203;|&#8204;|&#8205;|&thinsp;|&ensp;|&emsp;/g, ' ')
+    .replace(/<\/p>|<\/div>|<\/tr>/gi, '\n\n');
+
+  // Strip HTML tags iteratively to prevent incomplete multi-character sanitization bypasses
+  while (/<[^>]+>/.test(text)) {
+    text = text.replace(/<[^>]+>/g, '');
+  }
+
+  // Single-pass entity unescaping to prevent double-escaping / unescaping security vulnerabilities
+  const cleaned = text
+    .replace(/&(?:[a-z\d]+|#\d+|#x[a-f\d]+);/gi, entity => HTML_ENTITIES[entity.toLowerCase()] || entity)
     .replace(/[\u2000-\u200B\u00A0]/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
     .replace(/[ \t]+/g, ' ')
     .replace(/\n[ \t]+/g, '\n')
     .replace(/\n\s*\n\s*\n+/g, '\n\n')

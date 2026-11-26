@@ -13,6 +13,31 @@ import { validateIncidentFile } from './validate.js';
 const ROOT_DIR = process.cwd();
 const INCIDENTS_DIR = path.join(ROOT_DIR, 'incidents');
 
+function getUrlHostname(urlStr) {
+  if (!urlStr || typeof urlStr !== 'string') return '';
+  try {
+    return new URL(urlStr).hostname.toLowerCase();
+  } catch {
+    return '';
+  }
+}
+
+function getUrlPath(urlStr) {
+  if (!urlStr || typeof urlStr !== 'string') return '';
+  try {
+    return new URL(urlStr).pathname;
+  } catch {
+    return '';
+  }
+}
+
+function isDomain(urlStr, domain) {
+  const host = getUrlHostname(urlStr);
+  if (!host) return false;
+  const d = domain.toLowerCase();
+  return host === d || host.endsWith('.' + d);
+}
+
 // Curated entity enrichment catalog with known metadata
 const ENTITY_ENRICHMENT_CATALOG = {
   'crowdstrike': {
@@ -470,7 +495,7 @@ export function reconcileIncidents() {
           }
 
           // Washington State AG link & accession specificity
-          const isWa = /washington/i.test(f.regulator) || (f.url && (f.url.includes('atg.wa.gov') || f.url.includes('agportal-s3bucket')));
+          const isWa = /washington/i.test(f.regulator) || (f.url && (isDomain(f.url, 'atg.wa.gov') || (isDomain(f.url, 'amazonaws.com') && getUrlHostname(f.url).startsWith('agportal-s3bucket'))));
           if (isWa) {
             const waMatch = body.match(/https:\/\/agportal-s3bucket\.s3\.amazonaws\.com\/databreach\/([^\s\)\"\']+?\.pdf)/i);
             if (waMatch) {
@@ -491,7 +516,7 @@ export function reconcileIncidents() {
           }
 
           // California Department of Justice link & accession specificity
-          const isCa = /california/i.test(f.regulator) || (f.url && f.url.includes('oag.ca.gov'));
+          const isCa = /california/i.test(f.regulator) || (f.url && isDomain(f.url, 'oag.ca.gov'));
           if (isCa) {
             const sbMatch = body.match(/https:\/\/oag\.ca\.gov\/ecrime\/databreach\/reports\/(sb24-\d+)/i);
             if (sbMatch) {
@@ -517,7 +542,7 @@ export function reconcileIncidents() {
                 modified = true;
                 continue;
               }
-              if (f.url && f.url.includes('ecrime/databreach/reports') && !/sb24-\d+/.test(f.url)) {
+              if (f.url && isDomain(f.url, 'oag.ca.gov') && getUrlPath(f.url).includes('/ecrime/databreach/reports') && !/sb24-\d+/.test(f.url)) {
                 f.url = 'https://oag.ca.gov/privacy/databreach/list';
                 modified = true;
               }
@@ -525,7 +550,7 @@ export function reconcileIncidents() {
           }
 
           // Oregon Department of Justice link & accession specificity
-          const isOr = /oregon/i.test(f.regulator) || (f.url && f.url.includes('justice.oregon.gov'));
+          const isOr = /oregon/i.test(f.regulator) || (f.url && isDomain(f.url, 'justice.oregon.gov'));
           if (isOr) {
             const orMatch = body.match(/https:\/\/justice\.oregon\.gov\/consumer\/databreach\/Details\?id=(\d+)/i);
             if (orMatch) {
@@ -546,7 +571,7 @@ export function reconcileIncidents() {
           }
 
           // ICO regulatory filing normalization & link specificity upgrade
-          const isIco = /ico/i.test(f.regulator) || (f.url && f.url.includes('ico.org.uk'));
+          const isIco = /ico/i.test(f.regulator) || (f.url && isDomain(f.url, 'ico.org.uk'));
           if (isIco) {
             if (f.regulator && f.regulator.includes('Commissioner Office')) {
               f.regulator = f.regulator.replace('Commissioner Office', "Commissioner's Office");
@@ -556,7 +581,7 @@ export function reconcileIncidents() {
               modified = true;
               const isNhs = (data.target && /nhs|synnovis/i.test(data.target)) || (data.id && /nhs|synnovis/i.test(data.id));
               if (isNhs) {
-                f.url = 'https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/';
+                f.url = 'https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf';
                 if (!f.accession_number) f.accession_number = 'IC-322233-D9N6';
                 if (!f.filing_date) f.filing_date = '2024-06-07';
                 f.form = 'UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)';
@@ -587,14 +612,14 @@ export function reconcileIncidents() {
     const isNhsTarget = (data.target && /nhs england|synnovis/i.test(data.target)) || (data.id && (data.id.includes('nhs-england') || data.id.includes('synnovis')));
     if (isNhsTarget) {
       if (!Array.isArray(data.regulatory_filings)) data.regulatory_filings = [];
-      const existingIco = data.regulatory_filings.find(f => /ico/i.test(f.regulator) || (f.url && f.url.includes('ico.org.uk')));
+      const existingIco = data.regulatory_filings.find(f => /ico/i.test(f.regulator) || (f.url && isDomain(f.url, 'ico.org.uk')));
       if (!existingIco) {
         data.regulatory_filings.unshift({
           regulator: "UK Information Commissioner's Office (ICO)",
           form: 'UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)',
           accession_number: 'IC-322233-D9N6',
           filing_date: '2024-06-07',
-          url: 'https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/',
+          url: 'https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf',
           description: "Statutory personal data breach notification and regulatory investigation casework record submitted under Article 33 UK GDPR to the UK Information Commissioner's Office (ICO) under Casework Ref: IC-322233-D9N6 concerning the Synnovis pathology provider ransomware compromise affecting NHS England trusts."
         });
         modified = true;
@@ -603,7 +628,7 @@ export function reconcileIncidents() {
         existingIco.form = 'UK GDPR Article 33 Statutory Breach Notification (IC-322233-D9N6)';
         existingIco.accession_number = 'IC-322233-D9N6';
         existingIco.filing_date = '2024-06-07';
-        existingIco.url = 'https://ico.org.uk/about-the-ico/our-information/disclosure-log/2024/08/ic-322233-d9n6/';
+        existingIco.url = 'https://ico.org.uk/media2/migrated/4030744/ic-322233-d9n6-response.pdf';
         modified = true;
       }
     }
@@ -655,7 +680,7 @@ export function reconcileIncidents() {
     // 9. Fix known broken or 404 links (e.g. legacy Citrix support URL pattern and California base reports 404)
     if (Array.isArray(data.vendor_advisories)) {
       for (const v of data.vendor_advisories) {
-        if (v.url && v.url.includes('support.citrix.com/article/CTX')) {
+        if (v.url && isDomain(v.url, 'support.citrix.com') && getUrlPath(v.url).includes('/article/CTX')) {
           const match = v.url.match(/CTX\d+/);
           if (match) {
             v.url = `https://support.citrix.com/support-home/kbsearch/article?articleNumber=${match[0]}`;

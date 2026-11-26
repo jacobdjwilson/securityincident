@@ -9,8 +9,11 @@ const REQUEST_TIMEOUT_MS = 12000;
 function cleanCompanyName(raw) {
   if (!raw) return '';
   return raw
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(parseInt(dec, 10)))
+    .replace(/&#x([a-f\d]+);/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/\s*\([^)]*\)/g, '') // remove parenthetical like (“GT”) or (U.S.A.)

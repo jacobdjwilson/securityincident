@@ -22,8 +22,11 @@ function slugify(text) {
 function cleanTargetName(raw) {
   if (!raw) return '';
   return raw
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(parseInt(dec, 10)))
+    .replace(/&#x([a-f\d]+);/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/\s*-\s*ICO\s*$/i, '')
@@ -119,7 +122,7 @@ export async function fetchIcoDisclosures({ minDate = null } = {}) {
         if (!targetCandidate || targetCandidate.length < 3) continue;
 
         // Skip generic navigational and policy pages
-        if (/^(?:Enforcement action|Report a breach|Data Protection|Information and cyber|Cookies|Using marketing|Previous reports|Consultation|Guidance)\b/i.test(targetCandidate)) {
+        if (/^(?:Enforcement action|Report a breach|Data Protection|Information and cyber|Cookies|Using marketing|Previous reports|Consultation|Guidance|Resources|Personal data|Glossary|Contact us|Pay|Investigations|Enforcement notice|Untitled|What are|What transfer|Statement on)\b/i.test(targetCandidate)) {
           continue;
         }
 
@@ -128,7 +131,7 @@ export async function fetchIcoDisclosures({ minDate = null } = {}) {
 
         // Check if known case exists
         const knownCase = KNOWN_ICO_CASES[targetSlug];
-        const specificIcoUrl = knownCase?.url || `https://ico.org.uk/action-weve-taken/enforcement/${targetSlug}/`;
+        const specificIcoUrl = knownCase?.url || (link && link.startsWith('http') ? link : 'https://ico.org.uk/action-weve-taken/enforcement/');
         if (seenUrls.has(specificIcoUrl)) continue;
         seenUrls.add(specificIcoUrl);
 
