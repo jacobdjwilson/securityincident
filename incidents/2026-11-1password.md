@@ -46,3 +46,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: 1Password Hit by Backend Breach via Hijacked Employee GitHub Account
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Infosecurity Magazine Report](https://www.infosecurity-magazine.com/news/1password-github-account-backend/)
+
+### 2026-11-26 08:32 UTC
+- **Event:** Press Coverage: 1Password Breach Exposes Customer Data, Internal Source Code
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/1password-breach-exposes-customer-data-internal-source-code/)
+
+### 2026-11-26 11:02 UTC
+- **Event:** Press Coverage: Hackers help themselves to 1Password's source code and customer data
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/26/hackers-help-themselves-to-1passwords-source-code-and-customer-data/5312317)

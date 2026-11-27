@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-25
+last_updated: 2026-11-26
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -811,3 +811,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft: China’s Salt Typhoon hackers are using Artex
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/microsoft-china-salt-typhoon-using-artex-ai-tool)
+
+### 2026-11-26 19:04 UTC
+- **Event:** Press Coverage: Microsoft: Hackers in China, N Korea using ARTEX AI tool to break into global tech systems
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/26/microsoft-hackers-in-china-n-korea-using-artex-ai-tool-to-break-into-global-tech-systems/5312433)
