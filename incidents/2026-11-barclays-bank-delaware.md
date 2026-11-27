@@ -4,7 +4,7 @@ target: Barclays Bank Delaware
 domain: barclaysbankdelaware.com
 status: CONFIRMED
 first_seen: 2026-11-24
-last_updated: 2026-11-24
+last_updated: 2026-11-27
 threat_actor: null
 summary: State of California Department of Justice data breach disclosure notice
   filed by Barclays Bank Delaware.
@@ -13,6 +13,8 @@ tags:
   - state-ag
   - california
   - confirmed
+  - investigative
+  - media-pickup
 regulatory_filings:
   - regulator: California Department of Justice
     form: SB-24 Data Breach Notice (sb24-633397)
@@ -49,3 +51,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** California Attorney General Data Breach Notice (SB-24)
 - **Verification:** CONFIRMED BY REGULATOR
 - **Source:** [California Attorney General Data Breach Notice (SB-24)](https://oag.ca.gov/ecrime/databreach/reports/sb24-633397)
+
+### 2026-11-27 13:02 UTC
+- **Event:** Press Coverage: Barclays’ US banking arm confirms data breach
+- **Verification:** CONFIRMED BY TARGET
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/27/barclays-us-banking-arm-confirms-data-breach/)

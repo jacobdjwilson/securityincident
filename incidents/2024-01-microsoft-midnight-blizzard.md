@@ -4,7 +4,7 @@ target: Microsoft
 domain: microsoft.com
 status: CONFIRMED
 first_seen: 2024-01-12
-last_updated: 2026-11-26
+last_updated: 2026-11-27
 threat_actor: Midnight Blizzard (APT29)
 industry: Technology
 incident_type: Nation-State Password Spray & Cloud Access
@@ -816,3 +816,8 @@ Microsoft disclosed an intrusion by Russian foreign intelligence threat group Mi
 - **Event:** Press Coverage: Microsoft: Hackers in China, N Korea using ARTEX AI tool to break into global tech systems
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Register Security Report](https://www.theregister.com/security/2026/11/26/microsoft-hackers-in-china-n-korea-using-artex-ai-tool-to-break-into-global-tech-systems/5312433)
+
+### 2026-11-27 11:49 UTC
+- **Event:** Press Coverage: Microsoft Store App Found Delivering Vinci RAT Capable of Remote System Control
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/microsoft-store-app-found-delivering.html)

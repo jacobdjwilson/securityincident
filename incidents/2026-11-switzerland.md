@@ -4,7 +4,7 @@ target: Switzerland
 domain: switzerland.com
 status: DEVELOPING
 first_seen: 2026-11-25
-last_updated: 2026-11-25
+last_updated: 2026-11-27
 threat_actor: null
 summary: Switzerland reports its first AI-agent cyberattacks, including critical
   infrastructure breaches, and urges patching internet-facing systems within 24
@@ -13,6 +13,7 @@ summary: Switzerland reports its first AI-agent cyberattacks, including critical
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Switzerland Confirms First AI-Agent Cyberattacks on Local Organisations
 - **Verification:** GOVERNMENT ADVISORY
 - **Source:** [Security Affairs Report](https://securityaffairs.com/204004/hacking/switzerland-confirms-first-ai-agent-cyberattacks-on-local-organisations.html)
+
+### 2026-11-27 06:04 UTC
+- **Event:** Press Coverage: Switzerland Confirms AI-Assisted Cyberattacks Breached Critical Infrastructure Operators
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Hacker News Report](https://thehackernews.com/2026/11/switzerland-confirms-ai-assisted.html)

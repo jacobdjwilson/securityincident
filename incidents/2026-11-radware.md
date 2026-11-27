@@ -4,7 +4,7 @@ target: Radware
 domain: radware.com
 status: DEVELOPING
 first_seen: 2026-11-24
-last_updated: 2026-11-24
+last_updated: 2026-11-27
 threat_actor: null
 summary: Cybersecurity company Radware says attackers gained access to some of
   its customers' account details and cloud access keys through an unsecured
@@ -13,6 +13,7 @@ summary: Cybersecurity company Radware says attackers gained access to some of
 tags:
   - threat-intel
   - developing
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -39,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Radware discloses breach exposing customer cloud access keys
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/radware-discloses-breach-exposing-customer-cloud-access-keys/)
+
+### 2026-11-27 11:00 UTC
+- **Event:** Press Coverage: In Other News: Tanker Cyberattacks, EU Quantum Act, New VirusTotal Capabilities
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/in-other-news-tanker-cyberattacks-eu-quantum-act-new-virustotal-capabilities/)

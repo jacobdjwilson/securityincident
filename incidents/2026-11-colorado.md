@@ -4,7 +4,7 @@ target: Colorado
 domain: colorado.com
 status: DEVELOPING
 first_seen: 2026-11-24
-last_updated: 2026-11-24
+last_updated: 2026-11-27
 threat_actor: null
 summary: Cybercriminals likely stole data from 150,000 users of myColorado,
   which residents typically use for digital identification, document storage and
@@ -12,6 +12,8 @@ summary: Cybercriminals likely stole data from 150,000 users of myColorado,
 tags:
   - investigative
   - developing
+  - threat-intel
+  - media-pickup
 compromised_data:
   - Authentication Credentials
 ---
@@ -38,3 +40,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Colorado says cyberattack took down myColorado app, warns 150,000 had data stolen
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [The Record by Recorded Future Report](https://therecord.media/mycolorado-app-down-data-breach)
+
+### 2026-11-27 09:30 UTC
+- **Event:** Press Coverage: 100,000 Potentially Impacted by Colorado Data Breach
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [SecurityWeek Report](https://www.securityweek.com/100000-potentially-impacted-by-colorado-data-breach/)

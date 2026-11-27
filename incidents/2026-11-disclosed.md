@@ -4,7 +4,7 @@ target: Disclosed
 domain: disclosed.com
 status: CONFIRMED
 first_seen: 2026-11-02
-last_updated: 2026-11-26
+last_updated: 2026-11-27
 threat_actor: PixelLeaks
 summary: Disclosed was listed on the PixelLeaks ransomware extortion leak
   portal. Unverified extortion claim alleging unauthorized network access and
@@ -249,3 +249,13 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: 1Password Hacked: Customer Names and Emails Copied, Vaults Untouched
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Security Affairs Report](https://securityaffairs.com/204031/cyber-crime/1password-hacked-customer-names-and-emails-copied-vaults-untouched.html)
+
+### 2026-11-27 14:15 UTC
+- **Event:** Press Coverage: Japan’s education ministry discloses breach of government procurement system
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [The Record by Recorded Future Report](https://therecord.media/japan-education-ministry-cyberattack)
+
+### 2026-11-27 09:31 UTC
+- **Event:** Press Coverage: Flight Centre Travel Group warns of customer data breach involving some passport details
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/27/flight-centre-travel-group-data-breach-booking-system/)
