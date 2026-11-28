@@ -259,3 +259,8 @@ Specific classes of compromised records, credentials, or proprietary information
 - **Event:** Press Coverage: Flight Centre Travel Group warns of customer data breach involving some passport details
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [Help Net Security Report](https://www.helpnetsecurity.com/2026/11/27/flight-centre-travel-group-data-breach-booking-system/)
+
+### 2026-11-27 17:06 UTC
+- **Event:** Press Coverage: Unpatched Cacti zero-day with public PoC gives remote code execution
+- **Verification:** INDEPENDENT VERIFICATION
+- **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/)
