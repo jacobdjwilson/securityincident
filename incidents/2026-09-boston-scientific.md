@@ -4,7 +4,7 @@ target: Boston Scientific
 domain: bostonscientific.com
 status: CONFIRMED
 first_seen: 2026-08-27
-last_updated: 2026-11-27
+last_updated: 2026-11-28
 threat_actor: Unknown / Unattributed
 summary: Medical manufacturer Boston Scientific Corporation filed Form 8-K Item
   1.05 formalizing disclosure of an unauthorized intrusion into corporate IT
@@ -19,6 +19,7 @@ tags:
   - media-pickup
   - state-ag
   - california
+  - investigative
 industry: Healthcare
 incident_type: Unauthorized Network Intrusion
 affected_records: 48000
@@ -218,3 +219,8 @@ In adherence to statutory breach notification mandates, official filings have be
 - **Event:** Press Coverage: New Boston Scientific data breach exposes personal, medical info
 - **Verification:** INDEPENDENT VERIFICATION
 - **Source:** [BleepingComputer Report](https://www.bleepingcomputer.com/news/security/new-boston-scientific-data-breach-exposes-personal-medical-info/)
+
+### 2026-11-28 13:17 UTC
+- **Event:** Press Coverage: Boston Scientific Data Breach – Hackers Steal Personal Information via Voice Phishing Attack
+- **Verification:** CONFIRMED BY REGULATOR
+- **Source:** [DataBreaches.net Report](https://databreaches.net/2026/11/28/boston-scientific-data-breach-hackers-steal-personal-information-via-voice-phishing-attack/)
